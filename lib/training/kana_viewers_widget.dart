@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/training/kana_viewer_widget.dart';
+import "package:flutter/material.dart";
+import "package:kana_plus_plus/training/kana_viewer_widget.dart";
 
 class KanaViewersWidget extends StatelessWidget {
   const KanaViewersWidget({Key? key}) : super(key: key);
@@ -14,9 +14,7 @@ class KanaViewersWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           return KanaViewerWidget();
         },
-        separatorBuilder: (context, index) {
-          return SizedBox(width: 10);
-        },
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
       ),
     );
   }

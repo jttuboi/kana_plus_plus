@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class CardItemWidget extends StatelessWidget {
   const CardItemWidget({Key? key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class ReviewPage extends StatelessWidget {
   const ReviewPage({Key? key}) : super(key: key);
@@ -9,9 +9,9 @@ class ReviewPage extends StatelessWidget {
 
         Scaffold(
       appBar: AppBar(
-        title: Text("review"),
+        title: const Text("review"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () =>
               Navigator.popUntil(context, (route) => route.isFirst),
         ),

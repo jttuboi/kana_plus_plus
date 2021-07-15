@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 enum WritingHand {
   left,
@@ -7,7 +7,7 @@ enum WritingHand {
 
 class KanaWriterWidget extends StatefulWidget {
   //const KanaWriterWidget({ Key? key }) : super(key: key);
-  KanaWriterWidget({required this.writingHand});
+  const KanaWriterWidget({required this.writingHand});
 
   final WritingHand writingHand;
 
@@ -28,7 +28,7 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildSupportButtons(),
-        SizedBox(width: 4),
+        const SizedBox(width: 4),
         _buildKanaDraw(),
       ],
     );
@@ -39,7 +39,7 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildKanaDraw(),
-        SizedBox(width: 4),
+        const SizedBox(width: 4),
         _buildSupportButtons(),
       ],
     );
@@ -49,19 +49,19 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
     return Column(
       children: [
         Container(
-          constraints: BoxConstraints.expand(width: 100, height: 158),
+          constraints: const BoxConstraints.expand(width: 100, height: 158),
           child: ElevatedButton(
-            style: ButtonStyle(alignment: Alignment.center),
-            child: Icon(Icons.delete),
+            style: const ButtonStyle(alignment: Alignment.center),
+            child: const Icon(Icons.delete),
             onPressed: () {},
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Container(
-          constraints: BoxConstraints.expand(width: 100, height: 158),
+          constraints: const BoxConstraints.expand(width: 100, height: 158),
           child: ElevatedButton(
-            style: ButtonStyle(alignment: Alignment.center),
-            child: Icon(Icons.undo),
+            style: const ButtonStyle(alignment: Alignment.center),
+            child: const Icon(Icons.undo),
             onPressed: () {},
           ),
         ),

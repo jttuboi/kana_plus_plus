@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 @immutable
 class Routes {
-  static final String menu = "/";
-  static final String study = "/study";
-  static final String kana = "/kana";
-  static final String preTraining = "/pre_training";
-  static final String training = "/training";
-  static final String review = "/review";
-  static final String cards = "/cards";
-  static final String card = "/card";
-  static final String settings = "/settings";
+  static const String menu = "/";
+  static const String study = "/study";
+  static const String kana = "/kana";
+  static const String preTraining = "/pre_training";
+  static const String training = "/training";
+  static const String review = "/review";
+  static const String cards = "/cards";
+  static const String card = "/card";
+  static const String settings = "/settings";
 }

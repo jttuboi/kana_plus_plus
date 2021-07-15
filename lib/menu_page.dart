@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/shared/routes.dart';
+import "package:flutter/material.dart";
+import "package:kana_plus_plus/shared/routes.dart";
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -13,19 +13,19 @@ class MenuPage extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.study),
-            child: Text("study"),
+            child: const Text("study"),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.preTraining),
-            child: Text("training"),
+            child: const Text("training"),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.cards),
-            child: Text("cards"),
+            child: const Text("cards"),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.settings),
-            child: Text("settings"),
+            child: const Text("settings"),
           ),
         ],
       ),

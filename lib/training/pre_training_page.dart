@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/shared/routes.dart';
+import "package:flutter/material.dart";
+import "package:kana_plus_plus/shared/routes.dart";
 
 class PreTrainingPage extends StatelessWidget {
   const PreTrainingPage({Key? key}) : super(key: key);
@@ -8,17 +8,17 @@ class PreTrainingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Configure training"),
+        title: const Text("Configure training"),
       ),
       body: Column(
         children: [
           Row(
             children: [
               Switch.adaptive(value: false, onChanged: (value) {}),
-              Text("show hint"),
+              const Text("show hint"),
             ],
           ),
-          Text("quantity cards"),
+          const Text("quantity cards"),
           Slider(
             value: 5,
             onChanged: (value) {},
@@ -27,18 +27,22 @@ class PreTrainingPage extends StatelessWidget {
             label: "cards",
           ),
           ToggleButtons(
-            children: [
+            children: const [
               Icon(Icons.translate),
               Icon(Icons.translate_outlined),
-              Icon(Icons.translate_rounded)
+              Icon(Icons.translate_rounded),
             ],
-            isSelected: [false, false, true],
+            isSelected: const [
+              false,
+              false,
+              true,
+            ],
             selectedBorderColor: Colors.amber,
             onPressed: (index) {},
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.training),
-            child: Icon(Icons.play_arrow),
+            child: const Icon(Icons.play_arrow),
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class KanaPage extends StatelessWidget {
   const KanaPage({Key? key}) : super(key: key);
@@ -7,12 +7,10 @@ class KanaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("kana ?"),
+        title: const Text("kana ?"),
       ),
-      body: Center(
-        child: Container(
-          child: Text("estudo da kana deve ser mostrado aqui"),
-        ),
+      body: const Center(
+        child: Text("estudo da kana deve ser mostrado aqui"),
       ),
     );
   }
