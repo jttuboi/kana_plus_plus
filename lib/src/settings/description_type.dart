@@ -1,0 +1,4 @@
+enum DescriptionType {
+  title,
+  content,
+}
