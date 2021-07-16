@@ -1,48 +1,54 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/settings/kana_type_tile.dart';
+import 'package:kana_plus_plus/src/settings/quantity_of_cards_tile.dart';
+import 'package:kana_plus_plus/src/settings/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 
-class PreTrainingPage extends StatelessWidget {
+class PreTrainingPage extends StatefulWidget {
   const PreTrainingPage({Key? key}) : super(key: key);
+
+  @override
+  _PreTrainingPageState createState() => _PreTrainingPageState();
+}
+
+class _PreTrainingPageState extends State<PreTrainingPage> {
+  bool _showHint = false;
+  int _kanaSelectedIdx = 2; // both
+  int _quantityOfCards = 5;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Configure training"),
+        title: const Text("Training settings"), // AQUI localization
       ),
-      body: Column(
+      body: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          Row(
-            children: [
-              Switch.adaptive(value: false, onChanged: (value) {}),
-              const Text("show hint"),
-            ],
+          ShowHintTile(
+            _showHint,
+            onChanged: (value) => setState(() {
+              _showHint = value;
+            }),
           ),
-          const Text("quantity cards"),
-          Slider(
-            value: 5,
-            onChanged: (value) {},
-            min: 5,
-            max: 20,
-            label: "cards",
+          KanaTypeTile(
+            _kanaSelectedIdx,
+            onOptionSelected: (index) => setState(() {
+              _kanaSelectedIdx = index;
+            }),
           ),
-          ToggleButtons(
-            children: const [
-              Icon(Icons.translate),
-              Icon(Icons.translate_outlined),
-              Icon(Icons.translate_rounded),
-            ],
-            isSelected: const [
-              false,
-              false,
-              true,
-            ],
-            selectedBorderColor: Colors.amber,
-            onPressed: (index) {},
+          QuantityOfCardsTile(
+            _quantityOfCards,
+            onQuantityChanged: (quantity) => setState(() {
+              _quantityOfCards = quantity;
+            }),
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.training),
-            child: const Icon(Icons.play_arrow),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, Routes.training),
+              child: const Icon(Icons.play_arrow),
+            ),
           ),
         ],
       ),

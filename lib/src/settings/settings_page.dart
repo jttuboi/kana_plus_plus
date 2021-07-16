@@ -1,8 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/settings/description.dart';
 import 'package:kana_plus_plus/src/settings/description_page.dart';
+import 'package:kana_plus_plus/src/settings/kana_type_tile.dart';
+import 'package:kana_plus_plus/src/settings/quantity_of_cards_tile.dart';
 import 'package:kana_plus_plus/src/settings/selection_option.dart';
 import 'package:kana_plus_plus/src/settings/selection_option_page.dart';
+import 'package:kana_plus_plus/src/settings/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/settings/sub_header_tile.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -14,6 +18,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   int _languageSelectedIdx = 0; // english
   final List<SelectionOption> _languageOptions = [
+    // AQUI localization
     const SelectionOption("English"),
     const SelectionOption("Português"),
     const SelectionOption("Spañol"),
@@ -21,27 +26,19 @@ class _SettingsPageState extends State<SettingsPage> {
 
   int _writingHandSelectedIdx = 1; // right hand
   final List<SelectionOption> _writingHandOptions = [
+    // AQUI localization icon
     const SelectionOption("Left hand", icon: Icon(Icons.swipe)),
     const SelectionOption("Right hand", icon: Icon(Icons.pan_tool)),
   ];
 
-  bool _darkMode = false;
-  bool _showHint = false;
+  bool _darkMode = false; // padrao do celular
+  bool _showHint = false; // not selected
+  int _kanaSelectedIdx = 2; // both
 
   int _quantityOfCards = 5;
-  double step = 1;
-  double min = 5;
-  double max = 20;
-
-  int _kanaSelectedIdx = 2; // both
-  final List<SelectionOption> _kanaOptions = [
-    const SelectionOption("Only hiragana",
-        icon: Icon(Icons.translate_outlined)),
-    const SelectionOption("Only katakana", icon: Icon(Icons.translate_rounded)),
-    const SelectionOption("Hiragana/Katakana", icon: Icon(Icons.translate)),
-  ];
 
   final List<Description> _aboutDescriptions = [
+    // AQUI localization
     Description.title("blablable"),
     Description.content("informaçoes sobre mim"),
     Description.content("contato"),
@@ -49,6 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
   ];
 
   final List<Description> _privacyPolicyDescriptions = [
+    // AQUI localization
     Description.title("citar sobre uso"),
     Description.content(
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
@@ -58,22 +56,22 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text("Settings"), // AQUI localization
       ),
       body: ListView(
         children: [
-          const _SubHeaderTile(title: "Basic"),
+          const SubHeaderTile("Basic"), // AQUI localization
           ListTile(
-            title: const Text("Language"),
+            title: const Text("Language"), // AQUI localization
             // TODO  ver como escrever "(default)" na frente da palavra
             subtitle: Text(_languageOptions[_languageSelectedIdx].title),
-            leading: const Icon(Icons.translate),
+            leading: const Icon(Icons.translate), // AQUI icon
             onTap: () async {
               final selectedIdx = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SelectionOptionPage(
-                    title: "Select language",
+                    title: "Select language", // AQUI localization
                     optionSelectedIndex: _languageSelectedIdx,
                     options: _languageOptions,
                   ),
@@ -85,15 +83,16 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           ListTile(
-            title: const Text("Writing hand"),
+            title: const Text("Writing hand"), // AQUI localization
             subtitle: Text(_writingHandOptions[_writingHandSelectedIdx].title),
-            leading: _writingHandOptions[_writingHandSelectedIdx].icon,
+            leading:
+                _writingHandOptions[_writingHandSelectedIdx].icon, // AQUI icon
             onTap: () async {
               final selectedIdx = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SelectionOptionPage(
-                    title: "Select writing hand",
+                    title: "Select writing hand", // AQUI localization
                     optionSelectedIndex: _writingHandSelectedIdx,
                     options: _writingHandOptions,
                   ),
@@ -106,142 +105,70 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SwitchListTile(
             //  TODO setar default do sistema ao entrar (ver como escrever "(default)" na frente da palavra)
-            title: const Text("Dark mode"),
+            title: const Text("Dark mode"), // AQUI localization
             value: _darkMode,
             onChanged: (value) => setState(() {
               _darkMode = value;
             }),
             secondary: _darkMode
-                ? const Icon(Icons.dark_mode)
-                : const Icon(Icons.light_mode),
+                ? const Icon(Icons.dark_mode) // AQUI icon
+                : const Icon(Icons.light_mode), // AQUI icon
           ),
           const Divider(),
-          const _SubHeaderTile(title: "Default training setting"),
-          SwitchListTile(
-            title: const Text("Show hint"),
-            value: _showHint,
+          const SubHeaderTile("Default training setting"), // AQUI localization
+          ShowHintTile(
+            _showHint,
             onChanged: (value) => setState(() {
               _showHint = value;
             }),
-            secondary: const Icon(Icons.highlight_alt), // desenhar icone
           ),
+          KanaTypeTile(
+            _kanaSelectedIdx,
+            onOptionSelected: (index) => setState(() {
+              _kanaSelectedIdx = index;
+            }),
+          ),
+          QuantityOfCardsTile(
+            _quantityOfCards,
+            onQuantityChanged: (quantity) => setState(() {
+              _quantityOfCards = quantity;
+            }),
+          ),
+          const Divider(),
+          const SubHeaderTile("Others"), // AQUI localization
           ListTile(
-            title: const Text("Kana type"),
-            subtitle: Text(_kanaOptions[_kanaSelectedIdx].title),
-            leading: _kanaOptions[_kanaSelectedIdx].icon,
-            onTap: () async {
-              final selectedIdx = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SelectionOptionPage(
-                    title: "Select kana type",
-                    optionSelectedIndex: _kanaSelectedIdx,
-                    options: _kanaOptions,
-                  ),
+            title: const Text("About"), // AQUI localization
+            leading: const Icon(Icons.info), // AQUI icon
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DescriptionPage(
+                  title: "About", // AQUI localization
+                  descriptions: _aboutDescriptions,
                 ),
-              );
-              setState(() {
-                _kanaSelectedIdx = selectedIdx as int;
-              });
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.recent_actors),
-            title: const Text("Quantity of cards"),
-            subtitle: SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                trackShape: _CustomTrackShape(),
-              ),
-              child: Slider(
-                value: _quantityOfCards.toDouble(),
-                onChanged: (value) {
-                  setState(() {
-                    _quantityOfCards = value.toInt();
-                  });
-                },
-                divisions: (max - min) ~/ step,
-                label: _quantityOfCards.toString(),
-                min: min,
-                max: max,
               ),
             ),
           ),
-          const Divider(),
-          const _SubHeaderTile(title: "Others"),
           ListTile(
-            title: const Text("About"),
-            leading: const Icon(Icons.info),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DescriptionPage(
-                    title: "About",
-                    descriptions: _aboutDescriptions,
-                  ),
+            title: const Text("Privacy policy"), // AQUI localization
+            leading: const Icon(Icons.privacy_tip), // AQUI icon
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DescriptionPage(
+                  title: "Privacy policy", // AQUI localization
+                  descriptions: _privacyPolicyDescriptions,
                 ),
-              );
-            },
-          ),
-          ListTile(
-            title: const Text("Privacy policy"),
-            leading: const Icon(Icons.privacy_tip),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DescriptionPage(
-                    title: "Privacy policy",
-                    descriptions: _privacyPolicyDescriptions,
-                  ),
-                ),
-              );
-            },
+              ),
+            ),
           ),
           // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
           const ListTile(
-            title: Text("Support development of this app"),
-            leading: Icon(Icons.volunteer_activism),
+            title: Text("Support development of this app"), // AQUI localization
+            leading: Icon(Icons.volunteer_activism), // AQUI icon
           ),
         ],
       ),
     );
-  }
-}
-
-class _SubHeaderTile extends StatelessWidget {
-  const _SubHeaderTile({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 48.0,
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Text(title, style: Theme.of(context).textTheme.subtitle2),
-    );
-  }
-}
-
-class _CustomTrackShape extends RoundedRectSliderTrackShape {
-  @override
-  Rect getPreferredRect({
-    required RenderBox parentBox,
-    Offset offset = Offset.zero,
-    required SliderThemeData sliderTheme,
-    bool isEnabled = false,
-    bool isDiscrete = false,
-  }) {
-    final double trackHeight = sliderTheme.trackHeight!;
-    final double trackLeft = offset.dx + 6;
-    final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2;
-    final double trackWidth = parentBox.size.width - 22;
-    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }

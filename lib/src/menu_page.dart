@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter/rendering.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 
 class MenuPage extends StatelessWidget {
@@ -7,27 +8,34 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orangeAccent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.study),
-            child: const Text("study"),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.preTraining),
-            child: const Text("training"),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.cards),
-            child: const Text("cards"),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.settings),
-            child: const Text("settings"),
-          ),
-        ],
+      color: Colors.grey[100],
+      child: Center(
+        child: GridView.count(
+          mainAxisSpacing: 16.0,
+          crossAxisSpacing: 16.0,
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, Routes.study),
+              child: const Icon(Icons.menu_book, size: 80),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, Routes.preTraining),
+              child: const Icon(Icons.mode_edit, size: 80),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, Routes.cards),
+              child: const Icon(Icons.style, size: 80),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, Routes.settings),
+              child: const Icon(Icons.settings, size: 80),
+            ),
+          ],
+        ),
       ),
     );
   }
