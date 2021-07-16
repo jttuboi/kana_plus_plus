@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:kana_plus_plus/shared/routes.dart";
+import 'package:kana_plus_plus/src/shared/routes.dart';
 
 class CardsPage extends StatelessWidget {
   const CardsPage({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:kana_plus_plus/shared/routes.dart";
+import 'package:kana_plus_plus/src/shared/routes.dart';
 
 class PreTrainingPage extends StatelessWidget {
   const PreTrainingPage({Key? key}) : super(key: key);

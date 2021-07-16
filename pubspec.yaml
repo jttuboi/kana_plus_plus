@@ -1,5 +1,5 @@
 name: kana_plus_plus
-description: A new Flutter project.
+description: An app which gives the oportunity to training hiragana and katakana using writing and avoiding the mother language to learn new words.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
@@ -11,6 +11,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  google_fonts: ^2.1.0
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:

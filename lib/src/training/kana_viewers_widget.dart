@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:kana_plus_plus/training/kana_viewer_widget.dart";
+import 'package:kana_plus_plus/src/training/kana_viewer_widget.dart';
 
 class KanaViewersWidget extends StatelessWidget {
   const KanaViewersWidget({Key? key}) : super(key: key);
