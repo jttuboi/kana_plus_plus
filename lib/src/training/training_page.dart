@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 import 'package:kana_plus_plus/src/training/kana_viewers_widget.dart';
 import 'package:kana_plus_plus/src/training/kana_writer_widget.dart';
@@ -6,41 +7,47 @@ import 'package:kana_plus_plus/src/training/kana_writer_widget.dart';
 class TrainingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("training"),
-        leading: IconButton(
-          icon: const Icon(Icons.exit_to_app),
-          onPressed: () => _buildDialog(context),
+    return WillPopScope(
+      onWillPop: () async {
+        _buildDialog(context);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("training"),
+          leading: IconButton(
+            icon: KIcons.quit,
+            onPressed: () => _buildDialog(context),
+          ),
         ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
-          const LinearProgressIndicator(
-            value: 10,
-            backgroundColor: Colors.white,
-            minHeight: 8,
-            color: Colors.green,
-          ),
-          const Spacer(),
-          Container(
-            color: Colors.amber,
-            height: 320,
-            width: 320,
-          ),
-          const Spacer(),
-          const KanaViewersWidget(),
-          const Spacer(),
-          const KanaWriterWidget(
-            writingHand: WritingHand.right,
-          ),
-          const Spacer(),
-          ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, Routes.review),
-              child: const Text("test review")),
-        ],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 10),
+            const LinearProgressIndicator(
+              value: 10,
+              backgroundColor: Colors.white,
+              minHeight: 8,
+              color: Colors.green,
+            ),
+            const Spacer(),
+            Container(
+              color: Colors.amber,
+              height: 320,
+              width: 320,
+            ),
+            const Spacer(),
+            const KanaViewersWidget(),
+            const Spacer(),
+            const KanaWriterWidget(
+              writingHand: WritingHand.right,
+            ),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () => Navigator.pushNamed(context, Routes.review),
+                child: const Text("test review")),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/shared/icons.dart';
 
 enum WritingHand {
   left,
@@ -52,8 +53,8 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
           constraints: const BoxConstraints.expand(width: 100, height: 158),
           child: ElevatedButton(
             style: const ButtonStyle(alignment: Alignment.center),
-            child: const Icon(Icons.delete),
             onPressed: () {},
+            child: KIcons.eraser,
           ),
         ),
         const SizedBox(height: 4),
@@ -61,8 +62,8 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
           constraints: const BoxConstraints.expand(width: 100, height: 158),
           child: ElevatedButton(
             style: const ButtonStyle(alignment: Alignment.center),
-            child: const Icon(Icons.undo),
             onPressed: () {},
+            child: KIcons.undo,
           ),
         ),
       ],

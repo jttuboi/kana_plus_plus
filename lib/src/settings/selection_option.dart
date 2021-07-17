@@ -4,5 +4,5 @@ class SelectionOption {
   const SelectionOption(this.title, {this.icon});
 
   final String title;
-  final Icon? icon;
+  final Widget? icon;
 }

@@ -21,3 +21,21 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  
+  assets:
+    - lib/assets/icons/black/about.png
+    - lib/assets/icons/black/dark_mode.png
+    - lib/assets/icons/black/eraser.png
+    - lib/assets/icons/black/hiragana_katakana.png
+    - lib/assets/icons/black/hiragana.png
+    - lib/assets/icons/black/katakana.png
+    - lib/assets/icons/black/language.png
+    - lib/assets/icons/black/light_mode.png
+    - lib/assets/icons/black/privacy_policy.png
+    - lib/assets/icons/black/quantity_of_cards.png
+    - lib/assets/icons/black/quit.png
+    - lib/assets/icons/black/show_hint.png
+    - lib/assets/icons/black/support.png
+    - lib/assets/icons/black/undo.png
+    - lib/assets/icons/black/writing_hand_left.png
+    - lib/assets/icons/black/writing_hand_right.png

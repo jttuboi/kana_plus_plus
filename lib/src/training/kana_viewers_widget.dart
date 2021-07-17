@@ -6,7 +6,7 @@ class KanaViewersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 160.0,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,

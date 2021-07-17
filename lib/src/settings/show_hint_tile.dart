@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kana_plus_plus/src/shared/icons.dart';
 
 class ShowHintTile extends StatefulWidget {
   const ShowHintTile(
+    // ignore: avoid_positional_boolean_parameters
     this.initialValue, {
     Key? key,
     required this.onChanged,
@@ -31,7 +33,7 @@ class _ShowHintTileState extends State<ShowHintTile> {
       onChanged: (value) => setState(() {
         _showHint = value;
       }),
-      secondary: const Icon(Icons.highlight_alt), // AQUI icon
+      secondary: KIcons.showHint,
     );
   }
 }

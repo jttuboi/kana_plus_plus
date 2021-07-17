@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/settings/selection_option.dart';
 import 'package:kana_plus_plus/src/settings/selection_option_page.dart';
+import 'package:kana_plus_plus/src/shared/icons.dart';
 
 class KanaTypeTile extends StatefulWidget {
   const KanaTypeTile(
@@ -21,10 +22,9 @@ class _KanaTypeTileState extends State<KanaTypeTile> {
 
   final List<SelectionOption> _kanaOptions = [
     // AQUI localization icon
-    const SelectionOption("Only hiragana",
-        icon: Icon(Icons.translate_outlined)),
-    const SelectionOption("Only katakana", icon: Icon(Icons.translate_rounded)),
-    const SelectionOption("Hiragana/Katakana", icon: Icon(Icons.translate)),
+    const SelectionOption("Only hiragana", icon: KIcons.hiragana),
+    const SelectionOption("Only katakana", icon: KIcons.katakana),
+    const SelectionOption("Hiragana/Katakana", icon: KIcons.hiraganaKatakana),
   ];
 
   @override

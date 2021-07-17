@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kana_plus_plus/src/shared/icons.dart';
 
 class QuantityOfCardsTile extends StatefulWidget {
   const QuantityOfCardsTile(
@@ -30,7 +31,7 @@ class _QuantityOfCardsTileState extends State<QuantityOfCardsTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.recent_actors), // AQUI icon
+      leading: KIcons.quantityOfCards,
       title: const Text("Quantity of cards"), // AQUI localization
       subtitle: SliderTheme(
         data: SliderTheme.of(context).copyWith(

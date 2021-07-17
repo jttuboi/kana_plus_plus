@@ -7,6 +7,7 @@ import 'package:kana_plus_plus/src/settings/selection_option.dart';
 import 'package:kana_plus_plus/src/settings/selection_option_page.dart';
 import 'package:kana_plus_plus/src/settings/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/settings/sub_header_tile.dart';
+import 'package:kana_plus_plus/src/shared/icons.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -26,9 +27,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   int _writingHandSelectedIdx = 1; // right hand
   final List<SelectionOption> _writingHandOptions = [
-    // AQUI localization icon
-    const SelectionOption("Left hand", icon: Icon(Icons.swipe)),
-    const SelectionOption("Right hand", icon: Icon(Icons.pan_tool)),
+    // AQUI localization
+    const SelectionOption("Left hand", icon: KIcons.writingHandLeft),
+    const SelectionOption("Right hand", icon: KIcons.writingHandRight),
   ];
 
   bool _darkMode = false; // padrao do celular
@@ -65,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
             title: const Text("Language"), // AQUI localization
             // TODO  ver como escrever "(default)" na frente da palavra
             subtitle: Text(_languageOptions[_languageSelectedIdx].title),
-            leading: const Icon(Icons.translate), // AQUI icon
+            leading: KIcons.language,
             onTap: () async {
               final selectedIdx = await Navigator.push(
                 context,
@@ -85,8 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             title: const Text("Writing hand"), // AQUI localization
             subtitle: Text(_writingHandOptions[_writingHandSelectedIdx].title),
-            leading:
-                _writingHandOptions[_writingHandSelectedIdx].icon, // AQUI icon
+            leading: _writingHandOptions[_writingHandSelectedIdx].icon,
             onTap: () async {
               final selectedIdx = await Navigator.push(
                 context,
@@ -110,9 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
             onChanged: (value) => setState(() {
               _darkMode = value;
             }),
-            secondary: _darkMode
-                ? const Icon(Icons.dark_mode) // AQUI icon
-                : const Icon(Icons.light_mode), // AQUI icon
+            secondary: _darkMode ? KIcons.darkMode : KIcons.lightMode,
           ),
           const Divider(),
           const SubHeaderTile("Default training setting"), // AQUI localization
@@ -138,7 +136,7 @@ class _SettingsPageState extends State<SettingsPage> {
           const SubHeaderTile("Others"), // AQUI localization
           ListTile(
             title: const Text("About"), // AQUI localization
-            leading: const Icon(Icons.info), // AQUI icon
+            leading: KIcons.about,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -151,7 +149,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           ListTile(
             title: const Text("Privacy policy"), // AQUI localization
-            leading: const Icon(Icons.privacy_tip), // AQUI icon
+            leading: KIcons.privacyPolicy,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -165,7 +163,7 @@ class _SettingsPageState extends State<SettingsPage> {
           // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
           const ListTile(
             title: Text("Support development of this app"), // AQUI localization
-            leading: Icon(Icons.volunteer_activism), // AQUI icon
+            leading: KIcons.support,
           ),
         ],
       ),
