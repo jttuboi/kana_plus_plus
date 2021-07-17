@@ -31,7 +31,7 @@ class _QuantityOfCardsTileState extends State<QuantityOfCardsTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: KIcons.quantityOfCards,
+      leading: JIcons.quantityOfCards,
       title: const Text("Quantity of cards"), // AQUI localization
       subtitle: SliderTheme(
         data: SliderTheme.of(context).copyWith(

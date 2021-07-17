@@ -54,7 +54,7 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
           child: ElevatedButton(
             style: const ButtonStyle(alignment: Alignment.center),
             onPressed: () {},
-            child: KIcons.eraser,
+            child: JIcons.eraser,
           ),
         ),
         const SizedBox(height: 4),
@@ -63,7 +63,7 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
           child: ElevatedButton(
             style: const ButtonStyle(alignment: Alignment.center),
             onPressed: () {},
-            child: KIcons.undo,
+            child: JIcons.undo,
           ),
         ),
       ],

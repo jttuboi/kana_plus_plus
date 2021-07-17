@@ -16,7 +16,7 @@ class TrainingPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("training"),
           leading: IconButton(
-            icon: KIcons.quit,
+            icon: JIcons.quit,
             onPressed: () => _buildDialog(context),
           ),
         ),
@@ -31,11 +31,7 @@ class TrainingPage extends StatelessWidget {
               color: Colors.green,
             ),
             const Spacer(),
-            Container(
-              color: Colors.amber,
-              height: 320,
-              width: 320,
-            ),
+            JImages.rain,
             const Spacer(),
             const KanaViewersWidget(),
             const Spacer(),

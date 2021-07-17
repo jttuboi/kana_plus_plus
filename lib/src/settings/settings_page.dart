@@ -28,8 +28,8 @@ class _SettingsPageState extends State<SettingsPage> {
   int _writingHandSelectedIdx = 1; // right hand
   final List<SelectionOption> _writingHandOptions = [
     // AQUI localization
-    const SelectionOption("Left hand", icon: KIcons.writingHandLeft),
-    const SelectionOption("Right hand", icon: KIcons.writingHandRight),
+    const SelectionOption("Left hand", icon: JIcons.writingHandLeft),
+    const SelectionOption("Right hand", icon: JIcons.writingHandRight),
   ];
 
   bool _darkMode = false; // padrao do celular
@@ -66,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
             title: const Text("Language"), // AQUI localization
             // TODO  ver como escrever "(default)" na frente da palavra
             subtitle: Text(_languageOptions[_languageSelectedIdx].title),
-            leading: KIcons.language,
+            leading: JIcons.language,
             onTap: () async {
               final selectedIdx = await Navigator.push(
                 context,
@@ -110,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
             onChanged: (value) => setState(() {
               _darkMode = value;
             }),
-            secondary: _darkMode ? KIcons.darkMode : KIcons.lightMode,
+            secondary: _darkMode ? JIcons.darkMode : JIcons.lightMode,
           ),
           const Divider(),
           const SubHeaderTile("Default training setting"), // AQUI localization
@@ -136,7 +136,7 @@ class _SettingsPageState extends State<SettingsPage> {
           const SubHeaderTile("Others"), // AQUI localization
           ListTile(
             title: const Text("About"), // AQUI localization
-            leading: KIcons.about,
+            leading: JIcons.about,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -149,7 +149,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           ListTile(
             title: const Text("Privacy policy"), // AQUI localization
-            leading: KIcons.privacyPolicy,
+            leading: JIcons.privacyPolicy,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -163,7 +163,7 @@ class _SettingsPageState extends State<SettingsPage> {
           // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
           const ListTile(
             title: Text("Support development of this app"), // AQUI localization
-            leading: KIcons.support,
+            leading: JIcons.support,
           ),
         ],
       ),

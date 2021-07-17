@@ -39,3 +39,5 @@ flutter:
     - lib/assets/icons/black/undo.png
     - lib/assets/icons/black/writing_hand_left.png
     - lib/assets/icons/black/writing_hand_right.png
+
+    - lib/assets/images/cards/rain.png

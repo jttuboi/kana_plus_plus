@@ -33,7 +33,7 @@ class _ShowHintTileState extends State<ShowHintTile> {
       onChanged: (value) => setState(() {
         _showHint = value;
       }),
-      secondary: KIcons.showHint,
+      secondary: JIcons.showHint,
     );
   }
 }

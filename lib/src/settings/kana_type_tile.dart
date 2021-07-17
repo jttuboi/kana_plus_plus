@@ -22,9 +22,9 @@ class _KanaTypeTileState extends State<KanaTypeTile> {
 
   final List<SelectionOption> _kanaOptions = [
     // AQUI localization icon
-    const SelectionOption("Only hiragana", icon: KIcons.hiragana),
-    const SelectionOption("Only katakana", icon: KIcons.katakana),
-    const SelectionOption("Hiragana/Katakana", icon: KIcons.hiraganaKatakana),
+    const SelectionOption("Only hiragana", icon: JIcons.hiragana),
+    const SelectionOption("Only katakana", icon: JIcons.katakana),
+    const SelectionOption("Hiragana/Katakana", icon: JIcons.hiraganaKatakana),
   ];
 
   @override

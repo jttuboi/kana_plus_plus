@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-@immutable
-class KIcons {
+class JIcons {
+  JIcons._();
+
   static const ImageIcon about =
       ImageIcon(AssetImage("lib/assets/icons/black/about.png"));
   static const ImageIcon darkMode =
