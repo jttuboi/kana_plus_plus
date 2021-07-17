@@ -1,10 +1,19 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/icons.dart';
+import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 import 'package:kana_plus_plus/src/training/kana_viewers_widget.dart';
 import 'package:kana_plus_plus/src/training/kana_writer_widget.dart';
+import 'package:kana_plus_plus/src/training/progress_bar.dart';
 
-class TrainingPage extends StatelessWidget {
+class TrainingPage extends StatefulWidget {
+  @override
+  _TrainingPageState createState() => _TrainingPageState();
+}
+
+class _TrainingPageState extends State<TrainingPage> {
+  int _currentCard = 0;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -23,12 +32,9 @@ class TrainingPage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 10),
-            const LinearProgressIndicator(
-              value: 10,
-              backgroundColor: Colors.white,
-              minHeight: 8,
-              color: Colors.green,
+            ProgressBar(
+              _currentCard,
+              maxCards: 20,
             ),
             const Spacer(),
             JImages.rain,
