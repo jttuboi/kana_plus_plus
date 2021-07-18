@@ -2,20 +2,7 @@ import 'dart:ui';
 
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/images.dart';
-
-enum Status {
-  showInitial,
-  showSelected,
-  showCorrect,
-  showWrong,
-}
-
-extension StatusExtension on Status {
-  bool get isShowInitial => this == Status.showInitial;
-  bool get isShowSelected => this == Status.showSelected;
-  bool get isShowCorrect => this == Status.showCorrect;
-  bool get isShowWrong => this == Status.showWrong;
-}
+import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
 
 class KanaViewer extends StatefulWidget {
   const KanaViewer({
@@ -26,7 +13,7 @@ class KanaViewer extends StatefulWidget {
     this.userKana,
   }) : super(key: key);
 
-  final Status status;
+  final KanaViewerStatus status;
   final Image romaji;
   final Image kana;
   final Image? userKana;
@@ -65,33 +52,7 @@ class _KanaViewerState extends State<KanaViewer>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (widget.status.isShowSelected) ...[
-          AnimatedBuilder(
-            animation:
-                CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-            builder: (context, child) {
-              return Transform.scale(
-                scale: 1 + _controller.value * 0.1,
-                child: widget.romaji,
-              );
-            },
-          ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: constraints.maxHeight,
-                    height: constraints.maxHeight,
-                    color: Colors.black.withOpacity(0.0),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+        if (widget.status.isShowSelected) ..._buildRomajiEffect(),
         JImages.square,
         if (widget.status.isShowSelected || widget.status.isShowInitial)
           widget.romaji
@@ -100,5 +61,34 @@ class _KanaViewerState extends State<KanaViewer>
         if (widget.status.isShowWrong) JImages.wrong,
       ],
     );
+  }
+
+  List<Widget> _buildRomajiEffect() {
+    return [
+      AnimatedBuilder(
+        animation: CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+        builder: (context, child) {
+          return Transform.scale(
+            scale: 1 + _controller.value * 0.1,
+            child: widget.romaji,
+          );
+        },
+      ),
+      LayoutBuilder(
+        builder: (context, constraints) {
+          return ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+              child: Container(
+                alignment: Alignment.center,
+                width: constraints.maxHeight,
+                height: constraints.maxHeight,
+                color: Colors.black.withOpacity(0.0),
+              ),
+            ),
+          );
+        },
+      ),
+    ];
   }
 }
