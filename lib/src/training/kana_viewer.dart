@@ -2,21 +2,13 @@ import 'dart:ui';
 
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/images.dart';
+import 'package:kana_plus_plus/src/training/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
 
 class KanaViewer extends StatefulWidget {
-  const KanaViewer({
-    Key? key,
-    required this.status,
-    required this.romaji,
-    required this.kana,
-    this.userKana,
-  }) : super(key: key);
+  const KanaViewer(this.content, {Key? key}) : super(key: key);
 
-  final KanaViewerStatus status;
-  final Image romaji;
-  final Image kana;
-  final Image? userKana;
+  final KanaViewerContent content;
 
   @override
   _KanaViewerState createState() => _KanaViewerState();
@@ -34,7 +26,7 @@ class _KanaViewerState extends State<KanaViewer>
       duration: const Duration(seconds: 1),
     );
 
-    if (widget.status.isShowSelected) {
+    if (widget.content.status.isShowSelected) {
       _controller.repeat(reverse: true);
     } else if (_controller.isAnimating) {
       _controller.stop();
@@ -52,13 +44,14 @@ class _KanaViewerState extends State<KanaViewer>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (widget.status.isShowSelected) ..._buildRomajiEffect(),
+        if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
         JImages.square,
-        if (widget.status.isShowSelected || widget.status.isShowInitial)
-          widget.romaji
-        else ...[widget.kana, widget.userKana!],
-        if (widget.status.isShowCorrect) JImages.correct,
-        if (widget.status.isShowWrong) JImages.wrong,
+        if (widget.content.status.isShowSelected ||
+            widget.content.status.isShowInitial)
+          widget.content.romaji
+        else ...[widget.content.kana, widget.content.userKana!],
+        if (widget.content.status.isShowCorrect) JImages.correct,
+        if (widget.content.status.isShowWrong) JImages.wrong,
       ],
     );
   }
@@ -70,7 +63,7 @@ class _KanaViewerState extends State<KanaViewer>
         builder: (context, child) {
           return Transform.scale(
             scale: 1 + _controller.value * 0.1,
-            child: widget.romaji,
+            child: widget.content.romaji,
           );
         },
       ),

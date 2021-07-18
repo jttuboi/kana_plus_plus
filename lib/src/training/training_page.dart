@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
+import 'package:kana_plus_plus/src/training/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/training/kana_viewers.dart';
 import 'package:kana_plus_plus/src/training/kana_writer.dart';
 import 'package:kana_plus_plus/src/training/progress_bar.dart';
@@ -13,12 +17,33 @@ class TrainingPage extends StatefulWidget {
 }
 
 class _TrainingPageState extends State<TrainingPage> {
-  ////TEST
-  int _maxCards = 20;
+  //////////////////////////////////////////////////TEST
+  int _maxCards = 4;
   int _currentCard = 0;
-  int _currentSyllabe = 0;
+  int _currentKanaIdx = 0;
 
-  ///
+  late List<KanaViewerContent> _kanaViewerContents;
+
+  List<KanaViewerContent> generateKanaViewerContents() {
+    List<KanaViewerContent> list = [];
+    final int maxKanas = Random().nextInt(9) + 2;
+    for (int i = 0; i < maxKanas; i++) {
+      list.add(
+        KanaViewerContent(
+            status: KanaViewerStatus.showInitial,
+            romaji: JImages.rA,
+            kana: JImages.hA),
+      );
+    }
+    return list;
+  }
+
+  @override
+  void initState() {
+    _kanaViewerContents = generateKanaViewerContents();
+    super.initState();
+  }
+  ////////////////////////////////////////////////// TESTE
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +77,8 @@ class _TrainingPageState extends State<TrainingPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: KanaViewers(
-                  currentSyllabe: _currentSyllabe,
+                  kanaViewerContents: _kanaViewerContents,
+                  currentKanaIdx: _currentKanaIdx,
                 ),
               ),
             ),
@@ -67,24 +93,38 @@ class _TrainingPageState extends State<TrainingPage> {
               ),
             ),
             const Spacer(),
+            ////////////////////////////// TEST
             Row(
               children: [
                 ElevatedButton(
-                    onPressed: () => setState(() {
-                          _currentSyllabe += 1;
-                        }),
-                    child: const Text("next syllabe")),
-                ElevatedButton(
-                    onPressed: () => setState(() {
+                    onPressed: () {
+                      setState(() {
+                        _kanaViewerContents[_currentKanaIdx] =
+                            KanaViewerContent(
+                          status: KanaViewerStatus.showCorrect,
+                          romaji: JImages.rA,
+                          kana: JImages.hA,
+                          userKana: JImages.hATest,
+                        );
+                        _currentKanaIdx += 1;
+                        if (_currentKanaIdx >= _kanaViewerContents.length) {
+                          _kanaViewerContents = generateKanaViewerContents();
+                          _currentKanaIdx = 0;
                           _currentCard += 1;
-                        }),
-                    child: const Text("next card")),
+                        }
+                      });
+                      if (_currentCard >= _maxCards) {
+                        Navigator.pushNamed(context, Routes.review);
+                      }
+                    },
+                    child: const Text("next Kana")),
                 ElevatedButton(
                     onPressed: () =>
                         Navigator.pushNamed(context, Routes.review),
-                    child: const Text("test review")),
+                    child: const Text("go to review")),
               ],
             ),
+            ////////////////////////////// TEST
           ],
         ),
       ),

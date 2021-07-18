@@ -1,16 +1,17 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/training/kana_viewer.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/training/kana_viewer_content.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class KanaViewers extends StatefulWidget {
   const KanaViewers({
     Key? key,
-    required this.currentSyllabe,
+    required this.kanaViewerContents,
+    required this.currentKanaIdx,
   }) : super(key: key);
 
-  final int currentSyllabe;
+  final List<KanaViewerContent> kanaViewerContents;
+  final int currentKanaIdx;
 
   @override
   _KanaViewersState createState() => _KanaViewersState();
@@ -22,10 +23,7 @@ class _KanaViewersState extends State<KanaViewers> {
   @override
   void initState() {
     super.initState();
-    _controller = AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-        axis: Axis.horizontal);
+    _initController();
   }
 
   @override
@@ -40,40 +38,33 @@ class _KanaViewersState extends State<KanaViewers> {
     super.dispose();
   }
 
-  Future _scrollToIndex() async {
-    await _controller.scrollToIndex(widget.currentSyllabe,
-        preferPosition: AutoScrollPosition.middle);
-    _controller.highlight(widget.currentSyllabe);
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       controller: _controller,
-      itemCount: 10,
+      itemCount: widget.kanaViewerContents.length,
       itemBuilder: (context, index) {
-        /////// TEST
-        KanaViewerStatus status = KanaViewerStatus.showInitial;
-        if (index == widget.currentSyllabe) {
-          status = KanaViewerStatus.showSelected;
-        } else if (index < widget.currentSyllabe) {
-          status = KanaViewerStatus.showCorrect;
-        }
-
-        ///
         return _wrapScrollTag(
           index: index,
-          child: KanaViewer(
-            status: status,
-            romaji: JImages.rA,
-            kana: JImages.hA,
-            userKana: JImages.hATest,
-          ),
+          child: KanaViewer(widget.kanaViewerContents[index]),
         );
       },
       separatorBuilder: (context, index) => const SizedBox(width: 5),
     );
+  }
+
+  void _initController() {
+    _controller = AutoScrollController(
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        axis: Axis.horizontal);
+  }
+
+  Future _scrollToIndex() async {
+    await _controller.scrollToIndex(widget.currentKanaIdx,
+        preferPosition: AutoScrollPosition.middle);
+    _controller.highlight(widget.currentKanaIdx);
   }
 
   Widget _wrapScrollTag({required int index, required Widget child}) {
@@ -85,19 +76,4 @@ class _KanaViewersState extends State<KanaViewers> {
       child: child,
     );
   }
-
-  // return ListView.separated(
-  //   scrollDirection: Axis.horizontal,
-  //   itemCount: 10,
-  //   itemBuilder: (context, index) {
-  //     return KanaViewer(
-  //       status: KanaViewerStatus.showCorrect,
-  //       romaji: JImages.rA,
-  //       kana: JImages.hA,
-  //       userKana: JImages.hATest,
-  //     );
-  //   },
-  //   separatorBuilder: (context, index) => const SizedBox(width: 5),
-  // );
-
 }
