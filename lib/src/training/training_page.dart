@@ -13,7 +13,12 @@ class TrainingPage extends StatefulWidget {
 }
 
 class _TrainingPageState extends State<TrainingPage> {
+  ////TEST
+  int _maxCards = 20;
   int _currentCard = 0;
+  int _currentSyllabe = 0;
+
+  ///
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class _TrainingPageState extends State<TrainingPage> {
           children: [
             ProgressBar(
               _currentCard,
-              maxCards: 20,
+              maxCards: _maxCards,
             ),
             const Spacer(),
             Flexible(
@@ -42,11 +47,13 @@ class _TrainingPageState extends State<TrainingPage> {
               child: JImages.rain,
             ),
             const Spacer(),
-            const Flexible(
+            Flexible(
               flex: 4,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: KanaViewers(),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: KanaViewers(
+                  currentSyllabe: _currentSyllabe,
+                ),
               ),
             ),
             const Spacer(),
@@ -64,9 +71,14 @@ class _TrainingPageState extends State<TrainingPage> {
               children: [
                 ElevatedButton(
                     onPressed: () => setState(() {
+                          _currentSyllabe += 1;
+                        }),
+                    child: const Text("next syllabe")),
+                ElevatedButton(
+                    onPressed: () => setState(() {
                           _currentCard += 1;
                         }),
-                    child: const Text("next card text")),
+                    child: const Text("next card")),
                 ElevatedButton(
                     onPressed: () =>
                         Navigator.pushNamed(context, Routes.review),
