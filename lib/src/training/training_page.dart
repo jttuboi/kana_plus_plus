@@ -12,20 +12,30 @@ import 'package:kana_plus_plus/src/training/progress_bar.dart';
 import 'package:kana_plus_plus/src/training/writing_hand.dart';
 
 class TrainingPage extends StatefulWidget {
+  const TrainingPage({
+    Key? key,
+    required this.showHint,
+    required this.kanaType,
+    required this.quantityOfCards,
+  }) : super(key: key);
+
+  final bool showHint;
+  final int kanaType;
+  final int quantityOfCards;
+
   @override
   _TrainingPageState createState() => _TrainingPageState();
 }
 
 class _TrainingPageState extends State<TrainingPage> {
   //////////////////////////////////////////////////TEST
-  int _maxCards = 4;
   int _currentCard = 0;
   int _currentKanaIdx = 0;
 
   late List<KanaViewerContent> _kanaViewerContents;
 
   List<KanaViewerContent> generateKanaViewerContents() {
-    List<KanaViewerContent> list = [];
+    final List<KanaViewerContent> list = [];
     final int maxKanas = Random().nextInt(9) + 2;
     for (int i = 0; i < maxKanas; i++) {
       list.add(
@@ -64,7 +74,7 @@ class _TrainingPageState extends State<TrainingPage> {
           children: [
             ProgressBar(
               _currentCard,
-              maxCards: _maxCards,
+              maxCards: widget.quantityOfCards,
             ),
             const Spacer(),
             Flexible(
@@ -113,7 +123,7 @@ class _TrainingPageState extends State<TrainingPage> {
                           _currentCard += 1;
                         }
                       });
-                      if (_currentCard >= _maxCards) {
+                      if (_currentCard >= widget.quantityOfCards) {
                         Navigator.pushNamed(context, Routes.review);
                       }
                     },

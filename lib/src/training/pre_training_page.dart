@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/settings/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/settings/quantity_of_cards_tile.dart';
 import 'package:kana_plus_plus/src/settings/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/shared/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 
 class PreTrainingPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class PreTrainingPage extends StatefulWidget {
 
 class _PreTrainingPageState extends State<PreTrainingPage> {
   bool _showHint = false;
-  int _kanaSelectedIdx = 2; // both
+  int _kanaType = 2; // both
   int _quantityOfCards = 5;
 
   @override
@@ -32,9 +33,9 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
             }),
           ),
           KanaTypeTile(
-            _kanaSelectedIdx,
+            _kanaType,
             onOptionSelected: (index) => setState(() {
-              _kanaSelectedIdx = index;
+              _kanaType = index;
             }),
           ),
           QuantityOfCardsTile(
@@ -46,7 +47,15 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
           Container(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, Routes.training),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                Routes.training,
+                arguments: PreTrainingArguments(
+                  showHint: _showHint,
+                  kanaType: _kanaType,
+                  quantityOfCards: _quantityOfCards,
+                ),
+              ),
               child: const Icon(Icons.play_arrow),
             ),
           ),

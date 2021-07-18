@@ -72,7 +72,6 @@ class _KanaViewersState extends State<KanaViewers> {
       key: ValueKey(index),
       controller: _controller,
       index: index,
-      highlightColor: Colors.black.withOpacity(0.1),
       child: child,
     );
   }
