@@ -32,6 +32,7 @@ class _ShowHintTileState extends State<ShowHintTile> {
       value: _showHint,
       onChanged: (value) => setState(() {
         _showHint = value;
+        widget.onChanged(_showHint);
       }),
       secondary: JIcons.showHint,
     );

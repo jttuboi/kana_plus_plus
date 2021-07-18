@@ -6,9 +6,11 @@ class KanaWriter extends StatefulWidget {
   const KanaWriter({
     Key? key,
     required this.writingHand,
+    required this.showHint,
   }) : super(key: key);
 
   final WritingHand writingHand;
+  final bool showHint;
 
   @override
   _KanaWriterState createState() => _KanaWriterState();
@@ -70,6 +72,7 @@ class _KanaWriterState extends State<KanaWriter> {
         aspectRatio: 1.0,
         child: Container(
           color: Colors.grey,
+          child: Text(widget.showHint ? "showing hint" : "hided hint"),
         ),
       ),
     );

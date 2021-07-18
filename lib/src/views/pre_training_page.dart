@@ -13,7 +13,7 @@ class PreTrainingPage extends StatefulWidget {
 }
 
 class _PreTrainingPageState extends State<PreTrainingPage> {
-  bool _showHint = false;
+  bool _showHint = true;
   int _kanaType = 2; // both
   int _quantityOfCards = 5;
 

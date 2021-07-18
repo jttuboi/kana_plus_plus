@@ -93,12 +93,13 @@ class _TrainingPageState extends State<TrainingPage> {
               ),
             ),
             const Spacer(),
-            const Flexible(
+            Flexible(
               flex: 12,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32.0),
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: KanaWriter(
                   writingHand: WritingHand.right,
+                  showHint: widget.showHint,
                 ),
               ),
             ),
