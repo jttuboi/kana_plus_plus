@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/settings/selection_option.dart';
-import 'package:kana_plus_plus/src/settings/selection_option_page.dart';
+import 'package:kana_plus_plus/src/models/selection_option.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
+import 'package:kana_plus_plus/src/views/selection_option_page.dart';
 
 class KanaTypeTile extends StatefulWidget {
   const KanaTypeTile(

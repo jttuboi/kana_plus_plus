@@ -4,12 +4,12 @@ import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_content.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
-import 'package:kana_plus_plus/src/training/kana_viewers.dart';
-import 'package:kana_plus_plus/src/training/kana_writer.dart';
-import 'package:kana_plus_plus/src/training/progress_bar.dart';
-import 'package:kana_plus_plus/src/training/writing_hand.dart';
+import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/widgets/kana_viewers.dart';
+import 'package:kana_plus_plus/src/widgets/kana_writer.dart';
+import 'package:kana_plus_plus/src/widgets/progress_bar.dart';
+import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 
 class TrainingPage extends StatefulWidget {
   const TrainingPage({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
 
 class KanaViewerContent {
   KanaViewerContent({

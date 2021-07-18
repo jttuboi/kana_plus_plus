@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/settings/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/settings/quantity_of_cards_tile.dart';
-import 'package:kana_plus_plus/src/settings/show_hint_tile.dart';
-import 'package:kana_plus_plus/src/shared/pre_training_arguments.dart';
+import 'package:kana_plus_plus/src/widgets/kana_type_tile.dart';
+import 'package:kana_plus_plus/src/widgets/quantity_of_cards_tile.dart';
+import 'package:kana_plus_plus/src/widgets/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 
 class PreTrainingPage extends StatefulWidget {

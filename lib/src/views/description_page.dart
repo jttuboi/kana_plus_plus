@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/settings/description.dart';
+import 'package:kana_plus_plus/src/models/description.dart';
 
 class DescriptionPage extends StatelessWidget {
   const DescriptionPage({

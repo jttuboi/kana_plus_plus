@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
-import "package:kana_plus_plus/src/cards/card_page.dart";
-import "package:kana_plus_plus/src/cards/cards_page.dart";
-import "package:kana_plus_plus/src/menu_page.dart";
-import "package:kana_plus_plus/src/settings/settings_page.dart";
-import 'package:kana_plus_plus/src/shared/pre_training_arguments.dart';
+import 'package:kana_plus_plus/src/views/card_page.dart';
+import 'package:kana_plus_plus/src/views/cards_page.dart';
+import 'package:kana_plus_plus/src/views/menu_page.dart';
+import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import "package:kana_plus_plus/src/shared/routes.dart";
-import "package:kana_plus_plus/src/study/kana_page.dart";
-import "package:kana_plus_plus/src/study/study_page.dart";
-import "package:kana_plus_plus/src/training/pre_training_page.dart";
-import "package:kana_plus_plus/src/training/review_page.dart";
-import "package:kana_plus_plus/src/training/training_page.dart";
+import 'package:kana_plus_plus/src/views/kana_page.dart';
+import 'package:kana_plus_plus/src/views/pre_training_page.dart';
+import 'package:kana_plus_plus/src/views/review_page.dart';
+import 'package:kana_plus_plus/src/views/settings_page.dart';
+import 'package:kana_plus_plus/src/views/study_page.dart';
+import 'package:kana_plus_plus/src/views/training_page.dart';
 
 class KanaPlusPlusApp extends StatelessWidget {
   @override

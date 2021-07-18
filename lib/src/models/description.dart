@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/settings/description_type.dart';
+import 'package:kana_plus_plus/src/shared/description_type.dart';
 
 class Description {
   Description.title(this.text) {

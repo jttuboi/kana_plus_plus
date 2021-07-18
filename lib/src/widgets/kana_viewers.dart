@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/training/kana_viewer.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/widgets/kana_viewer.dart';
+import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class KanaViewers extends StatefulWidget {

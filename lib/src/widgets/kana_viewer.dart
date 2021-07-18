@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/images.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_content.dart';
-import 'package:kana_plus_plus/src/training/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
 
 class KanaViewer extends StatefulWidget {
   const KanaViewer(this.content, {Key? key}) : super(key: key);
