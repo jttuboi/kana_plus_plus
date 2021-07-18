@@ -5,6 +5,7 @@ import 'package:kana_plus_plus/src/shared/routes.dart';
 import 'package:kana_plus_plus/src/training/kana_viewers.dart';
 import 'package:kana_plus_plus/src/training/kana_writer.dart';
 import 'package:kana_plus_plus/src/training/progress_bar.dart';
+import 'package:kana_plus_plus/src/training/writing_hand.dart';
 
 class TrainingPage extends StatefulWidget {
   @override
@@ -31,14 +32,6 @@ class _TrainingPageState extends State<TrainingPage> {
         ),
         body: Column(
           children: [
-            // ElevatedButton(
-            //     onPressed: () => setState(() {
-            //           _currentCard += 1;
-            //         }),
-            //     child: const Text("next card text")),
-            // ElevatedButton(
-            //     onPressed: () => Navigator.pushNamed(context, Routes.review),
-            //     child: const Text("test review")),
             ProgressBar(
               _currentCard,
               maxCards: 20,
@@ -60,13 +53,26 @@ class _TrainingPageState extends State<TrainingPage> {
             const Flexible(
               flex: 12,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: KanaWriter(
                   writingHand: WritingHand.right,
                 ),
               ),
             ),
             const Spacer(),
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () => setState(() {
+                          _currentCard += 1;
+                        }),
+                    child: const Text("next card text")),
+                ElevatedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, Routes.review),
+                    child: const Text("test review")),
+              ],
+            ),
           ],
         ),
       ),

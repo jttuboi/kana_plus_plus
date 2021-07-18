@@ -1,0 +1,4 @@
+enum WritingHand {
+  left,
+  right,
+}
