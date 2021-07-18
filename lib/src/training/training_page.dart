@@ -18,7 +18,7 @@ class _TrainingPageState extends State<TrainingPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        _buildDialog(context);
+        _buildQuitDialog(context);
         return false;
       },
       child: Scaffold(
@@ -26,35 +26,54 @@ class _TrainingPageState extends State<TrainingPage> {
           title: const Text("training"),
           leading: IconButton(
             icon: JIcons.quit,
-            onPressed: () => _buildDialog(context),
+            onPressed: () => _buildQuitDialog(context),
           ),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // ElevatedButton(
+            //     onPressed: () => setState(() {
+            //           _currentCard += 1;
+            //         }),
+            //     child: const Text("next card text")),
+            // ElevatedButton(
+            //     onPressed: () => Navigator.pushNamed(context, Routes.review),
+            //     child: const Text("test review")),
             ProgressBar(
               _currentCard,
               maxCards: 20,
             ),
             const Spacer(),
-            JImages.rain,
-            const Spacer(),
-            const KanaViewersWidget(),
-            const Spacer(),
-            const KanaWriterWidget(
-              writingHand: WritingHand.right,
+            Flexible(
+              flex: 10,
+              child: JImages.rain,
             ),
             const Spacer(),
-            ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, Routes.review),
-                child: const Text("test review")),
+            const Flexible(
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: KanaViewers(),
+              ),
+            ),
+            const Spacer(),
+            const Flexible(
+              flex: 12,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: KanaWriter(
+                  writingHand: WritingHand.right,
+                ),
+              ),
+            ),
+            const Spacer(),
           ],
         ),
       ),
     );
   }
 
-  void _buildDialog(BuildContext context) {
+  void _buildQuitDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

@@ -6,17 +6,17 @@ enum WritingHand {
   right,
 }
 
-class KanaWriterWidget extends StatefulWidget {
-  //const KanaWriterWidget({ Key? key }) : super(key: key);
-  const KanaWriterWidget({required this.writingHand});
+class KanaWriter extends StatefulWidget {
+  //const KanaWriter({ Key? key }) : super(key: key);
+  const KanaWriter({required this.writingHand});
 
   final WritingHand writingHand;
 
   @override
-  _KanaWriterWidgetState createState() => _KanaWriterWidgetState();
+  _KanaWriterState createState() => _KanaWriterState();
 }
 
-class _KanaWriterWidgetState extends State<KanaWriterWidget> {
+class _KanaWriterState extends State<KanaWriter> {
   @override
   Widget build(BuildContext context) {
     return widget.writingHand == WritingHand.right
@@ -50,7 +50,7 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
     return Column(
       children: [
         Container(
-          constraints: const BoxConstraints.expand(width: 100, height: 158),
+          //constraints: const BoxConstraints.expand(width: 100, height: 158),
           child: ElevatedButton(
             style: const ButtonStyle(alignment: Alignment.center),
             onPressed: () {},
@@ -59,7 +59,7 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
         ),
         const SizedBox(height: 4),
         Container(
-          constraints: const BoxConstraints.expand(width: 100, height: 158),
+          // constraints: const BoxConstraints.expand(width: 100, height: 158),
           child: ElevatedButton(
             style: const ButtonStyle(alignment: Alignment.center),
             onPressed: () {},
@@ -71,10 +71,12 @@ class _KanaWriterWidgetState extends State<KanaWriterWidget> {
   }
 
   Widget _buildKanaDraw() {
-    return Container(
-      color: Colors.grey,
-      height: 320,
-      width: 320,
+    return Expanded(
+      child: Container(
+        color: Colors.grey,
+        // height: 320,
+        // width: 320,
+      ),
     );
   }
 }
