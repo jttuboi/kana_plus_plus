@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/description.dart';
 import 'package:kana_plus_plus/src/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/widgets/quantity_of_cards_tile.dart';
+import 'package:kana_plus_plus/src/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/models/selection_option.dart';
 import 'package:kana_plus_plus/src/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/widgets/sub_header_tile.dart';
@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _showHint = false; // not selected
   int _kanaSelectedIdx = 2; // both
 
-  int _quantityOfCards = 5;
+  int _quantityOfWords = 5;
 
   final List<Description> _aboutDescriptions = [
     // AQUI localization
@@ -126,10 +126,10 @@ class _SettingsPageState extends State<SettingsPage> {
               _kanaSelectedIdx = index;
             }),
           ),
-          QuantityOfCardsTile(
-            _quantityOfCards,
+          QuantityOfWordsTile(
+            _quantityOfWords,
             onQuantityChanged: (quantity) => setState(() {
-              _quantityOfCards = quantity;
+              _quantityOfWords = quantity;
             }),
           ),
           const Divider(),

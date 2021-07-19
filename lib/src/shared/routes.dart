@@ -8,7 +8,7 @@ class Routes {
   static const String preTraining = "/pre_training";
   static const String training = "/training";
   static const String review = "/review";
-  static const String cards = "/cards";
-  static const String card = "/card";
+  static const String words = "/words";
+  static const String word = "/word";
   static const String settings = "/settings";
 }

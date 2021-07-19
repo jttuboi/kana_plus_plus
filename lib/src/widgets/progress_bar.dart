@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 class ProgressBar extends StatefulWidget {
   const ProgressBar(
-    this.currentCard, {
+    this.currentWord, {
     Key? key,
-    required this.maxCards,
+    required this.maxWords,
   }) : super(key: key);
 
-  final int currentCard;
-  final int maxCards;
+  final int currentWord;
+  final int maxWords;
 
   @override
   _ProgressBarState createState() => _ProgressBarState();
 }
 
-//widget.currentCard / widget.maxCards
+//widget.currentWord / widget.maxWords
 class _ProgressBarState extends State<ProgressBar>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -42,10 +42,10 @@ class _ProgressBarState extends State<ProgressBar>
   void didUpdateWidget(covariant ProgressBar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.currentCard != oldWidget.currentCard) {
+    if (widget.currentWord != oldWidget.currentWord) {
       _valueTween = Tween(
         begin: _valueTween.evaluate(_controller),
-        end: widget.currentCard / widget.maxCards,
+        end: widget.currentWord / widget.maxWords,
       );
 
       _controller

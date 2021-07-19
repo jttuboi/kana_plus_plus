@@ -22,8 +22,8 @@ class JIcons {
       ImageIcon(AssetImage("lib/assets/icons/black/light_mode.png"));
   static const ImageIcon privacyPolicy =
       ImageIcon(AssetImage("lib/assets/icons/black/privacy_policy.png"));
-  static const ImageIcon quantityOfCards =
-      ImageIcon(AssetImage("lib/assets/icons/black/quantity_of_cards.png"));
+  static const ImageIcon quantityOfWords =
+      ImageIcon(AssetImage("lib/assets/icons/black/quantity_of_words.png"));
   static const ImageIcon quit =
       ImageIcon(AssetImage("lib/assets/icons/black/quit.png"));
   static const ImageIcon showHint =

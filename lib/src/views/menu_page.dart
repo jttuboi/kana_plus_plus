@@ -27,7 +27,7 @@ class MenuPage extends StatelessWidget {
               child: const Icon(Icons.mode_edit, size: 80),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, Routes.cards),
+              onPressed: () => Navigator.pushNamed(context, Routes.words),
               child: const Icon(Icons.style, size: 80),
             ),
             ElevatedButton(

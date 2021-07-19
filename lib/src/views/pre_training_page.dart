@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/widgets/quantity_of_cards_tile.dart';
+import 'package:kana_plus_plus/src/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
@@ -15,7 +15,7 @@ class PreTrainingPage extends StatefulWidget {
 class _PreTrainingPageState extends State<PreTrainingPage> {
   bool _showHint = true;
   int _kanaType = 2; // both
-  int _quantityOfCards = 5;
+  int _quantityOfWords = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,10 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
               _kanaType = index;
             }),
           ),
-          QuantityOfCardsTile(
-            _quantityOfCards,
+          QuantityOfWordsTile(
+            _quantityOfWords,
             onQuantityChanged: (quantity) => setState(() {
-              _quantityOfCards = quantity;
+              _quantityOfWords = quantity;
             }),
           ),
           Container(
@@ -53,7 +53,7 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
                 arguments: PreTrainingArguments(
                   showHint: _showHint,
                   kanaType: _kanaType,
-                  quantityOfCards: _quantityOfCards,
+                  quantityOfWords: _quantityOfWords,
                 ),
               ),
               child: const Icon(Icons.play_arrow),

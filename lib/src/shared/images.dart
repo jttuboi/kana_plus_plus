@@ -6,7 +6,7 @@ class JImages {
   static Image get empty =>
       Image.asset("lib/assets/images/square.png"); // criar uma imagem vazis
 
-  static Image get rain => Image.asset("lib/assets/images/cards/rain.png");
+  static Image get rain => Image.asset("lib/assets/images/words/rain.png");
 
   static Image get hA => Image.asset("lib/assets/images/kanas/h_a.png");
   static Image get rA => Image.asset("lib/assets/images/kanas/r_a.png");

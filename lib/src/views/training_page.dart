@@ -18,12 +18,12 @@ class TrainingPage extends StatefulWidget {
     Key? key,
     required this.showHint,
     required this.kanaType,
-    required this.quantityOfCards,
+    required this.quantityOfWords,
   }) : super(key: key);
 
   final bool showHint;
   final int kanaType;
-  final int quantityOfCards;
+  final int quantityOfWords;
 
   @override
   _TrainingPageState createState() => _TrainingPageState();
@@ -37,7 +37,7 @@ class _TrainingPageState extends State<TrainingPage> {
   final List<List<KanaViewerContent>> _listOfKanaViewerContents = [];
 
   void _generateDataForTest() {
-    for (int i = 0; i < widget.quantityOfCards; i++) {
+    for (int i = 0; i < widget.quantityOfWords; i++) {
       final List<KanaViewerContent> kanas = [];
       final int maxKanas = Random().nextInt(9) + 2;
       for (int j = 0; j < maxKanas; j++) {
@@ -147,7 +147,7 @@ class _TrainingPageState extends State<TrainingPage> {
           children: [
             ProgressBar(
               _wordIdx,
-              maxCards: widget.quantityOfCards,
+              maxWords: widget.quantityOfWords,
             ),
             const Spacer(),
             Flexible(
