@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/views/card_page.dart';
 import 'package:kana_plus_plus/src/views/cards_page.dart';
 import 'package:kana_plus_plus/src/views/menu_page.dart';
@@ -22,7 +23,7 @@ class KanaPlusPlusApp extends StatelessWidget {
         Routes.kana: (context) => const KanaPage(),
         Routes.preTraining: (context) => const PreTrainingPage(),
         //Routes.training: (context) => TrainingPage(),
-        Routes.review: (context) => const ReviewPage(),
+        //Routes.review: (context) => const ReviewPage(),
         Routes.cards: (context) => const CardsPage(),
         Routes.card: (context) => const CardPage(),
         Routes.settings: (context) => const SettingsPage(),
@@ -36,6 +37,14 @@ class KanaPlusPlusApp extends StatelessWidget {
               showHint: args.showHint,
               kanaType: args.kanaType,
               quantityOfCards: args.quantityOfCards,
+            ),
+          );
+        } else if (settings.name == Routes.review) {
+          // ignore: cast_nullable_to_non_nullable
+          final args = settings.arguments as TrainingArguments;
+          return MaterialPageRoute(
+            builder: (context) => ReviewPage(
+              wordsResult: args.wordsResult,
             ),
           );
         }

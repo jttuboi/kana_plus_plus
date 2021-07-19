@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/models/kana_result.dart';
+import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
@@ -29,28 +31,98 @@ class TrainingPage extends StatefulWidget {
 
 class _TrainingPageState extends State<TrainingPage> {
   //////////////////////////////////////////////////TEST
-  int _currentCard = 0;
-  int _currentKanaIdx = 0;
+  int _wordIdx = 0;
+  int _kanaIdx = 0;
 
-  late List<KanaViewerContent> _kanaViewerContents;
+  final List<List<KanaViewerContent>> _listOfKanaViewerContents = [];
 
-  List<KanaViewerContent> generateKanaViewerContents() {
-    final List<KanaViewerContent> list = [];
-    final int maxKanas = Random().nextInt(9) + 2;
-    for (int i = 0; i < maxKanas; i++) {
-      list.add(
-        KanaViewerContent(
-            status: KanaViewerStatus.showInitial,
+  void _generateDataForTest() {
+    for (int i = 0; i < widget.quantityOfCards; i++) {
+      final List<KanaViewerContent> kanas = [];
+      final int maxKanas = Random().nextInt(9) + 2;
+      for (int j = 0; j < maxKanas; j++) {
+        kanas.add(
+          KanaViewerContent(
+            status: (j == 0)
+                ? KanaViewerStatus.showSelected
+                : KanaViewerStatus.showInitial,
             romaji: JImages.rA,
-            kana: JImages.hA),
+            kana: JImages.hA,
+          ),
+        );
+      }
+      _listOfKanaViewerContents.add(kanas);
+    }
+  }
+
+  void _test() {
+    setState(() {
+      final kanasContent = _listOfKanaViewerContents[_wordIdx];
+
+      // gera o que o kana view deve mostrar apos escrito kana writer
+      final preview = kanasContent[_kanaIdx];
+      kanasContent[_kanaIdx] = KanaViewerContent(
+        status: (Random().nextBool())
+            ? KanaViewerStatus.showCorrect
+            : KanaViewerStatus.showWrong,
+        romaji: preview.romaji,
+        kana: preview.kana,
+        userKana: JImages.hATest,
+      );
+
+      // muda pro proximo e atualiza para select
+      _kanaIdx += 1;
+      if (_kanaIdx < kanasContent.length) {
+        final preview2 = kanasContent[_kanaIdx];
+        kanasContent[_kanaIdx] = KanaViewerContent(
+          status: KanaViewerStatus.showSelected,
+          romaji: preview2.romaji,
+          kana: preview2.kana,
+        );
+      } else {
+        // se chegou no fim, reseta e muda pra prox palavra
+        _kanaIdx = 0;
+        _wordIdx += 1;
+      }
+    });
+
+    // se não tem mais palavras, sai do training
+    if (_wordIdx >= _listOfKanaViewerContents.length) {
+      final List<List<KanaResult>> wordsResult = [];
+      for (int i = 0; i < _listOfKanaViewerContents.length; i++) {
+        final kanasContent = _listOfKanaViewerContents[i];
+        final List<KanaResult> kanasResult = [];
+        for (int j = 0; j < kanasContent.length; j++) {
+          final kanaContent = kanasContent[j];
+          kanasResult.add(
+            KanaResult(
+              correct: kanaContent.status.isShowCorrect,
+              kana: kanaContent.kana,
+              // algo assim nao deve acontecer, ver como melhorar essa parte
+              userKana: kanaContent.userKana ?? JImages.empty,
+            ),
+          );
+        }
+        wordsResult.add(kanasResult);
+      }
+
+      // para evitar que a página de treino tente acessar os dados de um elemento
+      // não existente
+      _wordIdx = 0;
+
+      Navigator.pushNamed(
+        context,
+        Routes.review,
+        arguments: TrainingArguments(
+          wordsResult: wordsResult,
+        ),
       );
     }
-    return list;
   }
 
   @override
   void initState() {
-    _kanaViewerContents = generateKanaViewerContents();
+    _generateDataForTest();
     super.initState();
   }
   ////////////////////////////////////////////////// TESTE
@@ -64,7 +136,8 @@ class _TrainingPageState extends State<TrainingPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("training"),
+          shadowColor: Colors.white.withOpacity(0.0),
+          backgroundColor: Colors.white.withOpacity(0.0),
           leading: IconButton(
             icon: JIcons.quit,
             onPressed: () => _buildQuitDialog(context),
@@ -73,7 +146,7 @@ class _TrainingPageState extends State<TrainingPage> {
         body: Column(
           children: [
             ProgressBar(
-              _currentCard,
+              _wordIdx,
               maxCards: widget.quantityOfCards,
             ),
             const Spacer(),
@@ -87,8 +160,8 @@ class _TrainingPageState extends State<TrainingPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: KanaViewers(
-                  kanaViewerContents: _kanaViewerContents,
-                  currentKanaIdx: _currentKanaIdx,
+                  kanaViewerContents: _listOfKanaViewerContents[_wordIdx],
+                  currentKanaIdx: _kanaIdx,
                 ),
               ),
             ),
@@ -108,30 +181,15 @@ class _TrainingPageState extends State<TrainingPage> {
             Row(
               children: [
                 ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _kanaViewerContents[_currentKanaIdx] =
-                            KanaViewerContent(
-                          status: KanaViewerStatus.showCorrect,
-                          romaji: JImages.rA,
-                          kana: JImages.hA,
-                          userKana: JImages.hATest,
-                        );
-                        _currentKanaIdx += 1;
-                        if (_currentKanaIdx >= _kanaViewerContents.length) {
-                          _kanaViewerContents = generateKanaViewerContents();
-                          _currentKanaIdx = 0;
-                          _currentCard += 1;
-                        }
-                      });
-                      if (_currentCard >= widget.quantityOfCards) {
-                        Navigator.pushNamed(context, Routes.review);
-                      }
-                    },
-                    child: const Text("next Kana")),
+                  onPressed: () => _test(),
+                  child: const Text("next Kana"),
+                ),
                 ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, Routes.review),
+                    onPressed: () => Navigator.pushNamed(
+                          context,
+                          Routes.review,
+                          arguments: const TrainingArguments(wordsResult: []),
+                        ),
                     child: const Text("go to review")),
               ],
             ),

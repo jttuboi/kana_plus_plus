@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class JImages {
   JImages._();
 
+  static Image get empty =>
+      Image.asset("lib/assets/images/square.png"); // criar uma imagem vazis
+
   static Image get rain => Image.asset("lib/assets/images/cards/rain.png");
 
   static Image get hA => Image.asset("lib/assets/images/kanas/h_a.png");

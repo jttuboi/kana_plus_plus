@@ -1,10 +1,20 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/models/kana_result.dart';
 
 class ReviewPage extends StatelessWidget {
-  const ReviewPage({Key? key}) : super(key: key);
+  const ReviewPage({
+    Key? key,
+    required this.wordsResult,
+  }) : super(key: key);
+
+  final List<List<KanaResult>> wordsResult;
 
   @override
   Widget build(BuildContext context) {
+    wordsResult.forEach((kanasResult) {
+      print(kanasResult);
+    });
+
     return //WillPopScope(child:
 
         Scaffold(
