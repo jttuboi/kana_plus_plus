@@ -1,9 +1,9 @@
-import 'package:kana_plus_plus/src/models/kana_result.dart';
+import 'package:kana_plus_plus/src/models/word_result.dart';
 
 class TrainingArguments {
   const TrainingArguments({
     required this.wordsResult,
   });
 
-  final List<List<KanaResult>> wordsResult;
+  final List<WordResult> wordsResult;
 }

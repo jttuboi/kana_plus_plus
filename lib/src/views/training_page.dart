@@ -3,6 +3,7 @@ import 'dart:math';
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/kana_result.dart';
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
+import 'package:kana_plus_plus/src/models/word_result.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
@@ -88,7 +89,7 @@ class _TrainingPageState extends State<TrainingPage> {
 
     // se não tem mais palavras, sai do training
     if (_wordIdx >= _listOfKanaViewerContents.length) {
-      final List<List<KanaResult>> wordsResult = [];
+      final List<WordResult> wordsResult = [];
       for (int i = 0; i < _listOfKanaViewerContents.length; i++) {
         final kanasContent = _listOfKanaViewerContents[i];
         final List<KanaResult> kanasResult = [];
@@ -97,13 +98,16 @@ class _TrainingPageState extends State<TrainingPage> {
           kanasResult.add(
             KanaResult(
               correct: kanaContent.status.isShowCorrect,
-              kana: kanaContent.kana,
+              kanaId: 0,
               // algo assim nao deve acontecer, ver como melhorar essa parte
               userKana: kanaContent.userKana ?? JImages.empty,
             ),
           );
         }
-        wordsResult.add(kanasResult);
+        wordsResult.add(WordResult(
+          wordId: 0, // Id do rain
+          kanasResult: kanasResult,
+        ));
       }
 
       // para evitar que a página de treino tente acessar os dados de um elemento

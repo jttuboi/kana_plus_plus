@@ -42,6 +42,7 @@ flutter:
     - lib/assets/icons/black/writing_hand_right.png
 
     - lib/assets/images/words/rain.png
+
     - lib/assets/images/kanas/h_a.png
     - lib/assets/images/kanas/r_a.png
 

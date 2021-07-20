@@ -14,7 +14,6 @@ class ProgressBar extends StatefulWidget {
   _ProgressBarState createState() => _ProgressBarState();
 }
 
-//widget.currentWord / widget.maxWords
 class _ProgressBarState extends State<ProgressBar>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;

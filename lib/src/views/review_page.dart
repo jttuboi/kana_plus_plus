@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/kana_result.dart';
+import 'package:kana_plus_plus/src/models/word_result.dart';
+import 'package:kana_plus_plus/src/shared/images.dart';
+import 'package:kana_plus_plus/src/widgets/review_tile.dart';
 
 class ReviewPage extends StatelessWidget {
   const ReviewPage({
@@ -7,26 +10,32 @@ class ReviewPage extends StatelessWidget {
     required this.wordsResult,
   }) : super(key: key);
 
-  final List<List<KanaResult>> wordsResult;
+  final List<WordResult> wordsResult;
 
   @override
   Widget build(BuildContext context) {
-    wordsResult.forEach((kanasResult) {
-      print(kanasResult);
-    });
-
-    return //WillPopScope(child:
-
-        Scaffold(
-      appBar: AppBar(
-        title: const Text("review"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () =>
-              Navigator.popUntil(context, (route) => route.isFirst),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.popUntil(context, (route) => route.isFirst);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("review"),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () =>
+                Navigator.popUntil(context, (route) => route.isFirst),
+          ),
+        ),
+        body: ListView.separated(
+          itemCount: wordsResult.length,
+          itemBuilder: (context, index) {
+            return ReviewTile(wordsResult[index]);
+          },
+          separatorBuilder: (context, index) => const Divider(),
         ),
       ),
-    ); //,
-    //onWillPop: () async => false);
+    );
   }
 }
