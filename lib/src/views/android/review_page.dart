@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/models/kana_result.dart';
 import 'package:kana_plus_plus/src/models/word_result.dart';
-import 'package:kana_plus_plus/src/shared/images.dart';
-import 'package:kana_plus_plus/src/widgets/review_tile.dart';
+import 'package:kana_plus_plus/src/views/android/widgets/review_tile.dart';
 
 class ReviewPage extends StatelessWidget {
   const ReviewPage({

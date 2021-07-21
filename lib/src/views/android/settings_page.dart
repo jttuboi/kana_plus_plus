@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/description.dart';
-import 'package:kana_plus_plus/src/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/widgets/quantity_of_words_tile.dart';
+import 'package:kana_plus_plus/src/views/android/description_page.dart';
+import 'package:kana_plus_plus/src/views/android/selection_option_page.dart';
+import 'package:kana_plus_plus/src/views/android/widgets/kana_type_tile.dart';
+import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
+import 'package:kana_plus_plus/src/views/android/widgets/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/views/android/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/models/selection_option.dart';
-import 'package:kana_plus_plus/src/widgets/show_hint_tile.dart';
-import 'package:kana_plus_plus/src/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
-import 'package:kana_plus_plus/src/views/description_page.dart';
-import 'package:kana_plus_plus/src/views/selection_option_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

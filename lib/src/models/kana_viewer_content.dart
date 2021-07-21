@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
 
 class KanaViewerContent {

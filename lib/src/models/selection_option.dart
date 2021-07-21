@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SelectionOption {
   const SelectionOption(this.title, {this.icon});

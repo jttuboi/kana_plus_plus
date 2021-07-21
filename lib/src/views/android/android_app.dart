@@ -1,22 +1,23 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
-import 'package:kana_plus_plus/src/views/word_page.dart';
-import 'package:kana_plus_plus/src/views/words_page.dart';
-import 'package:kana_plus_plus/src/views/menu_page.dart';
+import 'package:kana_plus_plus/src/views/android/word_page.dart';
+import 'package:kana_plus_plus/src/views/android/words_page.dart';
+import 'package:kana_plus_plus/src/views/android/menu_page.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import "package:kana_plus_plus/src/shared/routes.dart";
-import 'package:kana_plus_plus/src/views/kana_page.dart';
-import 'package:kana_plus_plus/src/views/pre_training_page.dart';
-import 'package:kana_plus_plus/src/views/review_page.dart';
-import 'package:kana_plus_plus/src/views/settings_page.dart';
-import 'package:kana_plus_plus/src/views/study_page.dart';
-import 'package:kana_plus_plus/src/views/training_page.dart';
+import 'package:kana_plus_plus/src/views/android/kana_page.dart';
+import 'package:kana_plus_plus/src/views/android/pre_training_page.dart';
+import 'package:kana_plus_plus/src/views/android/review_page.dart';
+import 'package:kana_plus_plus/src/views/android/settings_page.dart';
+import 'package:kana_plus_plus/src/views/android/study_page.dart';
+import 'package:kana_plus_plus/src/views/android/training_page.dart';
 
-class KanaPlusPlusApp extends StatelessWidget {
+class AndroidApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Kana++",
+      debugShowCheckedModeBanner: false, // TODO remover antes de dar deploy
       routes: {
         Routes.menu: (context) => const MenuPage(),
         Routes.study: (context) => const StudyPage(),
