@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/description.dart';
-import 'package:kana_plus_plus/src/views/android/description_page.dart';
-import 'package:kana_plus_plus/src/views/android/selection_option_page.dart';
+import 'package:kana_plus_plus/src/views/android/description.page.dart';
+import 'package:kana_plus_plus/src/views/android/selection_option.page.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/show_hint_tile.dart';
