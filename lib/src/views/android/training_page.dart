@@ -9,10 +9,8 @@ import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/shared/routes.dart';
 import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/kana_viewers.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/kana_writer.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/progress_bar.dart';
-import 'package:kana_plus_plus/src/shared/writing_hand.dart';
+import 'package:kana_plus_plus/src/views/android/widgets/training_content.dart';
 
 class TrainingPage extends StatefulWidget {
   const TrainingPage({
@@ -87,6 +85,12 @@ class _TrainingPageState extends State<TrainingPage> {
       }
     });
 
+    _controller.animateToPage(
+      _wordIdx,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.linear,
+    );
+
     // se não tem mais palavras, sai do training
     if (_wordIdx >= _listOfKanaViewerContents.length) {
       final List<WordResult> wordsResult = [];
@@ -131,6 +135,8 @@ class _TrainingPageState extends State<TrainingPage> {
   }
   ////////////////////////////////////////////////// TESTE
 
+  final PageController _controller = PageController();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -142,6 +148,7 @@ class _TrainingPageState extends State<TrainingPage> {
         appBar: AppBar(
           shadowColor: Colors.white.withOpacity(0.0),
           backgroundColor: Colors.white.withOpacity(0.0),
+          //elevation: 0.1,
           leading: IconButton(
             icon: JIcons.quit,
             onPressed: () => _buildQuitDialog(context),
@@ -153,34 +160,21 @@ class _TrainingPageState extends State<TrainingPage> {
               _wordIdx,
               maxWords: widget.quantityOfWords,
             ),
-            const Spacer(),
+
             Flexible(
-              flex: 10,
-              child: JImages.rain,
-            ),
-            const Spacer(),
-            Flexible(
-              flex: 4,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: KanaViewers(
-                  kanaViewerContents: _listOfKanaViewerContents[_wordIdx],
-                  currentKanaIdx: _kanaIdx,
-                ),
+              child: PageView.builder(
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _listOfKanaViewerContents.length,
+                itemBuilder: (context, index) {
+                  return TrainingContent(
+                    kanaIdx: _kanaIdx,
+                    kanaViewerContents: _listOfKanaViewerContents[index],
+                    showHint: widget.showHint,
+                  );
+                },
               ),
             ),
-            const Spacer(),
-            Flexible(
-              flex: 12,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: KanaWriter(
-                  writingHand: WritingHand.right,
-                  showHint: widget.showHint,
-                ),
-              ),
-            ),
-            const Spacer(),
             ////////////////////////////// TEST
             Row(
               children: [
