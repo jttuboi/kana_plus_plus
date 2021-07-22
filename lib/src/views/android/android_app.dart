@@ -1,16 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
-import 'package:kana_plus_plus/src/views/android/word.page.dart';
-import 'package:kana_plus_plus/src/views/android/words.page.dart';
-import 'package:kana_plus_plus/src/views/android/menu.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/word.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/words.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/menu.page.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import "package:kana_plus_plus/src/shared/routes.dart";
-import 'package:kana_plus_plus/src/views/android/kana.page.dart';
-import 'package:kana_plus_plus/src/views/android/pre_training.page.dart';
-import 'package:kana_plus_plus/src/views/android/review.page.dart';
-import 'package:kana_plus_plus/src/views/android/settings.page.dart';
-import 'package:kana_plus_plus/src/views/android/study.page.dart';
-import 'package:kana_plus_plus/src/views/android/training.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/pre_training.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/review.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/settings.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/training.page.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
