@@ -45,6 +45,7 @@ flutter:
     - lib/assets/icons/black/quantity_of_words.png
     - lib/assets/icons/black/quit.png
     - lib/assets/icons/black/show_hint.png
+    - lib/assets/icons/black/not_show_hint.png
     - lib/assets/icons/black/support.png
     - lib/assets/icons/black/undo.png
     - lib/assets/icons/black/writing_hand_left.png

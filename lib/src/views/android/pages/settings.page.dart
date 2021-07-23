@@ -1,13 +1,29 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/providers/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
+import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
+import 'package:kana_plus_plus/src/repositories/settings.repository.dart';
 import 'package:kana_plus_plus/src/views/android/pages/description.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/selection_option.page.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/models/selection_option.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
+import 'package:provider/provider.dart';
+
+class HomePageSupport extends StatelessWidget {
+  const HomePageSupport({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) =>
+          ShowHintProvider(SettingsController(SettingsRepository())),
+      child: const SettingsPage(),
+    );
+  }
+}
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -33,7 +49,6 @@ class _SettingsPageState extends State<SettingsPage> {
   ];
 
   bool _darkMode = false; // padrao do celular
-  bool _showHint = false; // not selected
   int _kanaSelectedIdx = 2; // both
 
   int _quantityOfWords = 5;
@@ -53,8 +68,16 @@ class _SettingsPageState extends State<SettingsPage> {
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
   ];
 
+//  final SettingsBloc _bloc = SettingsBloc();
+
+  void _updateShowHint(bool value) {
+    var bloc = Provider.of<ShowHintProvider>(context, listen: false);
+    bloc.changeShowHint(value);
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("=== build settings page ===");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"), // AQUI localization
@@ -105,7 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SwitchListTile(
             //  TODO setar default do sistema ao entrar (ver como escrever "(default)" na frente da palavra)
-            title: const Text("Dark mode"), // AQUI localization
+            title: const Text("Dark mode"),
             value: _darkMode,
             onChanged: (value) => setState(() {
               _darkMode = value;
@@ -113,12 +136,17 @@ class _SettingsPageState extends State<SettingsPage> {
             secondary: _darkMode ? JIcons.darkMode : JIcons.lightMode,
           ),
           const Divider(),
-          const SubHeaderTile("Default training setting"), // AQUI localization
-          ShowHintTile(
-            _showHint,
-            onChanged: (value) => setState(() {
-              _showHint = value;
-            }),
+          const SubHeaderTile("Default training setting"),
+          Consumer<ShowHintProvider>(
+            builder: (context, value, child) {
+              return SwitchListTile(
+                //                                                              strings.settingsShowHint
+                title: const Text("Show hint"),
+                value: value.showHint,
+                onChanged: _updateShowHint,
+                secondary: ImageIcon(AssetImage(value.showHintIconUrl)),
+              );
+            },
           ),
           KanaTypeTile(
             _kanaSelectedIdx,

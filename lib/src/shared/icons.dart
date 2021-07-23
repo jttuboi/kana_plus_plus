@@ -27,6 +27,8 @@ class JIcons {
       ImageIcon(AssetImage("lib/assets/icons/black/quit.png"));
   static const ImageIcon showHint =
       ImageIcon(AssetImage("lib/assets/icons/black/show_hint.png"));
+  static const ImageIcon notShowHint =
+      ImageIcon(AssetImage("lib/assets/icons/black/not_show_hint.png"));
   static const ImageIcon support =
       ImageIcon(AssetImage("lib/assets/icons/black/support.png"));
   static const ImageIcon undo =
