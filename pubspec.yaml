@@ -11,7 +11,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_localized_locales: ^2.0.2
   google_fonts: ^2.1.0
+  intl: ^0.17.0
+  provider: ^5.0.0
   scroll_to_index: ^2.0.0
   shared_preferences: ^2.0.6
 
@@ -22,6 +27,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   
   assets:
     - lib/assets/icons/black/about.png

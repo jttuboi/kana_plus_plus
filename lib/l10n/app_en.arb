@@ -1,0 +1,22 @@
+{
+    "settingsTitle": "Settings",
+    "@settingsTitle": {
+        "description": ""
+    },
+    "settingsSubHeaderBasic": "Basic",
+    "@settingsSubHeaderBasic": {
+        "description": ""
+    },
+    "settingsLanguage": "Language",
+    "@settingsLanguage": {
+        "description": ""
+    },
+    "settingsSelectLanguage": "Select language",
+    "@settingsSelectLanguage": {
+        "description": ""
+    },
+    "settingsWritingHand": "Writing hand",
+    "@settingsWritingHand": {
+        "description": ""
+    }
+}
