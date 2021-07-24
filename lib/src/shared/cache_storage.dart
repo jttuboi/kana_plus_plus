@@ -22,11 +22,19 @@ class CacheStorage {
     return _provider.getBool(key, defaultValue: defaultValue);
   }
 
+  static String getString(String key, {String defaultValue = ""}) {
+    return _provider.getString(key, defaultValue: defaultValue);
+  }
+
   static void setInt(String key, int value) {
     _provider.setInt(key, value);
   }
 
   static void setBool(String key, bool value) {
     _provider.setBool(key, value);
+  }
+
+  static void setString(String key, String value) {
+    _provider.setString(key, value);
   }
 }

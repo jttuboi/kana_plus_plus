@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/providers/dark_theme.provider.dart';
+import 'package:kana_plus_plus/src/providers/language.provider.dart';
 import 'package:kana_plus_plus/src/providers/locale_provider.dart';
 import 'package:kana_plus_plus/src/providers/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
@@ -26,22 +27,13 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final _controller = SettingsController(SettingsRepository());
 
-  int _languageSelectedIdx = 0; // english
-  final List<SelectionOption> _languageOptions = [
-    // AQUI localization
-    const SelectionOption("English"),
-    const SelectionOption("Português"),
-    const SelectionOption("Spañol"),
-  ];
-
   int _writingHandSelectedIdx = 1; // right hand
   final List<SelectionOption> _writingHandOptions = [
     // AQUI localization
     const SelectionOption("Left hand", icon: JIcons.writingHandLeft),
     const SelectionOption("Right hand", icon: JIcons.writingHandRight),
   ];
-
-  bool _darkMode = false; // padrao do celular
+  
   int _kanaSelectedIdx = 2; // both
 
   int _quantityOfWords = 5;
@@ -94,10 +86,13 @@ class _SettingsPageState extends State<SettingsPage> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ShowHintProvider(_controller),
+          create: (context) => LanguageProvider(_controller),
         ),
         ChangeNotifierProvider(
           create: (context) => DarkThemeProvider(_controller),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ShowHintProvider(_controller),
         ),
       ],
       builder: (context, child) {
@@ -108,32 +103,28 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         children: [
           SubHeaderTile(strings.settingsBasic),
-          ListTile(
+              Consumer<LanguageProvider>(
+                builder: (context, value, child) {
+                  return ListTile(
             title: Text(strings.settingsLanguage),
-            // TODO  ver como escrever "(default)" na frente da palavra
-            subtitle: Text(_languageOptions[_languageSelectedIdx].title),
-            leading: JIcons.language,
-            onTap: () async {
-              final selectedIdx = await Navigator.push(
+                    subtitle: Text(value.languageSelectedText),
+                    leading: ImageIcon(AssetImage(value.languageIconUrl)),
+                    onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SelectionOptionPage(
+                        builder: (context) => SelectionOptionPage2(
                     title: strings.settingsSelectLanguage,
-                    optionSelectedIndex: _languageSelectedIdx,
-                    options: _languageOptions,
+                          selectedOptionKey: value.selectedLanguageKey,
+                          options: value.languageOptions,
+                          onSelected: (selectedKey) {
+                            final String key = selectedKey as String;
+                            value.changeLanguage(key);
+                            _updateLocaleOnApp(context, key);
+                          },
+                        ),
                   ),
                 ),
               );
-              setState(() {
-                _languageSelectedIdx = selectedIdx as int;
-                if (_languageSelectedIdx == 0) {
-                  _updateLocaleOnApp(context, "en");
-                } else if (_languageSelectedIdx == 1) {
-                  _updateLocaleOnApp(context, "pt_BR");
-                } else if (_languageSelectedIdx == 2) {
-                  _updateLocaleOnApp(context, "es");
-                }
-              });
             },
           ),
               Consumer<DarkThemeProvider>(
@@ -210,3 +201,62 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
+
+class SelectionOption2 {
+  const SelectionOption2(this.id, this.label, {this.iconUrl = ""});
+
+  final dynamic id;
+  final String label;
+  final String iconUrl;
+}
+
+class SelectionOptionPage2 extends StatelessWidget {
+  const SelectionOptionPage2({
+    Key? key,
+    required this.title,
+    required this.selectedOptionKey,
+    required this.options,
+    required this.onSelected,
+  }) : super(key: key);
+
+  final String title;
+  final dynamic selectedOptionKey;
+  final List<SelectionOption2> options;
+  final Function(dynamic) onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        onSelected(selectedOptionKey);
+        Navigator.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: ListView.builder(
+          itemCount: options.length,
+          itemBuilder: (context, index) {
+            final option = options[index];
+            return RadioListTile(
+              title: Text(option.label),
+              value: index,
+              groupValue: options.indexWhere((SelectionOption2 pOption) {
+                return pOption.id == selectedOptionKey;
+              }),
+              onChanged: (int? value) {
+                onSelected(options[value!].id);
+                Navigator.pop(context);
+              },
+              secondary: (option.iconUrl.isNotEmpty)
+                  ? ImageIcon(AssetImage(option.iconUrl))
+                  : null,
+              controlAffinity: ListTileControlAffinity.trailing,
+            );
+          },
+        ),
+      ),
+    );
+  }

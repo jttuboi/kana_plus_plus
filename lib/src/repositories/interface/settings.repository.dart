@@ -1,4 +1,7 @@
 abstract class ISettingsRepository {
+  String getLanguage();
+
+  void saveLanguage(String value);
 
   bool getDarkTheme();
 

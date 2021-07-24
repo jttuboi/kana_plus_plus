@@ -21,6 +21,11 @@ class SharedPreferencesStorageProvider implements ICacheStorageProvider {
   }
 
   @override
+  String getString(String key, {String defaultValue = ""}) {
+    return _preferences.getString(key) ?? defaultValue;
+  }
+
+  @override
   Future<void> setInt(String key, int value) async {
     _preferences.setInt(key, value);
   }
@@ -28,5 +33,10 @@ class SharedPreferencesStorageProvider implements ICacheStorageProvider {
   @override
   Future<void> setBool(String key, bool value) async {
     _preferences.setBool(key, value);
+  }
+
+  @override
+  Future<void> setString(String key, String value) async {
+    _preferences.setString(key, value);
   }
 }

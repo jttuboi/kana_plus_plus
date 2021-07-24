@@ -5,6 +5,14 @@ class SettingsController {
 
   ISettingsRepository repository;
 
+  String getSelectedLanguageKey() {
+    return repository.getLanguage();
+  }
+
+  void updateLanguage(String value) {
+    repository.saveLanguage(value);
+  }
+
   bool isDarkTheme() {
     return repository.getDarkTheme();
   }

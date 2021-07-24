@@ -3,6 +3,16 @@ import 'package:kana_plus_plus/src/shared/cache_storage.dart';
 
 class SettingsRepository implements ISettingsRepository {
   @override
+  String getLanguage() {
+    return CacheStorage.getString("language", defaultValue: "en");
+  }
+
+  @override
+  void saveLanguage(String value) {
+    CacheStorage.setString("language", value);
+  }
+
+  @override
   bool getDarkTheme() {
     return CacheStorage.getBool("dark_theme");
   }
