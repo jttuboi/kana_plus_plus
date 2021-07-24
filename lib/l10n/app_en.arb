@@ -1,22 +1,54 @@
 {
     "settingsTitle": "Settings",
-    "@settingsTitle": {
-        "description": ""
-    },
-    "settingsSubHeaderBasic": "Basic",
-    "@settingsSubHeaderBasic": {
-        "description": ""
-    },
+    "@settingsTitle": { "description": "" },
+    "settingsBasic": "Basic",
+    "@settingsBasic": { "description": "" },
     "settingsLanguage": "Language",
-    "@settingsLanguage": {
-        "description": ""
-    },
+    "@settingsLanguage": { "description": "" },
     "settingsSelectLanguage": "Select language",
-    "@settingsSelectLanguage": {
-        "description": ""
-    },
+    "@settingsSelectLanguage": { "description": "" },
+    "settingsDarkTheme": "Dark theme",
+    "@settingsDarkTheme": { "description": "" },
+    "settingsDefaultTrainingSetting": "Default training setting",
+    "@settingsDefaultTrainingSetting": { "description": "" },
     "settingsWritingHand": "Writing hand",
-    "@settingsWritingHand": {
-        "description": ""
-    }
+    "@settingsWritingHand": { "description": "" },
+    "settingsWritingHandLeft": "Left hand",
+    "@settingsWritingHandLeft": { "description": "" },
+    "settingsWritingHandRight": "Right hand",
+    "@settingsWritingHandRight": { "description": "" },
+    "settingsShowHint": "Show hint",
+    "@settingsShowHint": { "description": "" },
+    "settingsKanaType": "Kana type",
+    "@settingsKanaType": { "description": "" },
+    "settingsSelectKanaType": "Select kana type",
+    "@settingsSelectKanaType": { "description": "" },
+    "settingsOnlyHiragana": "Only hiragana",
+    "@settingsOnlyHiragana": { "description": "" },
+    "settingsOnlyKatakana": "Only katakana",
+    "@settingsOnlyKatakana": { "description": "" },
+    "settingsOnlyHiraganaKatakana": "Hiragana/Katakana",
+    "@settingsOnlyHiraganaKatakana": { "description": "" },
+    "settingsQuantityOfWords": "Quantity of words",
+    "@settingsQuantityOfWords": { "description": "" },
+    "settingsOthers": "Others",
+    "@settingsOthers": { "description": "" },
+    "settingsAbout": "About",
+    "@settingsAbout": { "description": "" },
+    "settingsAbout1": "blablable",
+    "@settingsAbout1": { "description": "" },
+    "settingsAbout2": "informaçoes sobre mim",
+    "@settingsAbout2": { "description": "" },
+    "settingsAbout3": "contato",
+    "@settingsAbout3": { "description": "" },
+    "settingsAbout4": "de onde os dados vieram",
+    "@settingsAbout4": { "description": "" },
+    "settingsPrivacyPolicy": "Privacy policy",
+    "@settingsPrivacyPolicy": { "description": "" },
+    "settingsPrivacyPolicy1": "citar sobre uso",
+    "@settingsPrivacyPolicy1": { "description": "" },
+    "settingsPrivacyPolicy2": "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla",
+    "@settingsPrivacyPolicy2": { "description": "" },
+    "settingsSupport": "Support development of this app",
+    "@settingsSupport": { "description": "" }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/models/selection_option.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/views/android/pages/selection_option.page.dart';
@@ -22,6 +23,9 @@ class _KanaTypeTileState extends State<KanaTypeTile> {
 
   final List<SelectionOption> _kanaOptions = [
     // AQUI localization icon
+    // "settingsOnlyHiragana": "Apenas hiragana",
+    // "settingsOnlyKatakana": "Apenas katakana",
+    // "settingsOnlyHiraganaKatakana": "Hiragana/Katakana",
     const SelectionOption("Only hiragana", icon: JIcons.hiragana),
     const SelectionOption("Only katakana", icon: JIcons.katakana),
     const SelectionOption("Hiragana/Katakana", icon: JIcons.hiraganaKatakana),
@@ -35,8 +39,9 @@ class _KanaTypeTileState extends State<KanaTypeTile> {
 
   @override
   Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
     return ListTile(
-      title: const Text("Kana type"), // AQUI localization
+      title: Text(strings.settingsKanaType),
       subtitle: Text(_kanaOptions[_kanaSelectedIdx].title),
       leading: _kanaOptions[_kanaSelectedIdx].icon,
       onTap: () async {
@@ -44,7 +49,7 @@ class _KanaTypeTileState extends State<KanaTypeTile> {
           context,
           MaterialPageRoute(
             builder: (context) => SelectionOptionPage(
-              title: "Select kana type", // AQUI localization
+              title: strings.settingsSelectKanaType,
               optionSelectedIndex: _kanaSelectedIdx,
               options: _kanaOptions,
             ),

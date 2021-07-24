@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 
 class QuantityOfWordsTile extends StatefulWidget {
@@ -30,9 +31,10 @@ class _QuantityOfWordsTileState extends State<QuantityOfWordsTile> {
 
   @override
   Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
     return ListTile(
       leading: JIcons.quantityOfWords,
-      title: const Text("Quantity of words"), // AQUI localization
+      title: Text(strings.settingsQuantityOfWords),
       subtitle: SliderTheme(
         data: SliderTheme.of(context).copyWith(
           trackShape: _CustomTrackShape(),

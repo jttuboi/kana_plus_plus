@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/providers/dark_mode.provider.dart';
+import 'package:kana_plus_plus/src/providers/locale_provider.dart';
 import 'package:kana_plus_plus/src/providers/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
 import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
@@ -65,6 +67,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   final List<Description> _aboutDescriptions = [
     // AQUI localization
+    // "settingsAbout1": "blablable",
+    // "settingsAbout2": "informaçoes sobre mim",
+    // "settingsAbout3": "contato",
+    // "settingsAbout4": "de onde os dados vieram",
     Description.title("blablable"),
     Description.content("informaçoes sobre mim"),
     Description.content("contato"),
@@ -73,12 +79,19 @@ class _SettingsPageState extends State<SettingsPage> {
 
   final List<Description> _privacyPolicyDescriptions = [
     // AQUI localization
+    // "settingsPrivacyPolicy1": "citar sobre uso",
+    // "settingsPrivacyPolicy2": "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla",
     Description.title("citar sobre uso"),
     Description.content(
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
   ];
 
-//  final SettingsBloc _bloc = SettingsBloc();
+  void _updateLocaleOnApp(BuildContext context, String localeCode) {
+    final provider = Provider.of<LocaleProvider>(context, listen: false);
+    provider.setLocale(JStrings.supportedLocales.firstWhere((Locale locale) {
+      return locale.toString() == localeCode;
+    }));
+  }
 
   void _updateDarkMode(bool value) {
     final bloc = Provider.of<DarkModeProvider>(context, listen: false);
@@ -92,16 +105,18 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
+
     print("=== build SettingsPage ===");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"), // AQUI localization
+        title: Text(strings.settingsTitle),
       ),
       body: ListView(
         children: [
-          const SubHeaderTile("Basic"), // AQUI localization
+          SubHeaderTile(strings.settingsBasic),
           ListTile(
-            title: const Text("Language"), // AQUI localization
+            title: Text(strings.settingsLanguage),
             // TODO  ver como escrever "(default)" na frente da palavra
             subtitle: Text(_languageOptions[_languageSelectedIdx].title),
             leading: JIcons.language,
@@ -110,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SelectionOptionPage(
-                    title: "Select language", // AQUI localization
+                    title: strings.settingsSelectLanguage,
                     optionSelectedIndex: _languageSelectedIdx,
                     options: _languageOptions,
                   ),
@@ -118,14 +133,20 @@ class _SettingsPageState extends State<SettingsPage> {
               );
               setState(() {
                 _languageSelectedIdx = selectedIdx as int;
+                if (_languageSelectedIdx == 0) {
+                  _updateLocaleOnApp(context, "en");
+                } else if (_languageSelectedIdx == 1) {
+                  _updateLocaleOnApp(context, "pt_BR");
+                } else if (_languageSelectedIdx == 2) {
+                  _updateLocaleOnApp(context, "es");
+                }
               });
             },
           ),
           Consumer<DarkModeProvider>(
             builder: (context, value, child) {
               return SwitchListTile(
-                //                                                              strings.settingsShowHint
-                title: const Text("Dark mode"),
+                title: Text(strings.settingsDarkTheme),
                 value: value.darkMode,
                 onChanged: _updateDarkMode,
                 secondary: ImageIcon(AssetImage(value.darkModeIconUrl)),
@@ -133,12 +154,11 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           const Divider(),
-          const SubHeaderTile("Default training setting"),
+          SubHeaderTile(strings.settingsDefaultTrainingSetting),
           Consumer<ShowHintProvider>(
             builder: (context, value, child) {
               return SwitchListTile(
-                //                                                              strings.settingsShowHint
-                title: const Text("Show hint"),
+                title: Text(strings.settingsShowHint),
                 value: value.showHint,
                 onChanged: _updateShowHint,
                 secondary: ImageIcon(AssetImage(value.showHintIconUrl)),
@@ -158,36 +178,36 @@ class _SettingsPageState extends State<SettingsPage> {
             }),
           ),
           const Divider(),
-          const SubHeaderTile("Others"), // AQUI localization
+          SubHeaderTile(strings.settingsOthers),
           ListTile(
-            title: const Text("About"), // AQUI localization
+            title: Text(strings.settingsAbout),
             leading: JIcons.about,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => DescriptionPage(
-                  title: "About", // AQUI localization
+                  title: strings.settingsAbout,
                   descriptions: _aboutDescriptions,
                 ),
               ),
             ),
           ),
           ListTile(
-            title: const Text("Privacy policy"), // AQUI localization
+            title: Text(strings.settingsPrivacyPolicy),
             leading: JIcons.privacyPolicy,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => DescriptionPage(
-                  title: "Privacy policy", // AQUI localization
+                  title: strings.settingsPrivacyPolicy,
                   descriptions: _privacyPolicyDescriptions,
                 ),
               ),
             ),
           ),
           // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
-          const ListTile(
-            title: Text("Support development of this app"), // AQUI localization
+          ListTile(
+            title: Text(strings.settingsSupport),
             leading: JIcons.support,
           ),
         ],

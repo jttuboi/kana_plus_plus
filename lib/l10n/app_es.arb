@@ -1,7 +1,29 @@
 {
     "settingsTitle": "Ajustes",
-    "settingsSubHeaderBasic": "Básico",
+    "settingsBasic": "Básico",
     "settingsLanguage": "Idioma",
     "settingsSelectLanguage": "Seleccione el idioma",
-    "settingsWritingHand": "Mano de escritura"
+    "settingsDarkTheme": "Tema oscuro",
+    "settingsDefaultTrainingSetting": "Configuración de entrenamiento predeterminada",
+    "settingsWritingHand": "Mano de escritura",
+    "settingsWritingHandLeft": "Zurdo",
+    "settingsWritingHandRight": "Diestro"
+    ,
+    "settingsShowHint": "Show hint",
+    "settingsKanaType": "Kana type",
+    "settingsSelectKanaType": "Select kana type",
+    "settingsOnlyHiragana": "Only hiragana",
+    "settingsOnlyKatakana": "Only katakana",
+    "settingsOnlyHiraganaKatakana": "Hiragana/Katakana",
+    "settingsQuantityOfWords": "Quantity of words",
+    "settingsOthers": "Others",
+    "settingsAbout": "About",
+    "settingsAbout1": "blablable",
+    "settingsAbout2": "informaçoes sobre mim",
+    "settingsAbout3": "contato",
+    "settingsAbout4": "de onde os dados vieram",
+    "settingsPrivacyPolicy": "Privacy policy",
+    "settingsPrivacyPolicy1": "citar sobre uso",
+    "settingsPrivacyPolicy2": "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla",
+    "settingsSupport": "Support development of this app"
 }
