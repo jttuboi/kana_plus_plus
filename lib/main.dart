@@ -17,5 +17,6 @@ void main() {
 }
 
 Future<void> initCacheStorage() async {
-  CacheStorage.init(provider: SharedPreferencesStorageProvider());
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheStorage.init(provider: SharedPreferencesStorageProvider());
 }

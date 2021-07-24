@@ -5,8 +5,8 @@ class JIcons {
 
   static const ImageIcon about =
       ImageIcon(AssetImage("lib/assets/icons/black/about.png"));
-  static const ImageIcon darkMode =
-      ImageIcon(AssetImage("lib/assets/icons/black/dark_mode.png"));
+  static const ImageIcon darkTheme =
+      ImageIcon(AssetImage("lib/assets/icons/black/dark_theme.png"));
   static const ImageIcon eraser =
       ImageIcon(AssetImage("lib/assets/icons/black/eraser.png"));
   static const ImageIcon hiraganaKatakana =

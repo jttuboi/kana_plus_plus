@@ -3,13 +3,13 @@ import 'package:kana_plus_plus/src/shared/cache_storage.dart';
 
 class SettingsRepository implements ISettingsRepository {
   @override
-  bool getDarkMode() {
-    return CacheStorage.getBool("dark_mode");
+  bool getDarkTheme() {
+    return CacheStorage.getBool("dark_theme");
   }
 
   @override
-  void saveDarkMode(bool value) {
-    CacheStorage.setBool("dark_mode", value);
+  void saveDarkTheme(bool value) {
+    CacheStorage.setBool("dark_theme", value);
   }
 
   @override

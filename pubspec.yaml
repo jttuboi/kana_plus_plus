@@ -34,13 +34,13 @@ flutter:
   
   assets:
     - lib/assets/icons/black/about.png
-    - lib/assets/icons/black/dark_mode.png
+    - lib/assets/icons/black/dark_theme.png
     - lib/assets/icons/black/eraser.png
     - lib/assets/icons/black/hiragana_katakana.png
     - lib/assets/icons/black/hiragana.png
     - lib/assets/icons/black/katakana.png
     - lib/assets/icons/black/language.png
-    - lib/assets/icons/black/light_mode.png
+    - lib/assets/icons/black/light_theme.png
     - lib/assets/icons/black/privacy_policy.png
     - lib/assets/icons/black/quantity_of_words.png
     - lib/assets/icons/black/quit.png

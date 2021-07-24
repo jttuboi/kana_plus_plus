@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'interface/cache_storage.provider.dart';
@@ -8,7 +7,6 @@ class SharedPreferencesStorageProvider implements ICacheStorageProvider {
 
   @override
   Future<void> init() async {
-    WidgetsFlutterBinding.ensureInitialized();
     _preferences = await SharedPreferences.getInstance();
   }
 

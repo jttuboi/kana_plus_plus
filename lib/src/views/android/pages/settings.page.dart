@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/providers/dark_mode.provider.dart';
+import 'package:kana_plus_plus/src/providers/dark_theme.provider.dart';
 import 'package:kana_plus_plus/src/providers/locale_provider.dart';
 import 'package:kana_plus_plus/src/providers/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
 import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
+import 'package:kana_plus_plus/src/providers/theme_provider.dart';
 import 'package:kana_plus_plus/src/repositories/settings.repository.dart';
 import 'package:kana_plus_plus/src/views/android/pages/description.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/selection_option.page.dart';
@@ -15,28 +16,6 @@ import 'package:kana_plus_plus/src/models/selection_option.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:provider/provider.dart';
 
-class HomePageSupport extends StatelessWidget {
-  HomePageSupport({Key? key}) : super(key: key);
-
-  final SettingsController _controller =
-      SettingsController(SettingsRepository());
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => ShowHintProvider(_controller),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => DarkModeProvider(_controller),
-        ),
-      ],
-      child: const SettingsPage(),
-    );
-  }
-}
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -45,6 +24,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final _controller = SettingsController(SettingsRepository());
+
   int _languageSelectedIdx = 0; // english
   final List<SelectionOption> _languageOptions = [
     // AQUI localization
@@ -93,21 +74,33 @@ class _SettingsPageState extends State<SettingsPage> {
     }));
   }
 
-  void _updateDarkMode(bool value) {
-    final bloc = Provider.of<DarkModeProvider>(context, listen: false);
-    bloc.changeDarkMode(value);
+  void _updateDarkTheme(BuildContext context, bool value) {
+    final provider = Provider.of<DarkThemeProvider>(context, listen: false);
+    provider.changeDarkTheme(value);
+
+    final provider2 = Provider.of<ThemeProvider>(context, listen: false);
+    provider2.updateThemeMode(provider.isDarkTheme);
   }
 
-  void _updateShowHint(bool value) {
-    final bloc = Provider.of<ShowHintProvider>(context, listen: false);
-    bloc.changeShowHint(value);
+  void _updateShowHint(BuildContext context, bool value) {
+    final provider = Provider.of<ShowHintProvider>(context, listen: false);
+    provider.changeShowHint(value);
   }
 
   @override
   Widget build(BuildContext context) {
     final JStrings strings = JStrings.of(context)!;
 
-    print("=== build SettingsPage ===");
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ShowHintProvider(_controller),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DarkThemeProvider(_controller),
+        ),
+      ],
+      builder: (context, child) {
     return Scaffold(
       appBar: AppBar(
         title: Text(strings.settingsTitle),
@@ -143,13 +136,13 @@ class _SettingsPageState extends State<SettingsPage> {
               });
             },
           ),
-          Consumer<DarkModeProvider>(
+              Consumer<DarkThemeProvider>(
             builder: (context, value, child) {
               return SwitchListTile(
                 title: Text(strings.settingsDarkTheme),
-                value: value.darkMode,
-                onChanged: _updateDarkMode,
-                secondary: ImageIcon(AssetImage(value.darkModeIconUrl)),
+                    value: value.isDarkTheme,
+                    onChanged: (value) => _updateDarkTheme(context, value),
+                    secondary: ImageIcon(AssetImage(value.darkThemeIconUrl)),
               );
             },
           ),
@@ -159,8 +152,8 @@ class _SettingsPageState extends State<SettingsPage> {
             builder: (context, value, child) {
               return SwitchListTile(
                 title: Text(strings.settingsShowHint),
-                value: value.showHint,
-                onChanged: _updateShowHint,
+                    value: value.isShowHint,
+                    onChanged: (value) => _updateShowHint(context, value),
                 secondary: ImageIcon(AssetImage(value.showHintIconUrl)),
               );
             },
@@ -211,7 +204,9 @@ class _SettingsPageState extends State<SettingsPage> {
             leading: JIcons.support,
           ),
         ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

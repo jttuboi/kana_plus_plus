@@ -7,9 +7,8 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[100],
-      child: Center(
+    return Scaffold(
+      body: Center(
         child: GridView.count(
           mainAxisSpacing: 16.0,
           crossAxisSpacing: 16.0,
