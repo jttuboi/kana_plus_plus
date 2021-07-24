@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/providers/dark_mode.provider.dart';
 import 'package:kana_plus_plus/src/providers/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
 import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
@@ -13,13 +14,22 @@ import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:provider/provider.dart';
 
 class HomePageSupport extends StatelessWidget {
-  const HomePageSupport({Key? key}) : super(key: key);
+  HomePageSupport({Key? key}) : super(key: key);
+
+  final SettingsController _controller =
+      SettingsController(SettingsRepository());
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) =>
-          ShowHintProvider(SettingsController(SettingsRepository())),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ShowHintProvider(_controller),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DarkModeProvider(_controller),
+        ),
+      ],
       child: const SettingsPage(),
     );
   }
@@ -70,14 +80,19 @@ class _SettingsPageState extends State<SettingsPage> {
 
 //  final SettingsBloc _bloc = SettingsBloc();
 
+  void _updateDarkMode(bool value) {
+    final bloc = Provider.of<DarkModeProvider>(context, listen: false);
+    bloc.changeDarkMode(value);
+  }
+
   void _updateShowHint(bool value) {
-    var bloc = Provider.of<ShowHintProvider>(context, listen: false);
+    final bloc = Provider.of<ShowHintProvider>(context, listen: false);
     bloc.changeShowHint(value);
   }
 
   @override
   Widget build(BuildContext context) {
-    print("=== build settings page ===");
+    print("=== build SettingsPage ===");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"), // AQUI localization
@@ -106,34 +121,16 @@ class _SettingsPageState extends State<SettingsPage> {
               });
             },
           ),
-          ListTile(
-            title: const Text("Writing hand"), // AQUI localization
-            subtitle: Text(_writingHandOptions[_writingHandSelectedIdx].title),
-            leading: _writingHandOptions[_writingHandSelectedIdx].icon,
-            onTap: () async {
-              final selectedIdx = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SelectionOptionPage(
-                    title: "Select writing hand", // AQUI localization
-                    optionSelectedIndex: _writingHandSelectedIdx,
-                    options: _writingHandOptions,
-                  ),
-                ),
+          Consumer<DarkModeProvider>(
+            builder: (context, value, child) {
+              return SwitchListTile(
+                //                                                              strings.settingsShowHint
+                title: const Text("Dark mode"),
+                value: value.darkMode,
+                onChanged: _updateDarkMode,
+                secondary: ImageIcon(AssetImage(value.darkModeIconUrl)),
               );
-              setState(() {
-                _writingHandSelectedIdx = selectedIdx as int;
-              });
             },
-          ),
-          SwitchListTile(
-            //  TODO setar default do sistema ao entrar (ver como escrever "(default)" na frente da palavra)
-            title: const Text("Dark mode"),
-            value: _darkMode,
-            onChanged: (value) => setState(() {
-              _darkMode = value;
-            }),
-            secondary: _darkMode ? JIcons.darkMode : JIcons.lightMode,
           ),
           const Divider(),
           const SubHeaderTile("Default training setting"),

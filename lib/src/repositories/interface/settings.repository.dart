@@ -1,4 +1,10 @@
 abstract class ISettingsRepository {
-  Future<bool> getShowHint();
-  Future<void> saveShowHint(bool value);
+
+  bool getDarkMode();
+
+  void saveDarkMode(bool value);
+
+  bool getShowHint();
+
+  void saveShowHint(bool value);
 }

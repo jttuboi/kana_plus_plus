@@ -1,17 +1,24 @@
-import 'package:kana_plus_plus/src/repositories/interface/local_storage.dart';
 import 'package:kana_plus_plus/src/repositories/interface/settings.repository.dart';
-import 'package:kana_plus_plus/src/repositories/shared_preferences_local_storage.dart';
+import 'package:kana_plus_plus/src/shared/cache_storage.dart';
 
 class SettingsRepository implements ISettingsRepository {
-  ILocalStorage localStorage = SharedPreferencesLocalStorage();
-
   @override
-  Future<bool> getShowHint() {
-    return localStorage.getBool("show_hint");
+  bool getDarkMode() {
+    return CacheStorage.getBool("dark_mode");
   }
 
   @override
-  Future<void> saveShowHint(bool value) async {
-    localStorage.setBool("show_hint", value);
+  void saveDarkMode(bool value) {
+    CacheStorage.setBool("dark_mode", value);
+  }
+
+  @override
+  bool getShowHint() {
+    return CacheStorage.getBool("show_hint", defaultValue: true);
+  }
+
+  @override
+  void saveShowHint(bool value) {
+    CacheStorage.setBool("show_hint", value);
   }
 }

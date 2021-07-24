@@ -3,30 +3,20 @@ import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
 
 class ShowHintProvider extends ChangeNotifier {
   ShowHintProvider(this.controller) {
-    controller.getShowHint().then((value) {
-      _showHint = value;
-      notifyListeners();
-    });
+    showHint = controller.getShowHint();
+    notifyListeners();
   }
 
   SettingsController controller;
 
-  bool _showHint = false;
-
-  bool get showHint {
-    controller.getShowHint().then((value) {
-      _showHint = value;
-      notifyListeners();
-    });
-    return _showHint;
-  }
+  late bool showHint;
 
   String get showHintIconUrl {
-    return controller.getShowHintIconUrl(_showHint);
+    return controller.getShowHintIconUrl(showHint);
   }
 
   void changeShowHint(bool pShowHint) {
-    _showHint = pShowHint;
+    showHint = pShowHint;
     controller.updateShowHint(pShowHint);
     notifyListeners();
   }

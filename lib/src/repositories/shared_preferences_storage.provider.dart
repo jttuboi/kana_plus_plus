@@ -1,0 +1,34 @@
+import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'interface/cache_storage.provider.dart';
+
+class SharedPreferencesStorageProvider implements ICacheStorageProvider {
+  late SharedPreferences _preferences;
+
+  @override
+  Future<void> init() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    _preferences = await SharedPreferences.getInstance();
+  }
+
+  @override
+  int getInt(String key, {int defaultValue = 0}) {
+    return _preferences.getInt(key) ?? defaultValue;
+  }
+
+  @override
+  bool getBool(String key, {bool defaultValue = false}) {
+    return _preferences.getBool(key) ?? defaultValue;
+  }
+
+  @override
+  Future<void> setInt(String key, int value) async {
+    _preferences.setInt(key, value);
+  }
+
+  @override
+  Future<void> setBool(String key, bool value) async {
+    _preferences.setBool(key, value);
+  }
+}

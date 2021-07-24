@@ -41,7 +41,7 @@ class AndroidApp extends StatelessWidget {
             //Routes.review: (context) => const ReviewPage(),
             Routes.words: (context) => const WordsPage(),
             Routes.word: (context) => const WordPage(),
-            Routes.settings: (context) => const HomePageSupport(),
+            Routes.settings: (context) => HomePageSupport(),
           },
           onGenerateRoute: (settings) {
             if (settings.name == Routes.training) {
