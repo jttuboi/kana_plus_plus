@@ -1,8 +1,8 @@
 abstract class ISettingsRepository {
 
-  bool getDarkMode();
+  bool getDarkTheme();
 
-  void saveDarkMode(bool value);
+  void saveDarkTheme(bool value);
 
   bool getShowHint();
 
