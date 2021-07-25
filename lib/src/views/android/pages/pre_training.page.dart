@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/routes.dart';
