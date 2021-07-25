@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
-import 'package:kana_plus_plus/src/domain/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/blocs/settings.bloc.dart';
 import 'package:kana_plus_plus/src/presentation/providers/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
@@ -27,13 +26,13 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final _controller = SettingsController(SettingsRepository());
+  final _repository = SettingsRepository();
   late final SettingsBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _bloc = SettingsBloc(_controller);
+    _bloc = SettingsBloc(_repository);
   }
 
   @override
@@ -43,22 +42,22 @@ class _SettingsPageState extends State<SettingsPage> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => LanguageProvider(_controller),
+          create: (context) => LanguageProvider(_repository),
         ),
         ChangeNotifierProvider(
-          create: (context) => WritingHandProvider(_controller),
+          create: (context) => WritingHandProvider(_repository),
         ),
         ChangeNotifierProvider(
-          create: (context) => DarkThemeProvider(_controller),
+          create: (context) => DarkThemeProvider(_repository),
         ),
         ChangeNotifierProvider(
-          create: (context) => ShowHintProvider(_controller),
+          create: (context) => ShowHintProvider(_repository),
         ),
         ChangeNotifierProvider(
-          create: (context) => KanaTypeProvider(_controller),
+          create: (context) => KanaTypeProvider(_repository),
         ),
         ChangeNotifierProvider(
-          create: (context) => QuantityOfWordsProvider(_controller),
+          create: (context) => QuantityOfWordsProvider(_repository),
         ),
       ],
       builder: (context, child) {

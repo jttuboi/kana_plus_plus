@@ -1,21 +1,21 @@
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/settings.controller.dart';
+import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
 
 class ShowHintProvider extends ChangeNotifier {
-  ShowHintProvider(this._controller) {
-    isShowHint = _controller.isShowHint();
+  ShowHintProvider(this._repository) {
+    isShowHint = _repository.isShowHint();
     notifyListeners();
   }
 
-  final SettingsController _controller;
+  final ISettingsRepository _repository;
 
   late bool isShowHint;
 
-  String get iconUrl => _controller.getShowHintIconUrl(isShowHint);
+  String get iconUrl => _repository.getShowHintIconUrl(isShowHint);
 
   void updateShowHint(bool pIsShowHint) {
     isShowHint = pIsShowHint;
-    _controller.updateShowHint(pIsShowHint);
+    _repository.saveShowHint(pIsShowHint);
     notifyListeners();
   }
 }

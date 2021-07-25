@@ -1,11 +1,11 @@
 import 'package:kana_plus_plus/src/domain/entities/description_type.dart';
 
-class DescriptionViewModel {
-  DescriptionViewModel.title(this.text) {
+class DescriptionModel {
+  DescriptionModel.title(this.text) {
     type = DescriptionType.title;
   }
 
-  DescriptionViewModel.content(this.text) {
+  DescriptionModel.content(this.text) {
     type = DescriptionType.content;
   }
 

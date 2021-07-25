@@ -1,3 +1,5 @@
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:kana_plus_plus/src/data/models/description.model.dart';
 import 'package:kana_plus_plus/src/data/models/kana_type.model.dart';
 import 'package:kana_plus_plus/src/data/models/writing_hand.model.dart';
 import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
@@ -12,8 +14,18 @@ class SettingsRepository implements ISettingsRepository {
   }
 
   @override
+  String getLanguageIconUrl() {
+    return "lib/assets/icons/black/language.png";
+  }
+
+  @override
   void saveLanguageSelected(String value) {
     CacheStorage.setString("language", value);
+  }
+
+  @override
+  String getLanguageText(String key) {
+    return LocaleNamesLocalizationsDelegate.nativeLocaleNames[key] ?? "English";
   }
 
   // TODO colocar numa database
@@ -33,19 +45,27 @@ class SettingsRepository implements ISettingsRepository {
   }
 
   @override
-  int getWritingHandSelected() {
-    return CacheStorage.getInt("writing_hand",
+  WritingHand getWritingHandSelected() {
+    final int writingHandIndex = CacheStorage.getInt("writing_hand",
         defaultValue: WritingHand.right.index);
+    return WritingHand.values[writingHandIndex];
   }
 
   @override
-  void saveWritingHandSelected(int value) {
-    CacheStorage.setInt("writing_hand", value);
+  void saveWritingHandSelected(WritingHand value) {
+    CacheStorage.setInt("writing_hand", value.index);
   }
 
   @override
-  bool getDarkTheme() {
+  bool isDarkTheme() {
     return CacheStorage.getBool("dark_theme");
+  }
+
+  @override
+  String getDarkThemeIconUrl(bool value) {
+    return value
+        ? "lib/assets/icons/black/dark_theme.png"
+        : "lib/assets/icons/black/light_mode.png";
   }
 
   @override
@@ -54,8 +74,15 @@ class SettingsRepository implements ISettingsRepository {
   }
 
   @override
-  bool getShowHint() {
+  bool isShowHint() {
     return CacheStorage.getBool("show_hint", defaultValue: true);
+  }
+
+  @override
+  String getShowHintIconUrl(bool value) {
+    return value
+        ? "lib/assets/icons/black/show_hint.png"
+        : "lib/assets/icons/black/not_show_hint.png";
   }
 
   @override
@@ -83,13 +110,15 @@ class SettingsRepository implements ISettingsRepository {
   }
 
   @override
-  int getKanaTypeSelected() {
-    return CacheStorage.getInt("kana_type", defaultValue: KanaType.both.index);
+  KanaType getKanaTypeSelected() {
+    final int kanaIndex =
+        CacheStorage.getInt("kana_type", defaultValue: KanaType.both.index);
+    return KanaType.values[kanaIndex];
   }
 
   @override
-  void saveKanaTypeSelected(int value) {
-    CacheStorage.setInt("kana_type", value);
+  void saveKanaTypeSelected(KanaType value) {
+    CacheStorage.setInt("kana_type", value.index);
   }
 
   @override
@@ -98,7 +127,46 @@ class SettingsRepository implements ISettingsRepository {
   }
 
   @override
+  String getQuantityOfWordsIconUrl() {
+    return "lib/assets/icons/black/quantity_of_words.png";
+  }
+
+  @override
   void saveQuantityOfWords(int value) {
     CacheStorage.setInt("quantity_of_words", value);
+  }
+
+  @override
+  String getAboutIconUrl() {
+    return "lib/assets/icons/black/about.png";
+  }
+
+  @override
+  List<DescriptionModel> getAboutDescriptions() {
+    return [
+      DescriptionModel.title("blablable"),
+      DescriptionModel.content("informaçoes sobre mim"),
+      DescriptionModel.content("contato"),
+      DescriptionModel.content("de onde os dados vieram"),
+    ];
+  }
+
+  @override
+  String getPrivacyPolicyIconUrl() {
+    return "lib/assets/icons/black/privacy_policy.png";
+  }
+
+  @override
+  List<DescriptionModel> getPrivacyPolicyDescriptions() {
+    return [
+      DescriptionModel.title("citar sobre uso"),
+      DescriptionModel.content(
+          "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
+    ];
+  }
+
+  @override
+  String getSupportIconUrl() {
+    return "lib/assets/icons/black/support.png";
   }
 }

@@ -1,33 +1,19 @@
-import 'package:kana_plus_plus/src/domain/settings.controller.dart';
-import 'package:kana_plus_plus/src/presentation/viewmodels/description.viewmodel.dart';
+import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
+import 'package:kana_plus_plus/src/data/models/description.model.dart';
 
 class SettingsBloc {
-  SettingsBloc(this._controller);
+  SettingsBloc(this._repository);
 
-  final SettingsController _controller;
+  final ISettingsRepository _repository;
 
-  String get aboutIconUrl => "lib/assets/icons/black/about.png";
-  String get privacyPolicyIconUrl =>
-      "lib/assets/icons/black/privacy_policy.png";
-  String get supportIconUrl => "lib/assets/icons/black/support.png";
+  String get aboutIconUrl => _repository.getAboutIconUrl();
+  String get privacyPolicyIconUrl => _repository.getPrivacyPolicyIconUrl();
 
-  List<DescriptionViewModel> get aboutDescriptions => [];
+  String get supportIconUrl => _repository.getSupportIconUrl();
 
-  List<DescriptionViewModel> get privacyPolicyDescriptions => [];
+  List<DescriptionModel> get aboutDescriptions =>
+      _repository.getAboutDescriptions();
 
-///////////////////////ESSES DADOS DEVEM VIR DO BANCO DE DADOS NAO DO TRANSLATE.
-  ///                 O LOCALE DEVE SER PASSADO PARA O BD E DE LÄ ELE RETORNA OS DADOS CORRETOS
-
-  final List<DescriptionViewModel> _aboutDescriptions = [
-    DescriptionViewModel.title("blablable"),
-    DescriptionViewModel.content("informaçoes sobre mim"),
-    DescriptionViewModel.content("contato"),
-    DescriptionViewModel.content("de onde os dados vieram"),
-  ];
-
-  final List<DescriptionViewModel> _privacyPolicyDescriptions = [
-    DescriptionViewModel.title("citar sobre uso"),
-    DescriptionViewModel.content(
-        "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
-  ];
+  List<DescriptionModel> get privacyPolicyDescriptions =>
+      _repository.getPrivacyPolicyDescriptions();
 }

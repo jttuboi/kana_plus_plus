@@ -1,18 +1,18 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/domain/settings.controller.dart';
+import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
 import 'package:kana_plus_plus/src/data/models/kana_type.model.dart';
 import 'package:kana_plus_plus/src/presentation/viewmodels/selection_option.viewmodel.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 
 class KanaTypeProvider extends ChangeNotifier {
-  KanaTypeProvider(this._controller) {
-    _data = _controller.getKanaTypeData();
-    selectedKey = _controller.getKanaTypeSelected();
+  KanaTypeProvider(this._repository) {
+    _data = _repository.getKanaTypeData();
+    selectedKey = _repository.getKanaTypeSelected();
     notifyListeners();
   }
 
-  final SettingsController _controller;
+  final ISettingsRepository _repository;
   late final List<KanaTypeModel> _data;
 
   late KanaType selectedKey;
@@ -39,7 +39,7 @@ class KanaTypeProvider extends ChangeNotifier {
 
   void updateKey(KanaType pSelectedKey) {
     selectedKey = pSelectedKey;
-    _controller.updateKanaTypeSelected(pSelectedKey);
+    _repository.saveKanaTypeSelected(pSelectedKey);
     notifyListeners();
   }
 
