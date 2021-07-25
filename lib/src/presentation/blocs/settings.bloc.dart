@@ -15,12 +15,10 @@ class SettingsBloc {
 
   List<DescriptionViewModel> get privacyPolicyDescriptions => [];
 
+///////////////////////ESSES DADOS DEVEM VIR DO BANCO DE DADOS NAO DO TRANSLATE.
+  ///                 O LOCALE DEVE SER PASSADO PARA O BD E DE LÄ ELE RETORNA OS DADOS CORRETOS
+
   final List<DescriptionViewModel> _aboutDescriptions = [
-    // AQUI localization
-    // "settingsAbout1": "blablable",
-    // "settingsAbout2": "informaçoes sobre mim",
-    // "settingsAbout3": "contato",
-    // "settingsAbout4": "de onde os dados vieram",
     DescriptionViewModel.title("blablable"),
     DescriptionViewModel.content("informaçoes sobre mim"),
     DescriptionViewModel.content("contato"),
@@ -28,9 +26,6 @@ class SettingsBloc {
   ];
 
   final List<DescriptionViewModel> _privacyPolicyDescriptions = [
-    // AQUI localization
-    // "settingsPrivacyPolicy1": "citar sobre uso",
-    // "settingsPrivacyPolicy2": "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla",
     DescriptionViewModel.title("citar sobre uso"),
     DescriptionViewModel.content(
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
