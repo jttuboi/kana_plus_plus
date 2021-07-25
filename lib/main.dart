@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/repositories/shared_preferences_storage.provider.dart';
-import 'package:kana_plus_plus/src/shared/cache_storage.dart';
-import 'package:kana_plus_plus/src/views/android/android_app.dart';
-import 'package:kana_plus_plus/src/views/ios/ios_app.dart';
+import 'package:kana_plus_plus/src/data/datasources/shared_preferences_storage.provider.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache_storage.dart';
+import 'package:kana_plus_plus/src/presentation/android_app.dart';
+import 'package:kana_plus_plus/src/presentation/ios_app.dart';
 
 void main() {
   // init cache storage before app

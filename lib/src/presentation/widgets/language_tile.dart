@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:kana_plus_plus/src/presentation/providers/locale_provider.dart';
 import 'package:kana_plus_plus/src/views/android/pages/selection_option.page.dart';
-import 'package:kana_plus_plus/src/views/providers/language.provider.dart';
-import 'package:kana_plus_plus/src/views/providers/locale_provider.dart';
+import 'package:kana_plus_plus/src/presentation/providers/language.provider.dart';
 import 'package:provider/provider.dart';
 
 class LanguageTile extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
-import 'package:kana_plus_plus/src/models/kana_type.model.dart';
-import 'package:kana_plus_plus/src/views/android/view_models/selection_option.view_model.dart';
-import 'package:kana_plus_plus/src/shared/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/settings.controller.dart';
+import 'package:kana_plus_plus/src/data/models/kana_type.model.dart';
+import 'package:kana_plus_plus/src/presentation/viewmodels/selection_option.view_model.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 
 class KanaTypeProvider extends ChangeNotifier {
   KanaTypeProvider(this._controller) {

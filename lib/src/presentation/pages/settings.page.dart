@@ -1,22 +1,22 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
-import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
-import 'package:kana_plus_plus/src/repositories/settings.repository.dart';
+import 'package:kana_plus_plus/src/domain/settings.controller.dart';
 import 'package:kana_plus_plus/src/views/android/pages/description.page.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/dark_theme_tile.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/language_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/show_hint_tile.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/sub_header_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/writing_hand_tile.dart';
-import 'package:kana_plus_plus/src/views/providers/dark_theme.provider.dart';
-import 'package:kana_plus_plus/src/views/providers/kana_type.provider.dart';
-import 'package:kana_plus_plus/src/views/providers/language.provider.dart';
-import 'package:kana_plus_plus/src/views/providers/show_hint.provider.dart';
-import 'package:kana_plus_plus/src/views/providers/writing_hand_provider.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
+import 'package:kana_plus_plus/src/presentation/providers/dark_theme.provider.dart';
+import 'package:kana_plus_plus/src/presentation/providers/kana_type.provider.dart';
+import 'package:kana_plus_plus/src/presentation/providers/language.provider.dart';
+import 'package:kana_plus_plus/src/presentation/providers/show_hint.provider.dart';
+import 'package:kana_plus_plus/src/presentation/providers/writing_hand_provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {

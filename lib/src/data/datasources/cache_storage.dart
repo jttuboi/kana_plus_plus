@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/repositories/interface/cache_storage.provider.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache_storage.provider.dart';
 
 class CacheStorage {
   // singleton

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/shared/routes.dart';
+import 'package:kana_plus_plus/src/presentation/routes.dart';
 
 class StudyPage extends StatelessWidget {
   const StudyPage({Key? key}) : super(key: key);

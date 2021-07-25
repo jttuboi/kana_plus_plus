@@ -1,5 +1,5 @@
-import 'package:kana_plus_plus/src/models/kana_type.model.dart';
-import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
+import 'package:kana_plus_plus/src/data/models/kana_type.model.dart';
+import 'package:kana_plus_plus/src/data/models/writing_hand.model.dart';
 
 abstract class ISettingsRepository {
   String getLanguageSelected();

@@ -6,7 +6,7 @@ import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/models/word_result.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
-import 'package:kana_plus_plus/src/shared/routes.dart';
+import 'package:kana_plus_plus/src/presentation/routes.dart';
 import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/progress_bar.dart';

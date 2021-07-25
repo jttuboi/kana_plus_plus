@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/views/android/view_models/selection_option.view_model.dart';
+import 'package:kana_plus_plus/src/presentation/viewmodels/selection_option.view_model.dart';
 
 class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage({

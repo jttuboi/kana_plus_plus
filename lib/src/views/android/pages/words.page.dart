@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/shared/routes.dart';
+import 'package:kana_plus_plus/src/presentation/routes.dart';
 
 class WordsPage extends StatelessWidget {
   const WordsPage({Key? key}) : super(key: key);

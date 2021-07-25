@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/rendering.dart';
-import 'package:kana_plus_plus/src/shared/routes.dart';
+import 'package:kana_plus_plus/src/presentation/routes.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);

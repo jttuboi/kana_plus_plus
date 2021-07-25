@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'interface/cache_storage.provider.dart';
+import 'cache_storage.provider.dart';
 
 class SharedPreferencesStorageProvider implements ICacheStorageProvider {
   late SharedPreferences _preferences;
