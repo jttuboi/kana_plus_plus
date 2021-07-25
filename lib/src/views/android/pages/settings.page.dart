@@ -52,11 +52,6 @@ class _SettingsPageState extends State<SettingsPage> {
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
   ];
 
-  void _updateShowHint(BuildContext context, bool value) {
-    final provider = Provider.of<ShowHintProvider>(context, listen: false);
-    provider.changeShowHint(value);
-  }
-
   @override
   Widget build(BuildContext context) {
     final JStrings strings = JStrings.of(context)!;
@@ -89,16 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
               const WritingHandTile(),
               const Divider(),
               SubHeaderTile(strings.settingsDefaultTrainingSetting),
-              Consumer<ShowHintProvider>(
-                builder: (context, value, child) {
-                  return SwitchListTile(
-                    title: Text(strings.settingsShowHint),
-                    value: value.isShowHint,
-                    onChanged: (value) => _updateShowHint(context, value),
-                    secondary: ImageIcon(AssetImage(value.showHintIconUrl)),
-                  );
-                },
-              ),
+              const ShowHintTile(),
               KanaTypeTile(
                 _kanaSelectedIdx,
                 onOptionSelected: (index) => setState(() {
@@ -210,7 +196,7 @@ class DarkThemeTile extends StatelessWidget {
           value: provider.isDarkTheme,
           onChanged: (value) {
             provider.updateDarkTheme(value);
-            _updateThemeOnApp(context, provider.isDarkTheme);
+            _updateThemeOnApp(context, value);
           },
           secondary: ImageIcon(AssetImage(provider.iconUrl)),
         );
@@ -244,6 +230,27 @@ class WritingHandTile extends StatelessWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+class ShowHintTile extends StatelessWidget {
+  const ShowHintTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
+    return Consumer<ShowHintProvider>(
+      builder: (context, provider, child) {
+        return SwitchListTile(
+          title: Text(strings.settingsShowHint),
+          value: provider.isShowHint,
+          onChanged: (value) {
+            provider.updateShowHint(value);
+          },
+          secondary: ImageIcon(AssetImage(provider.iconUrl)),
         );
       },
     );

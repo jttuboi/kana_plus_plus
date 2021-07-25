@@ -54,13 +54,13 @@ class SettingsController {
     return repository.getShowHint();
   }
 
-  void updateShowHint(bool value) {
-    repository.saveShowHint(value);
-  }
-
   String getShowHintIconUrl(bool value) {
     return value
         ? "lib/assets/icons/black/show_hint.png"
         : "lib/assets/icons/black/not_show_hint.png";
+  }
+
+  void updateShowHint(bool value) {
+    repository.saveShowHint(value);
   }
 }
