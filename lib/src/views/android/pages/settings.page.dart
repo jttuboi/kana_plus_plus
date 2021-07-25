@@ -52,14 +52,6 @@ class _SettingsPageState extends State<SettingsPage> {
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
   ];
 
-  void _updateDarkTheme(BuildContext context, bool value) {
-    final provider = Provider.of<DarkThemeProvider>(context, listen: false);
-    provider.changeDarkTheme(value);
-
-    final provider2 = Provider.of<ThemeProvider>(context, listen: false);
-    provider2.updateThemeMode(provider.isDarkTheme);
-  }
-
   void _updateShowHint(BuildContext context, bool value) {
     final provider = Provider.of<ShowHintProvider>(context, listen: false);
     provider.changeShowHint(value);
@@ -92,17 +84,8 @@ class _SettingsPageState extends State<SettingsPage> {
           body: ListView(
             children: [
               SubHeaderTile(strings.settingsBasic),
-              LanguageTile(),
-              Consumer<DarkThemeProvider>(
-                builder: (context, value, child) {
-                  return SwitchListTile(
-                    title: Text(strings.settingsDarkTheme),
-                    value: value.isDarkTheme,
-                    onChanged: (value) => _updateDarkTheme(context, value),
-                    secondary: ImageIcon(AssetImage(value.darkThemeIconUrl)),
-                  );
-                },
-              ),
+              const LanguageTile(),
+              const DarkThemeTile(),
               const WritingHandTile(),
               const Divider(),
               SubHeaderTile(strings.settingsDefaultTrainingSetting),
@@ -203,6 +186,33 @@ class LanguageTile extends StatelessWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+class DarkThemeTile extends StatelessWidget {
+  const DarkThemeTile({Key? key}) : super(key: key);
+
+  void _updateThemeOnApp(BuildContext context, bool isDarkTheme) {
+    Provider.of<ThemeProvider>(context, listen: false)
+        .updateThemeMode(isDarkTheme);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
+    return Consumer<DarkThemeProvider>(
+      builder: (context, provider, child) {
+        return SwitchListTile(
+          title: Text(strings.settingsDarkTheme),
+          value: provider.isDarkTheme,
+          onChanged: (value) {
+            provider.updateDarkTheme(value);
+            _updateThemeOnApp(context, provider.isDarkTheme);
+          },
+          secondary: ImageIcon(AssetImage(provider.iconUrl)),
         );
       },
     );

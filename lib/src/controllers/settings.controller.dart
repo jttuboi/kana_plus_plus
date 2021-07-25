@@ -40,14 +40,14 @@ class SettingsController {
     return repository.getDarkTheme();
   }
 
-  void updateDarkTheme(bool value) {
-    repository.saveDarkTheme(value);
-  }
-
   String getDarkThemeIconUrl(bool value) {
     return value
         ? "lib/assets/icons/black/dark_theme.png"
         : "lib/assets/icons/black/light_mode.png";
+  }
+
+  void updateDarkTheme(bool value) {
+    repository.saveDarkTheme(value);
   }
 
   bool isShowHint() {
