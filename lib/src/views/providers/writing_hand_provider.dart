@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
+import 'package:kana_plus_plus/src/views/android/view_models/selection_option.view_model.dart';
 import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
 import 'package:kana_plus_plus/src/shared/writing_hand.dart';
-import 'package:kana_plus_plus/src/views/android/pages/settings.page.dart';
 
 class WritingHandProvider extends ChangeNotifier {
   WritingHandProvider(this._controller) {
@@ -28,9 +28,9 @@ class WritingHandProvider extends ChangeNotifier {
     return _getText(context, selectedKey);
   }
 
-  List<SelectionOption2> options(BuildContext context) {
+  List<SelectionOptionViewModel> options(BuildContext context) {
     return _data.map((model) {
-      return SelectionOption2(
+      return SelectionOptionViewModel(
         key: model.key,
         label: _getText(context, model.key),
         iconUrl: model.url,

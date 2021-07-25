@@ -1,6 +1,3 @@
-import "package:flutter/widgets.dart";
-
-@immutable
 class Routes {
   static const String menu = "/";
   static const String study = "/study";

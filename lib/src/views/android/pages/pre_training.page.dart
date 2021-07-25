@@ -26,12 +26,12 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
       body: ListView(
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          ShowHintTile(
-            _showHint,
-            onChanged: (value) => setState(() {
-              _showHint = value;
-            }),
-          ),
+          // ShowHintTile(
+          //   _showHint,
+          //   onChanged: (value) => setState(() {
+          //     _showHint = value;
+          //   }),
+          // ),
           // KanaTypeTile(
           //   _kanaType,
           //   onOptionSelected: (index) => setState(() {

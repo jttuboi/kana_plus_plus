@@ -1,59 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/models/selection_option.dart';
+import 'package:kana_plus_plus/src/views/android/view_models/selection_option.view_model.dart';
 
-class SelectionOptionPage extends StatefulWidget {
+class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage({
     Key? key,
     required this.title,
-    required this.optionSelectedIndex,
+    required this.selectedOptionKey,
     required this.options,
+    required this.onSelected,
   }) : super(key: key);
 
   final String title;
-  final int optionSelectedIndex;
-  final List<SelectionOption> options;
-
-  @override
-  _SelectionOptionPageState createState() => _SelectionOptionPageState();
-}
-
-class _SelectionOptionPageState extends State<SelectionOptionPage> {
-  late int _optionSelectedIndex;
-
-  @override
-  void initState() {
-    _optionSelectedIndex = (widget.optionSelectedIndex < widget.options.length)
-        ? widget.optionSelectedIndex
-        : 0;
-    super.initState();
-  }
+  final dynamic selectedOptionKey;
+  final List<SelectionOptionViewModel> options;
+  final Function(dynamic) onSelected;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context, _optionSelectedIndex);
+        onSelected(selectedOptionKey);
+        Navigator.pop(context);
         return false;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(title),
         ),
         body: ListView.builder(
-          itemCount: widget.options.length,
+          itemCount: options.length,
           itemBuilder: (context, index) {
-            final option = widget.options[index];
+            final option = options[index];
             return RadioListTile(
-              title: Text(option.title),
+              title: Text(option.label),
               value: index,
-              groupValue: _optionSelectedIndex,
-              onChanged: (value) {
-                setState(() {
-                  _optionSelectedIndex = value! as int;
-                });
-                Navigator.pop(context, _optionSelectedIndex);
+              groupValue:
+                  options.indexWhere((SelectionOptionViewModel pOption) {
+                return pOption.key == selectedOptionKey;
+              }),
+              onChanged: (int? value) {
+                onSelected(options[value!].key);
+                Navigator.pop(context);
               },
-              secondary: option.icon,
+              secondary: (option.iconUrl.isNotEmpty)
+                  ? ImageIcon(AssetImage(option.iconUrl))
+                  : null,
               controlAffinity: ListTileControlAffinity.trailing,
             );
           },
