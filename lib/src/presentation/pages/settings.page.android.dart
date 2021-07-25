@@ -4,7 +4,7 @@ import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
 import 'package:kana_plus_plus/src/domain/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/blocs/settings.bloc.dart';
 import 'package:kana_plus_plus/src/presentation/providers/quantity_of_words.provider.dart';
-import 'package:kana_plus_plus/src/presentation/pages/description.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';

@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 
 class KanaWriter extends StatefulWidget {
