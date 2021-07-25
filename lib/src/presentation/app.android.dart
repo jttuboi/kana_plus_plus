@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/presentation/providers/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/providers/theme.provider.dart';
 import 'package:kana_plus_plus/src/views/android/pages/word.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/words.page.dart';
-import 'package:kana_plus_plus/src/presentation/pages/menu.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/routes.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
