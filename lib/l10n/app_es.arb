@@ -5,6 +5,7 @@
     "settingsSelectLanguage": "Seleccione el idioma",
     "settingsDarkTheme": "Tema oscuro",
     "settingsDefaultTrainingSetting": "Configuración de entrenamiento predeterminada",
+    "settingsSelectWritingHand": "Seleccione el mano de escritura",
     "settingsWritingHand": "Mano de escritura",
     "settingsWritingHandLeft": "Zurdo",
     "settingsWritingHandRight": "Diestro"

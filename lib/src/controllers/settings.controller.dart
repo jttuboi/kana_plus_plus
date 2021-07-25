@@ -1,4 +1,6 @@
+import 'package:kana_plus_plus/src/providers/writing_hand_provider.dart';
 import 'package:kana_plus_plus/src/repositories/interface/settings.repository.dart';
+import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 
 class SettingsController {
   SettingsController(this.repository);
@@ -11,6 +13,25 @@ class SettingsController {
 
   void updateLanguage(String value) {
     repository.saveLanguage(value);
+  }
+
+  List<WritingHandModel> getWritingHands() {
+    return [
+      WritingHandModel(
+          key: WritingHand.left,
+          url: "lib/assets/icons/black/writing_hand_left.png"),
+      WritingHandModel(
+          key: WritingHand.right,
+          url: "lib/assets/icons/black/writing_hand_right.png"),
+    ];
+  }
+
+  WritingHand getSelectedWritingHandKey() {
+    return WritingHand.values[repository.getWritingHandSelectedKey()];
+  }
+
+  void updateWritingHand(WritingHand value) {
+    repository.saveWritingHandSelectedKey(value.index);
   }
 
   bool isDarkTheme() {

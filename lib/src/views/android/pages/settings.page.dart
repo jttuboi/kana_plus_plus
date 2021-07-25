@@ -7,13 +7,13 @@ import 'package:kana_plus_plus/src/providers/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/models/description.dart';
 import 'package:kana_plus_plus/src/controllers/settings.controller.dart';
 import 'package:kana_plus_plus/src/providers/theme_provider.dart';
+import 'package:kana_plus_plus/src/providers/writing_hand_provider.dart';
 import 'package:kana_plus_plus/src/repositories/settings.repository.dart';
+import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 import 'package:kana_plus_plus/src/views/android/pages/description.page.dart';
-import 'package:kana_plus_plus/src/views/android/pages/selection_option.page.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/sub_header_tile.dart';
-import 'package:kana_plus_plus/src/models/selection_option.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:provider/provider.dart';
 
@@ -27,13 +27,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final _controller = SettingsController(SettingsRepository());
 
-  int _writingHandSelectedIdx = 1; // right hand
-  final List<SelectionOption> _writingHandOptions = [
-    // AQUI localization
-    const SelectionOption("Left hand", icon: JIcons.writingHandLeft),
-    const SelectionOption("Right hand", icon: JIcons.writingHandRight),
-  ];
-  
   int _kanaSelectedIdx = 2; // both
 
   int _quantityOfWords = 5;
@@ -74,6 +67,11 @@ class _SettingsPageState extends State<SettingsPage> {
     provider2.updateThemeMode(provider.isDarkTheme);
   }
 
+  void _updateWritingHand(BuildContext context, WritingHand value) {
+    final provider = Provider.of<WritingHandProvider>(context, listen: false);
+    provider.changeWritingHand(value);
+  }
+
   void _updateShowHint(BuildContext context, bool value) {
     final provider = Provider.of<ShowHintProvider>(context, listen: false);
     provider.changeShowHint(value);
@@ -89,6 +87,9 @@ class _SettingsPageState extends State<SettingsPage> {
           create: (context) => LanguageProvider(_controller),
         ),
         ChangeNotifierProvider(
+          create: (context) => WritingHandProvider(_controller),
+        ),
+        ChangeNotifierProvider(
           create: (context) => DarkThemeProvider(_controller),
         ),
         ChangeNotifierProvider(
@@ -96,24 +97,24 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ],
       builder: (context, child) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(strings.settingsTitle),
-      ),
-      body: ListView(
-        children: [
-          SubHeaderTile(strings.settingsBasic),
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(strings.settingsTitle),
+          ),
+          body: ListView(
+            children: [
+              SubHeaderTile(strings.settingsBasic),
               Consumer<LanguageProvider>(
                 builder: (context, value, child) {
                   return ListTile(
-            title: Text(strings.settingsLanguage),
+                    title: Text(strings.settingsLanguage),
                     subtitle: Text(value.languageSelectedText),
                     leading: ImageIcon(AssetImage(value.languageIconUrl)),
                     onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
+                      context,
+                      MaterialPageRoute(
                         builder: (context) => SelectionOptionPage2(
-                    title: strings.settingsSelectLanguage,
+                          title: strings.settingsSelectLanguage,
                           selectedOptionKey: value.selectedLanguageKey,
                           options: value.languageOptions,
                           onSelected: (selectedKey) {
@@ -122,79 +123,103 @@ class _SettingsPageState extends State<SettingsPage> {
                             _updateLocaleOnApp(context, key);
                           },
                         ),
-                  ),
-                ),
-              );
-            },
-          ),
+                      ),
+                    ),
+                  );
+                },
+              ),
               Consumer<DarkThemeProvider>(
-            builder: (context, value, child) {
-              return SwitchListTile(
-                title: Text(strings.settingsDarkTheme),
+                builder: (context, value, child) {
+                  return SwitchListTile(
+                    title: Text(strings.settingsDarkTheme),
                     value: value.isDarkTheme,
                     onChanged: (value) => _updateDarkTheme(context, value),
                     secondary: ImageIcon(AssetImage(value.darkThemeIconUrl)),
-              );
-            },
-          ),
-          const Divider(),
-          SubHeaderTile(strings.settingsDefaultTrainingSetting),
-          Consumer<ShowHintProvider>(
-            builder: (context, value, child) {
-              return SwitchListTile(
-                title: Text(strings.settingsShowHint),
+                  );
+                },
+              ),
+              Consumer<WritingHandProvider>(
+                builder: (context, value, child) {
+                  return ListTile(
+                    title: Text(strings.settingsWritingHand),
+                    subtitle: Text(value.writingHandText(context)),
+                    leading: ImageIcon(AssetImage(value.writingHandIconUrl)),
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context2) => SelectionOptionPage2(
+                            title: strings.settingsSelectWritingHand,
+                            selectedOptionKey: value.selectedWritingHandKey,
+                            options: value.writingHandOptions(context),
+                            onSelected: (value) {
+                              _updateWritingHand(context, value as WritingHand);
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+              const Divider(),
+              SubHeaderTile(strings.settingsDefaultTrainingSetting),
+              Consumer<ShowHintProvider>(
+                builder: (context, value, child) {
+                  return SwitchListTile(
+                    title: Text(strings.settingsShowHint),
                     value: value.isShowHint,
                     onChanged: (value) => _updateShowHint(context, value),
-                secondary: ImageIcon(AssetImage(value.showHintIconUrl)),
-              );
-            },
-          ),
-          KanaTypeTile(
-            _kanaSelectedIdx,
-            onOptionSelected: (index) => setState(() {
-              _kanaSelectedIdx = index;
-            }),
-          ),
-          QuantityOfWordsTile(
-            _quantityOfWords,
-            onQuantityChanged: (quantity) => setState(() {
-              _quantityOfWords = quantity;
-            }),
-          ),
-          const Divider(),
-          SubHeaderTile(strings.settingsOthers),
-          ListTile(
-            title: Text(strings.settingsAbout),
-            leading: JIcons.about,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DescriptionPage(
-                  title: strings.settingsAbout,
-                  descriptions: _aboutDescriptions,
+                    secondary: ImageIcon(AssetImage(value.showHintIconUrl)),
+                  );
+                },
+              ),
+              KanaTypeTile(
+                _kanaSelectedIdx,
+                onOptionSelected: (index) => setState(() {
+                  _kanaSelectedIdx = index;
+                }),
+              ),
+              QuantityOfWordsTile(
+                _quantityOfWords,
+                onQuantityChanged: (quantity) => setState(() {
+                  _quantityOfWords = quantity;
+                }),
+              ),
+              const Divider(),
+              SubHeaderTile(strings.settingsOthers),
+              ListTile(
+                title: Text(strings.settingsAbout),
+                leading: JIcons.about,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DescriptionPage(
+                      title: strings.settingsAbout,
+                      descriptions: _aboutDescriptions,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          ListTile(
-            title: Text(strings.settingsPrivacyPolicy),
-            leading: JIcons.privacyPolicy,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DescriptionPage(
-                  title: strings.settingsPrivacyPolicy,
-                  descriptions: _privacyPolicyDescriptions,
+              ListTile(
+                title: Text(strings.settingsPrivacyPolicy),
+                leading: JIcons.privacyPolicy,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DescriptionPage(
+                      title: strings.settingsPrivacyPolicy,
+                      descriptions: _privacyPolicyDescriptions,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
-          ListTile(
-            title: Text(strings.settingsSupport),
-            leading: JIcons.support,
-          ),
-        ],
+              // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
+              ListTile(
+                title: Text(strings.settingsSupport),
+                leading: JIcons.support,
+              ),
+            ],
           ),
         );
       },
@@ -260,3 +285,4 @@ class SelectionOptionPage2 extends StatelessWidget {
       ),
     );
   }
+}

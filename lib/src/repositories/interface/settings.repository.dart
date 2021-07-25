@@ -3,6 +3,10 @@ abstract class ISettingsRepository {
 
   void saveLanguage(String value);
 
+  int getWritingHandSelectedKey();
+
+  void saveWritingHandSelectedKey(int value);
+
   bool getDarkTheme();
 
   void saveDarkTheme(bool value);

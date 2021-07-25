@@ -13,6 +13,8 @@
     "@settingsDefaultTrainingSetting": { "description": "" },
     "settingsWritingHand": "Writing hand",
     "@settingsWritingHand": { "description": "" },
+    "settingsSelectWritingHand": "Select writing hand",
+    "@settingsSelectWritingHand": { "description": "" },
     "settingsWritingHandLeft": "Left hand",
     "@settingsWritingHandLeft": { "description": "" },
     "settingsWritingHandRight": "Right hand",
