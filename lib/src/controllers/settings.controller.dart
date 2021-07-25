@@ -1,3 +1,4 @@
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
 import 'package:kana_plus_plus/src/repositories/interface/settings.repository.dart';
 import 'package:kana_plus_plus/src/shared/writing_hand.dart';
@@ -7,12 +8,20 @@ class SettingsController {
 
   ISettingsRepository repository;
 
-  String getSelectedLanguageKey() {
-    return repository.getLanguage();
+  String getLanguageSelected() {
+    return repository.getLanguageSelected();
   }
 
-  void updateLanguage(String value) {
-    repository.saveLanguage(value);
+  String getLanguageIconUrl() {
+    return "lib/assets/icons/black/language.png";
+  }
+
+  String getLanguageText(String key) {
+    return LocaleNamesLocalizationsDelegate.nativeLocaleNames[key] ?? "English";
+  }
+
+  void updateLanguageSelected(String value) {
+    repository.saveLanguageSelected(value);
   }
 
   List<WritingHandModel> getWritingHandData() {

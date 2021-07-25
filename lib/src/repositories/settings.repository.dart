@@ -5,12 +5,12 @@ import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 
 class SettingsRepository implements ISettingsRepository {
   @override
-  String getLanguage() {
+  String getLanguageSelected() {
     return CacheStorage.getString("language", defaultValue: "en");
   }
 
   @override
-  void saveLanguage(String value) {
+  void saveLanguageSelected(String value) {
     CacheStorage.setString("language", value);
   }
 

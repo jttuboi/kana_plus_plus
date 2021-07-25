@@ -28,11 +28,11 @@ class WritingHandProvider extends ChangeNotifier {
     return _getText(context, selectedKey);
   }
 
-  List<SelectionOption2> writingHandOptions(BuildContext context) {
+  List<SelectionOption2> options(BuildContext context) {
     return _data.map((model) {
       return SelectionOption2(
-        model.key,
-        _getText(context, model.key),
+        key: model.key,
+        label: _getText(context, model.key),
         iconUrl: model.url,
       );
     }).toList();

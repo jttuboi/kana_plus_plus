@@ -1,9 +1,9 @@
 import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
 
 abstract class ISettingsRepository {
-  String getLanguage();
+  String getLanguageSelected();
 
-  void saveLanguage(String value);
+  void saveLanguageSelected(String value);
 
   List<WritingHandModel> getWritingHandData();
 

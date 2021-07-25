@@ -52,13 +52,6 @@ class _SettingsPageState extends State<SettingsPage> {
         "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
   ];
 
-  void _updateLocaleOnApp(BuildContext context, String localeCode) {
-    final provider = Provider.of<LocaleProvider>(context, listen: false);
-    provider.setLocale(JStrings.supportedLocales.firstWhere((Locale locale) {
-      return locale.toString() == localeCode;
-    }));
-  }
-
   void _updateDarkTheme(BuildContext context, bool value) {
     final provider = Provider.of<DarkThemeProvider>(context, listen: false);
     provider.changeDarkTheme(value);
@@ -99,30 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
           body: ListView(
             children: [
               SubHeaderTile(strings.settingsBasic),
-              Consumer<LanguageProvider>(
-                builder: (context, value, child) {
-                  return ListTile(
-                    title: Text(strings.settingsLanguage),
-                    subtitle: Text(value.languageSelectedText),
-                    leading: ImageIcon(AssetImage(value.languageIconUrl)),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SelectionOptionPage2(
-                          title: strings.settingsSelectLanguage,
-                          selectedOptionKey: value.selectedLanguageKey,
-                          options: value.languageOptions,
-                          onSelected: (selectedKey) {
-                            final String key = selectedKey as String;
-                            value.changeLanguage(key);
-                            _updateLocaleOnApp(context, key);
-                          },
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              LanguageTile(),
               Consumer<DarkThemeProvider>(
                 builder: (context, value, child) {
                   return SwitchListTile(
@@ -199,6 +169,46 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
+class LanguageTile extends StatelessWidget {
+  const LanguageTile({Key? key}) : super(key: key);
+
+  void _updateLocalizationOnApp(BuildContext context, String localeCode) {
+    Provider.of<LocaleProvider>(context, listen: false)
+        .setLocale(JStrings.supportedLocales.firstWhere((Locale locale) {
+      return locale.toString() == localeCode;
+    }));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
+    return Consumer<LanguageProvider>(
+      builder: (context, provider, child) {
+        return ListTile(
+          title: Text(strings.settingsLanguage),
+          subtitle: Text(provider.text),
+          leading: ImageIcon(AssetImage(provider.iconUrl)),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context2) => SelectionOptionPage2(
+                title: strings.settingsSelectLanguage,
+                selectedOptionKey: provider.selectedKey,
+                options: provider.options,
+                onSelected: (selectedKey) {
+                  final String key = selectedKey as String;
+                  provider.updateKey(key);
+                  _updateLocalizationOnApp(context, key);
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class WritingHandTile extends StatelessWidget {
   const WritingHandTile({Key? key}) : super(key: key);
 
@@ -217,9 +227,9 @@ class WritingHandTile extends StatelessWidget {
               builder: (context2) => SelectionOptionPage2(
                 title: strings.settingsSelectWritingHand,
                 selectedOptionKey: provider.selectedKey,
-                options: provider.writingHandOptions(context),
-                onSelected: (value) {
-                  provider.updateKey(value as WritingHand);
+                options: provider.options(context),
+                onSelected: (selectedKey) {
+                  provider.updateKey(selectedKey as WritingHand);
                 },
               ),
             ),
@@ -231,9 +241,13 @@ class WritingHandTile extends StatelessWidget {
 }
 
 class SelectionOption2 {
-  const SelectionOption2(this.id, this.label, {this.iconUrl = ""});
+  const SelectionOption2({
+    required this.key,
+    required this.label,
+    this.iconUrl = "",
+  });
 
-  final dynamic id;
+  final dynamic key;
   final String label;
   final String iconUrl;
 }
@@ -272,10 +286,10 @@ class SelectionOptionPage2 extends StatelessWidget {
               title: Text(option.label),
               value: index,
               groupValue: options.indexWhere((SelectionOption2 pOption) {
-                return pOption.id == selectedOptionKey;
+                return pOption.key == selectedOptionKey;
               }),
               onChanged: (int? value) {
-                onSelected(options[value!].id);
+                onSelected(options[value!].key);
                 Navigator.pop(context);
               },
               secondary: (option.iconUrl.isNotEmpty)
