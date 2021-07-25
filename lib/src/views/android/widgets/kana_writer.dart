@@ -51,7 +51,8 @@ class _KanaWriterState extends State<KanaWriter> {
           fit: FlexFit.tight,
           child: ElevatedButton(
             onPressed: () {},
-            child: JIcons.eraser,
+            child: const ImageIcon(
+                AssetImage("lib/assets/icons/black/eraser.png")),
           ),
         ),
         const SizedBox(height: 4),
@@ -59,7 +60,8 @@ class _KanaWriterState extends State<KanaWriter> {
           fit: FlexFit.tight,
           child: ElevatedButton(
             onPressed: () {},
-            child: JIcons.undo,
+            child:
+                const ImageIcon(AssetImage("lib/assets/icons/black/undo.png")),
           ),
         ),
       ],

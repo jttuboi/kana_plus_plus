@@ -91,4 +91,14 @@ class SettingsRepository implements ISettingsRepository {
   void saveKanaTypeSelected(int value) {
     CacheStorage.setInt("kana_type", value);
   }
+
+  @override
+  int getQuantityOfWords() {
+    return CacheStorage.getInt("quantity_of_words", defaultValue: 5);
+  }
+
+  @override
+  void saveQuantityOfWords(int value) {
+    CacheStorage.setInt("quantity_of_words", value);
+  }
 }

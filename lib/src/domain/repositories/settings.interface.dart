@@ -25,4 +25,8 @@ abstract class ISettingsRepository {
   int getKanaTypeSelected();
 
   void saveKanaTypeSelected(int value);
+
+  int getQuantityOfWords();
+
+  void saveQuantityOfWords(int value);
 }

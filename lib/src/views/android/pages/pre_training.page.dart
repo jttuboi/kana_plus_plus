@@ -38,12 +38,12 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
           //     _kanaType = index;
           //   }),
           // ),
-          QuantityOfWordsTile(
-            _quantityOfWords,
-            onQuantityChanged: (quantity) => setState(() {
-              _quantityOfWords = quantity;
-            }),
-          ),
+          // QuantityOfWordsTile(
+          //   _quantityOfWords,
+          //   onQuantityChanged: (quantity) => setState(() {
+          //     _quantityOfWords = quantity;
+          //   }),
+          // ),
           Container(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(

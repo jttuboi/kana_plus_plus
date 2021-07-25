@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/models/description.dart';
+import 'package:kana_plus_plus/src/presentation/viewmodels/description.viewmodel.dart';
 
 class DescriptionPage extends StatelessWidget {
   const DescriptionPage({
@@ -9,7 +9,7 @@ class DescriptionPage extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
-  final List<Description> descriptions;
+  final List<DescriptionViewModel> descriptions;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class DescriptionPage extends StatelessWidget {
   }
 
   List<Widget> _buildDescriptions() {
-    return descriptions.map((Description description) {
+    return descriptions.map((DescriptionViewModel description) {
       if (description.isTitle()) {
         return _DescriptionTitle(description.text);
       } else if (description.isContent()) {

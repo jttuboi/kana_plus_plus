@@ -77,4 +77,12 @@ class SettingsController {
   void updateKanaTypeSelected(KanaType value) {
     repository.saveKanaTypeSelected(value.index);
   }
+
+  int getQuantityOfWords() {
+    return repository.getQuantityOfWords();
+  }
+
+  void updateQuantityOfWords(int value) {
+    repository.saveQuantityOfWords(value);
+  }
 }

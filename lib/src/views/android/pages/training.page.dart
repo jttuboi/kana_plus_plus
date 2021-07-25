@@ -4,7 +4,6 @@ import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/models/kana_result.dart';
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/models/word_result.dart';
-import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/presentation/routes.dart';
 import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
@@ -150,7 +149,8 @@ class _TrainingPageState extends State<TrainingPage> {
           backgroundColor: Colors.white.withOpacity(0.0),
           //elevation: 0.1,
           leading: IconButton(
-            icon: JIcons.quit,
+            icon:
+                const ImageIcon(AssetImage("lib/assets/icons/black/quit.png")),
             onPressed: () => _buildQuitDialog(context),
           ),
         ),

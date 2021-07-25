@@ -1,16 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
-import 'package:kana_plus_plus/src/models/description.dart';
 import 'package:kana_plus_plus/src/domain/settings.controller.dart';
-import 'package:kana_plus_plus/src/views/android/pages/description.page.dart';
+import 'package:kana_plus_plus/src/presentation/blocs/settings.bloc.dart';
+import 'package:kana_plus_plus/src/presentation/providers/quantity_of_words.provider.dart';
+import 'package:kana_plus_plus/src/presentation/pages/description.page.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
-import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
 import 'package:kana_plus_plus/src/presentation/providers/dark_theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/providers/kana_type.provider.dart';
@@ -28,29 +28,13 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final _controller = SettingsController(SettingsRepository());
+  late final SettingsBloc _bloc;
 
-  int _quantityOfWords = 5;
-
-  final List<Description> _aboutDescriptions = [
-    // AQUI localization
-    // "settingsAbout1": "blablable",
-    // "settingsAbout2": "informaçoes sobre mim",
-    // "settingsAbout3": "contato",
-    // "settingsAbout4": "de onde os dados vieram",
-    Description.title("blablable"),
-    Description.content("informaçoes sobre mim"),
-    Description.content("contato"),
-    Description.content("de onde os dados vieram"),
-  ];
-
-  final List<Description> _privacyPolicyDescriptions = [
-    // AQUI localization
-    // "settingsPrivacyPolicy1": "citar sobre uso",
-    // "settingsPrivacyPolicy2": "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-    Description.title("citar sobre uso"),
-    Description.content(
-        "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _bloc = SettingsBloc(_controller);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +57,9 @@ class _SettingsPageState extends State<SettingsPage> {
         ChangeNotifierProvider(
           create: (context) => KanaTypeProvider(_controller),
         ),
+        ChangeNotifierProvider(
+          create: (context) => QuantityOfWordsProvider(_controller),
+        ),
       ],
       builder: (context, child) {
         return Scaffold(
@@ -89,36 +76,31 @@ class _SettingsPageState extends State<SettingsPage> {
               SubHeaderTile(strings.settingsDefaultTrainingSetting),
               const ShowHintTile(),
               const KanaTypeTile(),
-              QuantityOfWordsTile(
-                _quantityOfWords,
-                onQuantityChanged: (quantity) => setState(() {
-                  _quantityOfWords = quantity;
-                }),
-              ),
+              const QuantityOfWordsTile(),
               const Divider(),
               SubHeaderTile(strings.settingsOthers),
               ListTile(
                 title: Text(strings.settingsAbout),
-                leading: JIcons.about,
+                leading: ImageIcon(AssetImage(_bloc.aboutIconUrl)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => DescriptionPage(
                       title: strings.settingsAbout,
-                      descriptions: _aboutDescriptions,
+                      descriptions: _bloc.aboutDescriptions,
                     ),
                   ),
                 ),
               ),
               ListTile(
                 title: Text(strings.settingsPrivacyPolicy),
-                leading: JIcons.privacyPolicy,
+                leading: ImageIcon(AssetImage(_bloc.privacyPolicyIconUrl)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => DescriptionPage(
                       title: strings.settingsPrivacyPolicy,
-                      descriptions: _privacyPolicyDescriptions,
+                      descriptions: _bloc.privacyPolicyDescriptions,
                     ),
                   ),
                 ),
@@ -126,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
               // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
               ListTile(
                 title: Text(strings.settingsSupport),
-                leading: JIcons.support,
+                leading: ImageIcon(AssetImage(_bloc.supportIconUrl)),
               ),
             ],
           ),
