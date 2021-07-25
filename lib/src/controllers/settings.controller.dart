@@ -1,6 +1,8 @@
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:kana_plus_plus/src/models/kana_type.model.dart';
 import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
 import 'package:kana_plus_plus/src/repositories/interface/settings.repository.dart';
+import 'package:kana_plus_plus/src/shared/kana_type.dart';
 import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 
 class SettingsController {
@@ -62,5 +64,17 @@ class SettingsController {
 
   void updateShowHint(bool value) {
     repository.saveShowHint(value);
+  }
+
+  List<KanaTypeModel> getKanaTypeData() {
+    return repository.getKanaTypeData();
+  }
+
+  KanaType getKanaTypeSelected() {
+    return KanaType.values[repository.getKanaTypeSelected()];
+  }
+
+  void updateKanaTypeSelected(KanaType value) {
+    repository.saveKanaTypeSelected(value.index);
   }
 }

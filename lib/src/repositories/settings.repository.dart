@@ -1,6 +1,8 @@
+import 'package:kana_plus_plus/src/models/kana_type.model.dart';
 import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
 import 'package:kana_plus_plus/src/repositories/interface/settings.repository.dart';
 import 'package:kana_plus_plus/src/shared/cache_storage.dart';
+import 'package:kana_plus_plus/src/shared/kana_type.dart';
 import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 
 class SettingsRepository implements ISettingsRepository {
@@ -59,5 +61,34 @@ class SettingsRepository implements ISettingsRepository {
   @override
   void saveShowHint(bool value) {
     CacheStorage.setBool("show_hint", value);
+  }
+
+  // TODO colocar numa database
+  @override
+  List<KanaTypeModel> getKanaTypeData() {
+    return [
+      // OBS: TEM Q CONVERTER INT EM WRITING HAND, SE NAO
+      // DER PRA FAZER AUTOMATICAMENTE,, ENTAO PRECISA PASSAR ESSA FUNCAO DE
+      // CONVERTER PARA CONTROLLER
+      KanaTypeModel(
+          key: KanaType.onlyHiragana,
+          url: "lib/assets/icons/black/hiragana.png"),
+      KanaTypeModel(
+          key: KanaType.onlyKatakana,
+          url: "lib/assets/icons/black/katakana.png"),
+      KanaTypeModel(
+          key: KanaType.both,
+          url: "lib/assets/icons/black/hiragana_katakana.png"),
+    ];
+  }
+
+  @override
+  int getKanaTypeSelected() {
+    return CacheStorage.getInt("kana_type", defaultValue: KanaType.both.index);
+  }
+
+  @override
+  void saveKanaTypeSelected(int value) {
+    CacheStorage.setInt("kana_type", value);
   }
 }

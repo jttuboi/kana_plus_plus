@@ -10,6 +10,7 @@ import 'package:kana_plus_plus/src/views/android/widgets/quantity_of_words_tile.
 import 'package:kana_plus_plus/src/views/android/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/shared/icons.dart';
 import 'package:kana_plus_plus/src/views/providers/dark_theme.provider.dart';
+import 'package:kana_plus_plus/src/views/providers/kana_type.provider.dart';
 import 'package:kana_plus_plus/src/views/providers/language.provider.dart';
 import 'package:kana_plus_plus/src/views/providers/locale_provider.dart';
 import 'package:kana_plus_plus/src/views/providers/show_hint.provider.dart';
@@ -26,8 +27,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final _controller = SettingsController(SettingsRepository());
-
-  int _kanaSelectedIdx = 2; // both
 
   int _quantityOfWords = 5;
 
@@ -70,6 +69,9 @@ class _SettingsPageState extends State<SettingsPage> {
         ChangeNotifierProvider(
           create: (context) => ShowHintProvider(_controller),
         ),
+        ChangeNotifierProvider(
+          create: (context) => KanaTypeProvider(_controller),
+        ),
       ],
       builder: (context, child) {
         return Scaffold(
@@ -85,12 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
               const Divider(),
               SubHeaderTile(strings.settingsDefaultTrainingSetting),
               const ShowHintTile(),
-              KanaTypeTile(
-                _kanaSelectedIdx,
-                onOptionSelected: (index) => setState(() {
-                  _kanaSelectedIdx = index;
-                }),
-              ),
+              const KanaTypeTile(),
               QuantityOfWordsTile(
                 _quantityOfWords,
                 onQuantityChanged: (quantity) => setState(() {

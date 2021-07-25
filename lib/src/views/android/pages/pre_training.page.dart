@@ -32,12 +32,12 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
               _showHint = value;
             }),
           ),
-          KanaTypeTile(
-            _kanaType,
-            onOptionSelected: (index) => setState(() {
-              _kanaType = index;
-            }),
-          ),
+          // KanaTypeTile(
+          //   _kanaType,
+          //   onOptionSelected: (index) => setState(() {
+          //     _kanaType = index;
+          //   }),
+          // ),
           QuantityOfWordsTile(
             _quantityOfWords,
             onQuantityChanged: (quantity) => setState(() {
