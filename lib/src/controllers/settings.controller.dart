@@ -1,6 +1,6 @@
-import 'package:kana_plus_plus/src/providers/writing_hand_provider.dart';
 import 'package:kana_plus_plus/src/repositories/interface/settings.repository.dart';
 import 'package:kana_plus_plus/src/shared/writing_hand.dart';
+import 'package:kana_plus_plus/src/views/providers/writing_hand_provider.dart';
 
 class SettingsController {
   SettingsController(this.repository);

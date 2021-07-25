@@ -2,8 +2,6 @@ import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
-import 'package:kana_plus_plus/src/providers/locale_provider.dart';
-import 'package:kana_plus_plus/src/providers/theme_provider.dart';
 import 'package:kana_plus_plus/src/shared/cache_storage.dart';
 import 'package:kana_plus_plus/src/views/android/pages/word.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/words.page.dart';
@@ -16,6 +14,8 @@ import 'package:kana_plus_plus/src/views/android/pages/review.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/settings.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/training.page.dart';
+import 'package:kana_plus_plus/src/views/providers/locale_provider.dart';
+import 'package:kana_plus_plus/src/views/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class AndroidApp extends StatelessWidget {
