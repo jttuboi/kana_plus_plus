@@ -1,7 +1,7 @@
 import 'package:kana_plus_plus/src/data/models/kana_type.model.dart';
 import 'package:kana_plus_plus/src/data/models/writing_hand.model.dart';
-import 'package:kana_plus_plus/src/domain/repositories/settings.repository.dart';
-import 'package:kana_plus_plus/src/data/datasources/cache_storage.dart';
+import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache_storage.singleton.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 

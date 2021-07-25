@@ -16,7 +16,7 @@ import 'package:kana_plus_plus/src/presentation/providers/dark_theme.provider.da
 import 'package:kana_plus_plus/src/presentation/providers/kana_type.provider.dart';
 import 'package:kana_plus_plus/src/presentation/providers/language.provider.dart';
 import 'package:kana_plus_plus/src/presentation/providers/show_hint.provider.dart';
-import 'package:kana_plus_plus/src/presentation/providers/writing_hand_provider.dart';
+import 'package:kana_plus_plus/src/presentation/providers/writing_hand.provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {

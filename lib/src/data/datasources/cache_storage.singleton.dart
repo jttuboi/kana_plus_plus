@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/data/datasources/cache_storage.provider.dart';
+import 'package:kana_plus_plus/src/data/datasources/interfaces/cache_storage.interface.dart';
 
 class CacheStorage {
   // singleton
@@ -6,10 +6,10 @@ class CacheStorage {
   CacheStorage._internal();
   static final CacheStorage _instance = CacheStorage._internal();
 
-  static late ICacheStorageProvider _provider;
+  static late ICacheStorageDataSource _provider;
 
   // init cache storage. this init() is recommend to start before runApp().
-  static Future<void> init({required ICacheStorageProvider provider}) async {
+  static Future<void> init({required ICacheStorageDataSource provider}) async {
     _provider = provider;
     await _provider.init();
   }

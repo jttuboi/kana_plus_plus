@@ -1,4 +1,4 @@
-abstract class ICacheStorageProvider {
+abstract class ICacheStorageDataSource {
   Future<void> init();
 
   int getInt(String key, {int defaultValue = 0});

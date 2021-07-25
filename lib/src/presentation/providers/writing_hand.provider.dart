@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/settings.controller.dart';
 import 'package:kana_plus_plus/src/data/models/writing_hand.model.dart';
-import 'package:kana_plus_plus/src/presentation/viewmodels/selection_option.view_model.dart';
+import 'package:kana_plus_plus/src/presentation/viewmodels/selection_option.viewmodel.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 
 class WritingHandProvider extends ChangeNotifier {
