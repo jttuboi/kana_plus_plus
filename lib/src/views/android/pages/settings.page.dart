@@ -67,11 +67,6 @@ class _SettingsPageState extends State<SettingsPage> {
     provider2.updateThemeMode(provider.isDarkTheme);
   }
 
-  void _updateWritingHand(BuildContext context, WritingHand value) {
-    final provider = Provider.of<WritingHandProvider>(context, listen: false);
-    provider.changeWritingHand(value);
-  }
-
   void _updateShowHint(BuildContext context, bool value) {
     final provider = Provider.of<ShowHintProvider>(context, listen: false);
     provider.changeShowHint(value);
@@ -138,30 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   );
                 },
               ),
-              Consumer<WritingHandProvider>(
-                builder: (context, value, child) {
-                  return ListTile(
-                    title: Text(strings.settingsWritingHand),
-                    subtitle: Text(value.writingHandText(context)),
-                    leading: ImageIcon(AssetImage(value.writingHandIconUrl)),
-                    onTap: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context2) => SelectionOptionPage2(
-                            title: strings.settingsSelectWritingHand,
-                            selectedOptionKey: value.selectedWritingHandKey,
-                            options: value.writingHandOptions(context),
-                            onSelected: (value) {
-                              _updateWritingHand(context, value as WritingHand);
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+              const WritingHandTile(),
               const Divider(),
               SubHeaderTile(strings.settingsDefaultTrainingSetting),
               Consumer<ShowHintProvider>(
@@ -220,6 +192,37 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: JIcons.support,
               ),
             ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class WritingHandTile extends StatelessWidget {
+  const WritingHandTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final JStrings strings = JStrings.of(context)!;
+    return Consumer<WritingHandProvider>(
+      builder: (context, provider, child) {
+        return ListTile(
+          title: Text(strings.settingsWritingHand),
+          subtitle: Text(provider.text(context)),
+          leading: ImageIcon(AssetImage(provider.iconUrl)),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context2) => SelectionOptionPage2(
+                title: strings.settingsSelectWritingHand,
+                selectedOptionKey: provider.selectedKey,
+                options: provider.writingHandOptions(context),
+                onSelected: (value) {
+                  provider.updateKey(value as WritingHand);
+                },
+              ),
+            ),
           ),
         );
       },

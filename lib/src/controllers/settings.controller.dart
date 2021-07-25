@@ -15,23 +15,16 @@ class SettingsController {
     repository.saveLanguage(value);
   }
 
-  List<WritingHandModel> getWritingHands() {
-    return [
-      WritingHandModel(
-          key: WritingHand.left,
-          url: "lib/assets/icons/black/writing_hand_left.png"),
-      WritingHandModel(
-          key: WritingHand.right,
-          url: "lib/assets/icons/black/writing_hand_right.png"),
-    ];
+  List<WritingHandModel> getWritingHandData() {
+    return repository.getWritingHandData();
   }
 
-  WritingHand getSelectedWritingHandKey() {
-    return WritingHand.values[repository.getWritingHandSelectedKey()];
+  WritingHand getWritingHandSelected() {
+    return WritingHand.values[repository.getWritingHandSelected()];
   }
 
-  void updateWritingHand(WritingHand value) {
-    repository.saveWritingHandSelectedKey(value.index);
+  void updateWritingHandSelected(WritingHand value) {
+    repository.saveWritingHandSelected(value.index);
   }
 
   bool isDarkTheme() {

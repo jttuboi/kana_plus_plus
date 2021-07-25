@@ -1,11 +1,15 @@
+import 'package:kana_plus_plus/src/models/writing_hand.model.dart';
+
 abstract class ISettingsRepository {
   String getLanguage();
 
   void saveLanguage(String value);
 
-  int getWritingHandSelectedKey();
+  List<WritingHandModel> getWritingHandData();
 
-  void saveWritingHandSelectedKey(int value);
+  int getWritingHandSelected();
+
+  void saveWritingHandSelected(int value);
 
   bool getDarkTheme();
 

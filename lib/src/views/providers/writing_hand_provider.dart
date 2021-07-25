@@ -7,45 +7,44 @@ import 'package:kana_plus_plus/src/shared/writing_hand.dart';
 import 'package:kana_plus_plus/src/views/android/pages/settings.page.dart';
 
 class WritingHandProvider extends ChangeNotifier {
-  WritingHandProvider(this.controller) {
-    _data = controller.getWritingHands();
-    selectedWritingHandKey = controller.getSelectedWritingHandKey();
+  WritingHandProvider(this._controller) {
+    _data = _controller.getWritingHandData();
+    selectedKey = _controller.getWritingHandSelected();
     notifyListeners();
   }
 
-  SettingsController controller;
+  final SettingsController _controller;
+  late final List<WritingHandModel> _data;
 
-  late List<WritingHandModel> _data;
+  late WritingHand selectedKey;
 
-  late WritingHand selectedWritingHandKey;
-
-  String get writingHandIconUrl {
+  String get iconUrl {
     return _data.firstWhere((model) {
-      return model.key.equal(selectedWritingHandKey);
+      return model.key.equal(selectedKey);
     }).url;
   }
 
-  String writingHandText(BuildContext context) {
-    return _getWritingHandText(context, selectedWritingHandKey);
+  String text(BuildContext context) {
+    return _getText(context, selectedKey);
   }
 
   List<SelectionOption2> writingHandOptions(BuildContext context) {
     return _data.map((model) {
       return SelectionOption2(
         model.key,
-        _getWritingHandText(context, model.key),
+        _getText(context, model.key),
         iconUrl: model.url,
       );
     }).toList();
   }
 
-  void changeWritingHand(WritingHand pSelectedWritingHandKey) {
-    selectedWritingHandKey = pSelectedWritingHandKey;
-    controller.updateWritingHand(pSelectedWritingHandKey);
+  void updateKey(WritingHand pSelectedKey) {
+    selectedKey = pSelectedKey;
+    _controller.updateWritingHandSelected(pSelectedKey);
     notifyListeners();
   }
 
-  String _getWritingHandText(BuildContext context, WritingHand key) {
+  String _getText(BuildContext context, WritingHand key) {
     final JStrings strings = JStrings.of(context)!;
     if (key.isLeft) {
       return strings.settingsWritingHandLeft;
