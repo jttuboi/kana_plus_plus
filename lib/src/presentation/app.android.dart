@@ -56,7 +56,7 @@ class AndroidApp extends StatelessWidget {
               Routes.preTraining: (context) => const PreTrainingPage(),
               //Routes.training: (context) => TrainingPage(),
               //Routes.review: (context) => const ReviewPage(),
-              Routes.words: (context) => const WordsPage(),
+              Routes.words: (context) => WordsPage(),
               Routes.word: (context) => const WordPage(),
               Routes.settings: (context) => const SettingsPage(),
             },
