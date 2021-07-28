@@ -3,14 +3,14 @@ import 'package:kana_plus_plus/src/data/models/description.model.dart';
 import 'package:kana_plus_plus/src/data/models/kana_type.model.dart';
 import 'package:kana_plus_plus/src/data/models/writing_hand.model.dart';
 import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
-import 'package:kana_plus_plus/src/data/datasources/cache_storage.singleton.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 
 class SettingsRepository implements ISettingsRepository {
   @override
   String getLanguageSelected() {
-    return CacheStorage.getString("language", defaultValue: "en");
+    return Cache.getString("language", defaultValue: "en");
   }
 
   @override
@@ -20,7 +20,7 @@ class SettingsRepository implements ISettingsRepository {
 
   @override
   void saveLanguageSelected(String value) {
-    CacheStorage.setString("language", value);
+    Cache.setString("language", value);
   }
 
   @override
@@ -46,19 +46,19 @@ class SettingsRepository implements ISettingsRepository {
 
   @override
   WritingHand getWritingHandSelected() {
-    final int writingHandIndex = CacheStorage.getInt("writing_hand",
-        defaultValue: WritingHand.right.index);
+    final int writingHandIndex =
+        Cache.getInt("writing_hand", defaultValue: WritingHand.right.index);
     return WritingHand.values[writingHandIndex];
   }
 
   @override
   void saveWritingHandSelected(WritingHand value) {
-    CacheStorage.setInt("writing_hand", value.index);
+    Cache.setInt("writing_hand", value.index);
   }
 
   @override
   bool isDarkTheme() {
-    return CacheStorage.getBool("dark_theme");
+    return Cache.getBool("dark_theme");
   }
 
   @override
@@ -70,12 +70,12 @@ class SettingsRepository implements ISettingsRepository {
 
   @override
   void saveDarkTheme(bool value) {
-    CacheStorage.setBool("dark_theme", value);
+    Cache.setBool("dark_theme", value);
   }
 
   @override
   bool isShowHint() {
-    return CacheStorage.getBool("show_hint", defaultValue: true);
+    return Cache.getBool("show_hint", defaultValue: true);
   }
 
   @override
@@ -87,7 +87,7 @@ class SettingsRepository implements ISettingsRepository {
 
   @override
   void saveShowHint(bool value) {
-    CacheStorage.setBool("show_hint", value);
+    Cache.setBool("show_hint", value);
   }
 
   // TODO colocar numa database
@@ -112,18 +112,18 @@ class SettingsRepository implements ISettingsRepository {
   @override
   KanaType getKanaTypeSelected() {
     final int kanaIndex =
-        CacheStorage.getInt("kana_type", defaultValue: KanaType.both.index);
+        Cache.getInt("kana_type", defaultValue: KanaType.both.index);
     return KanaType.values[kanaIndex];
   }
 
   @override
   void saveKanaTypeSelected(KanaType value) {
-    CacheStorage.setInt("kana_type", value.index);
+    Cache.setInt("kana_type", value.index);
   }
 
   @override
   int getQuantityOfWords() {
-    return CacheStorage.getInt("quantity_of_words", defaultValue: 5);
+    return Cache.getInt("quantity_of_words", defaultValue: 5);
   }
 
   @override
@@ -133,7 +133,7 @@ class SettingsRepository implements ISettingsRepository {
 
   @override
   void saveQuantityOfWords(int value) {
-    CacheStorage.setInt("quantity_of_words", value);
+    Cache.setInt("quantity_of_words", value);
   }
 
   @override

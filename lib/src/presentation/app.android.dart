@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
-import 'package:kana_plus_plus/src/data/datasources/cache_storage.singleton.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word.page.dart';
 import 'package:kana_plus_plus/src/presentation/pages/words.page.dart';
 import 'package:kana_plus_plus/src/presentation/providers/locale.provider.dart';
@@ -24,7 +24,7 @@ class AndroidApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) {
-          return ThemeProvider(CacheStorage.getBool("dark_theme"));
+          return ThemeProvider(Cache.getBool("dark_theme"));
         }),
         ChangeNotifierProvider(create: (context) => LocaleProvider()),
       ],

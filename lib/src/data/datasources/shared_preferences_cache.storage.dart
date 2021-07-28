@@ -1,9 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'interfaces/cache_storage.interface.dart';
+import 'interfaces/cache.storage.interface.dart';
 
-class SharedPreferencesCacheStorageDataSource
-    implements ICacheStorageDataSource {
+class SharedPreferencesCacheStorage implements ICacheStorage {
   late SharedPreferences _preferences;
 
   @override

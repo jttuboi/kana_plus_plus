@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/data/datasources/shared_preferences_cache_storage.datasource.dart';
-import 'package:kana_plus_plus/src/data/datasources/cache_storage.singleton.dart';
+import 'package:kana_plus_plus/src/data/datasources/shared_preferences_cache.storage.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
 import 'package:kana_plus_plus/src/presentation/app.android.dart';
 import 'package:kana_plus_plus/src/presentation/app.ios.dart';
 
@@ -15,5 +15,5 @@ void main() {
 
 Future<void> initCacheStorage() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheStorage.init(provider: SharedPreferencesCacheStorageDataSource());
+  await Cache.init(storage: SharedPreferencesCacheStorage());
 }
