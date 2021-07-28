@@ -1,9 +1,9 @@
-import 'package:kana_plus_plus/src/data/models/word.model.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 
 abstract class IWordsRepository {
-  List<WordModel> getWords();
+  Future<List<Word>> getWords(String languageCode);
 
-  List<WordModel> getWordsBy(String textSearch);
+  List<Word> getWordsBy(String textSearch);
 
-  WordModel getWord(String id);
+  Word getWord(String id);
 }
