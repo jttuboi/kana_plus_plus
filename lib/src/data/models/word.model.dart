@@ -27,13 +27,13 @@ class WordModel extends Word {
 
   factory WordModel.fromMap(Map<String, dynamic> map) {
     return WordModel(
-      id: map[Column.wordId] as int,
-      word: map[Column.word] as String,
-      imageUrl: map[Column.imageUrl] as String,
+      id: map[TWords.wordId] as int,
+      word: map[TWords.word] as String,
+      imageUrl: map[TWords.imageUrl] as String,
       romaji:
-          (map.containsKey(Column.romaji)) ? map[Column.romaji] as String : "",
-      type: (map.containsKey(Column.type))
-          ? KanaType.values[map[Column.type] as int]
+          (map.containsKey(TWords.romaji)) ? map[TWords.romaji] as String : "",
+      type: (map.containsKey(TWords.type))
+          ? KanaType.values[map[TWords.type] as int]
           : KanaType.none,
       translate: TranslateModel.fromMap(map),
     );
@@ -41,11 +41,11 @@ class WordModel extends Word {
 
   Map<String, dynamic> toMap() {
     return {
-      Column.wordId: id,
-      Column.word: word,
-      Column.imageUrl: imageUrl,
-      Column.romaji: romaji,
-      Column.type: type.index,
+      TWords.wordId: id,
+      TWords.word: word,
+      TWords.imageUrl: imageUrl,
+      TWords.romaji: romaji,
+      TWords.type: type.index,
     };
   }
 

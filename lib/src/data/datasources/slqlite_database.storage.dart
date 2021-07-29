@@ -37,31 +37,31 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute("""
-      CREATE TABLE ${Table.words}(
-        ${Column.wordId} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${Column.word} TEXT NOT NULL,
-        ${Column.romaji} TEXT NOT NULL,
-        ${Column.type} INTEGER NOT NULL,
-        ${Column.imageUrl} TEXT NOT NULL
+      CREATE TABLE ${TWords.words}(
+        ${TWords.wordId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${TWords.word} TEXT NOT NULL,
+        ${TWords.romaji} TEXT NOT NULL,
+        ${TWords.type} INTEGER NOT NULL,
+        ${TWords.imageUrl} TEXT NOT NULL
       )
     """);
     await db.execute("""
-      CREATE TABLE ${Table.kanas}(
-        ${Column.kanaId} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${Column.kana} TEXT NOT NULL,
-        ${Column.romaji} TEXT NOT NULL,
-        ${Column.imageUrl} TEXT NOT NULL,
-        ${Column.romajiImageUrl} TEXT NOT NULL
+      CREATE TABLE ${TKanas.kanas}(
+        ${TKanas.kanaId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${TKanas.kana} TEXT NOT NULL,
+        ${TKanas.romaji} TEXT NOT NULL,
+        ${TKanas.imageUrl} TEXT NOT NULL,
+        ${TKanas.romajiImageUrl} TEXT NOT NULL
       )
     """);
     await db.execute("""
-      CREATE TABLE ${Table.translates}(
-        ${Column.wordId} INTEGER,
-        ${Column.code} TEXT,
-        ${Column.translate} TEXT NOT NULL,
-        PRIMARY KEY (${Column.wordId}, ${Column.code}),
-        FOREIGN KEY (${Column.wordId})
-          REFERENCES ${Table.words} (${Column.wordId})
+      CREATE TABLE ${TTranslates.translates}(
+        ${TTranslates.wordId} INTEGER,
+        ${TTranslates.code} TEXT,
+        ${TTranslates.translate} TEXT NOT NULL,
+        PRIMARY KEY (${TTranslates.wordId}, ${TTranslates.code}),
+        FOREIGN KEY (${TTranslates.wordId})
+          REFERENCES ${TWords.words} (${TWords.wordId})
             ON DELETE CASCADE
             ON UPDATE CASCADE
       )
@@ -73,16 +73,16 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
     //   )
     // """);
     await db.execute("""
-      CREATE TABLE ${Table.wordKana}(
-        ${Column.wordId} INTEGER,
-        ${Column.kanaId} INTEGER,
-        PRIMARY KEY (${Column.wordId}, ${Column.kanaId}),
-        FOREIGN KEY (${Column.wordId})
-          REFERENCES ${Table.words} (${Column.wordId})
+      CREATE TABLE ${TWordKana.wordKana}(
+        ${TWordKana.wordId} INTEGER,
+        ${TWordKana.kanaId} INTEGER,
+        PRIMARY KEY (${TWordKana.wordId}, ${TWordKana.kanaId}),
+        FOREIGN KEY (${TWordKana.wordId})
+          REFERENCES ${TWords.words} (${TWords.wordId})
             ON DELETE CASCADE
             ON UPDATE NO ACTION,
-        FOREIGN KEY (${Column.kanaId})
-          REFERENCES ${Table.kanas} (${Column.kanaId})
+        FOREIGN KEY (${TWordKana.kanaId})
+          REFERENCES ${TKanas.kanas} (${TKanas.kanaId})
             ON DELETE CASCADE
             ON UPDATE NO ACTION
       )
@@ -108,36 +108,49 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
 
   Future<void> _insertNewData(Database db) async {
     for (int i = 0; i < wordsTest.length; i++) {
-      await db.insert(Table.words, wordsTest[i].toMap());
+      await db.insert(TWords.words, wordsTest[i].toMap());
     }
     for (int i = 0; i < translatesTest.length; i++) {
-      await db.insert(Table.translates, translatesTest[i].toMap());
+      await db.insert(TTranslates.translates, translatesTest[i].toMap());
     }
     for (int i = 0; i < kanasTest.length; i++) {
-      await db.insert(Table.kanas, kanasTest[i].toMap());
+      await db.insert(TKanas.kanas, kanasTest[i].toMap());
     }
-    await db.insert(Table.wordKana, {Column.wordId: 0, Column.kanaId: 23});
-    await db.insert(Table.wordKana, {Column.wordId: 0, Column.kanaId: 9});
-    await db.insert(Table.wordKana, {Column.wordId: 1, Column.kanaId: 1});
-    await db.insert(Table.wordKana, {Column.wordId: 1, Column.kanaId: 22});
-    await db.insert(Table.wordKana, {Column.wordId: 2, Column.kanaId: 19});
-    await db.insert(Table.wordKana, {Column.wordId: 2, Column.kanaId: 39});
-    await db.insert(Table.wordKana, {Column.wordId: 3, Column.kanaId: 2});
-    await db.insert(Table.wordKana, {Column.wordId: 3, Column.kanaId: 10});
-    await db.insert(Table.wordKana, {Column.wordId: 3, Column.kanaId: 47});
-    await db.insert(Table.wordKana, {Column.wordId: 4, Column.kanaId: 2});
-    await db.insert(Table.wordKana, {Column.wordId: 4, Column.kanaId: 11});
-    await db.insert(Table.wordKana, {Column.wordId: 5, Column.kanaId: 2});
-    await db.insert(Table.wordKana, {Column.wordId: 5, Column.kanaId: 30});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 0, TWordKana.kanaId: 23});
+    await db
+        .insert(TWordKana.wordKana, {TWordKana.wordId: 0, TWordKana.kanaId: 9});
+    await db
+        .insert(TWordKana.wordKana, {TWordKana.wordId: 1, TWordKana.kanaId: 1});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 1, TWordKana.kanaId: 22});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 2, TWordKana.kanaId: 19});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 2, TWordKana.kanaId: 39});
+    await db
+        .insert(TWordKana.wordKana, {TWordKana.wordId: 3, TWordKana.kanaId: 2});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 3, TWordKana.kanaId: 10});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 3, TWordKana.kanaId: 47});
+    await db
+        .insert(TWordKana.wordKana, {TWordKana.wordId: 4, TWordKana.kanaId: 2});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 4, TWordKana.kanaId: 11});
+    await db
+        .insert(TWordKana.wordKana, {TWordKana.wordId: 5, TWordKana.kanaId: 2});
+    await db.insert(
+        TWordKana.wordKana, {TWordKana.wordId: 5, TWordKana.kanaId: 30});
   }
 
   @override
   Future<List<WordModel>> getWords(String languageCode) async {
     final wordsMap = await _database.rawQuery("""
-        SELECT w.${Column.wordId}, w.${Column.word}, w.${Column.imageUrl}, t.${Column.code}, t.${Column.translate}
-        FROM ${Table.words} w
-        JOIN ${Table.translates} t
-        ON (w.${Column.wordId} = t.${Column.wordId} AND t.${Column.code} = ?)
+        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+        FROM ${TWords.words} w
+        JOIN ${TTranslates.translates} t
+        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
     """, [languageCode]);
 
     if (wordsMap.isEmpty) {

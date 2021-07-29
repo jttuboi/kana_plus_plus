@@ -20,21 +20,21 @@ class KanaModel extends Kana {
 
   factory KanaModel.fromMap(Map<String, dynamic> map) {
     return KanaModel(
-      id: map[Column.kanaId] as int,
-      kana: map[Column.kana] as String,
-      imageUrl: map[Column.imageUrl] as String,
-      romaji: map[Column.romaji] as String,
-      romajiImageUrl: map[Column.romajiImageUrl] as String,
+      id: map[TKanas.kanaId] as int,
+      kana: map[TKanas.kana] as String,
+      imageUrl: map[TKanas.imageUrl] as String,
+      romaji: map[TKanas.romaji] as String,
+      romajiImageUrl: map[TKanas.romajiImageUrl] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      Column.kanaId: id,
-      Column.kana: kana,
-      Column.imageUrl: imageUrl,
-      Column.romaji: romaji,
-      Column.romajiImageUrl: romajiImageUrl,
+      TKanas.kanaId: id,
+      TKanas.kana: kana,
+      TKanas.imageUrl: imageUrl,
+      TKanas.romaji: romaji,
+      TKanas.romajiImageUrl: romajiImageUrl,
     };
   }
 

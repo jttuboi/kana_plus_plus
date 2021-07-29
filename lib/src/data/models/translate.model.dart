@@ -16,17 +16,17 @@ class TranslateModel extends Translate {
 
   factory TranslateModel.fromMap(Map<String, dynamic> map) {
     return TranslateModel(
-      id: map[Column.wordId] as int,
-      code: map[Column.code] as String,
-      translate: map[Column.translate] as String,
+      id: map[TTranslates.wordId] as int,
+      code: map[TTranslates.code] as String,
+      translate: map[TTranslates.translate] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      Column.wordId: id,
-      Column.code: code,
-      Column.translate: translate,
+      TTranslates.wordId: id,
+      TTranslates.code: code,
+      TTranslates.translate: translate,
     };
   }
 
