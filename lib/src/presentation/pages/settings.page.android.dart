@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/settings.bloc.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/settings.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
