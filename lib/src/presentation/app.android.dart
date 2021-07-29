@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
@@ -59,8 +60,8 @@ class AndroidApp extends StatelessWidget {
 
   List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
     return const [
-              ...JStrings.localizationsDelegates,
-              LocaleNamesLocalizationsDelegate()
+      ...JStrings.localizationsDelegates,
+      LocaleNamesLocalizationsDelegate()
     ];
   }
 
@@ -76,46 +77,53 @@ class AndroidApp extends StatelessWidget {
 
   ThemeData get _theme {
     return ThemeData(
-              brightness: Brightness.light,
-              primarySwatch: Colors.indigo,
+      brightness: Brightness.light,
+      primarySwatch: Colors.indigo,
     );
   }
 
   ThemeData get _darkTheme {
     return ThemeData(
-              brightness: Brightness.dark,
-              primarySwatch: Colors.indigo,
+      brightness: Brightness.dark,
+      primarySwatch: Colors.indigo,
     );
   }
 
   Map<String, WidgetBuilder> get _routes {
     return {
-              Routes.menu: (context) => const MenuPage(),
-              Routes.study: (context) => const StudyPage(),
-              Routes.kana: (context) => const KanaPage(),
-              Routes.preTraining: (context) => const PreTrainingPage(),
-              Routes.words: (context) => WordsPage(),
-              Routes.settings: (context) => const SettingsPage(),
+      Routes.menu: (context) => const MenuPage(),
+      Routes.study: (context) => const StudyPage(),
+      Routes.kana: (context) => const KanaPage(),
+      Routes.preTraining: (context) => const PreTrainingPage(),
+      Routes.words: (context) => WordsPage(),
+      Routes.settings: (context) => const SettingsPage(),
     };
   }
 
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
-              if (settings.name == Routes.training) {
+    if (settings.name == Routes.training) {
       final args = settings.arguments! as PreTrainingArguments;
-                return MaterialPageRoute(
-                  builder: (context) => TrainingPage(
-                    showHint: args.showHint,
-                    kanaType: args.kanaType,
-                    quantityOfWords: args.quantityOfWords,
-                  ),
-                );
-              } else if (settings.name == Routes.review) {
+      return MaterialPageRoute(
+        builder: (context) => TrainingPage(
+          showHint: args.showHint,
+          kanaType: args.kanaType,
+          quantityOfWords: args.quantityOfWords,
+        ),
+      );
+    } else if (settings.name == Routes.review) {
       final args = settings.arguments! as TrainingArguments;
-                return MaterialPageRoute(
-                  builder: (context) => ReviewPage(
-                    wordsResult: args.wordsResult,
-                  ),
-                );
-              }
+      return MaterialPageRoute(
+        builder: (context) => ReviewPage(
+          wordsResult: args.wordsResult,
+        ),
+      );
+    } else if (settings.name == Routes.word) {
+      final args = settings.arguments! as WordsArguments;
+      return MaterialPageRoute(
+        builder: (context) => WordDetailPage(
+          word: args.word,
+        ),
+      );
+    }
   }
 }
