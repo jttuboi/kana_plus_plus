@@ -11,6 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.1
   flutter_localizations:
     sdk: flutter
   flutter_localized_locales: ^2.0.2
@@ -27,6 +28,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^1.5.3
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "lib/assets/icons/app_icon.png"
 
 flutter:
   uses-material-design: true

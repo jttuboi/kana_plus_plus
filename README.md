@@ -1,8 +1,19 @@
 # kana_plus_plus
 
+
+
+### Instruções
+
+#### atualizar o ícone do app
+Para atualizar o ícone do app, executar no terminal:
+```sh
+flutter pub run flutter_launcher_icons:main
+```
+O arquivo é `lib/assets/icons/app_icon.png`
+
+> [Flutter Laucher Icons][https://pub.dev/packages/flutter_launcher_icons]
+
 ### Entendendo a arquitetura do projeto
-
-
 
 #### presentation
 Contém a parte visual do projeto. É o único local que deve ter acesso as bibliotecas do Flutter.
@@ -23,8 +34,6 @@ Nele que está o routes.dart, cujo contém constantes para rotas de cada página
 ##### widgets
 São componentes (em flutter é widgets) que servem para modularizar a parte visual, podendo ser reaproveitados entre as páginas.
 
-
-
 #### domain
 Contém a parte das regras de negócio do projeto. É a parte em que é obrigatório a implementação de testes.
 
@@ -42,8 +51,6 @@ São interfaces que retornam os dados relacionados a parte externa em relação 
 
 ##### usecases
 São classes que representam as regras de negócio do sistema.
-
-
 
 #### data
 Contém a parte do acesso aos dados. Além de ter a estrutura para armazenar e dar os dados para a camada domain, ela contém estrutura para acessar estruturas fora do sistema.

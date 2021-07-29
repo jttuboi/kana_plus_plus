@@ -2,7 +2,7 @@
     package="com.example.kana_plus_plus">
    <application
         android:label="kana_plus_plus"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
