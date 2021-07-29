@@ -3,7 +3,7 @@ import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
-import 'package:kana_plus_plus/src/presentation/routes.dart';
+import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
 
 class WordsPage extends StatelessWidget {

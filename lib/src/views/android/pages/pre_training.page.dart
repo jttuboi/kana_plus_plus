@@ -3,7 +3,7 @@ import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
-import 'package:kana_plus_plus/src/presentation/routes.dart';
+import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 
 class PreTrainingPage extends StatefulWidget {
   const PreTrainingPage({Key? key}) : super(key: key);
