@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
+// import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
+// import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
+// import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 
@@ -13,9 +13,9 @@ class PreTrainingPage extends StatefulWidget {
 }
 
 class _PreTrainingPageState extends State<PreTrainingPage> {
-  bool _showHint = true;
-  int _kanaType = 2; // both
-  int _quantityOfWords = 5;
+  final bool _showHint = true;
+  final int _kanaType = 2; // both
+  final int _quantityOfWords = 5;
 
   @override
   Widget build(BuildContext context) {
