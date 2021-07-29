@@ -1,8 +1,8 @@
 import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
 import 'package:kana_plus_plus/src/data/models/description.model.dart';
 
-class SettingsBloc {
-  SettingsBloc(this._repository);
+class SettingsStateManagement {
+  SettingsStateManagement(this._repository);
 
   final ISettingsRepository _repository;
 

@@ -27,12 +27,12 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final _repository = SettingsRepository();
-  late final SettingsBloc _bloc;
+  late final SettingsStateManagement _stateManagement;
 
   @override
   void initState() {
     super.initState();
-    _bloc = SettingsBloc(_repository);
+    _stateManagement = SettingsStateManagement(_repository);
   }
 
   @override
@@ -80,26 +80,27 @@ class _SettingsPageState extends State<SettingsPage> {
               SubHeaderTile(strings.settingsOthers),
               ListTile(
                 title: Text(strings.settingsAbout),
-                leading: ImageIcon(AssetImage(_bloc.aboutIconUrl)),
+                leading: ImageIcon(AssetImage(_stateManagement.aboutIconUrl)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => DescriptionPage(
                       title: strings.settingsAbout,
-                      descriptions: _bloc.aboutDescriptions,
+                      descriptions: _stateManagement.aboutDescriptions,
                     ),
                   ),
                 ),
               ),
               ListTile(
                 title: Text(strings.settingsPrivacyPolicy),
-                leading: ImageIcon(AssetImage(_bloc.privacyPolicyIconUrl)),
+                leading: ImageIcon(
+                    AssetImage(_stateManagement.privacyPolicyIconUrl)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => DescriptionPage(
                       title: strings.settingsPrivacyPolicy,
-                      descriptions: _bloc.privacyPolicyDescriptions,
+                      descriptions: _stateManagement.privacyPolicyDescriptions,
                     ),
                   ),
                 ),
@@ -107,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
               // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
               ListTile(
                 title: Text(strings.settingsSupport),
-                leading: ImageIcon(AssetImage(_bloc.supportIconUrl)),
+                leading: ImageIcon(AssetImage(_stateManagement.supportIconUrl)),
               ),
             ],
           ),

@@ -9,7 +9,7 @@ import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
 class WordsPage extends StatelessWidget {
   WordsPage({Key? key}) : super(key: key);
 
-  final _bloc = WordsBloc(WordsRepository());
+  final _stateManagement = WordsStateManagement(WordsRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class WordsPage extends StatelessWidget {
           _SearchButton(
             onPressed: () async {
               var locale = Localizations.localeOf(context).toString();
-              await _bloc.list(locale).then((value) => print(value));
+              await _stateManagement.list(locale).then((value) => print(value));
             },
           )
         ],
@@ -27,7 +27,8 @@ class WordsPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<List<Word>>(
-          future: _bloc.list(Localizations.localeOf(context).toString()),
+          future:
+              _stateManagement.list(Localizations.localeOf(context).toString()),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const CircularProgressIndicator();
