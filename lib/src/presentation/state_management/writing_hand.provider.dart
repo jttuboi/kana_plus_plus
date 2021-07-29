@@ -28,9 +28,9 @@ class WritingHandProvider extends ChangeNotifier {
     return _getText(context, selectedKey);
   }
 
-  List<SelectionOptionViewModel> options(BuildContext context) {
+  List<SelectionOptionArguments> options(BuildContext context) {
     return _data.map((model) {
-      return SelectionOptionViewModel(
+      return SelectionOptionArguments(
         key: model.key,
         label: _getText(context, model.key),
         iconUrl: model.url,

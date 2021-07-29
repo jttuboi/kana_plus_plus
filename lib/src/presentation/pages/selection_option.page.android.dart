@@ -12,7 +12,7 @@ class SelectionOptionPage extends StatelessWidget {
 
   final String title;
   final dynamic selectedOptionKey;
-  final List<SelectionOptionViewModel> options;
+  final List<SelectionOptionArguments> options;
   final Function(dynamic) onSelected;
 
   @override
@@ -35,7 +35,7 @@ class SelectionOptionPage extends StatelessWidget {
               title: Text(option.label),
               value: index,
               groupValue:
-                  options.indexWhere((SelectionOptionViewModel pOption) {
+                  options.indexWhere((SelectionOptionArguments pOption) {
                 return pOption.key == selectedOptionKey;
               }),
               onChanged: (int? value) {

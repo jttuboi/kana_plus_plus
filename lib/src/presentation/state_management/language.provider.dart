@@ -18,11 +18,11 @@ class LanguageProvider extends ChangeNotifier {
 
   String get text => _repository.getLanguageText(selectedKey);
 
-  List<SelectionOptionViewModel> get options {
+  List<SelectionOptionArguments> get options {
     return JStrings.supportedLocales.where((Locale locale) {
       return !_ignoreLocaleCodes.contains(locale.toString());
     }).map((Locale locale) {
-      return SelectionOptionViewModel(
+      return SelectionOptionArguments(
         key: locale.toString(),
         label: _repository.getLanguageText(locale.toString()),
       );

@@ -1,5 +1,5 @@
-class SelectionOptionViewModel {
-  const SelectionOptionViewModel({
+class SelectionOptionArguments {
+  const SelectionOptionArguments({
     required this.key,
     required this.label,
     this.iconUrl = "",
