@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/presentation/providers/show_hint.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/show_hint.provider.dart';
 import 'package:provider/provider.dart';
 
 class ShowHintTile extends StatelessWidget {

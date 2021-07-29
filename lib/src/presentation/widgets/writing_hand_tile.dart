@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 import 'package:kana_plus_plus/src/presentation/pages/selection_option.page.android.dart';
-import 'package:kana_plus_plus/src/presentation/providers/writing_hand.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.provider.dart';
 import 'package:provider/provider.dart';
 
 class WritingHandTile extends StatelessWidget {

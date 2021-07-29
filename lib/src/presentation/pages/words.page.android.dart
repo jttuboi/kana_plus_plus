@@ -2,8 +2,9 @@ import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
-import 'package:kana_plus_plus/src/presentation/blocs/words.bloc.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/words.bloc.dart';
 import 'package:kana_plus_plus/src/presentation/routes.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
 
 class WordsPage extends StatelessWidget {
   WordsPage({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class WordsPage extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context1, index) {
                 var word = snapshot.data![index];
-                return _WordItem(
+                return WordItem(
                   word: word.word,
                   imageUrl: word.imageUrl,
                   onTap: () {
@@ -61,53 +62,6 @@ class WordsPage extends StatelessWidget {
               },
             );
           },
-        ),
-      ),
-    );
-  }
-}
-
-class _WordItem extends StatelessWidget {
-  const _WordItem({
-    Key? key,
-    required this.word,
-    required this.imageUrl,
-    required this.onTap,
-  }) : super(key: key);
-
-  final String word;
-  final String imageUrl;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              alignment: Alignment.topCenter,
-              child: Hero(
-                tag: imageUrl,
-                child: Image.asset(imageUrl),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                word,
-                style: const TextStyle(
-                  fontSize: 37,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );

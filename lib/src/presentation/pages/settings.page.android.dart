@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
-import 'package:kana_plus_plus/src/presentation/blocs/settings.bloc.dart';
-import 'package:kana_plus_plus/src/presentation/providers/quantity_of_words.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/settings.bloc.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
@@ -11,11 +11,11 @@ import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.d
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
-import 'package:kana_plus_plus/src/presentation/providers/dark_theme.provider.dart';
-import 'package:kana_plus_plus/src/presentation/providers/kana_type.provider.dart';
-import 'package:kana_plus_plus/src/presentation/providers/language.provider.dart';
-import 'package:kana_plus_plus/src/presentation/providers/show_hint.provider.dart';
-import 'package:kana_plus_plus/src/presentation/providers/writing_hand.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/kana_type.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/language.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/show_hint.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
