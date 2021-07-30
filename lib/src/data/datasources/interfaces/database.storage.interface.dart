@@ -6,4 +6,6 @@ abstract class IDatabaseStorage {
   Future close();
 
   Future<List<WordModel>> getWords(String languageCode);
+
+  Future<WordModel> getWord(int id, String languageCode);
 }

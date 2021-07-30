@@ -33,4 +33,5 @@ class TWordKana {
 
   static const wordId = "word_id";
   static const kanaId = "kana_id";
+  static const sequential = "sequential";
 }

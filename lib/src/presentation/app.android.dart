@@ -1,8 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
+import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
@@ -95,7 +98,9 @@ class AndroidApp extends StatelessWidget {
       Routes.study: (context) => const StudyPage(),
       Routes.kana: (context) => const KanaPage(),
       Routes.preTraining: (context) => const PreTrainingPage(),
-      Routes.words: (context) => WordsPage(),
+      Routes.words: (context) => WordsPage(
+            WordsStateManagement(WordsController(WordsRepository())),
+          ),
       Routes.settings: (context) => const SettingsPage(),
     };
   }

@@ -1,11 +1,14 @@
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
-import 'package:kana_plus_plus/src/domain/repositories/words.interface.dart';
+import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 
 class WordsStateManagement {
-  WordsStateManagement(this._repository);
+  WordsStateManagement(this._controller);
 
-  final IWordsRepository _repository;
+  final WordsController _controller;
 
-  Future<List<Word>> list(String languageCode) async =>
-      _repository.getWords(languageCode);
+  Future<List<Word>> get list async => _controller.showAllWords();
+
+  Future<Word> findWord(int id) async {
+    return _controller.showWordDetail(id);
+  }
 }

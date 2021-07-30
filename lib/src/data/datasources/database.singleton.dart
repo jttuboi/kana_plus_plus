@@ -17,4 +17,8 @@ class Database {
   static Future<List<WordModel>> getWords(String languageCode) async {
     return _storage.getWords(languageCode);
   }
+
+  static Future<WordModel> getWord(int id, String languageCode) async {
+    return _storage.getWord(id, languageCode);
+  }
 }

@@ -76,6 +76,7 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
       CREATE TABLE ${TWordKana.wordKana}(
         ${TWordKana.wordId} INTEGER,
         ${TWordKana.kanaId} INTEGER,
+        ${TWordKana.sequential} INTEGER NOT NULL,
         PRIMARY KEY (${TWordKana.wordId}, ${TWordKana.kanaId}),
         FOREIGN KEY (${TWordKana.wordId})
           REFERENCES ${TWords.words} (${TWords.wordId})
@@ -116,32 +117,32 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
     for (int i = 0; i < kanasTest.length; i++) {
       await db.insert(TKanas.kanas, kanasTest[i].toMap());
     }
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 0, TWordKana.kanaId: 23});
-    await db
-        .insert(TWordKana.wordKana, {TWordKana.wordId: 0, TWordKana.kanaId: 9});
-    await db
-        .insert(TWordKana.wordKana, {TWordKana.wordId: 1, TWordKana.kanaId: 1});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 1, TWordKana.kanaId: 22});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 2, TWordKana.kanaId: 19});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 2, TWordKana.kanaId: 39});
-    await db
-        .insert(TWordKana.wordKana, {TWordKana.wordId: 3, TWordKana.kanaId: 2});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 3, TWordKana.kanaId: 10});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 3, TWordKana.kanaId: 47});
-    await db
-        .insert(TWordKana.wordKana, {TWordKana.wordId: 4, TWordKana.kanaId: 2});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 4, TWordKana.kanaId: 11});
-    await db
-        .insert(TWordKana.wordKana, {TWordKana.wordId: 5, TWordKana.kanaId: 2});
-    await db.insert(
-        TWordKana.wordKana, {TWordKana.wordId: 5, TWordKana.kanaId: 30});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 0, TWordKana.kanaId: 23, TWordKana.sequential: 0});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 0, TWordKana.kanaId: 9, TWordKana.sequential: 1});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 1, TWordKana.kanaId: 1, TWordKana.sequential: 0});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 1, TWordKana.kanaId: 22, TWordKana.sequential: 1});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 2, TWordKana.kanaId: 19, TWordKana.sequential: 0});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 2, TWordKana.kanaId: 39, TWordKana.sequential: 1});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 3, TWordKana.kanaId: 2, TWordKana.sequential: 0});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 3, TWordKana.kanaId: 10, TWordKana.sequential: 1});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 3, TWordKana.kanaId: 47, TWordKana.sequential: 2});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 4, TWordKana.kanaId: 2, TWordKana.sequential: 0});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 4, TWordKana.kanaId: 11, TWordKana.sequential: 1});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 5, TWordKana.kanaId: 2, TWordKana.sequential: 0});
+    await db.insert(TWordKana.wordKana,
+        {TWordKana.wordId: 5, TWordKana.kanaId: 30, TWordKana.sequential: 1});
   }
 
   @override
@@ -162,18 +163,28 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
     }).toList();
   }
 
-  Future<WordModel> getWord(int id) async {
-    // final maps = await _database.query(
-    //   "words",
-    //   columns: ["word_id", "word", "romaji", "type", "image_url"],
-    //   where: "word_id = ?",
-    //   whereArgs: [id],
-    // );
+  @override
+  Future<WordModel> getWord(int id, String languageCode) async {
+    final wordMap = await _database.rawQuery("""
+        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.imageUrl}, w.${TWords.romaji}, t.${TTranslates.code}, t.${TTranslates.translate}
+        FROM ${TWords.words} w
+        JOIN ${TTranslates.translates} t
+        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+        WHERE w.${TWords.wordId} = ?
+    """, [languageCode, id]);
 
-    // if (maps.isNotEmpty) {
-    //   return WordModel.fromMap(maps.first);
-    // }
-    return const WordModel.empty();
+    if (wordMap.isEmpty) {
+      return const WordModel.empty();
+    }
+
+    final kanasMap = await _database.rawQuery("""
+      SELECT k.*
+      FROM ${TKanas.kanas} k, ${TWordKana.wordKana} wk
+      WHERE k.${TKanas.kanaId} = wk.${TWordKana.kanaId} AND wk.${TWordKana.wordId} = ?
+      ORDER by wk.sequential
+    """, [id]);
+
+    return WordModel.fromMap(wordMap.first, kanasMap: kanasMap);
   }
 }
 

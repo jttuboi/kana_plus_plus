@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
@@ -7,9 +6,9 @@ import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
 
 class WordsPage extends StatelessWidget {
-  WordsPage({Key? key}) : super(key: key);
+  const WordsPage(this._stateManagement, {Key? key}) : super(key: key);
 
-  final _stateManagement = WordsStateManagement(WordsRepository());
+  final WordsStateManagement _stateManagement;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,7 @@ class WordsPage extends StatelessWidget {
         actions: [
           _SearchButton(
             onPressed: () async {
-              var locale = Localizations.localeOf(context).toString();
-              await _stateManagement.list(locale).then((value) => print(value));
+              await _stateManagement.list.then((value) => print(value));
             },
           )
         ],
@@ -27,8 +25,7 @@ class WordsPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<List<Word>>(
-          future:
-              _stateManagement.list(Localizations.localeOf(context).toString()),
+          future: _stateManagement.list,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const CircularProgressIndicator();
@@ -42,22 +39,18 @@ class WordsPage extends StatelessWidget {
               ),
               itemCount: snapshot.data!.length,
               itemBuilder: (context1, index) {
-                var word = snapshot.data![index];
+                final word = snapshot.data![index];
                 return WordItem(
                   word: word.word,
                   imageUrl: word.imageUrl,
-                  onTap: () {
-                    final Word getWord = Word(
-                        id: word.id,
-                        word: word.word,
-                        imageUrl: word.imageUrl,
-                        romaji: "teste",
-                        translate: word.translate);
-                    Navigator.pushNamed(
-                      context,
-                      Routes.word,
-                      arguments: WordsArguments(word: getWord),
-                    );
+                  onTap: () async {
+                    await _stateManagement.findWord(word.id).then((value) {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.word,
+                        arguments: WordsArguments(word: value),
+                      );
+                    });
                   },
                 );
               },
@@ -76,6 +69,6 @@ class _SearchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: Icon(Icons.search));
+    return IconButton(onPressed: onPressed, icon: const Icon(Icons.search));
   }
 }

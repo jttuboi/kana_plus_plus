@@ -50,6 +50,11 @@ class WordDetailPage extends StatelessWidget {
                 fit: FlexFit.tight,
                 child: Center(child: Text(word.translate.translate)),
               ),
+              Flexible(
+                flex: 3,
+                fit: FlexFit.tight,
+                child: Center(child: Text(word.kanas[0].kana)),
+              ),
               const Spacer(),
             ],
           ),

@@ -25,7 +25,8 @@ class WordModel extends Word {
 
   const WordModel.empty() : super.empty();
 
-  factory WordModel.fromMap(Map<String, dynamic> map) {
+  factory WordModel.fromMap(Map<String, dynamic> map,
+      {List<Map<String, dynamic>>? kanasMap}) {
     return WordModel(
       id: map[TWords.wordId] as int,
       word: map[TWords.word] as String,
@@ -36,6 +37,9 @@ class WordModel extends Word {
           ? KanaType.values[map[TWords.type] as int]
           : KanaType.none,
       translate: TranslateModel.fromMap(map),
+      kanas: (kanasMap != null)
+          ? kanasMap.map((kanaMap) => KanaModel.fromMap(kanaMap)).toList()
+          : const [],
     );
   }
 
