@@ -1,5 +1,6 @@
 import 'package:kana_plus_plus/src/data/datasources/interfaces/database.storage.interface.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 
 class Database {
   // singleton
@@ -16,6 +17,15 @@ class Database {
 
   static Future<List<WordModel>> getWords(String languageCode) async {
     return _storage.getWords(languageCode);
+  }
+
+  static Future<List<Word>> getWordsById(int id, String languageCode) async {
+    return _storage.getWordsById(id, languageCode);
+  }
+
+  static Future<List<Word>> getWordsByQuery(
+      String query, String languageCode) async {
+    return _storage.getWordsByQuery(query, languageCode);
   }
 
   static Future<WordModel> getWord(int id, String languageCode) async {

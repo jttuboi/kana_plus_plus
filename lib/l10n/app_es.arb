@@ -19,5 +19,6 @@
     "settingsOthers": "Otros",
     "settingsAbout": "Acerca de",
     "settingsPrivacyPolicy": "Política de privacidad",
-    "settingsSupport": "Admite el desarrollo de esta aplicación"
+    "settingsSupport": "Admite el desarrollo de esta aplicación",
+    "searchLabelInWords": "Japonés, romaji o traducción"
 }

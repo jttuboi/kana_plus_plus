@@ -1,74 +1,102 @@
 import "package:flutter/material.dart";
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/words_grid.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/words_search_delegate.dart';
 
-class WordsPage extends StatelessWidget {
-  const WordsPage(this._stateManagement, {Key? key}) : super(key: key);
+class WordsPage extends StatefulWidget {
+  const WordsPage(this.stateManagement, {Key? key}) : super(key: key);
 
-  final WordsStateManagement _stateManagement;
+  final WordsStateManagement stateManagement;
 
+  @override
+  _WordsPageState createState() => _WordsPageState();
+}
+
+class _WordsPageState extends State<WordsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          _SearchButton(
-            onPressed: () async {
-              await _stateManagement.list.then((value) => print(value));
-            },
-          )
+          IconButton(
+            onPressed: () => _onPressedSearchButton(context),
+            icon: const Icon(Icons.search),
+          ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<List<Word>>(
-          future: _stateManagement.list,
+          future: widget.stateManagement.wordsLoading,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
+            if (snapshot.connectionState != ConnectionState.done) {
+              return _buildLoader();
             }
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 9 / 10,
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
-              ),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context1, index) {
-                final word = snapshot.data![index];
-                return WordItem(
-                  word: word.word,
-                  imageUrl: word.imageUrl,
-                  onTap: () async {
-                    await _stateManagement.findWord(word.id).then((value) {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.word,
-                        arguments: WordsArguments(word: value),
-                      );
-                    });
-                  },
-                );
-              },
-            );
+            if (snapshot.hasError) {
+              return _buildError();
+            }
+            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              final words = snapshot.data!;
+              _updateWordsLoaded(words);
+              return WordsGrid(
+                words: words,
+                onTap: (id) => _onTapWordItem(context, id),
+              );
+            }
+            return _buildNoData();
           },
         ),
       ),
     );
   }
-}
 
-class _SearchButton extends StatelessWidget {
-  const _SearchButton({Key? key, required this.onPressed}) : super(key: key);
+  Future<void> _onPressedSearchButton(BuildContext context) async {
+    final JStrings strings = JStrings.of(context)!;
+    final queryResult = await showSearch(
+      context: context,
+      delegate: WordsSearchDelegate(
+        widget.stateManagement.wordsLoaded,
+        strings.searchLabelInWords,
+      ),
+    );
+    setState(() {
+      widget.stateManagement.fetchWords(queryResult);
+    });
+  }
 
-  final VoidCallback onPressed;
+  void _onTapWordItem(BuildContext context, int id) {
+    widget.stateManagement.findWord(id).then((value) {
+      Navigator.pushNamed(
+        context,
+        Routes.word,
+        arguments: WordsArguments(word: value),
+      );
+    });
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: const Icon(Icons.search));
+  // look at state management to understand where is used for
+  void _updateWordsLoaded(List<Word> words) {
+    // only fill at the first time
+    if (widget.stateManagement.wordsLoaded.isEmpty) {
+      widget.stateManagement.wordsLoaded = words;
+    }
+  }
+
+  Widget _buildLoader() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget _buildError() {
+    // TODO icon
+    return const Center(child: Icon(Icons.error));
+  }
+
+  Widget _buildNoData() {
+    // TODO icon
+    return const Center(child: Icon(Icons.cloud_off));
   }
 }

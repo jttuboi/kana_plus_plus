@@ -40,5 +40,7 @@
     "settingsPrivacyPolicy": "Privacy policy",
     "@settingsPrivacyPolicy": { "description": "" },
     "settingsSupport": "Support development of this app",
-    "@settingsSupport": { "description": "" }
+    "@settingsSupport": { "description": "" },
+    "searchLabelInWords": "Japanese, romaji or translation",
+    "@searchLabelInWords": { "description": "" }
 }

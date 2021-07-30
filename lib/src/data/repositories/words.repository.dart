@@ -11,9 +11,15 @@ class WordsRepository implements IWordsRepository {
   }
 
   @override
-  List<Word> getWordsBy(String textSearch) {
-    // TODO: implement getWordsBy
-    throw UnimplementedError();
+  Future<List<Word>> getWordsById(int id) async {
+    final languageCode = Cache.getString("language", defaultValue: "en");
+    return Database.getWordsById(id, languageCode);
+  }
+
+  @override
+  Future<List<Word>> getWordsByQuery(String query) async {
+    final languageCode = Cache.getString("language", defaultValue: "en");
+    return Database.getWordsByQuery(query, languageCode);
   }
 
   @override
