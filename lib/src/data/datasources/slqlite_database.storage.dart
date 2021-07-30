@@ -5,6 +5,8 @@ import 'package:kana_plus_plus/src/data/models/word.model.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/exception/not_found.exception.dart';
+import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -129,75 +131,109 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
 
   @override
   Future<List<WordModel>> getWords(String languageCode) async {
-    final wordsMap = await _database.rawQuery("""
-        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
-        FROM ${TWords.words} w
-        JOIN ${TTranslates.translates} t
-        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-    """, [languageCode]);
+    try {
+      final wordsMap = await _database.rawQuery("""
+          SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+          FROM ${TWords.words} w
+          JOIN ${TTranslates.translates} t
+          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+      """, [languageCode]);
 
-    if (wordsMap.isEmpty) {
-      return [];
+      if (wordsMap.isEmpty) {
+        Logger()
+            .e("SqliteDatabaseStorage::getWords code:$languageCode -> isEmpty");
+        throw NotFoundException();
+      }
+
+      return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
+    } on DatabaseException catch (e, stacktrace) {
+      Logger().e(
+          "SqliteDatabaseStorage::getWords code:$languageCode -> DatabaseException",
+          e,
+          stacktrace);
+      throw NotFoundException();
     }
-
-    return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
   }
 
   @override
   Future<List<Word>> getWordsById(int id, String languageCode) async {
-    final wordsMap = await _database.rawQuery("""
-        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
-        FROM ${TWords.words} w
-        JOIN ${TTranslates.translates} t
-        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-        WHERE w.${TWords.wordId} = ?
-    """, [languageCode, id]);
+    try {
+      final wordsMap = await _database.rawQuery("""
+          SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+          FROM ${TWords.words} w
+          JOIN ${TTranslates.translates} t
+          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+          WHERE w.${TWords.wordId} = ?
+      """, [languageCode, id]);
 
-    if (wordsMap.isEmpty) {
-      return [];
+      if (wordsMap.isEmpty) {
+        Logger().e(
+            "SqliteDatabaseStorage::getWordsById id:$id code:$languageCode -> isEmpty");
+        throw NotFoundException();
+      }
+
+      return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
+    } on DatabaseException catch (e, stacktrace) {
+      Logger().e(
+          "SqliteDatabaseStorage::getWordsById id:$id code:$languageCode -> DatabaseException",
+          e,
+          stacktrace);
+      throw NotFoundException();
     }
-
-    return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
   }
 
   @override
   Future<List<Word>> getWordsByQuery(String query, String languageCode) async {
-    final wordsMap = await _database.rawQuery("""
-        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
-        FROM ${TWords.words} w, ${TTranslates.translates} t
-        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-        WHERE w.${TWords.word} LIKE ? OR w.${TWords.romaji} LIKE ? OR t.${TTranslates.translate} LIKE ?
-    """, [languageCode, "%$query%", "%$query%", "%$query%"]);
+    try {
+      final wordsMap = await _database.rawQuery("""
+          SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+          FROM ${TWords.words} w, ${TTranslates.translates} t
+          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+          WHERE w.${TWords.word} LIKE ? OR w.${TWords.romaji} LIKE ? OR t.${TTranslates.translate} LIKE ?
+      """, [languageCode, "%$query%", "%$query%", "%$query%"]);
 
-    if (wordsMap.isEmpty) {
-      return [];
+      if (wordsMap.isEmpty) {
+        Logger().e("[query:$query code:$languageCode] -> isEmpty");
+        throw NotFoundException();
+      }
+
+      return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
+    } on DatabaseException catch (e, stacktrace) {
+      Logger().e("[query:$query code:$languageCode] -> DatabaseException", e,
+          stacktrace);
+      throw NotFoundException();
     }
-
-    return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
   }
 
   @override
   Future<WordModel> getWord(int id, String languageCode) async {
-    final wordMap = await _database.rawQuery("""
+    try {
+      final wordMap = await _database.rawQuery("""
         SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.imageUrl}, w.${TWords.romaji}, t.${TTranslates.code}, t.${TTranslates.translate}
-        FROM ${TWords.words} w
-        JOIN ${TTranslates.translates} t
-        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-        WHERE w.${TWords.wordId} = ?
-    """, [languageCode, id]);
+          FROM ${TWords.words} w
+          JOIN ${TTranslates.translates} t
+          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+          WHERE w.${TWords.wordId} = ?
+      """, [languageCode, id]);
 
-    if (wordMap.isEmpty) {
-      return const WordModel.empty();
+      if (wordMap.isEmpty) {
+        Logger().e("[id:$id code:$languageCode] -> isEmpty");
+        throw NotFoundException();
+      }
+
+      final kanasMap = await _database.rawQuery("""
+        SELECT k.*
+        FROM ${TKanas.kanas} k, ${TWordKana.wordKana} wk
+        WHERE k.${TKanas.kanaId} = wk.${TWordKana.kanaId} AND wk.${TWordKana.wordId} = ?
+        ORDER by wk.sequential
+      """, [id]);
+
+      return WordModel.fromMap(wordMap.first, kanasMap: kanasMap);
+    } on DatabaseException catch (e, stacktrace) {
+      Logger()
+          .e("[id:$id code:$languageCode] -> DatabaseException", e, stacktrace);
+      throw NotFoundException();
     }
-
-    final kanasMap = await _database.rawQuery("""
-      SELECT k.*
-      FROM ${TKanas.kanas} k, ${TWordKana.wordKana} wk
-      WHERE k.${TKanas.kanaId} = wk.${TWordKana.kanaId} AND wk.${TWordKana.wordId} = ?
-      ORDER by wk.sequential
-    """, [id]);
-
-    return WordModel.fromMap(wordMap.first, kanasMap: kanasMap);
   }
 }
 
