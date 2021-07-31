@@ -133,24 +133,21 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
   Future<List<WordModel>> getWords(String languageCode) async {
     try {
       final wordsMap = await _database.rawQuery("""
-          SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
-          FROM ${TWords.words} w
-          JOIN ${TTranslates.translates} t
-          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+        FROM ${TWords.words} w
+        JOIN ${TTranslates.translates} t
+        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+        ORDER BY w.${TWords.word}
       """, [languageCode]);
 
       if (wordsMap.isEmpty) {
-        Logger()
-            .e("SqliteDatabaseStorage::getWords code:$languageCode -> isEmpty");
+        Logger().e("code:$languageCode -> isEmpty");
         throw NotFoundException();
       }
 
       return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
     } on DatabaseException catch (e, stacktrace) {
-      Logger().e(
-          "SqliteDatabaseStorage::getWords code:$languageCode -> DatabaseException",
-          e,
-          stacktrace);
+      Logger().e("code:$languageCode -> DatabaseException", e, stacktrace);
       throw NotFoundException();
     }
   }
@@ -159,25 +156,23 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
   Future<List<Word>> getWordsById(int id, String languageCode) async {
     try {
       final wordsMap = await _database.rawQuery("""
-          SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
-          FROM ${TWords.words} w
-          JOIN ${TTranslates.translates} t
-          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-          WHERE w.${TWords.wordId} = ?
+        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+        FROM ${TWords.words} w
+        JOIN ${TTranslates.translates} t
+        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+        WHERE w.${TWords.wordId} = ?
+        ORDER BY w.${TWords.word}
       """, [languageCode, id]);
 
       if (wordsMap.isEmpty) {
-        Logger().e(
-            "SqliteDatabaseStorage::getWordsById id:$id code:$languageCode -> isEmpty");
+        Logger().e("id:$id code:$languageCode -> isEmpty");
         throw NotFoundException();
       }
 
       return wordsMap.map((wordMap) => WordModel.fromMap(wordMap)).toList();
     } on DatabaseException catch (e, stacktrace) {
-      Logger().e(
-          "SqliteDatabaseStorage::getWordsById id:$id code:$languageCode -> DatabaseException",
-          e,
-          stacktrace);
+      Logger()
+          .e("id:$id code:$languageCode -> DatabaseException", e, stacktrace);
       throw NotFoundException();
     }
   }
@@ -186,10 +181,11 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
   Future<List<Word>> getWordsByQuery(String query, String languageCode) async {
     try {
       final wordsMap = await _database.rawQuery("""
-          SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
-          FROM ${TWords.words} w, ${TTranslates.translates} t
-          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-          WHERE w.${TWords.word} LIKE ? OR w.${TWords.romaji} LIKE ? OR t.${TTranslates.translate} LIKE ?
+        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
+        FROM ${TWords.words} w, ${TTranslates.translates} t
+        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+        WHERE w.${TWords.word} LIKE ? OR w.${TWords.romaji} LIKE ? OR t.${TTranslates.translate} LIKE ?
+        ORDER BY w.${TWords.word}
       """, [languageCode, "%$query%", "%$query%", "%$query%"]);
 
       if (wordsMap.isEmpty) {
@@ -210,10 +206,10 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
     try {
       final wordMap = await _database.rawQuery("""
         SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.imageUrl}, w.${TWords.romaji}, t.${TTranslates.code}, t.${TTranslates.translate}
-          FROM ${TWords.words} w
-          JOIN ${TTranslates.translates} t
-          ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
-          WHERE w.${TWords.wordId} = ?
+        FROM ${TWords.words} w
+        JOIN ${TTranslates.translates} t
+        ON (w.${TWords.wordId} = t.${TTranslates.wordId} AND t.${TTranslates.code} = ?)
+        WHERE w.${TWords.wordId} = ?
       """, [languageCode, id]);
 
       if (wordMap.isEmpty) {
