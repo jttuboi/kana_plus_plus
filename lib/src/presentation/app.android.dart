@@ -10,7 +10,7 @@ import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
-import 'package:kana_plus_plus/src/models/pre_training_arguments.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
@@ -20,7 +20,7 @@ import 'package:kana_plus_plus/src/presentation/state_management/locale.provider
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
-import 'package:kana_plus_plus/src/views/android/pages/pre_training.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/review.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/training.page.dart';
