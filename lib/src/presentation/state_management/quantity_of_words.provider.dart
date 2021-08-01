@@ -1,26 +1,21 @@
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
+import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 
 class QuantityOfWordsProvider extends ChangeNotifier {
-  QuantityOfWordsProvider(this._repository) {
-    quantity = _repository.getQuantityOfWords();
-    notifyListeners();
-  }
+  QuantityOfWordsProvider(this._controller);
 
-  final ISettingsRepository _repository;
+  final SettingsController _controller;
 
-  late int quantity;
-  final int _step = 1;
+  int get quantity => _controller.getQuantityOfWords();
 
-  int get minWords => 5;
-  int get maxWords => 20;
-  int get divisions => (maxWords - minWords) ~/ _step;
+  double get minWords => _controller.getMinimumQuantityOfWords();
 
-  String get iconUrl => _repository.getQuantityOfWordsIconUrl();
+  double get maxWords => _controller.getMaximumQuantityOfWords();
+
+  String get iconUrl => _controller.getQuantityOfWordsIconUrl();
 
   void updateQuantity(double value) {
-    quantity = value.toInt();
-    _repository.saveQuantityOfWords(quantity);
+    _controller.updateQuantityOfWords(value.toInt());
     notifyListeners();
   }
 }

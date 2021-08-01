@@ -13,4 +13,9 @@ class Translate {
   final int id;
   final String code;
   final String translate;
+
+  @override
+  String toString() {
+    return "Translate($id, $code, $translate)";
+  }
 }

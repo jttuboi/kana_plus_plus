@@ -41,9 +41,4 @@ class KanaModel extends Kana {
       TKanas.romajiImageUrl: romajiImageUrl,
     };
   }
-
-  @override
-  String toString() {
-    return "Kana($id, $kana, $imageUrl, $romaji, $romajiImageUrl)";
-  }
 }

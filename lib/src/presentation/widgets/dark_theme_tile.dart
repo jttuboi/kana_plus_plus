@@ -19,7 +19,7 @@ class DarkThemeTile extends StatelessWidget {
       builder: (context, provider, child) {
         return SwitchListTile(
           title: Text(strings.settingsDarkTheme),
-          value: provider.isDarkTheme,
+          value: provider.darkTheme,
           onChanged: (value) {
             provider.updateDarkTheme(value);
             _updateThemeOnApp(context, value);

@@ -1,17 +1,22 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
+import 'package:kana_plus_plus/src/data/repositories/dark_theme.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/kana_type.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/language.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/quantity_of_words.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/show_hint.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/writing_hand.repository.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
+import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
+import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
+import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
-import 'package:nested/nested.dart';
-import 'package:provider/provider.dart';
-
-import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
-import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.dart';
@@ -19,11 +24,13 @@ import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
 import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.dart';
+import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/review.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/training.page.dart';
+import 'package:nested/nested.dart';
+import 'package:provider/provider.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
@@ -97,11 +104,26 @@ class AndroidApp extends StatelessWidget {
       Routes.menu: (context) => const MenuPage(),
       Routes.study: (context) => const StudyPage(),
       Routes.kana: (context) => const KanaPage(),
-      Routes.preTraining: (context) => const PreTrainingPage(),
+      Routes.preTraining: (context) => PreTrainingPage(
+            PreTrainingController(
+              showHintRepository: ShowHintRepository(),
+              kanaTypeRepository: KanaTypeRepository(),
+              quantityOfWordsRepository: QuantityOfWordsRepository(),
+            ),
+          ),
       Routes.words: (context) => WordsPage(
             WordsStateManagement(WordsController(WordsRepository())),
           ),
-      Routes.settings: (context) => const SettingsPage(),
+      Routes.settings: (context) => SettingsPage(
+            SettingsController(
+              languageRepository: LanguageRepository(),
+              writingHandRepository: WritingHandRepository(),
+              showHintRepository: ShowHintRepository(),
+              darkThemeRepository: DarkThemeRepository(),
+              kanaTypeRepository: KanaTypeRepository(),
+              quantityOfWordsRepository: QuantityOfWordsRepository(),
+            ),
+          ),
     };
   }
 

@@ -1,3 +1,5 @@
+import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+
 class PreTrainingArguments {
   const PreTrainingArguments({
     required this.showHint,
@@ -6,6 +8,6 @@ class PreTrainingArguments {
   });
 
   final bool showHint;
-  final int kanaType;
+  final KanaType kanaType;
   final int quantityOfWords;
 }

@@ -1,36 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
-import 'package:provider/provider.dart';
 
 class QuantityOfWordsTile extends StatelessWidget {
-  const QuantityOfWordsTile({Key? key}) : super(key: key);
+  const QuantityOfWordsTile({
+    Key? key,
+    required this.quantity,
+    required this.iconUrl,
+    required this.minWords,
+    required this.maxWords,
+    required this.updateQuantity,
+  }) : super(key: key);
+
+  final int quantity;
+  final String iconUrl;
+  final double minWords;
+  final double maxWords;
+  final Function(double quantity) updateQuantity;
+
+  int get _step => 1;
 
   @override
   Widget build(BuildContext context) {
     final JStrings strings = JStrings.of(context)!;
-    return Consumer<QuantityOfWordsProvider>(
-      builder: (context, provider, child) {
-        return ListTile(
-          leading: ImageIcon(AssetImage(provider.iconUrl)),
-          title: Text(strings.settingsQuantityOfWords),
-          subtitle: SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              trackShape: _CustomTrackShape(),
-            ),
-            child: Slider(
-              value: provider.quantity.toDouble(),
-              onChanged: (value) {
-                provider.updateQuantity(value);
-              },
-              divisions: provider.divisions,
-              label: provider.quantity.toString(),
-              min: provider.minWords.toDouble(),
-              max: provider.maxWords.toDouble(),
-            ),
-          ),
-        );
-      },
+    return ListTile(
+      leading: ImageIcon(AssetImage(iconUrl)),
+      title: Text(strings.settingsQuantityOfWords),
+      subtitle: SliderTheme(
+        data: SliderTheme.of(context).copyWith(
+          trackShape: _CustomTrackShape(),
+        ),
+        child: Slider(
+          value: quantity.toDouble(),
+          label: quantity.toString(),
+          min: minWords,
+          max: maxWords,
+          divisions: (maxWords - minWords) ~/ _step,
+          onChanged: updateQuantity,
+        ),
+      ),
     );
   }
 }

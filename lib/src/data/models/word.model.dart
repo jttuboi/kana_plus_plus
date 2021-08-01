@@ -52,9 +52,4 @@ class WordModel extends Word {
       TWords.type: type.index,
     };
   }
-
-  @override
-  String toString() {
-    return "Word($id, $word, $imageUrl, $romaji, $type, $translate, $kanas)";
-  }
 }

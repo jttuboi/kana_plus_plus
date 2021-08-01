@@ -22,4 +22,9 @@ class Kana {
   final String imageUrl;
   final String romaji;
   final String romajiImageUrl;
+
+  @override
+  String toString() {
+    return "Kana($id, $kana, $imageUrl, $romaji, $romajiImageUrl)";
+  }
 }

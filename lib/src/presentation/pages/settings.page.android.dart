@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/data/repositories/settings.repository.dart';
+import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/settings.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
@@ -19,45 +19,45 @@ import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.pr
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage(this.controller, {Key? key}) : super(key: key);
+
+  final SettingsController controller;
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final _repository = SettingsRepository();
   late final SettingsStateManagement _stateManagement;
 
   @override
   void initState() {
     super.initState();
-    _stateManagement = SettingsStateManagement(_repository);
+    _stateManagement = SettingsStateManagement(widget.controller);
   }
 
   @override
   Widget build(BuildContext context) {
     final JStrings strings = JStrings.of(context)!;
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => LanguageProvider(_repository),
+          create: (context) => LanguageProvider(widget.controller),
         ),
         ChangeNotifierProvider(
-          create: (context) => WritingHandProvider(_repository),
+          create: (context) => WritingHandProvider(widget.controller),
         ),
         ChangeNotifierProvider(
-          create: (context) => DarkThemeProvider(_repository),
+          create: (context) => DarkThemeProvider(widget.controller),
         ),
         ChangeNotifierProvider(
-          create: (context) => ShowHintProvider(_repository),
+          create: (context) => ShowHintProvider(widget.controller),
         ),
         ChangeNotifierProvider(
-          create: (context) => KanaTypeProvider(_repository),
+          create: (context) => KanaTypeProvider(widget.controller),
         ),
         ChangeNotifierProvider(
-          create: (context) => QuantityOfWordsProvider(_repository),
+          create: (context) => QuantityOfWordsProvider(widget.controller),
         ),
       ],
       builder: (context, child) {
@@ -70,12 +70,48 @@ class _SettingsPageState extends State<SettingsPage> {
               SubHeaderTile(strings.settingsBasic),
               const LanguageTile(),
               const DarkThemeTile(),
-              const WritingHandTile(),
+              Consumer<WritingHandProvider>(
+                builder: (context, provider, child) {
+                  return WritingHandTile(
+                    writingHand: provider.writingHand,
+                    iconUrl: provider.iconUrl,
+                    getOptions: provider.getOptions,
+                    updateWritingHand: provider.updateWritingHand,
+                  );
+                },
+              ),
               const Divider(),
               SubHeaderTile(strings.settingsDefaultTrainingSetting),
-              const ShowHintTile(),
-              const KanaTypeTile(),
-              const QuantityOfWordsTile(),
+              Consumer<ShowHintProvider>(
+                builder: (context, provider, child) {
+                  return ShowHintTile(
+                    showHint: provider.showHint,
+                    iconUrl: provider.iconUrl,
+                    updateShowHint: provider.updateShowHint,
+                  );
+                },
+              ),
+              Consumer<KanaTypeProvider>(
+                builder: (context, provider, child) {
+                  return KanaTypeTile(
+                    kanaType: provider.kanaType,
+                    iconUrl: provider.iconUrl,
+                    getOptions: provider.getOptions,
+                    updateKanaType: provider.updateKanaType,
+                  );
+                },
+              ),
+              Consumer<QuantityOfWordsProvider>(
+                builder: (context, provider, child) {
+                  return QuantityOfWordsTile(
+                    quantity: provider.quantity,
+                    iconUrl: provider.iconUrl,
+                    minWords: provider.minWords,
+                    maxWords: provider.maxWords,
+                    updateQuantity: provider.updateQuantity,
+                  );
+                },
+              ),
               const Divider(),
               SubHeaderTile(strings.settingsOthers),
               ListTile(

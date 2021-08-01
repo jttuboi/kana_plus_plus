@@ -30,4 +30,9 @@ class Word {
   final KanaType type;
   final Translate translate;
   final List<Kana> kanas;
+
+  @override
+  String toString() {
+    return "Word($id, $word, $imageUrl, $romaji, $type, $translate, $kanas)";
+  }
 }

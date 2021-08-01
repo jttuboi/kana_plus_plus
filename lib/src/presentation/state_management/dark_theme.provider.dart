@@ -1,21 +1,17 @@
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
+import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 
 class DarkThemeProvider extends ChangeNotifier {
-  DarkThemeProvider(this._repository) {
-    isDarkTheme = _repository.isDarkTheme();
-    notifyListeners();
-  }
+  DarkThemeProvider(this._controller);
 
-  final ISettingsRepository _repository;
+  final SettingsController _controller;
 
-  late bool isDarkTheme;
+  bool get darkTheme => _controller.isDarkTheme();
 
-  String get iconUrl => _repository.getDarkThemeIconUrl(isDarkTheme);
+  String get iconUrl => _controller.getDarkThemeIconUrl();
 
   void updateDarkTheme(bool pIsDarkTheme) {
-    isDarkTheme = pIsDarkTheme;
-    _repository.saveDarkTheme(pIsDarkTheme);
+    _controller.updateDarkTheme(pIsDarkTheme);
     notifyListeners();
   }
 }

@@ -29,9 +29,4 @@ class TranslateModel extends Translate {
       TTranslates.translate: translate,
     };
   }
-
-  @override
-  String toString() {
-    return "Translate($id, $code, $translate)";
-  }
 }

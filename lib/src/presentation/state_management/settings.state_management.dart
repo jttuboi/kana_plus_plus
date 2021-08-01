@@ -1,19 +1,20 @@
-import 'package:kana_plus_plus/src/domain/repositories/settings.interface.dart';
 import 'package:kana_plus_plus/src/data/models/description.model.dart';
+import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 
 class SettingsStateManagement {
-  SettingsStateManagement(this._repository);
+  SettingsStateManagement(this._controller);
 
-  final ISettingsRepository _repository;
+  final SettingsController _controller;
 
-  String get aboutIconUrl => _repository.getAboutIconUrl();
-  String get privacyPolicyIconUrl => _repository.getPrivacyPolicyIconUrl();
+  String get aboutIconUrl => _controller.getAboutIconUrl();
 
-  String get supportIconUrl => _repository.getSupportIconUrl();
+  String get privacyPolicyIconUrl => _controller.getPrivacyPolicyIconUrl();
+
+  String get supportIconUrl => _controller.getSupportIconUrl();
 
   List<DescriptionModel> get aboutDescriptions =>
-      _repository.getAboutDescriptions();
+      _controller.getAboutDescriptions();
 
   List<DescriptionModel> get privacyPolicyDescriptions =>
-      _repository.getPrivacyPolicyDescriptions();
+      _controller.getPrivacyPolicyDescriptions();
 }

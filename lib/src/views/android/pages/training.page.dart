@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/models/kana_result.dart';
 import 'package:kana_plus_plus/src/models/training_arguments.dart';
 import 'package:kana_plus_plus/src/models/word_result.dart';
@@ -20,7 +21,7 @@ class TrainingPage extends StatefulWidget {
   }) : super(key: key);
 
   final bool showHint;
-  final int kanaType;
+  final KanaType kanaType;
   final int quantityOfWords;
 
   @override
