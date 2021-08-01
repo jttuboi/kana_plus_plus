@@ -3,9 +3,9 @@ import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/domain/repositories/words.interface.dart';
 
 class WordsController {
-  WordsController(this._repository);
+  WordsController({required this.wordsRepository});
 
-  final IWordsRepository _repository;
+  final IWordsRepository wordsRepository;
 
   LoadedBy _loadedBy = LoadedBy.none;
   int _id = -1;
@@ -13,15 +13,15 @@ class WordsController {
 
   Future<List<Word>> showWords() {
     if (_loadedBy.isLoadedById) {
-      return _repository.getWordsById(_id);
+      return wordsRepository.getWordsById(_id);
     } else if (_loadedBy.isLoadedByQuery) {
-      return _repository.getWordsByQuery(_query);
+      return wordsRepository.getWordsByQuery(_query);
     }
-    return _repository.getWords();
+    return wordsRepository.getWords();
   }
 
   Future<Word> showWordDetail(int id) async {
-    return _repository.getWord(id);
+    return wordsRepository.getWord(id);
   }
 
   void setToLoadWordsById(int id) {

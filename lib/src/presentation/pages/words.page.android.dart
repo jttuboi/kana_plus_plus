@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/domain/exception/not_found.exception.dart';
+import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
@@ -9,15 +10,23 @@ import 'package:kana_plus_plus/src/presentation/widgets/words_grid.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/words_search_delegate.dart';
 
 class WordsPage extends StatefulWidget {
-  const WordsPage(this.stateManagement, {Key? key}) : super(key: key);
+  const WordsPage(this.controller, {Key? key}) : super(key: key);
 
-  final WordsStateManagement stateManagement;
+  final WordsController controller;
 
   @override
   _WordsPageState createState() => _WordsPageState();
 }
 
 class _WordsPageState extends State<WordsPage> {
+  late WordsStateManagement _stateManagement;
+
+  @override
+  void initState() {
+    super.initState();
+    _stateManagement = WordsStateManagement(widget.controller);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +41,7 @@ class _WordsPageState extends State<WordsPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<List<Word>>(
-          future: widget.stateManagement.wordsLoading,
+          future: _stateManagement.wordsLoading,
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return _buildLoader();
@@ -62,17 +71,17 @@ class _WordsPageState extends State<WordsPage> {
     final queryResult = await showSearch(
       context: context,
       delegate: WordsSearchDelegate(
-        widget.stateManagement.wordsLoaded,
+        _stateManagement.wordsLoaded,
         strings.searchLabelInWords,
       ),
     );
     setState(() {
-      widget.stateManagement.fetchWords(queryResult);
+      _stateManagement.fetchWords(queryResult);
     });
   }
 
   void _onTapWordItem(BuildContext context, int id) {
-    widget.stateManagement.findWord(id).then((value) {
+    _stateManagement.findWord(id).then((value) {
       Navigator.pushNamed(
         context,
         Routes.word,
@@ -84,8 +93,8 @@ class _WordsPageState extends State<WordsPage> {
   // look at state management to understand where is used for
   void _updateWordsLoaded(List<Word> words) {
     // only fill at the first time
-    if (widget.stateManagement.wordsLoaded.isEmpty) {
-      widget.stateManagement.wordsLoaded = words;
+    if (_stateManagement.wordsLoaded.isEmpty) {
+      _stateManagement.wordsLoaded = words;
     }
   }
 

@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 
 void main() {
   final _repository = WordsRepositoryMock();
-  final controller = WordsController(_repository);
+  final controller = WordsController(wordsRepository: _repository);
 
   group("show word detail", () {
     test("must return a full word to show in word detail", () {

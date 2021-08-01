@@ -15,7 +15,6 @@ import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
@@ -112,7 +111,9 @@ class AndroidApp extends StatelessWidget {
             ),
           ),
       Routes.words: (context) => WordsPage(
-            WordsStateManagement(WordsController(WordsRepository())),
+            WordsController(
+              wordsRepository: WordsRepository(),
+            ),
           ),
       Routes.settings: (context) => SettingsPage(
             SettingsController(
