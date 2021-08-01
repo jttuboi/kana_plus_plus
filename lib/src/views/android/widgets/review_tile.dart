@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/rendering.dart';
-import 'package:kana_plus_plus/src/models/word_result.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 
 class ReviewTile extends StatelessWidget {

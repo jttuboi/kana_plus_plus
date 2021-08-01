@@ -2,15 +2,15 @@ import 'dart:math';
 
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
-import 'package:kana_plus_plus/src/models/kana_result.dart';
-import 'package:kana_plus_plus/src/models/training_arguments.dart';
-import 'package:kana_plus_plus/src/models/word_result.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
-import 'package:kana_plus_plus/src/shared/kana_viewer_status.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/progress_bar.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/training_content.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/progress_bar.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/training_content.dart';
 
 class TrainingPage extends StatefulWidget {
   const TrainingPage({

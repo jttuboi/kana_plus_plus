@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/models/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/kana_viewers.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/kana_writer.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/kana_viewers.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/kana_writer.dart';
 
 class TrainingContent extends StatelessWidget {
   const TrainingContent({

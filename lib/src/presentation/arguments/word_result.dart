@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/models/kana_result.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 
 class WordResult {
   WordResult({

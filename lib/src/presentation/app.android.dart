@@ -13,7 +13,7 @@ import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
-import 'package:kana_plus_plus/src/models/training_arguments.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
@@ -28,7 +28,7 @@ import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/review.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
-import 'package:kana_plus_plus/src/views/android/pages/training.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/training.page.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
