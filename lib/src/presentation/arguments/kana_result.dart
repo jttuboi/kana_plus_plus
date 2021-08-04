@@ -2,12 +2,14 @@ import 'package:flutter/widgets.dart';
 
 class KanaResult {
   const KanaResult({
-    required this.kanaId,
-    required this.correct,
-    required this.userKana,
+    required this.id,
+    required this.imageUrl,
+    required this.isCorrect,
+    required this.userImage,
   });
 
-  final int kanaId;
-  final bool correct;
-  final Image userKana;
+  final int id;
+  final String imageUrl;
+  final bool isCorrect;
+  final Image userImage;
 }

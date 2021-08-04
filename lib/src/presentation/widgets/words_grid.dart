@@ -25,7 +25,7 @@ class WordsGrid extends StatelessWidget {
       itemBuilder: (context1, index) {
         final word = words[index];
         return WordItem(
-          word: word.word,
+          word: word.text,
           imageUrl: word.imageUrl,
           onTap: () => onTap(word.id),
         );

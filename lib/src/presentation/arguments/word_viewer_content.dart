@@ -3,16 +3,18 @@ import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.da
 class WordViewerContent {
   const WordViewerContent({
     required this.id,
-    required this.wordImageUrl,
+    required this.text,
+    required this.imageUrl,
     required this.kanas,
   });
 
   final int id;
-  final String wordImageUrl;
+  final String text;
+  final String imageUrl;
   final List<KanaViewerContent> kanas;
 
   @override
   String toString() {
-    return "WordV($id, $wordImageUrl, $kanas)";
+    return "WordV($id, $text, $imageUrl, $kanas)";
   }
 }

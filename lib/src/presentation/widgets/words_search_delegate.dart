@@ -54,7 +54,7 @@ class WordsSearchDelegate extends SearchDelegate {
   }
 
   bool _hasQuery(Word word) {
-    return word.word.contains(query.trim()) ||
+    return word.text.contains(query.trim()) ||
         word.romaji.contains(query.trim()) ||
         word.translate.translate.contains(query.trim());
   }
@@ -65,7 +65,7 @@ class WordsSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         final word = suggestions[index];
         return ListTile(
-          title: Text("${word.word} - ${word.romaji}"),
+          title: Text("${word.text} - ${word.romaji}"),
           subtitle: Text(word.translate.translate),
           onTap: () => close(context, word),
         );

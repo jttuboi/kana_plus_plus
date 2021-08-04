@@ -164,119 +164,119 @@ const List<Word> wordsSample2 = [
 
 const Word wordSample0 = Word(
   id: 0,
-  word: "ねこ",
+  text: "ねこ",
   romaji: "neko",
   imageUrl: "lib/assets/images/words/cat.png",
   translate: Translate(id: 0, code: "en", translate: "cat"),
   kanas: [
     Kana(
         id: 23,
-        kana: "ね",
+        text: "ね",
         imageUrl: "lib/assets/images/hiragana/ne.png",
         type: KanaType.hiragana),
     Kana(
         id: 9,
-        kana: "こ",
+        text: "こ",
         imageUrl: "lib/assets/images/hiragana/ko.png",
         type: KanaType.hiragana),
   ],
 );
 const Word wordSample1 = Word(
   id: 1,
-  word: "いぬ",
+  text: "いぬ",
   romaji: "inu",
   imageUrl: "lib/assets/images/words/dog.png",
   translate: Translate(id: 0, code: "en", translate: "dog"),
   kanas: [
     Kana(
         id: 1,
-        kana: "い",
+        text: "い",
         imageUrl: "lib/assets/images/hiragana/i.png",
         type: KanaType.hiragana),
     Kana(
         id: 22,
-        kana: "ぬ",
+        text: "ぬ",
         imageUrl: "lib/assets/images/hiragana/nu.png",
         type: KanaType.hiragana),
   ],
 );
 const Word wordSample2 = Word(
   id: 2,
-  word: "とり",
+  text: "とり",
   romaji: "tori",
   imageUrl: "lib/assets/images/words/bird.png",
   translate: Translate(id: 0, code: "en", translate: "bird"),
   kanas: [
     Kana(
         id: 19,
-        kana: "と",
+        text: "と",
         imageUrl: "lib/assets/images/hiragana/to.png",
         type: KanaType.hiragana),
     Kana(
         id: 39,
-        kana: "り",
+        text: "り",
         imageUrl: "lib/assets/images/hiragana/ri.png",
         type: KanaType.hiragana),
   ],
 );
 const Word wordSample3 = Word(
   id: 3,
-  word: "うさぎ",
+  text: "うさぎ",
   romaji: "usagi",
   imageUrl: "lib/assets/images/words/rabbit.png",
   translate: Translate(id: 0, code: "en", translate: "rabbit"),
   kanas: [
     Kana(
         id: 2,
-        kana: "う",
+        text: "う",
         imageUrl: "lib/assets/images/hiragana/u.png",
         type: KanaType.hiragana),
     Kana(
         id: 10,
-        kana: "さ",
+        text: "さ",
         imageUrl: "lib/assets/images/hiragana/sa.png",
         type: KanaType.hiragana),
     Kana(
         id: 47,
-        kana: "ぎ",
+        text: "ぎ",
         imageUrl: "lib/assets/images/hiragana/gi.png",
         type: KanaType.hiragana),
   ],
 );
 const Word wordSample4 = Word(
   id: 4,
-  word: "うし",
+  text: "うし",
   romaji: "ushi",
   imageUrl: "lib/assets/images/words/cow.png",
   translate: Translate(id: 0, code: "en", translate: "cow"),
   kanas: [
     Kana(
         id: 2,
-        kana: "う",
+        text: "う",
         imageUrl: "lib/assets/images/hiragana/u.png",
         type: KanaType.hiragana),
     Kana(
         id: 11,
-        kana: "し",
+        text: "し",
         imageUrl: "lib/assets/images/hiragana/si.png",
         type: KanaType.hiragana),
   ],
 );
 const Word wordSample5 = Word(
   id: 5,
-  word: "うま",
+  text: "うま",
   romaji: "uma",
   imageUrl: "lib/assets/images/words/horse.png",
   translate: Translate(id: 0, code: "en", translate: "horse"),
   kanas: [
     Kana(
         id: 2,
-        kana: "う",
+        text: "う",
         imageUrl: "lib/assets/images/hiragana/u.png",
         type: KanaType.hiragana),
     Kana(
         id: 30,
-        kana: "ま",
+        text: "ま",
         imageUrl: "lib/assets/images/hiragana/ma.png",
         type: KanaType.hiragana),
   ],

@@ -40,7 +40,7 @@ class TrainingController {
     return true;
   }
 
-  String get currentImageUrl => wordsToTraining[wordIdx].wordImageUrl;
+  String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
 
   WritingHand get getWritingHand =>
       writingHandRepository.getWritingHandSelected();
@@ -120,17 +120,18 @@ class TrainingController {
         final kanaContent = wordsToTraining[w].kanas[k];
         kanasResult.add(
           KanaResult(
-            correct: kanaContent.status.isShowCorrect,
-            kanaId: kanaContent.id,
-            // algo assim nao deve acontecer, ver como melhorar essa parte
-            userKana: kanaContent.userKana ??
-                Image.asset("lib/assets/images/square.png"),
+            isCorrect: kanaContent.status.isShowCorrect,
+            id: kanaContent.id,
+            imageUrl: kanaContent.kanaImageUrl,
+            userImage: kanaContent.userKana ?? Image.asset(ImageUrl.empty),
           ),
         );
       }
       wordsResult.add(WordResult(
-        wordId: wordsToTraining[w].id,
-        kanasResult: kanasResult,
+        id: wordsToTraining[w].id,
+        text: wordsToTraining[w].text,
+        imageUrl: wordsToTraining[w].imageUrl,
+        kanas: kanasResult,
       ));
     }
     return wordsResult;
@@ -161,7 +162,8 @@ class TrainingController {
       }
       wordsToTraining.add(WordViewerContent(
         id: words[w].id,
-        wordImageUrl: words[w].imageUrl,
+        text: words[w].text,
+        imageUrl: words[w].imageUrl,
         kanas: kanas,
       ));
     }

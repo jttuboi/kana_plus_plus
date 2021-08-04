@@ -22,6 +22,7 @@ class ReviewPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
+          //TODO strings
           title: const Text("review"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),

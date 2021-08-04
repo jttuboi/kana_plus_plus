@@ -1,3 +1,4 @@
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 
 class WritingHandData {
@@ -8,8 +9,7 @@ class WritingHandData {
 
   const WritingHandData.empty()
       : writingHand = WritingHand.right,
-        // TODO url
-        iconUrl = "";
+        iconUrl = IconUrl.empty;
 
   final WritingHand writingHand;
   final String iconUrl;

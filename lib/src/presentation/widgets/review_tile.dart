@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter/rendering.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/review_kana_content.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile(
@@ -19,10 +20,8 @@ class ReviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset("lib/assets/images/words/rain.png"),
-      // wordsResult[0].wordId procura pela imagem do rain
-      title: const Text("あめ"),
-      // wordsResult[0].wordId procura pela palavra do rain
+      leading: Image.asset(wordResult.imageUrl),
+      title: Text(wordResult.text),
       subtitle: Container(
         alignment: Alignment.centerLeft,
         constraints: const BoxConstraints.expand(width: 200.0, height: 40.0),
@@ -30,23 +29,13 @@ class ReviewTile extends StatelessWidget {
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 4.0),
-          itemCount: wordResult.kanasResult.length,
+          itemCount: wordResult.kanas.length,
           itemBuilder: (context, index) {
-            return SizedBox(
-              width: 32.0,
-              child: Stack(
-                children: [
-                  // tem q vir do background
-                  Image.asset(squareImageUrl),
-                  Image.asset("lib/assets/images/kanas/h_a.png"),
-                  //wordsResult[0].kanasResult[index].kanaId procura pela imagem do hiragana
-                  wordResult.kanasResult[index].userKana,
-                  if (wordResult.kanasResult[index].correct)
-                    Image.asset(correctImageUrl)
-                  else
-                    Image.asset(wrongImageUrl),
-                ],
-              ),
+            return ReviewKanaContent(
+              kanaResult: wordResult.kanas[index],
+              squareImageUrl: squareImageUrl,
+              correctImageUrl: correctImageUrl,
+              wrongImageUrl: wrongImageUrl,
             );
           },
           separatorBuilder: (context, index) => const SizedBox(width: 4.0),

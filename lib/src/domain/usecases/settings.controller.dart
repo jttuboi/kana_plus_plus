@@ -1,5 +1,6 @@
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/data/models/description.model.dart';
+import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.entity.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
@@ -113,11 +114,11 @@ class SettingsController {
   }
 
   double getMinimumQuantityOfWords() {
-    return quantityOfWordsRepository.getMinWords();
+    return Default.minimumTrainingCards.toDouble();
   }
 
   double getMaximumQuantityOfWords() {
-    return quantityOfWordsRepository.getMaxWords();
+    return Default.maximumTrainingCards.toDouble();
   }
 
   String getQuantityOfWordsIconUrl() {

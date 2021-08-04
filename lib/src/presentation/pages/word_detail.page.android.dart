@@ -38,7 +38,7 @@ class WordDetailPage extends StatelessWidget {
               Flexible(
                 flex: 3,
                 fit: FlexFit.tight,
-                child: Center(child: Text(word.word)),
+                child: Center(child: Text(word.text)),
               ),
               Flexible(
                 flex: 3,
@@ -53,7 +53,7 @@ class WordDetailPage extends StatelessWidget {
               Flexible(
                 flex: 3,
                 fit: FlexFit.tight,
-                child: Center(child: Text(word.kanas[0].kana)),
+                child: Center(child: Text(word.kanas[0].text)),
               ),
               const Spacer(),
             ],

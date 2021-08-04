@@ -2,10 +2,14 @@ import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 
 class WordResult {
   WordResult({
-    required this.wordId,
-    required this.kanasResult,
+    required this.id,
+    required this.text,
+    required this.imageUrl,
+    required this.kanas,
   });
 
-  final int wordId;
-  final List<KanaResult> kanasResult;
+  final int id;
+  final String text;
+  final String imageUrl;
+  final List<KanaResult> kanas;
 }

@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 class WordModel extends Word {
   const WordModel({
     required int id,
-    required String word,
+    required String text,
     required String imageUrl,
     String romaji = "",
     KanaType type = KanaType.none,
@@ -15,7 +15,7 @@ class WordModel extends Word {
     List<KanaModel> kanas = const [],
   }) : super(
           id: id,
-          word: word,
+          text: text,
           romaji: romaji,
           type: type,
           imageUrl: imageUrl,
@@ -29,7 +29,7 @@ class WordModel extends Word {
       {List<Map<String, dynamic>>? kanasMap}) {
     return WordModel(
       id: map[TWords.wordId] as int,
-      word: map[TWords.word] as String,
+      text: map[TWords.text] as String,
       imageUrl: map[TWords.imageUrl] as String,
       romaji:
           (map.containsKey(TWords.romaji)) ? map[TWords.romaji] as String : "",
@@ -49,7 +49,7 @@ class WordModel extends Word {
   Map<String, dynamic> toMap() {
     return {
       TWords.wordId: id,
-      TWords.word: word,
+      TWords.text: text,
       TWords.imageUrl: imageUrl,
       TWords.romaji: romaji,
       TWords.type: type.index,
