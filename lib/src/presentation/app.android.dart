@@ -11,6 +11,7 @@ import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/writing_hand.repository.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
+import 'package:kana_plus_plus/src/domain/usecases/review.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
@@ -24,6 +25,7 @@ import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.d
 import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/review.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
@@ -162,6 +164,7 @@ class AndroidApp extends StatelessWidget {
       final args = settings.arguments! as TrainingArguments;
       return MaterialPageRoute(
         builder: (context) => ReviewPage(
+          reviewStateManagement: ReviewStateManagement(ReviewController()),
           wordsResult: args.wordsResult,
         ),
       );

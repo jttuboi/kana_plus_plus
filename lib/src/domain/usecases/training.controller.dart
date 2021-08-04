@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
+import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/slqlite_database.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
@@ -12,7 +13,6 @@ import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_viewer_content.dart';
-import 'package:kana_plus_plus/src/shared/images.dart';
 
 class TrainingController {
   TrainingController({
@@ -54,6 +54,12 @@ class TrainingController {
       wordsToTraining[wordIdx].kanas[kanaIdx].kanaType;
 
   String get quitIconUrl => IconUrl.quitTraining;
+
+  String get squareImageUrl => ImageUrl.square;
+
+  String get correctImageUrl => ImageUrl.correct;
+
+  String get wrongImageUrl => ImageUrl.wrong;
 
   int getMaxKanasOfWord(int currentWordIdx) {
     return wordsToTraining[currentWordIdx].kanas.length;
@@ -117,7 +123,8 @@ class TrainingController {
             correct: kanaContent.status.isShowCorrect,
             kanaId: kanaContent.id,
             // algo assim nao deve acontecer, ver como melhorar essa parte
-            userKana: kanaContent.userKana ?? JImages.empty,
+            userKana: kanaContent.userKana ??
+                Image.asset("lib/assets/images/square.png"),
           ),
         );
       }

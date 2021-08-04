@@ -1,13 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/review.state_management.dart';
 import 'package:kana_plus_plus/src/views/android/widgets/review_tile.dart';
 
 class ReviewPage extends StatelessWidget {
   const ReviewPage({
     Key? key,
+    required this.reviewStateManagement,
     required this.wordsResult,
   }) : super(key: key);
 
+  final ReviewStateManagement reviewStateManagement;
   final List<WordResult> wordsResult;
 
   @override
@@ -29,7 +32,12 @@ class ReviewPage extends StatelessWidget {
         body: ListView.separated(
           itemCount: wordsResult.length,
           itemBuilder: (context, index) {
-            return ReviewTile(wordsResult[index]);
+            return ReviewTile(
+              wordsResult[index],
+              squareImageUrl: reviewStateManagement.squareImageUrl,
+              correctImageUrl: reviewStateManagement.correctImageUrl,
+              wrongImageUrl: reviewStateManagement.wrongImageUrl,
+            );
           },
           separatorBuilder: (context, index) => const Divider(),
         ),

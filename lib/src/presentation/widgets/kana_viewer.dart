@@ -1,13 +1,21 @@
 import 'dart:ui';
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
 
 class KanaViewer extends StatefulWidget {
-  const KanaViewer(this.content, {Key? key}) : super(key: key);
+  const KanaViewer(
+    this.content, {
+    Key? key,
+    required this.squareImageUrl,
+    required this.correctImageUrl,
+    required this.wrongImageUrl,
+  }) : super(key: key);
 
   final KanaViewerContent content;
+  final String squareImageUrl;
+  final String correctImageUrl;
+  final String wrongImageUrl;
 
   @override
   _KanaViewerState createState() => _KanaViewerState();
@@ -44,7 +52,7 @@ class _KanaViewerState extends State<KanaViewer>
     return Stack(
       children: [
         if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
-        JImages.square,
+        Image.asset(widget.squareImageUrl),
         if (widget.content.status.isShowSelected ||
             widget.content.status.isShowInitial)
           Image.asset(widget.content.romajiImageUrl)
@@ -52,8 +60,11 @@ class _KanaViewerState extends State<KanaViewer>
           Image.asset(widget.content.kanaImageUrl),
           widget.content.userKana!
         ],
-        if (widget.content.status.isShowCorrect) JImages.correct,
-        if (widget.content.status.isShowWrong) JImages.wrong,
+        // a imagem precisa vir do background
+        if (widget.content.status.isShowCorrect)
+          Image.asset(widget.correctImageUrl),
+        if (widget.content.status.isShowWrong)
+          Image.asset(widget.wrongImageUrl),
       ],
     );
   }

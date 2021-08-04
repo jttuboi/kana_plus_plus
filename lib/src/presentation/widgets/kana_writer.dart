@@ -2,7 +2,6 @@ import 'dart:math';
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
-import 'package:kana_plus_plus/src/shared/images.dart';
 
 class KanaWriter extends StatelessWidget {
   const KanaWriter({
@@ -110,7 +109,8 @@ class KanaWriter extends StatelessWidget {
                           onKanaRecovered(
                             result["pointsFiltered"] as List<Point<num>>,
                             result["kanaId"] as int,
-                            JImages.hATest,
+                            // TODO trocar por uma imagem escrita pelo usuario
+                            Image.asset("lib/assets/images/h_a_test.png"),
                           );
                         }
                       },

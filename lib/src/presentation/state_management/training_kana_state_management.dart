@@ -16,6 +16,12 @@ class TrainingKanaStateManagement extends ChangeNotifier {
 
   KanaType get kanaType => _controller.currentKanaType;
 
+  String get squareImageUrl => _controller.squareImageUrl;
+
+  String get correctImageUrl => _controller.correctImageUrl;
+
+  String get wrongImageUrl => _controller.wrongImageUrl;
+
   int maxKanasOfWord(int currentWordIdx) =>
       _controller.getMaxKanasOfWord(currentWordIdx);
 

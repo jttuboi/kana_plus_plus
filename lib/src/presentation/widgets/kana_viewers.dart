@@ -72,6 +72,9 @@ class _KanaViewersState extends State<KanaViewers> {
               index: index,
               child: KanaViewer(
                 widget.stateManagement.kanaOfWord(widget.wordIdxToShow, index),
+                squareImageUrl: widget.stateManagement.squareImageUrl,
+                correctImageUrl: widget.stateManagement.correctImageUrl,
+                wrongImageUrl: widget.stateManagement.wrongImageUrl,
               ),
             );
           },
