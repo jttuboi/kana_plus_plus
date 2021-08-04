@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/review.state_management.dart';
-import 'package:kana_plus_plus/src/views/android/widgets/review_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/review_tile.dart';
 
 class ReviewPage extends StatelessWidget {
   const ReviewPage({

@@ -31,11 +31,11 @@ import 'package:kana_plus_plus/src/presentation/state_management/training.state_
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_word.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.android.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
-import 'package:kana_plus_plus/src/views/android/pages/review.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/review.page.android.dart';
 import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
-import 'package:kana_plus_plus/src/presentation/pages/training.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/training.page.android.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
