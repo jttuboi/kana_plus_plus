@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/translate.entity.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/domain/exception/not_found.exception.dart';
@@ -8,8 +9,8 @@ import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
-  final _repository = WordsRepositoryMock();
-  final controller = WordsController(wordsRepository: _repository);
+  final _repository = WordRepositoryMock();
+  final controller = WordsController(wordRepository: _repository);
 
   group("show word detail", () {
     test("must return a full word to show in word detail", () {
@@ -140,7 +141,7 @@ void main() {
   });
 }
 
-class WordsRepositoryMock extends Mock implements WordsRepository {}
+class WordRepositoryMock extends Mock implements WordRepository {}
 
 const List<Word> wordsSample0 = [
   wordSample0,
@@ -168,8 +169,16 @@ const Word wordSample0 = Word(
   imageUrl: "lib/assets/images/words/cat.png",
   translate: Translate(id: 0, code: "en", translate: "cat"),
   kanas: [
-    Kana(id: 23, kana: "ね", imageUrl: "lib/assets/images/hiragana/ne.png"),
-    Kana(id: 9, kana: "こ", imageUrl: "lib/assets/images/hiragana/ko.png"),
+    Kana(
+        id: 23,
+        kana: "ね",
+        imageUrl: "lib/assets/images/hiragana/ne.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 9,
+        kana: "こ",
+        imageUrl: "lib/assets/images/hiragana/ko.png",
+        type: KanaType.hiragana),
   ],
 );
 const Word wordSample1 = Word(
@@ -179,8 +188,16 @@ const Word wordSample1 = Word(
   imageUrl: "lib/assets/images/words/dog.png",
   translate: Translate(id: 0, code: "en", translate: "dog"),
   kanas: [
-    Kana(id: 1, kana: "い", imageUrl: "lib/assets/images/hiragana/i.png"),
-    Kana(id: 22, kana: "ぬ", imageUrl: "lib/assets/images/hiragana/nu.png"),
+    Kana(
+        id: 1,
+        kana: "い",
+        imageUrl: "lib/assets/images/hiragana/i.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 22,
+        kana: "ぬ",
+        imageUrl: "lib/assets/images/hiragana/nu.png",
+        type: KanaType.hiragana),
   ],
 );
 const Word wordSample2 = Word(
@@ -190,8 +207,16 @@ const Word wordSample2 = Word(
   imageUrl: "lib/assets/images/words/bird.png",
   translate: Translate(id: 0, code: "en", translate: "bird"),
   kanas: [
-    Kana(id: 19, kana: "と", imageUrl: "lib/assets/images/hiragana/to.png"),
-    Kana(id: 39, kana: "り", imageUrl: "lib/assets/images/hiragana/ri.png"),
+    Kana(
+        id: 19,
+        kana: "と",
+        imageUrl: "lib/assets/images/hiragana/to.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 39,
+        kana: "り",
+        imageUrl: "lib/assets/images/hiragana/ri.png",
+        type: KanaType.hiragana),
   ],
 );
 const Word wordSample3 = Word(
@@ -201,9 +226,21 @@ const Word wordSample3 = Word(
   imageUrl: "lib/assets/images/words/rabbit.png",
   translate: Translate(id: 0, code: "en", translate: "rabbit"),
   kanas: [
-    Kana(id: 2, kana: "う", imageUrl: "lib/assets/images/hiragana/u.png"),
-    Kana(id: 10, kana: "さ", imageUrl: "lib/assets/images/hiragana/sa.png"),
-    Kana(id: 47, kana: "ぎ", imageUrl: "lib/assets/images/hiragana/gi.png"),
+    Kana(
+        id: 2,
+        kana: "う",
+        imageUrl: "lib/assets/images/hiragana/u.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 10,
+        kana: "さ",
+        imageUrl: "lib/assets/images/hiragana/sa.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 47,
+        kana: "ぎ",
+        imageUrl: "lib/assets/images/hiragana/gi.png",
+        type: KanaType.hiragana),
   ],
 );
 const Word wordSample4 = Word(
@@ -213,8 +250,16 @@ const Word wordSample4 = Word(
   imageUrl: "lib/assets/images/words/cow.png",
   translate: Translate(id: 0, code: "en", translate: "cow"),
   kanas: [
-    Kana(id: 2, kana: "う", imageUrl: "lib/assets/images/hiragana/u.png"),
-    Kana(id: 11, kana: "し", imageUrl: "lib/assets/images/hiragana/si.png"),
+    Kana(
+        id: 2,
+        kana: "う",
+        imageUrl: "lib/assets/images/hiragana/u.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 11,
+        kana: "し",
+        imageUrl: "lib/assets/images/hiragana/si.png",
+        type: KanaType.hiragana),
   ],
 );
 const Word wordSample5 = Word(
@@ -224,7 +269,15 @@ const Word wordSample5 = Word(
   imageUrl: "lib/assets/images/words/horse.png",
   translate: Translate(id: 0, code: "en", translate: "horse"),
   kanas: [
-    Kana(id: 2, kana: "う", imageUrl: "lib/assets/images/hiragana/u.png"),
-    Kana(id: 30, kana: "ま", imageUrl: "lib/assets/images/hiragana/ma.png"),
+    Kana(
+        id: 2,
+        kana: "う",
+        imageUrl: "lib/assets/images/hiragana/u.png",
+        type: KanaType.hiragana),
+    Kana(
+        id: 30,
+        kana: "ま",
+        imageUrl: "lib/assets/images/hiragana/ma.png",
+        type: KanaType.hiragana),
   ],
 );

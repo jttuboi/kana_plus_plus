@@ -20,8 +20,10 @@ class TKanas {
   static const kanaId = "kana_id";
   static const kana = "kana";
   static const imageUrl = "image_url";
+  static const type = "kana_type";
   static const romaji = "romaji";
   static const romajiImageUrl = "romaji_image_url";
+  static const numberStrokes = "number_strokes";
 }
 
 class TTranslates {

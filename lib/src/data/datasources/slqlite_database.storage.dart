@@ -4,7 +4,6 @@ import 'package:kana_plus_plus/src/data/models/translate.model.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/domain/exception/not_found.exception.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
@@ -39,6 +38,7 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
   }
 
   Future<void> _onCreate(Database db, int version) async {
+    Logger().i("creating table");
     await db.execute("""
       CREATE TABLE ${TWords.words}(
         ${TWords.wordId} INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,9 +52,11 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
       CREATE TABLE ${TKanas.kanas}(
         ${TKanas.kanaId} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${TKanas.kana} TEXT NOT NULL,
-        ${TKanas.romaji} TEXT NOT NULL,
+        ${TKanas.type} INTEGER NOT NULL,
         ${TKanas.imageUrl} TEXT NOT NULL,
-        ${TKanas.romajiImageUrl} TEXT NOT NULL
+        ${TKanas.romaji} TEXT NOT NULL,
+        ${TKanas.romajiImageUrl} TEXT NOT NULL,
+        ${TKanas.numberStrokes} INTEGET NOT NULL
       )
     """);
     await db.execute("""
@@ -107,7 +109,10 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
     //   )
     // """);
 
-    _insertNewData(db);
+    Logger().i("created table");
+    Logger().i("inserting data");
+    await _insertNewData(db);
+    Logger().i("inserted data");
   }
 
   Future<void> _insertNewData(Database db) async {
@@ -153,7 +158,7 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
   }
 
   @override
-  Future<List<Word>> getWordsById(int id, String languageCode) async {
+  Future<List<WordModel>> getWordsById(int id, String languageCode) async {
     try {
       final wordsMap = await _database.rawQuery("""
         SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
@@ -178,7 +183,8 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
   }
 
   @override
-  Future<List<Word>> getWordsByQuery(String query, String languageCode) async {
+  Future<List<WordModel>> getWordsByQuery(
+      String query, String languageCode) async {
     try {
       final wordsMap = await _database.rawQuery("""
         SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}, t.${TTranslates.code}, t.${TTranslates.translate}
@@ -221,13 +227,57 @@ class SqliteDatabaseStorage implements IDatabaseStorage {
         SELECT k.*
         FROM ${TKanas.kanas} k, ${TWordKana.wordKana} wk
         WHERE k.${TKanas.kanaId} = wk.${TWordKana.kanaId} AND wk.${TWordKana.wordId} = ?
-        ORDER by wk.sequential
+        ORDER BY wk.sequential
       """, [id]);
 
       return WordModel.fromMap(wordMap.first, kanasMap: kanasMap);
     } on DatabaseException catch (e, stacktrace) {
       Logger()
           .e("[id:$id code:$languageCode] -> DatabaseException", e, stacktrace);
+      throw NotFoundException();
+    }
+  }
+
+  @override
+  Future<List<WordModel>> getWordsByIds(List<int> ids, KanaType type) async {
+    try {
+      final wordsMap = await _database.rawQuery("""
+        SELECT w.${TWords.wordId}, w.${TWords.word}, w.${TWords.romaji}, w.${TWords.imageUrl}
+        FROM ${TWords.words} w
+        WHERE w.${TWords.wordId} IN (${ids.join(",")})
+      """);
+
+      if (wordsMap.isEmpty) {
+        Logger().e("[ids:$ids] -> isEmpty");
+        throw NotFoundException();
+      }
+
+      final wordKanasMap = await _database.rawQuery("""
+        SELECT wk.*
+        FROM ${TWordKana.wordKana} wk
+        WHERE wk.${TWordKana.wordId} IN (${ids.join(",")})
+      """);
+
+      final kanasMap = await _database.rawQuery("""
+        SELECT k.*
+        FROM ${TKanas.kanas} k, ${TWordKana.wordKana} wk
+        WHERE k.${TKanas.kanaId} = wk.${TWordKana.kanaId} AND wk.${TWordKana.wordId} IN (${ids.join(",")})
+        ORDER BY wk.sequential
+      """);
+
+      return wordsMap.map((wordMap) {
+        return WordModel.fromMap(
+          wordMap,
+          kanasMap: kanasMap.where((kanaMap) {
+            return wordKanasMap.any((wordKana) {
+              return kanaMap[TKanas.kanaId] == wordKana[TWordKana.kanaId] &&
+                  wordMap[TWords.wordId] == wordKana[TWordKana.wordId];
+            });
+          }).toList(),
+        );
+      }).toList();
+    } on DatabaseException catch (e, stacktrace) {
+      Logger().e("[ids:$ids] -> DatabaseException", e, stacktrace);
       throw NotFoundException();
     }
   }
@@ -238,661 +288,661 @@ final List<WordModel> wordsTest = [
       id: 0,
       word: "ねこ",
       romaji: "neko",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/cat.png"),
   const WordModel(
       id: 1,
       word: "いぬ",
       romaji: "inu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/dog.png"),
   const WordModel(
       id: 2,
       word: "とり",
       romaji: "tori",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/bird.png"),
   const WordModel(
       id: 3,
       word: "うさぎ",
       romaji: "usagi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/rabbit.png"),
   const WordModel(
       id: 4,
       word: "うし",
       romaji: "ushi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/cow.png"),
   const WordModel(
       id: 5,
       word: "うま",
       romaji: "uma",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/horse.png"),
   const WordModel(
       id: 6,
       word: "ひつじ",
       romaji: "hitsuji",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/sheep.png"),
   const WordModel(
       id: 7,
       word: "やぎ",
       romaji: "yagi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/goat.png"),
   const WordModel(
       id: 8,
       word: "ぶた",
       romaji: "buta",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/pig.png"),
   const WordModel(
       id: 9,
       word: "むし",
       romaji: "mushi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/insect.png"),
   const WordModel(
       id: 10,
       word: "はち",
       romaji: "hachi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/bee.png"),
   const WordModel(
       id: 11,
       word: "くも",
       romaji: "kumo",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/spider.png"),
   const WordModel(
       id: 12,
       word: "あり",
       romaji: "ari",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/ant.png"),
   const WordModel(
       id: 13,
       word: "さかな",
       romaji: "sakana",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/fish.png"),
   const WordModel(
       id: 14,
       word: "かめ",
       romaji: "kame",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/turtle.png"),
   const WordModel(
       id: 15,
       word: "へび",
       romaji: "hebi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/snake.png"),
   const WordModel(
       id: 16,
       word: "わに",
       romaji: "wani",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/crocodile.png"),
   const WordModel(
       id: 17,
       word: "えび",
       romaji: "ebi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/shrimp.png"),
   const WordModel(
       id: 18,
       word: "かえる",
       romaji: "kaeru",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/frog.png"),
   const WordModel(
       id: 19,
       word: "ひ",
       romaji: "hi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/sun.png"),
   const WordModel(
       id: 20,
       word: "つき",
       romaji: "tsuki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/moon.png"),
   const WordModel(
       id: 21,
       word: "やま",
       romaji: "yama",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/mountain.png"),
   const WordModel(
       id: 22,
       word: "どうくつ",
       romaji: "dōkutsu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/cave.png"),
   const WordModel(
       id: 23,
       word: "しま",
       romaji: "shima",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/island.png"),
   const WordModel(
       id: 24,
       word: "うみ",
       romaji: "umi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/sea.png"),
   const WordModel(
       id: 25,
       word: "かわ",
       romaji: "kawa",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/river.png"),
   const WordModel(
       id: 26,
       word: "いけ",
       romaji: "ike",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/pond.png"),
   const WordModel(
       id: 27,
       word: "たき",
       romaji: "taki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/waterfall.png"),
   const WordModel(
       id: 28,
       word: "き",
       romaji: "ki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/tree.png"),
   const WordModel(
       id: 29,
       word: "もり",
       romaji: "mori",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/forest.png"),
   const WordModel(
       id: 30,
       word: "はな",
       romaji: "hana",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/flower.png"),
   const WordModel(
       id: 31,
       word: "はる",
       romaji: "haru",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/spring.png"),
   const WordModel(
       id: 32,
       word: "なつ",
       romaji: "natsu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/summer.png"),
   const WordModel(
       id: 33,
       word: "あき",
       romaji: "aki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/fall.png"),
   const WordModel(
       id: 34,
       word: "ふゆ",
       romaji: "fuyu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/winter.png"),
   const WordModel(
       id: 35,
       word: "ゆき",
       romaji: "yuki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/snow.png"),
   const WordModel(
       id: 36,
       word: "あめ",
       romaji: "ame",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/rain.png"),
   const WordModel(
       id: 37,
       word: "あらし",
       romaji: "arashi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/storm.png"),
   const WordModel(
       id: 38,
       word: "にじ",
       romaji: "niji",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/rainbow.png"),
   const WordModel(
       id: 39,
       word: "べんとう",
       romaji: "bentō",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/box_lunch.png"),
   const WordModel(
       id: 40,
       word: "さしみ",
       romaji: "sashimi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/raw_fish.png"),
   const WordModel(
       id: 41,
       word: "すし",
       romaji: "sushi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/sushi.png"),
   const WordModel(
       id: 42,
       word: "みそしる",
       romaji: "misoshiru",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/miso_soup.png"),
   const WordModel(
       id: 43,
       word: "ラーメン",
       romaji: "rāmen",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/ramen.png"),
   const WordModel(
       id: 44,
       word: "にく",
       romaji: "niku",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/meat.png"),
   const WordModel(
       id: 45,
       word: "ソーセージ",
       romaji: "sōsēji",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/sausage.png"),
   const WordModel(
       id: 46,
       word: "たまご",
       romaji: "tamago",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/egg.png"),
   const WordModel(
       id: 47,
       word: "はちみつ",
       romaji: "hachimitsu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/honey.png"),
   const WordModel(
       id: 48,
       word: "にんじん",
       romaji: "ninjin",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/carrot.png"),
   const WordModel(
       id: 49,
       word: "にんにく",
       romaji: "ninniku",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/garlic.png"),
   const WordModel(
       id: 50,
       word: "レタス",
       romaji: "retasu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/lettuce.png"),
   const WordModel(
       id: 51,
       word: "ブロッコリー",
       romaji: "burokkorī",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/broccoli.png"),
   const WordModel(
       id: 52,
       word: "カリフラワー",
       romaji: "karifurawā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/cauliflower.png"),
   const WordModel(
       id: 53,
       word: "トマト",
       romaji: "tomato",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/tomato.png"),
   const WordModel(
       id: 54,
       word: "じゃがいも",
       romaji: "jagaimo",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/potato.png"),
   const WordModel(
       id: 55,
       word: "なす",
       romaji: "nasu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/eggplant.png"),
   const WordModel(
       id: 56,
       word: "きのこ",
       romaji: "kinoko",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/mushroom.png"),
   const WordModel(
       id: 57,
       word: "かぼちゃ",
       romaji: "kabocha",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/pumpkin.png"),
   const WordModel(
       id: 58,
       word: "ピーナッツ",
       romaji: "pīnattsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/peanut.png"),
   const WordModel(
       id: 59,
       word: "りんご",
       romaji: "ringo",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/apple.png"),
   const WordModel(
       id: 60,
       word: "オレンジ",
       romaji: "orenji",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/orange.png"),
   const WordModel(
       id: 61,
       word: "バナナ",
       romaji: "banana",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/banana.png"),
   const WordModel(
       id: 62,
       word: "すいか",
       romaji: "suika",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/watermelon.png"),
   const WordModel(
       id: 63,
       word: "いちご",
       romaji: "ichigo",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/strawberry.png"),
   const WordModel(
       id: 64,
       word: "パイナップル",
       romaji: "painappuru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/pineapple.png"),
   const WordModel(
       id: 65,
       word: "ぶどう",
       romaji: "budō",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/grape.png"),
   const WordModel(
       id: 66,
       word: "チェリー",
       romaji: "cherī",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/cherry.png"),
   const WordModel(
       id: 67,
       word: "メロン",
       romaji: "meron",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/melon.png"),
   const WordModel(
       id: 68,
       word: "ココナッツ",
       romaji: "kokonattsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/coconut.png"),
   const WordModel(
       id: 69,
       word: "アボカド",
       romaji: "abokado",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/avocado.png"),
   const WordModel(
       id: 70,
       word: "みず",
       romaji: "mizu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/water.png"),
   const WordModel(
       id: 71,
       word: "コーヒー",
       romaji: "kōhī",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/coffee.png"),
   const WordModel(
       id: 72,
       word: "おちゃ",
       romaji: "ocha",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/tea.png"),
   const WordModel(
       id: 73,
       word: "ぎゅうにゅう",
       romaji: "gyuunyuu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/milk.png"),
   const WordModel(
       id: 74,
       word: "おさけ",
       romaji: "osake",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/alcoholic_drink.png"),
   const WordModel(
       id: 75,
       word: "ワイン",
       romaji: "wain",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/wine.png"),
   const WordModel(
       id: 76,
       word: "ビール",
       romaji: "bīru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/beer.png"),
   const WordModel(
       id: 77,
       word: "くるま",
       romaji: "kuruma",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/car.png"),
   const WordModel(
       id: 78,
       word: "タクシー",
       romaji: "takushī",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/taxi.png"),
   const WordModel(
       id: 79,
       word: "バス",
       romaji: "basu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/bus.png"),
   const WordModel(
       id: 80,
       word: "トラック",
       romaji: "torakku",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/truck.png"),
   const WordModel(
       id: 81,
       word: "バイク",
       romaji: "baiku",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/motorcycle.png"),
   const WordModel(
       id: 82,
       word: "じてんしゃ",
       romaji: "jitensha",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/bicycle.png"),
   const WordModel(
       id: 83,
       word: "でんしゃ",
       romaji: "densha",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/train.png"),
   const WordModel(
       id: 84,
       word: "ちかてつ",
       romaji: "chikatetsu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/subway.png"),
   const WordModel(
       id: 85,
       word: "ふね",
       romaji: "fune",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/ship.png"),
   const WordModel(
       id: 86,
       word: "ボート",
       romaji: "bōto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/boat.png"),
   const WordModel(
       id: 87,
       word: "ひこうき",
       romaji: "hikōki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/airplane.png"),
   const WordModel(
       id: 88,
       word: "ヘリコプター",
       romaji: "herikoputā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/helicopter.png"),
   const WordModel(
       id: 89,
       word: "ロケット",
       romaji: "roketto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/rocket.png"),
   const WordModel(
       id: 90,
       word: "えき",
       romaji: "eki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/train_station.png"),
   const WordModel(
       id: 91,
       word: "くうこう",
       romaji: "kūkō",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/airport.png"),
   const WordModel(
       id: 92,
       word: "みなと",
       romaji: "minato",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/harbour.png"),
   const WordModel(
       id: 93,
       word: "ぎんこう",
       romaji: "ginkō",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/bank.png"),
   const WordModel(
       id: 94,
       word: "びょういん",
       romaji: "byōin",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/hospital.png"),
   const WordModel(
       id: 95,
       word: "がっこう",
       romaji: "gakkō",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/school.png"),
   const WordModel(
       id: 96,
       word: "としょかん",
       romaji: "toshokan",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/library.png"),
   const WordModel(
       id: 97,
       word: "ホテル",
       romaji: "hoteru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/hotel.png"),
   const WordModel(
       id: 98,
       word: "こうじょう",
       romaji: "kōjō",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/factory.png"),
   const WordModel(
       id: 99,
       word: "きょうかい",
       romaji: "kyōkai",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/church.png"),
   const WordModel(
       id: 100,
       word: "どうぶつえん",
       romaji: "dōbutsuen",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/zoo.png"),
   const WordModel(
       id: 101,
       word: "みせ",
       romaji: "mise",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/shop.png"),
   const WordModel(
       id: 102,
       word: "やっきょく",
       romaji: "yakkyoku",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/pharmacy.png"),
   const WordModel(
       id: 103,
       word: "バー",
       romaji: "bā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/bar.png"),
   const WordModel(
       id: 104,
       word: "デパート",
       romaji: "depāto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/department_store.png"),
   const WordModel(
       id: 105,
       word: "スーパー",
       romaji: "sūpā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/supermarket.png"),
   const WordModel(
       id: 106,
       word: "きっさてん",
       romaji: "kissaten",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/coffee_shop.png"),
   const WordModel(
       id: 107,
       word: "レストラン",
       romaji: "resutoran",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/restaurant.png"),
   const WordModel(
       id: 108,
       word: "ノート",
       romaji: "nōto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/notebook.png"),
   const WordModel(
       id: 109,
       word: "えんぴつ",
       romaji: "enpitsu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/pencil.png"),
   const WordModel(
       id: 110,
@@ -904,157 +954,157 @@ final List<WordModel> wordsTest = [
       id: 111,
       word: "ペン",
       romaji: "pen",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/pen.png"),
   const WordModel(
       id: 112,
       word: "ほん",
       romaji: "hon",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/book.png"),
   const WordModel(
       id: 113,
       word: "つくえ",
       romaji: "tsukue",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/desk.png"),
   const WordModel(
       id: 114,
       word: "かみ",
       romaji: "kami",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/paper.png"),
   const WordModel(
       id: 115,
       word: "はさみ",
       romaji: "hasami",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/scissors.png"),
   const WordModel(
       id: 116,
       word: "コンピューター",
       romaji: "konpyūtā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/computer.png"),
   const WordModel(
       id: 117,
       word: "スマートフォン",
       romaji: "sumātofon",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/cellphone.png"),
   const WordModel(
       id: 118,
       word: "でんわ",
       romaji: "denwa",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/telephone.png"),
   const WordModel(
       id: 119,
       word: "エーティーエム",
       romaji: "ētīemu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/atm.png"),
   const WordModel(
       id: 120,
       word: "いえ",
       romaji: "ie",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/house.png"),
   const WordModel(
       id: 121,
       word: "しんしつ",
       romaji: "shinshitsu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/bedroom.png"),
   const WordModel(
       id: 122,
       word: "だいどころ",
       romaji: "daidokoro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/kitchen.png"),
   const WordModel(
       id: 123,
       word: "トイレ",
       romaji: "toire",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/toilet.png"),
   const WordModel(
       id: 124,
       word: "ドア",
       romaji: "doa",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/door.png"),
   const WordModel(
       id: 125,
       word: "かぎ",
       romaji: "kagi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/key.png"),
   const WordModel(
       id: 126,
       word: "まど",
       romaji: "mado",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/window.png"),
   const WordModel(
       id: 127,
       word: "たんす",
       romaji: "tansu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/wardrobe.png"),
   const WordModel(
       id: 128,
       word: "いす",
       romaji: "isu",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/chair.png"),
   const WordModel(
       id: 129,
       word: "ソファー",
       romaji: "sofā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/sofa.png"),
   const WordModel(
       id: 130,
       word: "ベッド",
       romaji: "beddo",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/bed.png"),
   const WordModel(
       id: 131,
       word: "れいぞうこ",
       romaji: "reizouko",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/refrigerator.png"),
   const WordModel(
       id: 132,
       word: "せんたくき",
       romaji: "sentakuki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/washing_machine.png"),
   const WordModel(
       id: 133,
       word: "テレビ",
       romaji: "terebi",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/television.png"),
   const WordModel(
       id: 134,
       word: "アイロン",
       romaji: "airon",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/iron.png"),
   const WordModel(
       id: 135,
       word: "エアコン",
       romaji: "eakon",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/air-conditioner.png"),
   const WordModel(
       id: 136,
       word: "せんぷうき",
       romaji: "senpuuki",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/electric_fan.png"),
   const WordModel(
       id: 137,
@@ -1066,259 +1116,259 @@ final List<WordModel> wordsTest = [
       id: 138,
       word: "ストーブ",
       romaji: "sutōbu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/stove.png"),
   const WordModel(
       id: 139,
       word: "はし",
       romaji: "hashi",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/chopsticks.png"),
   const WordModel(
       id: 140,
       word: "グラス",
       romaji: "gurasu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/glass.png"),
   const WordModel(
       id: 141,
       word: "スプーン",
       romaji: "supūn",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/spoon.png"),
   const WordModel(
       id: 142,
       word: "フォーク",
       romaji: "fōku",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/fork.png"),
   const WordModel(
       id: 143,
       word: "しょくど",
       romaji: "shokudo",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/dining_room.png"),
   const WordModel(
       id: 144,
       word: "タオル",
       romaji: "taoru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/towel.png"),
   const WordModel(
       id: 145,
       word: "シャワー",
       romaji: "shawā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/shower.png"),
   const WordModel(
       id: 146,
       word: "せっけん",
       romaji: "sekken",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/soap.png"),
   const WordModel(
       id: 147,
       word: "シャンプー",
       romaji: "shanpū",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/shampoo.png"),
   const WordModel(
       id: 148,
       word: "はみがきこ",
       romaji: "hamigakiko",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/toothpaste.png"),
   const WordModel(
       id: 149,
       word: "ティシャツ",
       romaji: "tishatsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/t-shirt.png"),
   const WordModel(
       id: 150,
       word: "コート",
       romaji: "kōto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/coat.png"),
   const WordModel(
       id: 151,
       word: "レインコート",
       romaji: "reinkōto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/raincoat.png"),
   const WordModel(
       id: 152,
       word: "パンツ",
       romaji: "pantsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/underwear.png"),
   const WordModel(
       id: 153,
       word: "ジャケット",
       romaji: "jaketto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/jacket.png"),
   const WordModel(
       id: 154,
       word: "ドレス",
       romaji: "doresu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/dress.png"),
   const WordModel(
       id: 155,
       word: "ショーツ",
       romaji: "shōtsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/shorts.png"),
   const WordModel(
       id: 156,
       word: "ジーパン",
       romaji: "jīpan",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/jeans.png"),
   const WordModel(
       id: 157,
       word: "イヤリング",
       romaji: "iyaringu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/earring.png"),
   const WordModel(
       id: 158,
       word: "ネックレス",
       romaji: "nekkuresu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/necklace.png"),
   const WordModel(
       id: 159,
       word: "ベルト",
       romaji: "beruto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/belt.png"),
   const WordModel(
       id: 160,
       word: "スリッパ",
       romaji: "surippa",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/slippers.png"),
   const WordModel(
       id: 161,
       word: "サンダル",
       romaji: "sandaru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/sandals.png"),
   const WordModel(
       id: 162,
       word: "ブーツ",
       romaji: "būtsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/boots.png"),
   const WordModel(
       id: 163,
       word: "アメリカ",
       romaji: "amerika",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/America.png"),
   const WordModel(
       id: 164,
       word: "アルゼンチン",
       romaji: "aruzenchin",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Argentina.png"),
   const WordModel(
       id: 165,
       word: "オーストラリア",
       romaji: "ōsutoraria",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Australia.png"),
   const WordModel(
       id: 166,
       word: "ブラジル",
       romaji: "burajiru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Brazil.png"),
   const WordModel(
       id: 167,
       word: "チリ",
       romaji: "chiri",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Chile.png"),
   const WordModel(
       id: 168,
       word: "エジプト",
       romaji: "ejiputo",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Egypt.png"),
   const WordModel(
       id: 169,
       word: "フランス",
       romaji: "furansu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/France.png"),
   const WordModel(
       id: 170,
       word: "ドイツ",
       romaji: "doitsu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Germany.png"),
   const WordModel(
       id: 171,
       word: "イギリス",
       romaji: "igirisu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/United_Kingdom.png"),
   const WordModel(
       id: 172,
       word: "イタリア",
       romaji: "itaria",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Italy.png"),
   const WordModel(
       id: 173,
       word: "にほん",
       romaji: "nihon",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/Japan.png"),
   const WordModel(
       id: 174,
       word: "メキシコ",
       romaji: "mekishiko",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Mexico.png"),
   const WordModel(
       id: 175,
       word: "モロッコ",
       romaji: "morokko",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Morocco.png"),
   const WordModel(
       id: 176,
       word: "ニュージーランド",
       romaji: "nyūjīrando",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/New_Zealand.png"),
   const WordModel(
       id: 177,
       word: "ナイジェリア",
       romaji: "naijeria",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Nigeria.png"),
   const WordModel(
       id: 178,
       word: "フィリピン",
       romaji: "firipin",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Philippines.png"),
   const WordModel(
       id: 179,
       word: "ポルトガル",
       romaji: "porutogaru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Portugal.png"),
   const WordModel(
       id: 180,
       word: "ロシア",
       romaji: "roshia",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Russia.png"),
   const WordModel(
       id: 181,
@@ -1330,205 +1380,205 @@ final List<WordModel> wordsTest = [
       id: 182,
       word: "かんこく",
       romaji: "kankoku",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/South_Korea.png"),
   const WordModel(
       id: 183,
       word: "スペイン",
       romaji: "supein",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Spain.png"),
   const WordModel(
       id: 184,
       word: "タイ",
       romaji: "tai",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Thailand.png"),
   const WordModel(
       id: 185,
       word: "トルコ",
       romaji: "toruko",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/Turkey.png"),
   const WordModel(
       id: 186,
       word: "やきゅう",
       romaji: "yakyū",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/baseball.png"),
   const WordModel(
       id: 187,
       word: "すいえい",
       romaji: "suiei",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/swimming.png"),
   const WordModel(
       id: 188,
       word: "ピンポン",
       romaji: "pinpon",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/table_tennis.png"),
   const WordModel(
       id: 189,
       word: "サッカー",
       romaji: "sakkā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/soccer.png"),
   const WordModel(
       id: 190,
       word: "テニス",
       romaji: "tenisu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/tennis.png"),
   const WordModel(
       id: 191,
       word: "バスケットボール",
       romaji: "basukettobōru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/basketball.png"),
   const WordModel(
       id: 192,
       word: "バレーボール",
       romaji: "barēbōru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/volleyball.png"),
   const WordModel(
       id: 193,
       word: "フットボール",
       romaji: "futtobōru",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/football.png"),
   const WordModel(
       id: 194,
       word: "ラグビー",
       romaji: "ragubī",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/rugby.png"),
   const WordModel(
       id: 195,
       word: "ボクシング",
       romaji: "bokushingu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/boxing.png"),
   const WordModel(
       id: 196,
       word: "しろ",
       romaji: "shiro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/white.png"),
   const WordModel(
       id: 197,
       word: "くろ",
       romaji: "kuro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/black.png"),
   const WordModel(
       id: 198,
       word: "あか",
       romaji: "aka",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/red.png"),
   const WordModel(
       id: 199,
       word: "あお",
       romaji: "ao",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/blue.png"),
   const WordModel(
       id: 200,
       word: "みどり",
       romaji: "midori",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/green.png"),
   const WordModel(
       id: 201,
       word: "きいろ",
       romaji: "kīro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/yellow.png"),
   const WordModel(
       id: 202,
       word: "ちゃいろ",
       romaji: "chairo",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/brown.png"),
   const WordModel(
       id: 203,
       word: "きんいろ",
       romaji: "kin iro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/gold.png"),
   const WordModel(
       id: 204,
       word: "ぎんいろ",
       romaji: "gin iro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/silver.png"),
   const WordModel(
       id: 205,
       word: "ももいろ",
       romaji: "momoiro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/pink.png"),
   const WordModel(
       id: 206,
       word: "だいだいいろ",
       romaji: "daidaīro",
-      type: KanaType.onlyHiragana,
+      type: KanaType.hiragana,
       imageUrl: "lib/assets/images/words/orange_c.png"),
   const WordModel(
       id: 207,
       word: "アイスクリーム",
       romaji: "aisukurīmu",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/ice_cream.png"),
   const WordModel(
       id: 208,
       word: "バター",
       romaji: "batā",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/butter.png"),
   const WordModel(
       id: 209,
       word: "ボタン",
       romaji: "botan",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/button.png"),
   const WordModel(
       id: 210,
       word: "チケット",
       romaji: "chiketto",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/ticket.png"),
   const WordModel(
       id: 211,
       word: "パン",
       romaji: "pan",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/bread.png"),
   const WordModel(
       id: 212,
       word: "ピザ",
       romaji: "piza",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/pizza.png"),
   const WordModel(
       id: 213,
       word: "ポテチ",
       romaji: "potechi",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/potato_chips.png"),
   const WordModel(
       id: 214,
       word: "サンドイッチ",
       romaji: "sandoicchi",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/sandwich.png"),
   const WordModel(
       id: 215,
       word: "サラダ",
       romaji: "sarada",
-      type: KanaType.onlyKatakana,
+      type: KanaType.katakana,
       imageUrl: "lib/assets/images/words/salad.png"),
 ];
 
@@ -2193,6 +2243,8 @@ final kanasTest = [
     romaji: "a",
     imageUrl: "lib/assets/images/hiragana/a.png",
     romajiImageUrl: "lib/assets/images/romaji/a.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 1,
@@ -2200,6 +2252,8 @@ final kanasTest = [
     romaji: "i",
     imageUrl: "lib/assets/images/hiragana/i.png",
     romajiImageUrl: "lib/assets/images/romaji/i.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 2,
@@ -2207,6 +2261,8 @@ final kanasTest = [
     romaji: "u",
     imageUrl: "lib/assets/images/hiragana/u.png",
     romajiImageUrl: "lib/assets/images/romaji/u.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 3,
@@ -2214,6 +2270,8 @@ final kanasTest = [
     romaji: "e",
     imageUrl: "lib/assets/images/hiragana/e.png",
     romajiImageUrl: "lib/assets/images/romaji/e.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 4,
@@ -2221,6 +2279,8 @@ final kanasTest = [
     romaji: "o",
     imageUrl: "lib/assets/images/hiragana/o.png",
     romajiImageUrl: "lib/assets/images/romaji/o.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 5,
@@ -2228,6 +2288,8 @@ final kanasTest = [
     romaji: "ka",
     imageUrl: "lib/assets/images/hiragana/ka.png",
     romajiImageUrl: "lib/assets/images/romaji/ka.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 6,
@@ -2235,6 +2297,8 @@ final kanasTest = [
     romaji: "ki",
     imageUrl: "lib/assets/images/hiragana/ki.png",
     romajiImageUrl: "lib/assets/images/romaji/ki.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 7,
@@ -2242,6 +2306,8 @@ final kanasTest = [
     romaji: "ku",
     imageUrl: "lib/assets/images/hiragana/ku.png",
     romajiImageUrl: "lib/assets/images/romaji/ku.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 8,
@@ -2249,6 +2315,8 @@ final kanasTest = [
     romaji: "ke",
     imageUrl: "lib/assets/images/hiragana/ke.png",
     romajiImageUrl: "lib/assets/images/romaji/ke.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 9,
@@ -2256,6 +2324,8 @@ final kanasTest = [
     romaji: "ko",
     imageUrl: "lib/assets/images/hiragana/ko.png",
     romajiImageUrl: "lib/assets/images/romaji/ko.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 10,
@@ -2263,6 +2333,8 @@ final kanasTest = [
     romaji: "sa",
     imageUrl: "lib/assets/images/hiragana/sa.png",
     romajiImageUrl: "lib/assets/images/romaji/sa.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 11,
@@ -2270,6 +2342,8 @@ final kanasTest = [
     romaji: "shi",
     imageUrl: "lib/assets/images/hiragana/si.png",
     romajiImageUrl: "lib/assets/images/romaji/si.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 12,
@@ -2277,6 +2351,8 @@ final kanasTest = [
     romaji: "su",
     imageUrl: "lib/assets/images/hiragana/su.png",
     romajiImageUrl: "lib/assets/images/romaji/su.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 13,
@@ -2284,6 +2360,8 @@ final kanasTest = [
     romaji: "se",
     imageUrl: "lib/assets/images/hiragana/se.png",
     romajiImageUrl: "lib/assets/images/romaji/se.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 14,
@@ -2291,6 +2369,8 @@ final kanasTest = [
     romaji: "so",
     imageUrl: "lib/assets/images/hiragana/so.png",
     romajiImageUrl: "lib/assets/images/romaji/so.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 15,
@@ -2298,6 +2378,8 @@ final kanasTest = [
     romaji: "ta",
     imageUrl: "lib/assets/images/hiragana/ta.png",
     romajiImageUrl: "lib/assets/images/romaji/ta.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 16,
@@ -2305,6 +2387,8 @@ final kanasTest = [
     romaji: "chi",
     imageUrl: "lib/assets/images/hiragana/chi.png",
     romajiImageUrl: "lib/assets/images/romaji/chi.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 17,
@@ -2312,6 +2396,8 @@ final kanasTest = [
     romaji: "tsu",
     imageUrl: "lib/assets/images/hiragana/tsu.png",
     romajiImageUrl: "lib/assets/images/romaji/tsu.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 18,
@@ -2319,6 +2405,8 @@ final kanasTest = [
     romaji: "te",
     imageUrl: "lib/assets/images/hiragana/te.png",
     romajiImageUrl: "lib/assets/images/romaji/te.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 19,
@@ -2326,6 +2414,8 @@ final kanasTest = [
     romaji: "to",
     imageUrl: "lib/assets/images/hiragana/to.png",
     romajiImageUrl: "lib/assets/images/romaji/to.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 20,
@@ -2333,6 +2423,8 @@ final kanasTest = [
     romaji: "na",
     imageUrl: "lib/assets/images/hiragana/na.png",
     romajiImageUrl: "lib/assets/images/romaji/na.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 21,
@@ -2340,6 +2432,8 @@ final kanasTest = [
     romaji: "ni",
     imageUrl: "lib/assets/images/hiragana/ni.png",
     romajiImageUrl: "lib/assets/images/romaji/ni.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 22,
@@ -2347,6 +2441,8 @@ final kanasTest = [
     romaji: "nu",
     imageUrl: "lib/assets/images/hiragana/nu.png",
     romajiImageUrl: "lib/assets/images/romaji/nu.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 23,
@@ -2354,6 +2450,8 @@ final kanasTest = [
     romaji: "ne",
     imageUrl: "lib/assets/images/hiragana/ne.png",
     romajiImageUrl: "lib/assets/images/romaji/ne.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 24,
@@ -2361,6 +2459,8 @@ final kanasTest = [
     romaji: "no",
     imageUrl: "lib/assets/images/hiragana/no.png",
     romajiImageUrl: "lib/assets/images/romaji/no.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 25,
@@ -2368,6 +2468,8 @@ final kanasTest = [
     romaji: "ha",
     imageUrl: "lib/assets/images/hiragana/ha.png",
     romajiImageUrl: "lib/assets/images/romaji/ha.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 26,
@@ -2375,6 +2477,8 @@ final kanasTest = [
     romaji: "hi",
     imageUrl: "lib/assets/images/hiragana/hi.png",
     romajiImageUrl: "lib/assets/images/romaji/hi.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 27,
@@ -2382,6 +2486,8 @@ final kanasTest = [
     romaji: "fu",
     imageUrl: "lib/assets/images/hiragana/fu.png",
     romajiImageUrl: "lib/assets/images/romaji/fu.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 28,
@@ -2389,6 +2495,8 @@ final kanasTest = [
     romaji: "he",
     imageUrl: "lib/assets/images/hiragana/he.png",
     romajiImageUrl: "lib/assets/images/romaji/he.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 29,
@@ -2396,6 +2504,8 @@ final kanasTest = [
     romaji: "ho",
     imageUrl: "lib/assets/images/hiragana/ho.png",
     romajiImageUrl: "lib/assets/images/romaji/ho.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 30,
@@ -2403,6 +2513,8 @@ final kanasTest = [
     romaji: "ma",
     imageUrl: "lib/assets/images/hiragana/ma.png",
     romajiImageUrl: "lib/assets/images/romaji/ma.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 31,
@@ -2410,6 +2522,8 @@ final kanasTest = [
     romaji: "mi",
     imageUrl: "lib/assets/images/hiragana/mi.png",
     romajiImageUrl: "lib/assets/images/romaji/mi.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 32,
@@ -2417,6 +2531,8 @@ final kanasTest = [
     romaji: "mu",
     imageUrl: "lib/assets/images/hiragana/mu.png",
     romajiImageUrl: "lib/assets/images/romaji/mu.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 33,
@@ -2424,6 +2540,8 @@ final kanasTest = [
     romaji: "me",
     imageUrl: "lib/assets/images/hiragana/me.png",
     romajiImageUrl: "lib/assets/images/romaji/me.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 34,
@@ -2431,6 +2549,8 @@ final kanasTest = [
     romaji: "mo",
     imageUrl: "lib/assets/images/hiragana/mo.png",
     romajiImageUrl: "lib/assets/images/romaji/mo.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 35,
@@ -2438,6 +2558,8 @@ final kanasTest = [
     romaji: "ya",
     imageUrl: "lib/assets/images/hiragana/ya.png",
     romajiImageUrl: "lib/assets/images/romaji/ya.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 36,
@@ -2445,6 +2567,8 @@ final kanasTest = [
     romaji: "yu",
     imageUrl: "lib/assets/images/hiragana/yu.png",
     romajiImageUrl: "lib/assets/images/romaji/yu.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 37,
@@ -2452,6 +2576,8 @@ final kanasTest = [
     romaji: "yo",
     imageUrl: "lib/assets/images/hiragana/yo.png",
     romajiImageUrl: "lib/assets/images/romaji/yo.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 38,
@@ -2459,6 +2585,8 @@ final kanasTest = [
     romaji: "ra",
     imageUrl: "lib/assets/images/hiragana/ra.png",
     romajiImageUrl: "lib/assets/images/romaji/ra.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 39,
@@ -2466,6 +2594,8 @@ final kanasTest = [
     romaji: "ri",
     imageUrl: "lib/assets/images/hiragana/ri.png",
     romajiImageUrl: "lib/assets/images/romaji/ri.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 40,
@@ -2473,6 +2603,8 @@ final kanasTest = [
     romaji: "ru",
     imageUrl: "lib/assets/images/hiragana/ru.png",
     romajiImageUrl: "lib/assets/images/romaji/ru.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 41,
@@ -2480,6 +2612,8 @@ final kanasTest = [
     romaji: "re",
     imageUrl: "lib/assets/images/hiragana/re.png",
     romajiImageUrl: "lib/assets/images/romaji/re.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 42,
@@ -2487,6 +2621,8 @@ final kanasTest = [
     romaji: "ro",
     imageUrl: "lib/assets/images/hiragana/ro.png",
     romajiImageUrl: "lib/assets/images/romaji/ro.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 43,
@@ -2494,6 +2630,8 @@ final kanasTest = [
     romaji: "wa",
     imageUrl: "lib/assets/images/hiragana/wa.png",
     romajiImageUrl: "lib/assets/images/romaji/wa.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 44,
@@ -2501,6 +2639,8 @@ final kanasTest = [
     romaji: "wo",
     imageUrl: "lib/assets/images/hiragana/wo.png",
     romajiImageUrl: "lib/assets/images/romaji/wo.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 45,
@@ -2508,6 +2648,8 @@ final kanasTest = [
     romaji: "n",
     imageUrl: "lib/assets/images/hiragana/n.png",
     romajiImageUrl: "lib/assets/images/romaji/n.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 46,
@@ -2515,6 +2657,8 @@ final kanasTest = [
     romaji: "ga",
     imageUrl: "lib/assets/images/hiragana/ga.png",
     romajiImageUrl: "lib/assets/images/romaji/ga.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 47,
@@ -2522,6 +2666,8 @@ final kanasTest = [
     romaji: "gi",
     imageUrl: "lib/assets/images/hiragana/gi.png",
     romajiImageUrl: "lib/assets/images/romaji/gi.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 48,
@@ -2529,6 +2675,8 @@ final kanasTest = [
     romaji: "gu",
     imageUrl: "lib/assets/images/hiragana/gu.png",
     romajiImageUrl: "lib/assets/images/romaji/gu.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 49,
@@ -2536,6 +2684,8 @@ final kanasTest = [
     romaji: "ge",
     imageUrl: "lib/assets/images/hiragana/ge.png",
     romajiImageUrl: "lib/assets/images/romaji/ge.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 50,
@@ -2543,6 +2693,8 @@ final kanasTest = [
     romaji: "go",
     imageUrl: "lib/assets/images/hiragana/go.png",
     romajiImageUrl: "lib/assets/images/romaji/go.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 51,
@@ -2550,13 +2702,17 @@ final kanasTest = [
     romaji: "za",
     imageUrl: "lib/assets/images/hiragana/za.png",
     romajiImageUrl: "lib/assets/images/romaji/za.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 52,
     kana: "じ",
     romaji: "ji",
     imageUrl: "lib/assets/images/hiragana/ji.png",
+    numberStrokes: 3,
     romajiImageUrl: "lib/assets/images/romaji/ji.png",
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 53,
@@ -2564,6 +2720,8 @@ final kanasTest = [
     romaji: "zu",
     imageUrl: "lib/assets/images/hiragana/zu.png",
     romajiImageUrl: "lib/assets/images/romaji/zu.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 54,
@@ -2571,6 +2729,8 @@ final kanasTest = [
     romaji: "ze",
     imageUrl: "lib/assets/images/hiragana/ze.png",
     romajiImageUrl: "lib/assets/images/romaji/ze.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 55,
@@ -2578,6 +2738,8 @@ final kanasTest = [
     romaji: "zo",
     imageUrl: "lib/assets/images/hiragana/zo.png",
     romajiImageUrl: "lib/assets/images/romaji/zo.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 56,
@@ -2585,6 +2747,8 @@ final kanasTest = [
     romaji: "da",
     imageUrl: "lib/assets/images/hiragana/da.png",
     romajiImageUrl: "lib/assets/images/romaji/da.png",
+    numberStrokes: 6,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 57,
@@ -2592,6 +2756,8 @@ final kanasTest = [
     romaji: "ji, dji, jyi",
     imageUrl: "lib/assets/images/hiragana/dji.png",
     romajiImageUrl: "lib/assets/images/romaji/dji.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 58,
@@ -2599,6 +2765,8 @@ final kanasTest = [
     romaji: "dzu, zu",
     imageUrl: "lib/assets/images/hiragana/dzu.png",
     romajiImageUrl: "lib/assets/images/romaji/dzu.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 59,
@@ -2606,6 +2774,8 @@ final kanasTest = [
     romaji: "de",
     imageUrl: "lib/assets/images/hiragana/de.png",
     romajiImageUrl: "lib/assets/images/romaji/de.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 60,
@@ -2613,6 +2783,8 @@ final kanasTest = [
     romaji: "do",
     imageUrl: "lib/assets/images/hiragana/do.png",
     romajiImageUrl: "lib/assets/images/romaji/do.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 61,
@@ -2620,6 +2792,8 @@ final kanasTest = [
     romaji: "ba",
     imageUrl: "lib/assets/images/hiragana/ba.png",
     romajiImageUrl: "lib/assets/images/romaji/ba.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 62,
@@ -2627,6 +2801,8 @@ final kanasTest = [
     romaji: "bi",
     imageUrl: "lib/assets/images/hiragana/bi.png",
     romajiImageUrl: "lib/assets/images/romaji/bi.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 63,
@@ -2634,6 +2810,8 @@ final kanasTest = [
     romaji: "bu",
     imageUrl: "lib/assets/images/hiragana/bu.png",
     romajiImageUrl: "lib/assets/images/romaji/bu.png",
+    numberStrokes: 6,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 64,
@@ -2641,6 +2819,8 @@ final kanasTest = [
     romaji: "be",
     imageUrl: "lib/assets/images/hiragana/be.png",
     romajiImageUrl: "lib/assets/images/romaji/be.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 65,
@@ -2648,6 +2828,8 @@ final kanasTest = [
     romaji: "bo",
     imageUrl: "lib/assets/images/hiragana/bo.png",
     romajiImageUrl: "lib/assets/images/romaji/bo.png",
+    numberStrokes: 6,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 66,
@@ -2655,6 +2837,8 @@ final kanasTest = [
     romaji: "pa",
     imageUrl: "lib/assets/images/hiragana/pa.png",
     romajiImageUrl: "lib/assets/images/romaji/pa.png",
+    numberStrokes: 4,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 67,
@@ -2662,6 +2846,8 @@ final kanasTest = [
     romaji: "pi",
     imageUrl: "lib/assets/images/hiragana/pi.png",
     romajiImageUrl: "lib/assets/images/romaji/pi.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 68,
@@ -2669,6 +2855,8 @@ final kanasTest = [
     romaji: "pu",
     imageUrl: "lib/assets/images/hiragana/pu.png",
     romajiImageUrl: "lib/assets/images/romaji/pu.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 69,
@@ -2676,6 +2864,8 @@ final kanasTest = [
     romaji: "pe",
     imageUrl: "lib/assets/images/hiragana/pe.png",
     romajiImageUrl: "lib/assets/images/romaji/pe.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 70,
@@ -2683,6 +2873,8 @@ final kanasTest = [
     romaji: "po",
     imageUrl: "lib/assets/images/hiragana/po.png",
     romajiImageUrl: "lib/assets/images/romaji/po.png",
+    numberStrokes: 5,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 71,
@@ -2690,6 +2882,8 @@ final kanasTest = [
     romaji: "x ya",
     imageUrl: "lib/assets/images/hiragana/x0.png",
     romajiImageUrl: "lib/assets/images/romaji/x0.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 72,
@@ -2697,6 +2891,8 @@ final kanasTest = [
     romaji: "x yu",
     imageUrl: "lib/assets/images/hiragana/x1.png",
     romajiImageUrl: "lib/assets/images/romaji/x1.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 73,
@@ -2704,6 +2900,8 @@ final kanasTest = [
     romaji: "x yo",
     imageUrl: "lib/assets/images/hiragana/x2.png",
     romajiImageUrl: "lib/assets/images/romaji/x2.png",
+    numberStrokes: 2,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 74,
@@ -2711,6 +2909,8 @@ final kanasTest = [
     romaji: "x tsu",
     imageUrl: "lib/assets/images/hiragana/x3.png",
     romajiImageUrl: "lib/assets/images/romaji/x3.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 75,
@@ -2718,6 +2918,8 @@ final kanasTest = [
     romaji: "x rep",
     imageUrl: "lib/assets/images/hiragana/x4.png",
     romajiImageUrl: "lib/assets/images/romaji/x4.png",
+    numberStrokes: 1,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 76,
@@ -2725,6 +2927,8 @@ final kanasTest = [
     romaji: "x rep2",
     imageUrl: "lib/assets/images/hiragana/x5.png",
     romajiImageUrl: "lib/assets/images/romaji/x5.png",
+    numberStrokes: 3,
+    type: KanaType.hiragana,
   ),
   const KanaModel(
     id: 77,
@@ -2732,6 +2936,8 @@ final kanasTest = [
     romaji: "a",
     imageUrl: "lib/assets/images/katakana/a.png",
     romajiImageUrl: "lib/assets/images/romaji/a.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 78,
@@ -2739,6 +2945,8 @@ final kanasTest = [
     romaji: "i",
     imageUrl: "lib/assets/images/katakana/i.png",
     romajiImageUrl: "lib/assets/images/romaji/i.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 79,
@@ -2746,6 +2954,8 @@ final kanasTest = [
     romaji: "u",
     imageUrl: "lib/assets/images/katakana/u.png",
     romajiImageUrl: "lib/assets/images/romaji/u.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 80,
@@ -2753,6 +2963,8 @@ final kanasTest = [
     romaji: "e",
     imageUrl: "lib/assets/images/katakana/e.png",
     romajiImageUrl: "lib/assets/images/romaji/e.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 81,
@@ -2760,6 +2972,8 @@ final kanasTest = [
     romaji: "o",
     imageUrl: "lib/assets/images/katakana/o.png",
     romajiImageUrl: "lib/assets/images/romaji/o.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 82,
@@ -2767,6 +2981,8 @@ final kanasTest = [
     romaji: "ka",
     imageUrl: "lib/assets/images/katakana/ka.png",
     romajiImageUrl: "lib/assets/images/romaji/ka.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 83,
@@ -2774,6 +2990,8 @@ final kanasTest = [
     romaji: "ki",
     imageUrl: "lib/assets/images/katakana/ki.png",
     romajiImageUrl: "lib/assets/images/romaji/ki.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 84,
@@ -2781,6 +2999,8 @@ final kanasTest = [
     romaji: "ku",
     imageUrl: "lib/assets/images/katakana/ku.png",
     romajiImageUrl: "lib/assets/images/romaji/ku.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 85,
@@ -2788,6 +3008,8 @@ final kanasTest = [
     romaji: "ke",
     imageUrl: "lib/assets/images/katakana/ke.png",
     romajiImageUrl: "lib/assets/images/romaji/ke.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 86,
@@ -2795,6 +3017,8 @@ final kanasTest = [
     romaji: "ko",
     imageUrl: "lib/assets/images/katakana/ko.png",
     romajiImageUrl: "lib/assets/images/romaji/ko.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 87,
@@ -2802,6 +3026,8 @@ final kanasTest = [
     romaji: "sa",
     imageUrl: "lib/assets/images/katakana/sa.png",
     romajiImageUrl: "lib/assets/images/romaji/sa.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 88,
@@ -2809,6 +3035,8 @@ final kanasTest = [
     romaji: "shi",
     imageUrl: "lib/assets/images/katakana/si.png",
     romajiImageUrl: "lib/assets/images/romaji/si.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 89,
@@ -2816,6 +3044,8 @@ final kanasTest = [
     romaji: "su",
     imageUrl: "lib/assets/images/katakana/su.png",
     romajiImageUrl: "lib/assets/images/romaji/su.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 90,
@@ -2823,6 +3053,8 @@ final kanasTest = [
     romaji: "se",
     imageUrl: "lib/assets/images/katakana/se.png",
     romajiImageUrl: "lib/assets/images/romaji/se.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 91,
@@ -2830,6 +3062,8 @@ final kanasTest = [
     romaji: "so",
     imageUrl: "lib/assets/images/katakana/so.png",
     romajiImageUrl: "lib/assets/images/romaji/so.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 92,
@@ -2837,6 +3071,8 @@ final kanasTest = [
     romaji: "ta",
     imageUrl: "lib/assets/images/katakana/ta.png",
     romajiImageUrl: "lib/assets/images/romaji/ta.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 93,
@@ -2844,6 +3080,8 @@ final kanasTest = [
     romaji: "chi",
     imageUrl: "lib/assets/images/katakana/chi.png",
     romajiImageUrl: "lib/assets/images/romaji/chi.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 94,
@@ -2851,6 +3089,8 @@ final kanasTest = [
     romaji: "tsu",
     imageUrl: "lib/assets/images/katakana/tsu.png",
     romajiImageUrl: "lib/assets/images/romaji/tsu.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 95,
@@ -2858,6 +3098,8 @@ final kanasTest = [
     romaji: "te",
     imageUrl: "lib/assets/images/katakana/te.png",
     romajiImageUrl: "lib/assets/images/romaji/te.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 96,
@@ -2865,6 +3107,8 @@ final kanasTest = [
     romaji: "to",
     imageUrl: "lib/assets/images/katakana/to.png",
     romajiImageUrl: "lib/assets/images/romaji/to.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 97,
@@ -2872,6 +3116,8 @@ final kanasTest = [
     romaji: "na",
     imageUrl: "lib/assets/images/katakana/na.png",
     romajiImageUrl: "lib/assets/images/romaji/na.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 98,
@@ -2879,6 +3125,8 @@ final kanasTest = [
     romaji: "ni",
     imageUrl: "lib/assets/images/katakana/ni.png",
     romajiImageUrl: "lib/assets/images/romaji/ni.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 99,
@@ -2886,6 +3134,8 @@ final kanasTest = [
     romaji: "nu",
     imageUrl: "lib/assets/images/katakana/nu.png",
     romajiImageUrl: "lib/assets/images/romaji/nu.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 100,
@@ -2893,6 +3143,8 @@ final kanasTest = [
     romaji: "ne",
     imageUrl: "lib/assets/images/katakana/ne.png",
     romajiImageUrl: "lib/assets/images/romaji/ne.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 101,
@@ -2900,6 +3152,8 @@ final kanasTest = [
     romaji: "no",
     imageUrl: "lib/assets/images/katakana/no.png",
     romajiImageUrl: "lib/assets/images/romaji/no.png",
+    numberStrokes: 1,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 102,
@@ -2907,6 +3161,8 @@ final kanasTest = [
     romaji: "ha",
     imageUrl: "lib/assets/images/katakana/ha.png",
     romajiImageUrl: "lib/assets/images/romaji/ha.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 103,
@@ -2914,6 +3170,8 @@ final kanasTest = [
     romaji: "hi",
     imageUrl: "lib/assets/images/katakana/hi.png",
     romajiImageUrl: "lib/assets/images/romaji/hi.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 104,
@@ -2921,6 +3179,8 @@ final kanasTest = [
     romaji: "fu",
     imageUrl: "lib/assets/images/katakana/fu.png",
     romajiImageUrl: "lib/assets/images/romaji/fu.png",
+    numberStrokes: 1,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 105,
@@ -2928,6 +3188,8 @@ final kanasTest = [
     romaji: "he",
     imageUrl: "lib/assets/images/katakana/he.png",
     romajiImageUrl: "lib/assets/images/romaji/he.png",
+    numberStrokes: 1,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 106,
@@ -2935,6 +3197,8 @@ final kanasTest = [
     romaji: "ho",
     imageUrl: "lib/assets/images/katakana/ho.png",
     romajiImageUrl: "lib/assets/images/romaji/ho.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 107,
@@ -2942,6 +3206,8 @@ final kanasTest = [
     romaji: "ma",
     imageUrl: "lib/assets/images/katakana/ma.png",
     romajiImageUrl: "lib/assets/images/romaji/ma.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 108,
@@ -2949,6 +3215,8 @@ final kanasTest = [
     romaji: "mi",
     imageUrl: "lib/assets/images/katakana/mi.png",
     romajiImageUrl: "lib/assets/images/romaji/mi.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 109,
@@ -2956,6 +3224,8 @@ final kanasTest = [
     romaji: "mu",
     imageUrl: "lib/assets/images/katakana/mu.png",
     romajiImageUrl: "lib/assets/images/romaji/mu.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 110,
@@ -2963,6 +3233,8 @@ final kanasTest = [
     romaji: "me",
     imageUrl: "lib/assets/images/katakana/me.png",
     romajiImageUrl: "lib/assets/images/romaji/me.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 111,
@@ -2970,6 +3242,8 @@ final kanasTest = [
     romaji: "mo",
     imageUrl: "lib/assets/images/katakana/mo.png",
     romajiImageUrl: "lib/assets/images/romaji/mo.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 112,
@@ -2977,6 +3251,8 @@ final kanasTest = [
     romaji: "ya",
     imageUrl: "lib/assets/images/katakana/ya.png",
     romajiImageUrl: "lib/assets/images/romaji/ya.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 113,
@@ -2984,6 +3260,8 @@ final kanasTest = [
     romaji: "yu",
     imageUrl: "lib/assets/images/katakana/yu.png",
     romajiImageUrl: "lib/assets/images/romaji/yu.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 114,
@@ -2991,6 +3269,8 @@ final kanasTest = [
     romaji: "yo",
     imageUrl: "lib/assets/images/katakana/yo.png",
     romajiImageUrl: "lib/assets/images/romaji/yo.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 115,
@@ -2998,6 +3278,8 @@ final kanasTest = [
     romaji: "ra",
     imageUrl: "lib/assets/images/katakana/ra.png",
     romajiImageUrl: "lib/assets/images/romaji/ra.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 116,
@@ -3005,6 +3287,8 @@ final kanasTest = [
     romaji: "ri",
     imageUrl: "lib/assets/images/katakana/ri.png",
     romajiImageUrl: "lib/assets/images/romaji/ri.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 117,
@@ -3012,6 +3296,8 @@ final kanasTest = [
     romaji: "ru",
     imageUrl: "lib/assets/images/katakana/ru.png",
     romajiImageUrl: "lib/assets/images/romaji/ru.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 118,
@@ -3019,6 +3305,8 @@ final kanasTest = [
     romaji: "re",
     imageUrl: "lib/assets/images/katakana/re.png",
     romajiImageUrl: "lib/assets/images/romaji/re.png",
+    numberStrokes: 1,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 119,
@@ -3026,6 +3314,8 @@ final kanasTest = [
     romaji: "ro",
     imageUrl: "lib/assets/images/katakana/ro.png",
     romajiImageUrl: "lib/assets/images/romaji/ro.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 120,
@@ -3033,6 +3323,8 @@ final kanasTest = [
     romaji: "wa",
     imageUrl: "lib/assets/images/katakana/wa.png",
     romajiImageUrl: "lib/assets/images/romaji/wa.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 121,
@@ -3040,6 +3332,8 @@ final kanasTest = [
     romaji: "wo",
     imageUrl: "lib/assets/images/katakana/wo.png",
     romajiImageUrl: "lib/assets/images/romaji/wo.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 122,
@@ -3047,6 +3341,8 @@ final kanasTest = [
     romaji: "n",
     imageUrl: "lib/assets/images/katakana/n.png",
     romajiImageUrl: "lib/assets/images/romaji/n.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 123,
@@ -3054,6 +3350,8 @@ final kanasTest = [
     romaji: "ga",
     imageUrl: "lib/assets/images/katakana/ga.png",
     romajiImageUrl: "lib/assets/images/romaji/ga.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 124,
@@ -3061,6 +3359,8 @@ final kanasTest = [
     romaji: "gi",
     imageUrl: "lib/assets/images/katakana/gi.png",
     romajiImageUrl: "lib/assets/images/romaji/gi.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 125,
@@ -3068,6 +3368,8 @@ final kanasTest = [
     romaji: "gu",
     imageUrl: "lib/assets/images/katakana/gu.png",
     romajiImageUrl: "lib/assets/images/romaji/gu.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 126,
@@ -3075,6 +3377,8 @@ final kanasTest = [
     romaji: "ge",
     imageUrl: "lib/assets/images/katakana/ge.png",
     romajiImageUrl: "lib/assets/images/romaji/ge.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 127,
@@ -3082,6 +3386,8 @@ final kanasTest = [
     romaji: "go",
     imageUrl: "lib/assets/images/katakana/go.png",
     romajiImageUrl: "lib/assets/images/romaji/go.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 128,
@@ -3089,6 +3395,8 @@ final kanasTest = [
     romaji: "za",
     imageUrl: "lib/assets/images/katakana/za.png",
     romajiImageUrl: "lib/assets/images/romaji/za.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 129,
@@ -3096,6 +3404,8 @@ final kanasTest = [
     romaji: "ji",
     imageUrl: "lib/assets/images/katakana/ji.png",
     romajiImageUrl: "lib/assets/images/romaji/ji.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 130,
@@ -3103,6 +3413,8 @@ final kanasTest = [
     romaji: "zu",
     imageUrl: "lib/assets/images/katakana/zu.png",
     romajiImageUrl: "lib/assets/images/romaji/zu.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 131,
@@ -3110,6 +3422,8 @@ final kanasTest = [
     romaji: "ze",
     imageUrl: "lib/assets/images/katakana/ze.png",
     romajiImageUrl: "lib/assets/images/romaji/ze.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 132,
@@ -3117,6 +3431,8 @@ final kanasTest = [
     romaji: "zo",
     imageUrl: "lib/assets/images/katakana/zo.png",
     romajiImageUrl: "lib/assets/images/romaji/zo.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 133,
@@ -3124,6 +3440,8 @@ final kanasTest = [
     romaji: "da",
     imageUrl: "lib/assets/images/katakana/da.png",
     romajiImageUrl: "lib/assets/images/romaji/da.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 134,
@@ -3131,6 +3449,8 @@ final kanasTest = [
     romaji: "ji, dji, jyi",
     imageUrl: "lib/assets/images/katakana/dji.png",
     romajiImageUrl: "lib/assets/images/romaji/dji.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 135,
@@ -3138,6 +3458,8 @@ final kanasTest = [
     romaji: "dzu, zu",
     imageUrl: "lib/assets/images/katakana/dzu.png",
     romajiImageUrl: "lib/assets/images/romaji/dzu.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 136,
@@ -3145,6 +3467,8 @@ final kanasTest = [
     romaji: "de",
     imageUrl: "lib/assets/images/katakana/de.png",
     romajiImageUrl: "lib/assets/images/romaji/de.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 137,
@@ -3152,6 +3476,8 @@ final kanasTest = [
     romaji: "do",
     imageUrl: "lib/assets/images/katakana/do.png",
     romajiImageUrl: "lib/assets/images/romaji/do.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 138,
@@ -3159,6 +3485,8 @@ final kanasTest = [
     romaji: "ba",
     imageUrl: "lib/assets/images/katakana/ba.png",
     romajiImageUrl: "lib/assets/images/romaji/ba.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 139,
@@ -3166,6 +3494,8 @@ final kanasTest = [
     romaji: "bi",
     imageUrl: "lib/assets/images/katakana/bi.png",
     romajiImageUrl: "lib/assets/images/romaji/bi.png",
+    numberStrokes: 4,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 140,
@@ -3173,6 +3503,8 @@ final kanasTest = [
     romaji: "bu",
     imageUrl: "lib/assets/images/katakana/bu.png",
     romajiImageUrl: "lib/assets/images/romaji/bu.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 141,
@@ -3180,6 +3512,8 @@ final kanasTest = [
     romaji: "be",
     imageUrl: "lib/assets/images/katakana/be.png",
     romajiImageUrl: "lib/assets/images/romaji/be.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 142,
@@ -3187,6 +3521,8 @@ final kanasTest = [
     romaji: "bo",
     imageUrl: "lib/assets/images/katakana/bo.png",
     romajiImageUrl: "lib/assets/images/romaji/bo.png",
+    numberStrokes: 6,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 143,
@@ -3194,6 +3530,8 @@ final kanasTest = [
     romaji: "pa",
     imageUrl: "lib/assets/images/katakana/pa.png",
     romajiImageUrl: "lib/assets/images/romaji/pa.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 144,
@@ -3201,6 +3539,8 @@ final kanasTest = [
     romaji: "pi",
     imageUrl: "lib/assets/images/katakana/pi.png",
     romajiImageUrl: "lib/assets/images/romaji/pi.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 145,
@@ -3208,6 +3548,8 @@ final kanasTest = [
     romaji: "pu",
     imageUrl: "lib/assets/images/katakana/pu.png",
     romajiImageUrl: "lib/assets/images/romaji/pu.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 146,
@@ -3215,6 +3557,8 @@ final kanasTest = [
     romaji: "pe",
     imageUrl: "lib/assets/images/katakana/pe.png",
     romajiImageUrl: "lib/assets/images/romaji/pe.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 147,
@@ -3222,6 +3566,8 @@ final kanasTest = [
     romaji: "po",
     imageUrl: "lib/assets/images/katakana/po.png",
     romajiImageUrl: "lib/assets/images/romaji/po.png",
+    numberStrokes: 5,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 148,
@@ -3229,6 +3575,8 @@ final kanasTest = [
     romaji: "x ya",
     imageUrl: "lib/assets/images/katakana/x0.png",
     romajiImageUrl: "lib/assets/images/romaji/x0.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 149,
@@ -3236,6 +3584,8 @@ final kanasTest = [
     romaji: "x yu",
     imageUrl: "lib/assets/images/katakana/x1.png",
     romajiImageUrl: "lib/assets/images/romaji/x1.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 150,
@@ -3243,6 +3593,8 @@ final kanasTest = [
     romaji: "x yo",
     imageUrl: "lib/assets/images/katakana/x2.png",
     romajiImageUrl: "lib/assets/images/romaji/x2.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 151,
@@ -3250,6 +3602,8 @@ final kanasTest = [
     romaji: "x tsu",
     imageUrl: "lib/assets/images/katakana/x3.png",
     romajiImageUrl: "lib/assets/images/romaji/x3.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 152,
@@ -3257,6 +3611,8 @@ final kanasTest = [
     romaji: "x rep",
     imageUrl: "lib/assets/images/katakana/x4.png",
     romajiImageUrl: "lib/assets/images/romaji/x4.png",
+    numberStrokes: 1,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 153,
@@ -3264,6 +3620,8 @@ final kanasTest = [
     romaji: "x rep2",
     imageUrl: "lib/assets/images/katakana/x5.png",
     romajiImageUrl: "lib/assets/images/romaji/x5.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 154,
@@ -3271,6 +3629,8 @@ final kanasTest = [
     romaji: "x pro",
     imageUrl: "lib/assets/images/katakana/x6.png",
     romajiImageUrl: "lib/assets/images/romaji/x6.png",
+    numberStrokes: 1,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 155,
@@ -3278,6 +3638,8 @@ final kanasTest = [
     romaji: "x a",
     imageUrl: "lib/assets/images/katakana/x7.png",
     romajiImageUrl: "lib/assets/images/romaji/x7.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 156,
@@ -3285,6 +3647,8 @@ final kanasTest = [
     romaji: "x i",
     imageUrl: "lib/assets/images/katakana/x8.png",
     romajiImageUrl: "lib/assets/images/romaji/x8.png",
+    numberStrokes: 2,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 157,
@@ -3292,6 +3656,8 @@ final kanasTest = [
     romaji: "x u",
     imageUrl: "lib/assets/images/katakana/x9.png",
     romajiImageUrl: "lib/assets/images/romaji/x9.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 158,
@@ -3299,6 +3665,8 @@ final kanasTest = [
     romaji: "x e",
     imageUrl: "lib/assets/images/katakana/x10.png",
     romajiImageUrl: "lib/assets/images/romaji/x10.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
   const KanaModel(
     id: 159,
@@ -3306,6 +3674,8 @@ final kanasTest = [
     romaji: "x o",
     imageUrl: "lib/assets/images/katakana/x11.png",
     romajiImageUrl: "lib/assets/images/romaji/x11.png",
+    numberStrokes: 3,
+    type: KanaType.katakana,
   ),
 ];
 

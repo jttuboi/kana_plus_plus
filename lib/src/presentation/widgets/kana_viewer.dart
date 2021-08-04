@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/shared/images.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
@@ -48,8 +47,11 @@ class _KanaViewerState extends State<KanaViewer>
         JImages.square,
         if (widget.content.status.isShowSelected ||
             widget.content.status.isShowInitial)
-          widget.content.romaji
-        else ...[widget.content.kana, widget.content.userKana!],
+          Image.asset(widget.content.romajiImageUrl)
+        else ...[
+          Image.asset(widget.content.kanaImageUrl),
+          widget.content.userKana!
+        ],
         if (widget.content.status.isShowCorrect) JImages.correct,
         if (widget.content.status.isShowWrong) JImages.wrong,
       ],
@@ -63,7 +65,7 @@ class _KanaViewerState extends State<KanaViewer>
         builder: (context, child) {
           return Transform.scale(
             scale: 1 + _controller.value * 0.1,
-            child: widget.content.romaji,
+            child: Image.asset(widget.content.romajiImageUrl),
           );
         },
       ),

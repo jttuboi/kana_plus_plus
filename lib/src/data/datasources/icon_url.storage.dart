@@ -16,4 +16,7 @@ class IconUrl {
   static const writingHandRight =
       "lib/assets/icons/black/writing_hand_right.png";
   static const language = "lib/assets/icons/black/language.png";
+  static const eraser = "lib/assets/icons/black/eraser.png";
+  static const undo = "lib/assets/icons/black/undo.png";
+  static const quitTraining = "lib/assets/icons/black/quit.png";
 }

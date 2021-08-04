@@ -36,7 +36,10 @@ class WordModel extends Word {
       type: (map.containsKey(TWords.type))
           ? KanaType.values[map[TWords.type] as int]
           : KanaType.none,
-      translate: TranslateModel.fromMap(map),
+      translate: (map.containsKey(TTranslates.code) ||
+              map.containsKey(TTranslates.translate))
+          ? TranslateModel.fromMap(map)
+          : const TranslateModel.empty(),
       kanas: (kanasMap != null)
           ? kanasMap.map((kanaMap) => KanaModel.fromMap(kanaMap)).toList()
           : const [],

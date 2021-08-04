@@ -1,9 +1,10 @@
 import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
 import 'package:kana_plus_plus/src/data/datasources/database.singleton.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
-import 'package:kana_plus_plus/src/domain/repositories/words.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/word.interface.dart';
 
-class WordsRepository implements IWordsRepository {
+class WordRepository implements IWordRepository {
   @override
   Future<List<Word>> getWords() async {
     final languageCode = Cache.getString("language", defaultValue: "en");
@@ -26,5 +27,10 @@ class WordsRepository implements IWordsRepository {
   Future<Word> getWord(int id) async {
     final languageCode = Cache.getString("language", defaultValue: "en");
     return Database.getWord(id, languageCode);
+  }
+
+  @override
+  Future<List<Word>> getWordsByIds(List<int> ids, KanaType kanaType) async {
+    return Database.getWordsByIds(ids, kanaType);
   }
 }

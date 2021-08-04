@@ -7,12 +7,14 @@ import 'package:kana_plus_plus/src/data/repositories/kana_type.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/language.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/quantity_of_words.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/show_hint.repository.dart';
-import 'package:kana_plus_plus/src/data/repositories/words.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/writing_hand.repository.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
+import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
+import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
@@ -20,8 +22,12 @@ import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/training.state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/training_word.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
@@ -112,7 +118,7 @@ class AndroidApp extends StatelessWidget {
           ),
       Routes.words: (context) => WordsPage(
             WordsController(
-              wordsRepository: WordsRepository(),
+              wordRepository: WordRepository(),
             ),
           ),
       Routes.settings: (context) => SettingsPage(
@@ -132,11 +138,25 @@ class AndroidApp extends StatelessWidget {
     if (settings.name == Routes.training) {
       final args = settings.arguments! as PreTrainingArguments;
       return MaterialPageRoute(
-        builder: (context) => TrainingPage(
-          showHint: args.showHint,
-          kanaType: args.kanaType,
-          quantityOfWords: args.quantityOfWords,
-        ),
+        builder: (context) {
+          final TrainingController trainingController = TrainingController(
+            wordRepository: WordRepository(),
+            writingHandRepository: WritingHandRepository(),
+            showHint: args.showHint,
+            kanaType: args.kanaType,
+            quantityOfWords: args.quantityOfWords,
+          );
+          return TrainingPage(
+            trainingStateManagement:
+                TrainingStateManagement(trainingController),
+            wordStateManagement:
+                TrainingWordStateManagement(trainingController),
+            kanaStateManagement:
+                TrainingKanaStateManagement(trainingController),
+            writerStateManagement:
+                KanaWriterStateManagement(WriterController()),
+          );
+        },
       );
     } else if (settings.name == Routes.review) {
       final args = settings.arguments! as TrainingArguments;

@@ -26,9 +26,9 @@ class KanaTypeRepository implements IKanaTypeRepository {
       // DER PRA FAZER AUTOMATICAMENTE,, ENTAO PRECISA PASSAR ESSA FUNCAO DE
       // CONVERTER PARA CONTROLLER
       const KanaTypeDataModel(
-          type: KanaType.onlyHiragana, iconUrl: IconUrl.hiragana),
+          type: KanaType.hiragana, iconUrl: IconUrl.hiragana),
       const KanaTypeDataModel(
-          type: KanaType.onlyKatakana, iconUrl: IconUrl.katakana),
+          type: KanaType.katakana, iconUrl: IconUrl.katakana),
       const KanaTypeDataModel(type: KanaType.both, iconUrl: IconUrl.both),
     ];
   }
