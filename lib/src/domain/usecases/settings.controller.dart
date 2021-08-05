@@ -30,7 +30,6 @@ class SettingsController {
   final IQuantityOfWordsRepository quantityOfWordsRepository;
 
   String getLanguageSelected() {
-    //testa se ... qual language? se é algum q precisada retornar?
     return languageRepository.getLanguageSelected();
   }
 
@@ -46,14 +45,14 @@ class SettingsController {
     return darkThemeRepository.isDarkTheme();
   }
 
-  String getDarkThemeIconUrl() {
-    return (darkThemeRepository.isDarkTheme())
-        ? IconUrl.darkMode
-        : IconUrl.lightMode;
-  }
-
   void updateDarkTheme(bool value) {
     darkThemeRepository.setDarkTheme(value);
+  }
+
+  String getDarkThemeIconUrl() {
+    return (darkThemeRepository.isDarkTheme())
+        ? IconUrl.darkTheme
+        : IconUrl.lightTheme;
   }
 
   WritingHand getWritingHandSelected() {
@@ -64,53 +63,72 @@ class SettingsController {
     writingHandRepository.setWritingHandSelected(value);
   }
 
-  List<WritingHandData> getWritingHandData() {
-    return writingHandRepository.getWritingHandData();
-  }
-
   String getWritingHandIconUrl() {
-    return writingHandRepository.getWritingHandData().firstWhere((model) {
+    return getWritingHandData().firstWhere((model) {
       return model.writingHand
           .equal(writingHandRepository.getWritingHandSelected());
     }).iconUrl;
   }
 
-  bool isShowHint() {
-    // testa se retorna true ou vfalser e se
-    return showHintRepository.isShowHint();
+  List<WritingHandData> getWritingHandData() {
+    return [
+      const WritingHandData(
+        writingHand: WritingHand.left,
+        iconUrl: IconUrl.writingHandLeft,
+      ),
+      const WritingHandData(
+        writingHand: WritingHand.right,
+        iconUrl: IconUrl.writingHandRight,
+      ),
+    ];
   }
 
-  String getShowHintIconUrl() {
-    //testa se é dark omode ou light mode dependendo do value
-    return (showHintRepository.isShowHint())
-        ? IconUrl.showHint
-        : IconUrl.notShowHint;
+  bool isShowHint() {
+    return showHintRepository.isShowHint();
   }
 
   void updateShowHint(bool value) {
     showHintRepository.setShowHint(value);
   }
 
-  KanaType getKanaTypeSelected() {
-    return kanaTypeRepository.getKanaType();
+  String getShowHintIconUrl() {
+    return (showHintRepository.isShowHint())
+        ? IconUrl.showHint
+        : IconUrl.notShowHint;
   }
 
-  String getKanaTypeIconUrl() {
-    return kanaTypeRepository.getKanaTypeData().firstWhere((model) {
-      return model.kanaType.equal(kanaTypeRepository.getKanaType());
-    }).iconUrl;
+  KanaType getKanaTypeSelected() {
+    return kanaTypeRepository.getKanaType();
   }
 
   void updateKanaTypeSelected(KanaType value) {
     kanaTypeRepository.setKanaType(value);
   }
 
+  String getKanaTypeIconUrl() {
+    return getKanaTypeData().firstWhere((model) {
+      return model.type.equal(kanaTypeRepository.getKanaType());
+    }).iconUrl;
+  }
+
   List<KanaTypeData> getKanaTypeData() {
-    return kanaTypeRepository.getKanaTypeData();
+    return [
+      const KanaTypeData(type: KanaType.hiragana, iconUrl: IconUrl.hiragana),
+      const KanaTypeData(type: KanaType.katakana, iconUrl: IconUrl.katakana),
+      const KanaTypeData(type: KanaType.both, iconUrl: IconUrl.both),
+    ];
   }
 
   int getQuantityOfWords() {
     return quantityOfWordsRepository.getQuantityOfWords();
+  }
+
+  void updateQuantityOfWords(int value) {
+    quantityOfWordsRepository.setQuantityOfWords(value);
+  }
+
+  String getQuantityOfWordsIconUrl() {
+    return IconUrl.quantityOfWords;
   }
 
   double getMinimumQuantityOfWords() {
@@ -119,14 +137,6 @@ class SettingsController {
 
   double getMaximumQuantityOfWords() {
     return Default.maximumTrainingCards.toDouble();
-  }
-
-  String getQuantityOfWordsIconUrl() {
-    return IconUrl.quantityOfWords;
-  }
-
-  void updateQuantityOfWords(int value) {
-    quantityOfWordsRepository.setQuantityOfWords(value);
   }
 
   String getAboutIconUrl() {

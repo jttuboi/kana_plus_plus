@@ -40,6 +40,14 @@ class TrainingController {
     return true;
   }
 
+  String get quitIconUrl => IconUrl.quitTraining;
+
+  String get squareImageUrl => ImageUrl.square;
+
+  String get correctImageUrl => ImageUrl.correct;
+
+  String get wrongImageUrl => ImageUrl.wrong;
+
   String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
 
   WritingHand get getWritingHand =>
@@ -52,14 +60,6 @@ class TrainingController {
 
   KanaType get currentKanaType =>
       wordsToTraining[wordIdx].kanas[kanaIdx].kanaType;
-
-  String get quitIconUrl => IconUrl.quitTraining;
-
-  String get squareImageUrl => ImageUrl.square;
-
-  String get correctImageUrl => ImageUrl.correct;
-
-  String get wrongImageUrl => ImageUrl.wrong;
 
   int getMaxKanasOfWord(int currentWordIdx) {
     return wordsToTraining[currentWordIdx].kanas.length;
@@ -78,7 +78,7 @@ class TrainingController {
     final preview = wordsToTraining[wordIdx].kanas[kanaIdx];
     wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
       id: preview.id,
-      status: (Random().nextBool())
+      status: (kanaIdWrote == preview.id)
           ? KanaViewerStatus.showCorrect
           : KanaViewerStatus.showWrong,
       romajiImageUrl: preview.romajiImageUrl,

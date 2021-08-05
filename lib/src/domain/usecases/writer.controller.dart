@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 

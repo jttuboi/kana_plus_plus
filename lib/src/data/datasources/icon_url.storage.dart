@@ -11,8 +11,8 @@ class IconUrl {
   static const about = "lib/assets/icons/about.png";
   static const privacyPolicy = "lib/assets/icons/privacy_policy.png";
   static const support = "lib/assets/icons/support.png";
-  static const darkMode = "lib/assets/icons/dark_theme.png";
-  static const lightMode = "lib/assets/icons/light_mode.png";
+  static const darkTheme = "lib/assets/icons/dark_theme.png";
+  static const lightTheme = "lib/assets/icons/light_theme.png";
   static const writingHandLeft = "lib/assets/icons/writing_hand_left.png";
   static const writingHandRight = "lib/assets/icons/writing_hand_right.png";
   static const language = "lib/assets/icons/language.png";

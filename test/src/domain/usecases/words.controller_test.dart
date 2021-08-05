@@ -9,73 +9,73 @@ import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
-  final _repository = WordRepositoryMock();
-  final controller = WordsController(wordRepository: _repository);
+  final wordRepository = WordRepositoryMock();
+  final controller = WordsController(wordRepository: wordRepository);
 
   group("show word detail", () {
     test("must return a full word to show in word detail", () {
       const int wordId = 0;
-      when(() => _repository.getWord(wordId))
+      when(() => wordRepository.getWord(wordId))
           .thenAnswer((_) => Future.value(wordSample1));
 
       final wordResult = controller.showWordDetail(wordId);
 
-      verify(() => _repository.getWord(wordId)).called(1);
+      verify(() => wordRepository.getWord(wordId)).called(1);
       expect(wordResult, completion(equals(wordSample1)));
     });
 
     test("must throw not found exception when the database don't find word",
         () {
       const int wordId = -1;
-      when(() => _repository.getWord(wordId)).thenThrow(NotFoundException());
+      when(() => wordRepository.getWord(wordId)).thenThrow(NotFoundException());
 
       expect(() => controller.showWordDetail(wordId),
           throwsA(isA<NotFoundException>()));
-      verify(() => _repository.getWord(wordId)).called(1);
+      verify(() => wordRepository.getWord(wordId)).called(1);
     });
   });
 
   group("set to load all words", () {
     test("must return all words when the first call", () {
-      when(() => _repository.getWords())
+      when(() => wordRepository.getWords())
           .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => _repository.getWordsById(0))
+      when(() => wordRepository.getWordsById(0))
           .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => _repository.getWordsByQuery(""))
+      when(() => wordRepository.getWordsByQuery(""))
           .thenAnswer((invocation) => Future.value(wordsSample2));
 
       final wordsResult = controller.showWords();
 
-      verify(() => _repository.getWords()).called(1);
-      verifyNever(() => _repository.getWordsById(0));
-      verifyNever(() => _repository.getWordsByQuery(""));
+      verify(() => wordRepository.getWords()).called(1);
+      verifyNever(() => wordRepository.getWordsById(0));
+      verifyNever(() => wordRepository.getWordsByQuery(""));
       expect(wordsResult, completion(wordsSample0));
     });
 
     test("must return all words when setToLoadAllWords is called before", () {
-      when(() => _repository.getWords())
+      when(() => wordRepository.getWords())
           .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => _repository.getWordsById(0))
+      when(() => wordRepository.getWordsById(0))
           .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => _repository.getWordsByQuery(""))
+      when(() => wordRepository.getWordsByQuery(""))
           .thenAnswer((invocation) => Future.value(wordsSample2));
 
       controller.setToLoadAllWords();
       final wordsResult = controller.showWords();
 
-      verify(() => _repository.getWords()).called(1);
-      verifyNever(() => _repository.getWordsById(0));
-      verifyNever(() => _repository.getWordsByQuery(""));
+      verify(() => wordRepository.getWords()).called(1);
+      verifyNever(() => wordRepository.getWordsById(0));
+      verifyNever(() => wordRepository.getWordsByQuery(""));
       expect(wordsResult, completion(wordsSample0));
     });
 
     test("must throw no exception when didn't return any word", () {
-      when(() => _repository.getWords()).thenThrow(NotFoundException());
+      when(() => wordRepository.getWords()).thenThrow(NotFoundException());
 
       controller.setToLoadAllWords();
 
       expect(() => controller.showWords(), throwsA(isA<NotFoundException>()));
-      verify(() => _repository.getWords()).called(1);
+      verify(() => wordRepository.getWords()).called(1);
     });
   });
 
@@ -83,29 +83,29 @@ void main() {
     test(
         "must return words by id when setToLoadWordsById is called before with word id",
         () {
-      when(() => _repository.getWords())
+      when(() => wordRepository.getWords())
           .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => _repository.getWordsById(0))
+      when(() => wordRepository.getWordsById(0))
           .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => _repository.getWordsByQuery(""))
+      when(() => wordRepository.getWordsByQuery(""))
           .thenAnswer((invocation) => Future.value(wordsSample2));
 
       controller.setToLoadWordsById(0);
       final wordsResult = controller.showWords();
 
-      verifyNever(() => _repository.getWords());
-      verify(() => _repository.getWordsById(0)).called(1);
-      verifyNever(() => _repository.getWordsByQuery(""));
+      verifyNever(() => wordRepository.getWords());
+      verify(() => wordRepository.getWordsById(0)).called(1);
+      verifyNever(() => wordRepository.getWordsByQuery(""));
       expect(wordsResult, completion(wordsSample1));
     });
 
     test("must throw no exception when didn't find any word", () {
-      when(() => _repository.getWordsById(0)).thenThrow(NotFoundException());
+      when(() => wordRepository.getWordsById(0)).thenThrow(NotFoundException());
 
       controller.setToLoadWordsById(0);
 
       expect(() => controller.showWords(), throwsA(isA<NotFoundException>()));
-      verify(() => _repository.getWordsById(0)).called(1);
+      verify(() => wordRepository.getWordsById(0)).called(1);
     });
   });
 
@@ -113,30 +113,30 @@ void main() {
     test(
         "must return words by query when setToLoadWordsByQuery is called before with query",
         () {
-      when(() => _repository.getWords())
+      when(() => wordRepository.getWords())
           .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => _repository.getWordsById(0))
+      when(() => wordRepository.getWordsById(0))
           .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => _repository.getWordsByQuery(""))
+      when(() => wordRepository.getWordsByQuery(""))
           .thenAnswer((invocation) => Future.value(wordsSample2));
 
       controller.setToLoadWordsByQuery("");
       final wordsResult = controller.showWords();
 
-      verifyNever(() => _repository.getWords());
-      verifyNever(() => _repository.getWordsById(0));
-      verify(() => _repository.getWordsByQuery("")).called(1);
+      verifyNever(() => wordRepository.getWords());
+      verifyNever(() => wordRepository.getWordsById(0));
+      verify(() => wordRepository.getWordsByQuery("")).called(1);
       expect(wordsResult, completion(wordsSample2));
     });
 
     test("must throw no exception when didn't find any word", () {
-      when(() => _repository.getWordsByQuery(""))
+      when(() => wordRepository.getWordsByQuery(""))
           .thenThrow(NotFoundException());
 
       controller.setToLoadWordsByQuery("");
 
       expect(() => controller.showWords(), throwsA(isA<NotFoundException>()));
-      verify(() => _repository.getWordsByQuery("")).called(1);
+      verify(() => wordRepository.getWordsByQuery("")).called(1);
     });
   });
 }

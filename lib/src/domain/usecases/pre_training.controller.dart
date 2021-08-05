@@ -17,39 +17,38 @@ class PreTrainingController {
   final IKanaTypeRepository kanaTypeRepository;
   final IQuantityOfWordsRepository quantityOfWordsRepository;
 
-  bool getShowHint() {
-    // testa se retorna true ou vfalser e se
+  late bool showHint;
+  late KanaType kanaType;
+  late int quantityOfWords;
+
+  bool isShowHint() {
     return showHintRepository.isShowHint();
   }
 
   String getShowHintIconUrl() {
-    //testa se é dark omode ou light mode dependendo do value
-    return (showHintRepository.isShowHint())
-        ? IconUrl.showHint
-        : IconUrl.notShowHint;
+    return showHint ? IconUrl.showHint : IconUrl.notShowHint;
   }
 
   KanaType getKanaType() {
-    // testa se retorna algum dos tipos de kana type
     return kanaTypeRepository.getKanaType();
   }
 
   List<KanaTypeData> getKanaTypeData() {
-    // deve testar x e y dados
-    /// talvez nao deva passar pra frente e sim deixar aqui
-    return kanaTypeRepository.getKanaTypeData();
+    return [
+      const KanaTypeData(type: KanaType.hiragana, iconUrl: IconUrl.hiragana),
+      const KanaTypeData(type: KanaType.katakana, iconUrl: IconUrl.katakana),
+      const KanaTypeData(type: KanaType.both, iconUrl: IconUrl.both),
+    ];
   }
 
-  String getKanaTypeIconUrl(KanaType kanaType) {
-    return kanaTypeRepository
-        .getKanaTypeData()
-        .where((kanaTypeItem) => kanaTypeItem.kanaType.equal(kanaType))
+  String getKanaTypeIconUrl() {
+    return getKanaTypeData()
+        .where((kanaTypeItem) => kanaTypeItem.type.equal(kanaType))
         .first
         .iconUrl;
   }
 
   int getQuantityOfWords() {
-    // se nao esta entre 5 e 20 ele reseta
     return quantityOfWordsRepository.getQuantityOfWords();
   }
 
@@ -62,7 +61,6 @@ class PreTrainingController {
   }
 
   String getQuantityOfWordsIconUrl() {
-    // testa se retorna icone certo
     return IconUrl.quantityOfWords;
   }
 }

@@ -6,7 +6,7 @@ class KanaTypeDataModel extends KanaTypeData {
     required KanaType type,
     required String iconUrl,
   }) : super(
-          kanaType: type,
+          type: type,
           iconUrl: iconUrl,
         );
 
@@ -21,7 +21,7 @@ class KanaTypeDataModel extends KanaTypeData {
 
   Map<String, dynamic> toMap() {
     return {
-      "kana_type": kanaType,
+      "kana_type": type,
       "icon_url": iconUrl,
     };
   }
