@@ -2,6 +2,7 @@ import 'dart:ui';
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
 
 class KanaViewer extends StatefulWidget {
   const KanaViewer(
@@ -56,9 +57,13 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
           Image.asset(widget.content.romajiImageUrl)
         else ...[
           Image.asset(widget.content.kanaImageUrl),
-          //widget.content.userKana! PRECISA RECSONTRUIR A IAMGEM COM BASE NO STROKES REPASSADOSa
+          LayoutBuilder(builder: (context, constraints) {
+            // 80.0 is an random number. I don't know how to decide this. I only know the witdh and height is based of KanaViewers,
+            // in other words, width is infinite and height has a limit size.
+            final size = !constraints.hasInfiniteHeight ? constraints.maxHeight : (!constraints.hasInfiniteWidth ? constraints.maxWidth : 80.0);
+            return UserKanaViewer(strokes: widget.content.strokesDrew, size: Size(size, size));
+          })
         ],
-        // a imagem precisa vir do background
         if (widget.content.status.isShowCorrect) Image.asset(widget.correctImageUrl),
         if (widget.content.status.isShowWrong) Image.asset(widget.wrongImageUrl),
       ],
