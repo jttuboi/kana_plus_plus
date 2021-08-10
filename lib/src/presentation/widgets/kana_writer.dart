@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.sta
 import 'package:provider/provider.dart';
 
 class KanaWriter extends StatelessWidget {
-  const KanaWriter({
+  KanaWriter({
     Key? key,
     required this.stateManagement,
     required this.writerController,
@@ -17,6 +17,8 @@ class KanaWriter extends StatelessWidget {
   final WriterStateManagement stateManagement;
   final WriterController writerController;
   final Function(List<List<Offset>> strokes, int kanaIdWrote) onKanaRecovered;
+
+  final GlobalKey gestureKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +145,7 @@ class KanaWriter extends StatelessWidget {
               animation: stateManagement,
               builder: (context, child) {
                 return GestureDetector(
+                  key: gestureKey,
                   onPanStart: stateManagement.isDisabled ? null : (details) => _startStroke(details, context),
                   onPanUpdate: stateManagement.isDisabled ? null : (details) => _updateStroke(details, context),
                   onPanEnd: stateManagement.isDisabled ? null : (details) => _finishStroke(context),
@@ -173,7 +176,7 @@ class KanaWriter extends StatelessWidget {
     provider.resetPoints();
     if (stateManagement.isTheLastStroke) {
       onKanaRecovered(
-        stateManagement.strokesNormalized,
+        stateManagement.strokesNormalized(0.0, gestureKey.currentContext!.size!.width),
         stateManagement.generateKanaId,
       );
     }

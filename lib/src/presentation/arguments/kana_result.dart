@@ -14,4 +14,9 @@ class KanaResult {
   final bool isCorrect;
   final int idWrote;
   final List<List<Offset>> strokesDrew;
+
+  @override
+  String toString() {
+    return "KanaResult($id, $imageUrl, $isCorrect, $idWrote, $strokesDrew)";
+  }
 }

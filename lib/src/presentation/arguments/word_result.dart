@@ -12,4 +12,9 @@ class WordResult {
   final String text;
   final String imageUrl;
   final List<KanaResult> kanas;
+
+  @override
+  String toString() {
+    return "WordResult($id, $text, $imageUrl, $kanas)";
+  }
 }

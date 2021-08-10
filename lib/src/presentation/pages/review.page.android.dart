@@ -26,8 +26,7 @@ class ReviewPage extends StatelessWidget {
           title: const Text("review"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () =>
-                Navigator.popUntil(context, (route) => route.isFirst),
+            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
           ),
         ),
         body: ListView.separated(

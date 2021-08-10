@@ -81,16 +81,16 @@ void main() {
     test("must add an reduced stroke to strokes", () {
       controller.strokes = [];
 
-      controller.addStroke(noPath);
+      controller.addStroke(noStroke);
 
       expect(controller.strokes.length, 1);
-      expect(controller.strokes[0], noPathResult);
+      expect(controller.strokes[0], noStrokeResult);
 
-      controller.addStroke(shiPath);
+      controller.addStroke(shiStroke);
 
       expect(controller.strokes.length, 2);
-      expect(controller.strokes[0], noPathResult);
-      expect(controller.strokes[1], shiPathResult);
+      expect(controller.strokes[0], noStrokeResult);
+      expect(controller.strokes[1], shiStrokeResult);
     });
     test("must return bool if is the last stroke wrote", () {
       controller.strokes = threeStrokesSample.toList();
@@ -201,16 +201,27 @@ void main() {
       expect(result, path);
     });
     test("must return reduced path for horizontal line sample", () {
-      final result = controller.reducePath(horizontalLinePath);
-      expect(result, horizontalLinePathResult);
+      final result = controller.reducePath(horizontalLineStroke);
+      expect(result, horizontalLineStrokeResult);
     });
     test("must return reduced path for shi hiragana sample", () {
-      final result = controller.reducePath(shiPath);
-      expect(result, shiPathResult);
+      final result = controller.reducePath(shiStroke);
+      expect(result, shiStrokeResult);
     });
     test("must return reduced path for no hiragana sample", () {
-      final result = controller.reducePath(noPath);
-      expect(result, noPathResult);
+      final result = controller.reducePath(noStroke);
+      expect(result, noStrokeResult);
+    });
+  });
+  group("normalized strokes", () {
+    test("must return strokes normalized", () {
+      controller.strokes = [shiStrokeResult, noStrokeResult];
+      const startLocationOfSquareUsedForDraw = 0.0;
+      const endLocationOfSquareUsedForDraw = 206.7;
+
+      final result = controller.strokesNormalized(startLocationOfSquareUsedForDraw, endLocationOfSquareUsedForDraw);
+
+      expect(result, [shiStrokeResultNormalized, noStrokeResultNormalized]);
     });
   });
 }
@@ -230,7 +241,7 @@ final fourStrokesSample = [
   const [Offset(0, 8), Offset(1, 3)],
 ];
 
-const horizontalLinePath = [
+const horizontalLineStroke = [
   Offset(89.4, 133.8),
   Offset(90.5, 133.8),
   Offset(91.6, 133.8),
@@ -268,14 +279,14 @@ const horizontalLinePath = [
   Offset(122.9, 135.6),
 ];
 
-const horizontalLinePathResult = [
+const horizontalLineStrokeResult = [
   Offset(89.4, 133.8),
   Offset(107.3, 133.8),
   Offset(107.3, 134.9),
   Offset(122.9, 135.6),
 ];
 
-const shiPath = [
+const shiStroke = [
   Offset(78.9, 49.4),
   Offset(78.9, 50.5),
   Offset(78.9, 51.6),
@@ -478,7 +489,7 @@ const shiPath = [
   Offset(175.6, 164.3),
 ];
 
-const shiPathResult = [
+const shiStrokeResult = [
   Offset(78.9, 49.4),
   Offset(86.2, 103.2),
   Offset(88.4, 145.1),
@@ -491,7 +502,20 @@ const shiPathResult = [
   Offset(175.6, 164.3),
 ];
 
-const noPath = [
+const shiStrokeResultNormalized = [
+  Offset(0.3817126269956459, 0.2389937106918239),
+  Offset(0.417029511369134, 0.49927431059506533),
+  Offset(0.42767295597484284, 0.7019835510401549),
+  Offset(0.4378326076439284, 0.7227866473149492),
+  Offset(0.4625060474117078, 0.7474600870827286),
+  Offset(0.48911465892597966, 0.752781809385583),
+  Offset(0.497822931785196, 0.7687469762941461),
+  Offset(0.575229801644896, 0.7948717948717949),
+  Offset(0.6879535558780842, 0.8035800677310111),
+  Offset(0.8495403967102081, 0.7948717948717949),
+];
+
+const noStroke = [
   Offset(121.1, 96.0),
   Offset(121.1, 96.7),
   Offset(121.1, 97.8),
@@ -870,7 +894,8 @@ const noPath = [
   Offset(158.9, 174.5),
   Offset(157.8, 174.5),
 ];
-const noPathResult = [
+
+const noStrokeResult = [
   Offset(121.1, 96.0),
   Offset(121.1, 141.1),
   Offset(118.9, 143.2),
@@ -897,4 +922,33 @@ const noPathResult = [
   Offset(169.4, 162.1),
   Offset(161.1, 173.8),
   Offset(157.8, 174.5),
+];
+
+const noStrokeResultNormalized = [
+  Offset(0.5858732462506048, 0.4644412191582003),
+  Offset(0.5858732462506048, 0.6826318335752298),
+  Offset(0.575229801644896, 0.6927914852443154),
+  Offset(0.575229801644896, 0.7281083696178037),
+  Offset(0.5539429124334785, 0.7474600870827286),
+  Offset(0.5437832607643929, 0.7793904208998549),
+  Offset(0.48379293662312534, 0.8408321238509919),
+  Offset(0.4223512336719884, 0.8601838413159169),
+  Offset(0.3923560716013546, 0.8601838413159169),
+  Offset(0.3463957426221577, 0.8248669569424287),
+  Offset(0.3309143686502177, 0.7581035316884374),
+  Offset(0.3149492017416546, 0.733430091920658),
+  Offset(0.3149492017416546, 0.6207063376874699),
+  Offset(0.335752298016449, 0.5858732462506048),
+  Offset(0.3817126269956459, 0.5345911949685535),
+  Offset(0.4625060474117078, 0.4731494920174166),
+  Offset(0.5437832607643929, 0.4484760522496372),
+  Offset(0.6313497822931785, 0.4484760522496372),
+  Offset(0.733430091920658, 0.4944363812288341),
+  Offset(0.73681664247702, 0.5099177552007741),
+  Offset(0.7740686985970006, 0.5399129172714079),
+  Offset(0.7934204160619256, 0.5805515239477504),
+  Offset(0.8195452346395743, 0.6719883889695211),
+  Offset(0.8195452346395743, 0.7842283502660862),
+  Offset(0.7793904208998549, 0.8408321238509919),
+  Offset(0.7634252539912918, 0.8442186744073537),
 ];

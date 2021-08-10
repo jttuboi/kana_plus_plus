@@ -33,8 +33,24 @@ class WriterController {
   String get squareImageUrl => ImageUrl.square;
 
   bool get isTheLastStroke => strokes.length >= maxStrokes;
-  //TODO implementar o algoritmo de normaliza~cao dos strokes
-  List<List<Offset>> get strokesNormalized => strokes; // aqui deve procurar pelos strokes normalizados
+
+  List<List<Offset>> strokesNormalized(double startSquareLocation, double endSquareLocation) {
+    final strokesNormalized = <List<Offset>>[];
+    for (final stroke in strokes) {
+      final strokeNormalized = <Offset>[];
+      for (final point in stroke) {
+        final pointNormalized = Offset(
+          (point.dx - startSquareLocation) / (endSquareLocation - startSquareLocation),
+          (point.dy - startSquareLocation) / (endSquareLocation - startSquareLocation),
+        );
+        strokeNormalized.add(pointNormalized);
+      }
+      strokesNormalized.add(strokeNormalized);
+    }
+
+    return strokesNormalized;
+  }
+
   //TODO implementar o algoritmo de reconhecimento dos strokes
   int get generateKanaId => 0; // aqui deve procurar pelo kana (kanaType)
 

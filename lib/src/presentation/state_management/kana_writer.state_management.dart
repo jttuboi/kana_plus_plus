@@ -27,9 +27,11 @@ class WriterStateManagement extends ChangeNotifier {
 
   List<List<Offset>> get strokes => _controller.strokes;
 
-  List<List<Offset>> get strokesNormalized => _controller.strokesNormalized;
-
   int get generateKanaId => _controller.generateKanaId;
+
+  List<List<Offset>> strokesNormalized(double startSquareLocation, double endSquareLocation) {
+    return _controller.strokesNormalized(startSquareLocation, endSquareLocation);
+  }
 
   void updateWriter(int maxStrokes, String kanaHintImageUrl, KanaType kanaType) {
     _controller.updateWriter(maxStrokes, kanaHintImageUrl, kanaType);
