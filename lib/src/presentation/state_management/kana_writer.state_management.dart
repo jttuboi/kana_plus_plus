@@ -1,42 +1,39 @@
-import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 
-class KanaWriterStateManagement extends ChangeNotifier {
-  KanaWriterStateManagement(this._controller);
+class WriterStateManagement extends ChangeNotifier {
+  WriterStateManagement(this._controller);
 
   final WriterController _controller;
 
   bool isDisabled = false;
 
-  int get maxStrokes => _controller.maxStrokes;
+  bool get isWritingHandRight => _controller.writingHand.isRight;
+
+  bool get isShowHint => _controller.showHint;
 
   String get eraserIconUrl => _controller.eraserIconUrl;
 
   String get undoIconUrl => _controller.undoIconUrl;
 
-  int get strokeNumber => _controller.strokeNumber;
+  String get squareImageUrl => _controller.squareImageUrl;
 
-  void updateWriter(int maxStrokesNumber, KanaType kanaType) {
-    _controller.updateWriter(maxStrokesNumber, kanaType);
-    notifyListeners();
-  }
+  String get kanaHintImageUrl => _controller.kanaHintImageUrl;
 
-  void clearStrokes() {
-    _controller.clearStrokes();
-    notifyListeners();
-  }
+  bool get isTheLastStroke => _controller.isTheLastStroke;
 
-  void undoTheLastStroke() {
-    _controller.undoTheLastStroke();
-    notifyListeners();
-  }
+  List<List<Offset>> get strokes => _controller.strokes;
 
-  Map<String, dynamic> processStroke(List<Point<num>> points) {
-    final Map<String, dynamic> result = _controller.processStroke(points);
+  List<List<Offset>> get strokesNormalized => _controller.strokesNormalized;
+
+  int get generateKanaId => _controller.generateKanaId;
+
+  void updateWriter(int maxStrokes, String kanaHintImageUrl, KanaType kanaType) {
+    _controller.updateWriter(maxStrokes, kanaHintImageUrl, kanaType);
     notifyListeners();
-    return result;
   }
 
   void enable() {

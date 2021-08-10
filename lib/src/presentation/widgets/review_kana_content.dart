@@ -23,11 +23,8 @@ class ReviewKanaContent extends StatelessWidget {
         children: [
           Image.asset(squareImageUrl),
           Image.asset(kanaResult.imageUrl),
-          kanaResult.userImage,
-          if (kanaResult.isCorrect)
-            Image.asset(correctImageUrl)
-          else
-            Image.asset(wrongImageUrl),
+          // kanaResult.userImage, PRECISA CONSTRUIR O KANA COM BASE NOS STROKES REPASSADOS
+          if (kanaResult.isCorrect) Image.asset(correctImageUrl) else Image.asset(wrongImageUrl),
         ],
       ),
     );

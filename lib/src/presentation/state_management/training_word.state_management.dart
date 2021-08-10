@@ -15,9 +15,7 @@ class TrainingWordStateManagement extends ChangeNotifier {
 
   List<WordResult> get wordsResult => _controller.wordsResult;
 
-  bool get isTheLastWord => _controller.isTheLastWord;
-
-  void updateComponents() {
+  void updateState() {
     notifyListeners();
   }
 }

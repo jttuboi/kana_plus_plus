@@ -1,7 +1,7 @@
-import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 
@@ -12,9 +12,11 @@ class TrainingKanaStateManagement extends ChangeNotifier {
 
   int get kanaIdx => _controller.kanaIdx;
 
-  int get maxStrokes => _controller.currentKanaMaxStrokes;
+  int get currentKanaMaxStrokes => _controller.currentKanaMaxStrokes;
 
-  KanaType get kanaType => _controller.currentKanaType;
+  String get currentKanaImageUrl => _controller.currentKanaImageUrl;
+
+  KanaType get currentKanaType => _controller.currentKanaType;
 
   String get squareImageUrl => _controller.squareImageUrl;
 
@@ -22,20 +24,13 @@ class TrainingKanaStateManagement extends ChangeNotifier {
 
   String get wrongImageUrl => _controller.wrongImageUrl;
 
-  int maxKanasOfWord(int currentWordIdx) =>
-      _controller.getMaxKanasOfWord(currentWordIdx);
+  int maxKanasOfWord(int currentWordIdx) => _controller.getMaxKanasOfWord(currentWordIdx);
 
-  KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) {
-    return _controller.kanaOfWord(currentWordIdx, currentKanaIdx);
-  }
+  KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) => _controller.kanaOfWord(currentWordIdx, currentKanaIdx);
 
-  List<KanaViewerContent> getCurrentKanas(int wordIdx) =>
-      _controller.wordsToTraining[wordIdx].kanas;
-
-  void updateKana(List<Point<num>> pointsFiltered, int kanaIdWrote,
-      Image imageStrokeDrew, VoidCallback updateWhenWordChanged) {
-    _controller.updateKana(
-        pointsFiltered, kanaIdWrote, imageStrokeDrew, updateWhenWordChanged);
+  UpdateKanaSituation updateKana(List<List<Offset>> strokes, int kanaIdWrote) {
+    final situation = _controller.updateKana(strokes, kanaIdWrote);
     notifyListeners();
+    return situation;
   }
 }

@@ -21,8 +21,7 @@ class KanaViewer extends StatefulWidget {
   _KanaViewerState createState() => _KanaViewerState();
 }
 
-class _KanaViewerState extends State<KanaViewer>
-    with SingleTickerProviderStateMixin {
+class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -53,18 +52,15 @@ class _KanaViewerState extends State<KanaViewer>
       children: [
         if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
         Image.asset(widget.squareImageUrl),
-        if (widget.content.status.isShowSelected ||
-            widget.content.status.isShowInitial)
+        if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
           Image.asset(widget.content.romajiImageUrl)
         else ...[
           Image.asset(widget.content.kanaImageUrl),
-          widget.content.userKana!
+          //widget.content.userKana! PRECISA RECSONTRUIR A IAMGEM COM BASE NO STROKES REPASSADOSa
         ],
         // a imagem precisa vir do background
-        if (widget.content.status.isShowCorrect)
-          Image.asset(widget.correctImageUrl),
-        if (widget.content.status.isShowWrong)
-          Image.asset(widget.wrongImageUrl),
+        if (widget.content.status.isShowCorrect) Image.asset(widget.correctImageUrl),
+        if (widget.content.status.isShowWrong) Image.asset(widget.wrongImageUrl),
       ],
     );
   }

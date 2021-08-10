@@ -4,9 +4,8 @@ import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.dart';
 import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_viewer_content.dart';
@@ -14,35 +13,39 @@ import 'package:mocktail/mocktail.dart';
 
 void main() {
   final wordRepository = WordRepositoryMock();
-  final writingHandRepository = WritingHandRepositoryMock();
   final controller = TrainingController(
     wordRepository: wordRepository,
-    writingHandRepository: writingHandRepository,
-    showHint: true,
     kanaType: KanaType.hiragana,
     quantityOfWords: 10,
   );
+  test("training controller init test", () {
+    final repository1 = WordRepositoryMock();
+    final controller1 = TrainingController(wordRepository: repository1, kanaType: KanaType.hiragana, quantityOfWords: 1);
+
+    expect(controller1.wordRepository, repository1);
+    expect(controller1.kanaType, KanaType.hiragana);
+    expect(controller1.quantityOfWords, 1);
+
+    final repository2 = WordRepositoryMock();
+    final controller2 = TrainingController(wordRepository: repository2, kanaType: KanaType.both, quantityOfWords: 423);
+
+    expect(controller2.wordRepository, repository2);
+    expect(controller2.kanaType, KanaType.both);
+    expect(controller2.quantityOfWords, 423);
+  });
 
   group("images url", () {
     test("must return quit icon url", () {
-      final result = controller.quitIconUrl;
-
-      expect(result, IconUrl.quitTraining);
+      expect(controller.quitIconUrl, IconUrl.quitTraining);
     });
     test("must return square image url", () {
-      final result = controller.squareImageUrl;
-
-      expect(result, ImageUrl.square);
+      expect(controller.squareImageUrl, ImageUrl.square);
     });
     test("must return correct image url", () {
-      final result = controller.correctImageUrl;
-
-      expect(result, ImageUrl.correct);
+      expect(controller.correctImageUrl, ImageUrl.correct);
     });
     test("must return wrong image url", () {
-      final result = controller.wrongImageUrl;
-
-      expect(result, ImageUrl.wrong);
+      expect(controller.wrongImageUrl, ImageUrl.wrong);
     });
   });
   // TODO test("must return wrong image url", () {
@@ -61,42 +64,15 @@ void main() {
 
     const wordIdxToCheck1 = 0;
     controller.wordIdx = wordIdxToCheck1;
-    expect(controller.currentImageUrl,
-        controller.wordsToTraining[wordIdxToCheck1].imageUrl);
+    expect(controller.currentImageUrl, controller.wordsToTraining[wordIdxToCheck1].imageUrl);
 
     const wordIdxToCheck2 = 1;
     controller.wordIdx = wordIdxToCheck2;
-    expect(controller.currentImageUrl,
-        controller.wordsToTraining[wordIdxToCheck2].imageUrl);
+    expect(controller.currentImageUrl, controller.wordsToTraining[wordIdxToCheck2].imageUrl);
 
     const wordIdxToCheck3 = 2;
     controller.wordIdx = wordIdxToCheck3;
-    expect(controller.currentImageUrl,
-        controller.wordsToTraining[wordIdxToCheck3].imageUrl);
-  });
-  test("must return the writing hand from repository", () {
-    when(() => writingHandRepository.getWritingHandSelected())
-        .thenAnswer((_) => WritingHand.left);
-
-    final result = controller.getWritingHand;
-
-    verify(() => writingHandRepository.getWritingHandSelected()).called(1);
-    expect(result, WritingHand.left);
-  });
-  test("must return if is the last word to study", () {
-    controller.wordsToTraining = wordsContent;
-
-    controller.wordIdx = 1;
-    final result = controller.isTheLastWord;
-    expect(result, false);
-
-    controller.wordIdx = 2;
-    final result2 = controller.isTheLastWord;
-    expect(result2, false);
-
-    controller.wordIdx = 3;
-    final result3 = controller.isTheLastWord;
-    expect(result3, true);
+    expect(controller.currentImageUrl, controller.wordsToTraining[wordIdxToCheck3].imageUrl);
   });
   test("must return the max strokes from current kana of current word", () {
     controller.wordsToTraining = wordsContent;
@@ -136,6 +112,13 @@ void main() {
     controller.wordIdx = 2;
     controller.kanaIdx = 2;
     expect(controller.currentKanaMaxStrokes, 5);
+  });
+  test("must return image url of current kana", () {
+    controller.wordsToTraining = wordsContent;
+    controller.wordIdx = 1;
+    controller.kanaIdx = 1;
+
+    expect(controller.currentKanaImageUrl, "shi.png");
   });
   test("must return the kana type from current kana of current word", () {
     controller.wordsToTraining = wordsContent;
@@ -209,28 +192,26 @@ void main() {
               kanaImageUrl: "a.png",
               romajiImageUrl: "ra.png",
               strokesNumber: 3,
-              kanaType: KanaType.hiragana,
-              userKana: null),
+              kanaType: KanaType.hiragana),
           KanaViewerContent(
               id: 33,
               status: KanaViewerStatus.showInitial,
               kanaImageUrl: "me.png",
               romajiImageUrl: "rme.png",
               strokesNumber: 2,
-              kanaType: KanaType.hiragana,
-              userKana: null),
+              kanaType: KanaType.hiragana),
         ]),
       ];
       controller.kanaIdx = 0;
       controller.wordIdx = 0;
 
-      final kanaId = 0; // あ
-      final imageDrew = Image.asset("lib/assets/images/h_a_test.png");
-      bool isUpdateWhenWordChangedCalled = false;
+      const kanaId = 0; // あ
+      const allStrokes = [
+        [Offset(1, 1), Offset(4, 2), Offset(0, 4)],
+        [Offset(9, 7), Offset(1, 2)],
+      ];
 
-      controller.updateKana([], kanaId, imageDrew, () {
-        isUpdateWhenWordChangedCalled = true;
-      });
+      final status = controller.updateKana(allStrokes, kanaId);
 
       // these data can't change
       final word = controller.wordsToTraining[0];
@@ -251,16 +232,21 @@ void main() {
       expect(word.kanas[1].kanaType, KanaType.hiragana);
 
       // these data need change
+      expect(status, UpdateKanaSituation.changeKana);
       expect(word.kanas[0].status, KanaViewerStatus.showCorrect);
-      expect(word.kanas[0].userKana.toString(),
-          Image.asset("lib/assets/images/h_a_test.png").toString());
+      expect(word.kanas[0].kanaIdWrote, kanaId);
+      expect(word.kanas[0].strokesDrew, allStrokes);
       expect(word.kanas[1].status, KanaViewerStatus.showSelected);
-      expect(word.kanas[1].userKana, isNull);
-      expect(isUpdateWhenWordChangedCalled, isFalse);
+      expect(word.kanas[1].strokesDrew, isEmpty);
       expect(controller.kanaIdx, 1);
       expect(controller.wordIdx, 0);
     });
     test("must change to next word after update the last kana", () {
+      const firstStrokes = [
+        [Offset(1, 1), Offset(4, 2), Offset(0, 4)],
+        [Offset(9, 7), Offset(1, 2)],
+      ];
+
       controller.wordsToTraining = [
         WordViewerContent(id: 36, text: "あめ", imageUrl: "rain.png", kanas: [
           KanaViewerContent(
@@ -270,27 +256,27 @@ void main() {
               romajiImageUrl: "ra.png",
               strokesNumber: 3,
               kanaType: KanaType.hiragana,
-              userKana: Image.asset("lib/assets/images/h_a_test.png")),
+              //kanaIdWrote: -1, // if is -1, the kana is not found
+              strokesDrew: firstStrokes),
           KanaViewerContent(
               id: 33,
               status: KanaViewerStatus.showSelected,
               kanaImageUrl: "me.png",
               romajiImageUrl: "rme.png",
               strokesNumber: 2,
-              kanaType: KanaType.hiragana,
-              userKana: null),
+              kanaType: KanaType.hiragana),
         ]),
       ];
       controller.kanaIdx = 1;
       controller.wordIdx = 0;
 
-      final kanaId = 0; // あ
-      final imageDrew = Image.asset("lib/assets/images/h_a_test.png");
-      bool isUpdateWhenWordChangedCalled = false;
+      const kanaId = 1; // あ
+      const allStrokes = [
+        [Offset(1, 7), Offset(8, 3)],
+        [Offset(3, 3), Offset(7, 3), Offset(9, 2)],
+      ];
 
-      controller.updateKana([], kanaId, imageDrew, () {
-        isUpdateWhenWordChangedCalled = true;
-      });
+      final status = controller.updateKana(allStrokes, kanaId);
 
       // these data can't change
       final word = controller.wordsToTraining[0];
@@ -305,8 +291,8 @@ void main() {
       expect(word.kanas[0].strokesNumber, 3);
       expect(word.kanas[0].kanaType, KanaType.hiragana);
       expect(word.kanas[0].status, KanaViewerStatus.showWrong);
-      expect(word.kanas[0].userKana.toString(),
-          Image.asset("lib/assets/images/h_a_test.png").toString());
+      expect(word.kanas[0].kanaIdWrote, -1);
+      expect(word.kanas[0].strokesDrew, firstStrokes);
       expect(word.kanas[1].id, 33);
       expect(word.kanas[1].kanaImageUrl, "me.png");
       expect(word.kanas[1].romajiImageUrl, "rme.png");
@@ -314,10 +300,10 @@ void main() {
       expect(word.kanas[1].kanaType, KanaType.hiragana);
 
       // these data need change
+      expect(status, UpdateKanaSituation.changeTheLastWord);
       expect(word.kanas[1].status, KanaViewerStatus.showWrong);
-      expect(word.kanas[1].userKana.toString(),
-          Image.asset("lib/assets/images/h_a_test.png").toString());
-      expect(isUpdateWhenWordChangedCalled, isTrue);
+      expect(word.kanas[1].kanaIdWrote, kanaId);
+      expect(word.kanas[1].strokesDrew, allStrokes);
       expect(controller.kanaIdx, 0);
       expect(controller.wordIdx, 1);
     });
@@ -336,11 +322,20 @@ void main() {
     expect(result[0].kanas[0].id, 0);
     expect(result[0].kanas[0].imageUrl, "a.png");
     expect(result[0].kanas[0].isCorrect, isTrue);
-    expect(result[0].kanas[0].userImage, isNotNull);
+    expect(result[0].kanas[0].idWrote, 0);
+    expect(result[0].kanas[0].strokesDrew, const [
+      [Offset(1, 1)],
+      [Offset(2, 2)],
+      [Offset(3, 3)]
+    ]);
     expect(result[0].kanas[1].id, 33);
     expect(result[0].kanas[1].imageUrl, "me.png");
     expect(result[0].kanas[1].isCorrect, isFalse);
-    expect(result[0].kanas[1].userImage, isNotNull);
+    expect(result[0].kanas[1].idWrote, 2);
+    expect(result[0].kanas[1].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
 
     expect(result[1].id, 110);
     expect(result[1].text, "けしゴム");
@@ -349,19 +344,35 @@ void main() {
     expect(result[1].kanas[0].id, 8);
     expect(result[1].kanas[0].imageUrl, "ke.png");
     expect(result[1].kanas[0].isCorrect, isFalse);
-    expect(result[1].kanas[0].userImage, isNotNull);
+    expect(result[1].kanas[0].idWrote, 3);
+    expect(result[1].kanas[0].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
     expect(result[1].kanas[1].id, 11);
     expect(result[1].kanas[1].imageUrl, "shi.png");
     expect(result[1].kanas[1].isCorrect, isTrue);
-    expect(result[1].kanas[1].userImage, isNotNull);
+    expect(result[1].kanas[1].idWrote, 4);
+    expect(result[1].kanas[1].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
     expect(result[1].kanas[2].id, 127);
     expect(result[1].kanas[2].imageUrl, "go.png");
     expect(result[1].kanas[2].isCorrect, isTrue);
-    expect(result[1].kanas[2].userImage, isNotNull);
+    expect(result[1].kanas[2].idWrote, 5);
+    expect(result[1].kanas[2].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
     expect(result[1].kanas[3].id, 109);
     expect(result[1].kanas[3].imageUrl, "mu.png");
     expect(result[1].kanas[3].isCorrect, isFalse);
-    expect(result[1].kanas[3].userImage, isNotNull);
+    expect(result[1].kanas[3].idWrote, 6);
+    expect(result[1].kanas[3].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
 
     expect(result[2].id, 215);
     expect(result[2].text, "サラダ");
@@ -370,17 +381,28 @@ void main() {
     expect(result[2].kanas[0].id, 87);
     expect(result[2].kanas[0].imageUrl, "sa.png");
     expect(result[2].kanas[0].isCorrect, isTrue);
-    expect(result[2].kanas[0].userImage, isNotNull);
+    expect(result[2].kanas[0].idWrote, 7);
+    expect(result[2].kanas[0].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
     expect(result[2].kanas[1].id, 115);
     expect(result[2].kanas[1].imageUrl, "ra.png");
     expect(result[2].kanas[1].isCorrect, isTrue);
-    expect(result[2].kanas[1].userImage, isNotNull);
+    expect(result[2].kanas[1].idWrote, 8);
+    expect(result[2].kanas[1].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
     expect(result[2].kanas[2].id, 133);
     expect(result[2].kanas[2].imageUrl, "da.png");
     expect(result[2].kanas[2].isCorrect, isFalse);
-    expect(result[2].kanas[2].userImage, isNotNull);
+    expect(result[2].kanas[2].idWrote, 5);
+    expect(result[2].kanas[2].strokesDrew, const [
+      [Offset(4, 4)],
+      [Offset(5, 5)]
+    ]);
   });
-
   test("what do when must return words result with unfinished data", () {
     // wordResult retrieval should never be beyond retrieval during page change to
     // review page. However, it is possible to access this data at any time, so to
@@ -388,16 +410,14 @@ void main() {
     // empty data.
     controller.wordsToTraining = [
       WordViewerContent(id: 36, text: "あめ", imageUrl: "rain.png", kanas: [
-        const KanaViewerContent(
+        KanaViewerContent(
             id: 0,
             // if showSelected or showInitial, is considered isCorrect = false
             status: KanaViewerStatus.showSelected,
             kanaImageUrl: "a.png",
             romajiImageUrl: "ra.png",
             strokesNumber: 3,
-            kanaType: KanaType.hiragana,
-            // if null, the picture will be empty
-            userKana: null),
+            kanaType: KanaType.hiragana),
         KanaViewerContent(
             id: 33,
             // if showSelected or showInitial, is considered isCorrect = false
@@ -405,29 +425,25 @@ void main() {
             kanaImageUrl: "me.png",
             romajiImageUrl: "rme.png",
             strokesNumber: 2,
-            kanaType: KanaType.hiragana,
-            userKana: Image.asset("lib/assets/images/h_a_test.png")),
+            kanaType: KanaType.hiragana),
       ]),
     ];
 
     final result = controller.wordsResult;
 
     expect(result[0].kanas[0].isCorrect, isFalse);
-    expect(result[0].kanas[0].userImage, isNotNull);
-    expect(result[0].kanas[0].userImage.toString(),
-        Image.asset(ImageUrl.empty).toString());
+    expect(result[0].kanas[0].imageUrl, "a.png");
+    expect(result[0].kanas[0].idWrote, -1);
+    expect(result[0].kanas[0].strokesDrew, []);
 
     expect(result[0].kanas[1].isCorrect, isFalse);
-    expect(result[0].kanas[1].userImage, isNotNull);
-    expect(result[0].kanas[1].userImage.toString(),
-        Image.asset("lib/assets/images/h_a_test.png").toString());
+    expect(result[0].kanas[1].imageUrl, "me.png");
+    expect(result[0].kanas[1].idWrote, -1);
+    expect(result[0].kanas[1].strokesDrew, []);
   });
 }
 
 class WordRepositoryMock extends Mock implements IWordRepository {}
-
-class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {
-}
 
 final List<WordViewerContent> wordsContent = [
   WordViewerContent(id: 36, text: "あめ", imageUrl: "rain.png", kanas: [
@@ -438,7 +454,12 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "ra.png",
         strokesNumber: 3,
         kanaType: KanaType.hiragana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 0,
+        strokesDrew: const [
+          [Offset(1, 1)],
+          [Offset(2, 2)],
+          [Offset(3, 3)],
+        ]),
     KanaViewerContent(
         id: 33,
         status: KanaViewerStatus.showWrong,
@@ -446,7 +467,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rme.png",
         strokesNumber: 2,
         kanaType: KanaType.hiragana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 2,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
   ]),
   WordViewerContent(id: 110, text: "けしゴム", imageUrl: "eraser.png", kanas: [
     KanaViewerContent(
@@ -456,7 +481,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rke.png",
         strokesNumber: 3,
         kanaType: KanaType.hiragana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 3,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
     KanaViewerContent(
         id: 11,
         status: KanaViewerStatus.showCorrect,
@@ -464,7 +493,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rshi.png",
         strokesNumber: 1,
         kanaType: KanaType.hiragana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 4,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
     KanaViewerContent(
         id: 127,
         status: KanaViewerStatus.showCorrect,
@@ -472,7 +505,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rgo.png",
         strokesNumber: 4,
         kanaType: KanaType.katakana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 5,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
     KanaViewerContent(
         id: 109,
         status: KanaViewerStatus.showWrong,
@@ -480,7 +517,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rmu.png",
         strokesNumber: 3,
         kanaType: KanaType.katakana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 6,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
   ]),
   WordViewerContent(id: 215, text: "サラダ", imageUrl: "salad.png", kanas: [
     KanaViewerContent(
@@ -490,7 +531,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rsa.png",
         strokesNumber: 3,
         kanaType: KanaType.katakana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 7,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
     KanaViewerContent(
         id: 115,
         status: KanaViewerStatus.showCorrect,
@@ -498,7 +543,11 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rra.png",
         strokesNumber: 2,
         kanaType: KanaType.katakana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 8,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
     KanaViewerContent(
         id: 133,
         status: KanaViewerStatus.showWrong,
@@ -506,6 +555,10 @@ final List<WordViewerContent> wordsContent = [
         romajiImageUrl: "rda.png",
         strokesNumber: 5,
         kanaType: KanaType.katakana,
-        userKana: Image.asset("lib/assets/images/h_a_test.png")),
+        kanaIdWrote: 5,
+        strokesDrew: const [
+          [Offset(4, 4)],
+          [Offset(5, 5)],
+        ]),
   ]),
 ];

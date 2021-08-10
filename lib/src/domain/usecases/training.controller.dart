@@ -5,10 +5,9 @@ import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/slqlite_database.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
@@ -17,18 +16,14 @@ import 'package:kana_plus_plus/src/presentation/arguments/word_viewer_content.da
 class TrainingController {
   TrainingController({
     required this.wordRepository,
-    required this.writingHandRepository,
-    required this.showHint,
     required this.kanaType,
     required this.quantityOfWords,
   });
 
-  late IWordRepository wordRepository;
-  late IWritingHandRepository writingHandRepository;
+  IWordRepository wordRepository;
 
-  late bool showHint;
-  late KanaType kanaType;
-  late int quantityOfWords;
+  KanaType kanaType;
+  int quantityOfWords;
 
   int wordIdx = 0;
   int kanaIdx = 0;
@@ -50,16 +45,11 @@ class TrainingController {
 
   String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
 
-  WritingHand get getWritingHand =>
-      writingHandRepository.getWritingHandSelected();
+  int get currentKanaMaxStrokes => wordsToTraining[wordIdx].kanas[kanaIdx].strokesNumber;
 
-  bool get isTheLastWord => wordIdx >= wordsToTraining.length;
+  String get currentKanaImageUrl => wordsToTraining[wordIdx].kanas[kanaIdx].kanaImageUrl;
 
-  int get currentKanaMaxStrokes =>
-      wordsToTraining[wordIdx].kanas[kanaIdx].strokesNumber;
-
-  KanaType get currentKanaType =>
-      wordsToTraining[wordIdx].kanas[kanaIdx].kanaType;
+  KanaType get currentKanaType => wordsToTraining[wordIdx].kanas[kanaIdx].kanaType;
 
   int getMaxKanasOfWord(int currentWordIdx) {
     return wordsToTraining[currentWordIdx].kanas.length;
@@ -69,27 +59,22 @@ class TrainingController {
     return wordsToTraining[currentWordIdx].kanas[currentKanaIdx];
   }
 
-  void updateKana(List<Point<num>> pointsFiltered, int kanaIdWrote,
-      Image imageStrokeDrew, VoidCallback updateWhenWordChanged) {
-    // ver como guardar o points filtered para ver o que pode ser usado
-    // kana id serve para indicar qual kana foi reconhecido
-
+  UpdateKanaSituation updateKana(List<List<Offset>> strokesNormalized, int kanaIdWrote) {
     // gera o que o kana viewer vai mostrar após escrito kana writer
     final preview = wordsToTraining[wordIdx].kanas[kanaIdx];
     wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
-      id: preview.id,
-      status: (kanaIdWrote == preview.id)
-          ? KanaViewerStatus.showCorrect
-          : KanaViewerStatus.showWrong,
-      romajiImageUrl: preview.romajiImageUrl,
-      kanaImageUrl: preview.kanaImageUrl,
-      strokesNumber: preview.strokesNumber,
-      kanaType: preview.kanaType,
-      userKana: imageStrokeDrew,
-    );
+        id: preview.id,
+        status: (kanaIdWrote == preview.id) ? KanaViewerStatus.showCorrect : KanaViewerStatus.showWrong,
+        romajiImageUrl: preview.romajiImageUrl,
+        kanaImageUrl: preview.kanaImageUrl,
+        strokesNumber: preview.strokesNumber,
+        kanaType: preview.kanaType,
+        kanaIdWrote: kanaIdWrote,
+        strokesDrew: strokesNormalized);
 
     // muda para o próximo kana
     kanaIdx++;
+    UpdateKanaSituation situation = UpdateKanaSituation.changeKana;
 
     // atualiza o kana viewer do próximo
     if (kanaIdx < wordsToTraining[wordIdx].kanas.length) {
@@ -107,9 +92,13 @@ class TrainingController {
     else {
       kanaIdx = 0;
       wordIdx += 1;
-
-      updateWhenWordChanged();
+      situation = UpdateKanaSituation.changeWord;
     }
+
+    if (wordIdx >= wordsToTraining.length) {
+      situation = UpdateKanaSituation.changeTheLastWord;
+    }
+    return situation;
   }
 
   List<WordResult> get wordsResult {
@@ -123,7 +112,8 @@ class TrainingController {
             isCorrect: kanaContent.status.isShowCorrect,
             id: kanaContent.id,
             imageUrl: kanaContent.kanaImageUrl,
-            userImage: kanaContent.userKana ?? Image.asset(ImageUrl.empty),
+            idWrote: kanaContent.kanaIdWrote,
+            strokesDrew: kanaContent.strokesDrew,
           ),
         );
       }
@@ -150,9 +140,7 @@ class TrainingController {
         kanas.add(
           KanaViewerContent(
             id: words[w].kanas[k].id,
-            status: (k == 0)
-                ? KanaViewerStatus.showSelected
-                : KanaViewerStatus.showInitial,
+            status: (k == 0) ? KanaViewerStatus.showSelected : KanaViewerStatus.showInitial,
             kanaImageUrl: words[w].kanas[k].imageUrl,
             romajiImageUrl: words[w].kanas[k].romajiImageUrl,
             strokesNumber: words[w].kanas[k].numberStrokes,

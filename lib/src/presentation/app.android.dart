@@ -78,7 +78,7 @@ class AndroidApp extends StatelessWidget {
   List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
     return const [
       ...JStrings.localizationsDelegates,
-      LocaleNamesLocalizationsDelegate()
+      LocaleNamesLocalizationsDelegate(),
     ];
   }
 
@@ -141,22 +141,21 @@ class AndroidApp extends StatelessWidget {
       final args = settings.arguments! as PreTrainingArguments;
       return MaterialPageRoute(
         builder: (context) {
-          final TrainingController trainingController = TrainingController(
+          final trainingController = TrainingController(
             wordRepository: WordRepository(),
-            writingHandRepository: WritingHandRepository(),
-            showHint: args.showHint,
             kanaType: args.kanaType,
             quantityOfWords: args.quantityOfWords,
           );
+          final writerController = WriterController(
+            writingHandRepository: WritingHandRepository(),
+            showHint: args.showHint,
+          );
           return TrainingPage(
-            trainingStateManagement:
-                TrainingStateManagement(trainingController),
-            wordStateManagement:
-                TrainingWordStateManagement(trainingController),
-            kanaStateManagement:
-                TrainingKanaStateManagement(trainingController),
-            writerStateManagement:
-                KanaWriterStateManagement(WriterController()),
+            trainingStateManagement: TrainingStateManagement(trainingController),
+            wordStateManagement: TrainingWordStateManagement(trainingController),
+            kanaStateManagement: TrainingKanaStateManagement(trainingController),
+            writerStateManagement: WriterStateManagement(writerController),
+            writerController: writerController,
           );
         },
       );

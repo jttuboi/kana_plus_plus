@@ -23,7 +23,6 @@ class _KanaViewersState extends State<KanaViewers> {
   @override
   void initState() {
     super.initState();
-    print("initState");
     _autoScrollController = AutoScrollController(
       viewportBoundaryGetter: () {
         return Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom);
@@ -39,7 +38,6 @@ class _KanaViewersState extends State<KanaViewers> {
   }
 
   Future _scrollToIndex() async {
-    print("_scrollToIndex");
     await _autoScrollController.scrollToIndex(
       widget.stateManagement.kanaIdx,
       preferPosition: AutoScrollPosition.middle,
@@ -49,22 +47,19 @@ class _KanaViewersState extends State<KanaViewers> {
 
   @override
   void dispose() {
-    print("dispose");
     _autoScrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("build");
     return AnimatedBuilder(
       animation: widget.stateManagement,
       builder: (context, child) {
         return ListView.separated(
           scrollDirection: Axis.horizontal,
           controller: _autoScrollController,
-          itemCount:
-              widget.stateManagement.maxKanasOfWord(widget.wordIdxToShow),
+          itemCount: widget.stateManagement.maxKanasOfWord(widget.wordIdxToShow),
           itemBuilder: (context, index) {
             return AutoScrollTag(
               key: ValueKey(index),

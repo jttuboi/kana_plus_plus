@@ -1,27 +1,32 @@
-import 'dart:math';
+import 'dart:ui';
 import "package:flutter/material.dart";
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/all_stroke.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/current_stroke.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
+import 'package:provider/provider.dart';
 
 class KanaWriter extends StatelessWidget {
   const KanaWriter({
     Key? key,
     required this.stateManagement,
-    required this.writingHand,
-    required this.showHint,
+    required this.writerController,
     required this.onKanaRecovered,
   }) : super(key: key);
 
-  final KanaWriterStateManagement stateManagement;
-  final WritingHand writingHand;
-  final bool showHint;
-  final Function(
-          List<Point> pointsFiltered, int kanaIdWrote, Image imageStrokeDrew)
-      onKanaRecovered;
+  final WriterStateManagement stateManagement;
+  final WriterController writerController;
+  final Function(List<List<Offset>> strokes, int kanaIdWrote) onKanaRecovered;
 
   @override
   Widget build(BuildContext context) {
-    return writingHand.isRight ? _buildRightHand() : _buildLeftHand();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AllStrokesProvider(writerController)),
+        ChangeNotifierProvider(create: (context) => CurrentStrokeProvider()),
+      ],
+      child: stateManagement.isWritingHandRight ? _buildRightHand() : _buildLeftHand(),
+    );
   }
 
   Widget _buildRightHand() {
@@ -53,9 +58,7 @@ class KanaWriter extends StatelessWidget {
             animation: stateManagement,
             builder: (context, child) {
               return ElevatedButton(
-                onPressed: (stateManagement.isDisabled)
-                    ? null
-                    : stateManagement.clearStrokes,
+                onPressed: stateManagement.isDisabled ? null : () => _clearStrokes(context),
                 child: ImageIcon(AssetImage(stateManagement.eraserIconUrl)),
               );
             },
@@ -68,9 +71,7 @@ class KanaWriter extends StatelessWidget {
             animation: stateManagement,
             builder: (context, child) {
               return ElevatedButton(
-                onPressed: (stateManagement.isDisabled)
-                    ? null
-                    : stateManagement.undoTheLastStroke,
+                onPressed: stateManagement.isDisabled ? null : () => _undoStroke(context),
                 child: ImageIcon(AssetImage(stateManagement.undoIconUrl)),
               );
             },
@@ -80,59 +81,144 @@ class KanaWriter extends StatelessWidget {
     );
   }
 
+  void _clearStrokes(BuildContext context) {
+    final allProvider = Provider.of<AllStrokesProvider>(context, listen: false);
+    allProvider.clearStrokes();
+  }
+
+  void _undoStroke(BuildContext context) {
+    final allProvider = Provider.of<AllStrokesProvider>(context, listen: false);
+    allProvider.undoTheLastStroke();
+  }
+
   Widget _buildKanaDraw() {
     return Expanded(
       child: AspectRatio(
         aspectRatio: 1.0,
-        // TODO aqui só deve atualizar essa caixa, os botoes não podem ser atualizados
-        child: AnimatedBuilder(
-            animation: stateManagement,
-            builder: (context, child) {
-              return GestureDetector(
-                onTap: (stateManagement.isDisabled)
-                    ? null
-                    : () {
-                        // TODO teste enviando pontos simulando o traço
-                        // aqui apenas envia, o tratamento dos traços é feito no controller do training
-                        // esse onTap deve ser substituido futuramente por algo que desenhe e crie os pontos
-                        final List<Point> points = [
-                          const Point(0, 0),
-                          const Point(1, 0),
-                          const Point(1, 3),
-                          const Point(3, 5),
-                        ];
-                        // precisa devolver qual o numero do stroke, e os pontos filtrados
-                        // a imagem é pego daqui mesmo (nao sei como funciona o draw)
-                        final Map<String, dynamic> result =
-                            stateManagement.processStroke(points);
-                        if (result.containsKey("kanaId")) {
-                          onKanaRecovered(
-                            result["pointsFiltered"] as List<Point<num>>,
-                            result["kanaId"] as int,
-                            // TODO trocar por uma imagem escrita pelo usuario
-                            Image.asset("lib/assets/images/h_a_test.png"),
-                          );
-                        }
-                      },
-                // não será um container, pois ainda falta a parte do draw aqui
-                child: Container(
-                  color: Colors.grey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // representa o background com o hiragana/katakana
-                        Text(showHint ? "showing hint" : "hided hint"),
-                        // representa os strokes, futuramente será umas imagens
-                        // com cada stroke
-                        Text(
-                            "${stateManagement.strokeNumber}/${stateManagement.maxStrokes}"),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(stateManagement.squareImageUrl, fit: BoxFit.fill),
+            if (stateManagement.isShowHint)
+              AnimatedBuilder(
+                animation: stateManagement,
+                builder: (context, child) => Image.asset(stateManagement.kanaHintImageUrl, fit: BoxFit.fill),
+              ),
+            AnimatedBuilder(
+              animation: stateManagement,
+              builder: (context, child) => _buildAllStrokes(),
+            ),
+            _buildCurrentStroke(),
+          ],
+        ),
       ),
     );
   }
+
+  Widget _buildAllStrokes() {
+    return Consumer<AllStrokesProvider>(
+      builder: (context, provider, child) {
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            RepaintBoundary(
+              child: CustomPaint(isComplex: true, painter: _AllStrokesPainter(provider.strokes)),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildCurrentStroke() {
+    return Consumer<CurrentStrokeProvider>(
+      builder: (context, provider, child) {
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            RepaintBoundary(
+              child: CustomPaint(isComplex: true, painter: _CurrentStrokePainter(provider.points)),
+            ),
+            AnimatedBuilder(
+              animation: stateManagement,
+              builder: (context, child) {
+                return GestureDetector(
+                  onPanStart: stateManagement.isDisabled ? null : (details) => _startStroke(details, context),
+                  onPanUpdate: stateManagement.isDisabled ? null : (details) => _updateStroke(details, context),
+                  onPanEnd: stateManagement.isDisabled ? null : (details) => _finishStroke(context),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _startStroke(DragStartDetails details, BuildContext context) {
+    final provider = Provider.of<CurrentStrokeProvider>(context, listen: false);
+    provider.setLimit(0, 0, context.size!.width, context.size!.height);
+    provider.addPoint(details.localPosition);
+  }
+
+  void _updateStroke(DragUpdateDetails details, BuildContext context) {
+    final provider = Provider.of<CurrentStrokeProvider>(context, listen: false);
+    provider.addPoint(details.localPosition);
+  }
+
+  void _finishStroke(BuildContext context) {
+    final provider = Provider.of<CurrentStrokeProvider>(context, listen: false);
+    final allProvider = Provider.of<AllStrokesProvider>(context, listen: false);
+    allProvider.addStroke(provider.points);
+    provider.resetPoints();
+    if (stateManagement.isTheLastStroke) {
+      onKanaRecovered(
+        stateManagement.strokesNormalized,
+        stateManagement.generateKanaId,
+      );
+    }
+  }
+}
+
+class _AllStrokesPainter extends CustomPainter {
+  const _AllStrokesPainter(this.strokes);
+
+  final List<List<Offset>> strokes;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..strokeWidth = 16.0
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = Colors.black.withOpacity(0.9);
+
+    for (final points in strokes) {
+      canvas.drawPoints(PointMode.polygon, points, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+class _CurrentStrokePainter extends CustomPainter {
+  const _CurrentStrokePainter(this.points);
+
+  final List<Offset> points;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..isAntiAlias = true
+      ..strokeWidth = 18.0
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = Colors.black.withOpacity(0.9);
+
+    canvas.drawPoints(PointMode.polygon, points, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

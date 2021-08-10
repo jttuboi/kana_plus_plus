@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training.state_management.dart';
@@ -16,12 +18,14 @@ class TrainingPage extends StatefulWidget {
     required this.wordStateManagement,
     required this.kanaStateManagement,
     required this.writerStateManagement,
+    required this.writerController,
   }) : super(key: key);
 
   final TrainingStateManagement trainingStateManagement;
   final TrainingWordStateManagement wordStateManagement;
   final TrainingKanaStateManagement kanaStateManagement;
-  final KanaWriterStateManagement writerStateManagement;
+  final WriterStateManagement writerStateManagement;
+  final WriterController writerController;
 
   @override
   _TrainingPageState createState() => _TrainingPageState();
@@ -47,10 +51,7 @@ class _TrainingPageState extends State<TrainingPage> {
             return _buildError();
           }
           if (snapshot.hasData && snapshot.data! == true) {
-            widget.writerStateManagement.updateWriter(
-              widget.kanaStateManagement.maxStrokes,
-              widget.kanaStateManagement.kanaType,
-            );
+            _updateWriterData();
             return _buildData(context);
           }
           return _buildNoData(); // TODO talvez _buildError()
@@ -66,8 +67,7 @@ class _TrainingPageState extends State<TrainingPage> {
         backgroundColor: Colors.white.withOpacity(0.0),
         //elevation: 0.1,
         leading: IconButton(
-          icon:
-              ImageIcon(AssetImage(widget.trainingStateManagement.quitIconUrl)),
+          icon: ImageIcon(AssetImage(widget.trainingStateManagement.quitIconUrl)),
           onPressed: () => _buildQuitDialog(context),
         ),
       ),
@@ -140,55 +140,60 @@ class _TrainingPageState extends State<TrainingPage> {
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: KanaWriter(
         stateManagement: widget.writerStateManagement,
-        writingHand: widget.trainingStateManagement.writingHand,
-        showHint: widget.trainingStateManagement.isShowHint,
-        onKanaRecovered: (pointsFiltered, kanaId, imageStrokeDrew) {
-          widget.kanaStateManagement
-              .updateKana(pointsFiltered, kanaId, imageStrokeDrew, () {
-            if (widget.wordStateManagement.isTheLastWord) {
-              _goToReviewPage(context);
-            } else {
-              _goToNextWord();
-            }
-          });
-          if (!widget.wordStateManagement.isTheLastWord) {
-            widget.writerStateManagement.updateWriter(
-              widget.kanaStateManagement.maxStrokes,
-              widget.kanaStateManagement.kanaType,
-            );
-          }
-        },
+        writerController: widget.writerController,
+        onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecoverd(pointsFiltered, kanaId, context),
       ),
     );
   }
 
-  void _goToNextWord() {
+  void _onKanaRecoverd(List<List<Offset>> pointsFiltered, int kanaId, BuildContext context) {
+    final situation = widget.kanaStateManagement.updateKana(pointsFiltered, kanaId);
     widget.writerStateManagement.disable();
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      _pageController
-          .animateToPage(
-        widget.wordStateManagement.wordIdx,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linear,
-      )
-          .then((value) {
-        widget.wordStateManagement.updateComponents();
-        widget.writerStateManagement.enable();
-      });
+    Future.delayed(const Duration(milliseconds: 800)).then((value) {
+      if (situation.isChangeKana) {
+        _goToNextKana();
+      } else if (situation.isChangeWord) {
+        _goToNextWord();
+      } else if (situation.isChangeTheLastWord) {
+        _goToReviewPage(context);
+      }
+      widget.writerStateManagement.enable();
+    });
+  }
+
+  void _goToNextKana() {
+    _updateWriterData();
+  }
+
+  void _goToNextWord() {
+    _pageController
+        .animateToPage(
+      widget.wordStateManagement.wordIdx,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.linear,
+    )
+        .then((value) {
+      widget.wordStateManagement.updateState();
+      _updateWriterData();
     });
   }
 
   void _goToReviewPage(BuildContext context) {
-    widget.writerStateManagement.disable();
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      Navigator.pushNamed(
-        context,
-        Routes.review,
-        arguments: TrainingArguments(
-          wordsResult: widget.wordStateManagement.wordsResult,
-        ),
-      );
-    });
+    Navigator.pushNamed(
+      context,
+      Routes.review,
+      arguments: TrainingArguments(
+        wordsResult: widget.wordStateManagement.wordsResult,
+      ),
+    );
+  }
+
+  void _updateWriterData() {
+    widget.writerStateManagement.updateWriter(
+      widget.kanaStateManagement.currentKanaMaxStrokes,
+      widget.kanaStateManagement.currentKanaImageUrl,
+      widget.kanaStateManagement.currentKanaType,
+    );
   }
 
   Widget _buildLoader() {
@@ -217,8 +222,7 @@ class _TrainingPageState extends State<TrainingPage> {
             child: const Text("No"), // TODO strings
           ),
           TextButton(
-            onPressed: () =>
-                Navigator.popUntil(context, (route) => route.isFirst),
+            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
             child: const Text("Yes"), // TODO strings
           ),
         ],
