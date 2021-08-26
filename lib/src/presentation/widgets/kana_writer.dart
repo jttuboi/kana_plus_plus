@@ -176,6 +176,7 @@ class KanaWriter extends StatelessWidget {
     provider.resetPoints();
     if (stateManagement.isTheLastStroke) {
       onKanaRecovered(
+        // TODO trocar gestureKey por context igual no seLimit no startStroke acima (fazer o teste do print para ver qual valor eh retornado)
         stateManagement.strokesNormalized(0.0, gestureKey.currentContext!.size!.width),
         stateManagement.generateKanaId,
       );
