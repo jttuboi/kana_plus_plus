@@ -8,7 +8,7 @@ import 'package:kana_plus_plus/src/presentation/state_management/training_kana_s
 import 'package:kana_plus_plus/src/presentation/state_management/training_word.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewers.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/kana_writer.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/writer.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/progress_bar.dart';
 
 class TrainingPage extends StatefulWidget {
@@ -138,7 +138,7 @@ class _TrainingPageState extends State<TrainingPage> {
   Widget _buildKanaWriter(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
-      child: KanaWriter(
+      child: Writer(
         stateManagement: widget.writerStateManagement,
         writerController: widget.writerController,
         onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecoverd(pointsFiltered, kanaId, context),

@@ -6,8 +6,8 @@ import 'package:kana_plus_plus/src/presentation/state_management/current_stroke.
 import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
 import 'package:provider/provider.dart';
 
-class KanaWriter extends StatelessWidget {
-  KanaWriter({
+class Writer extends StatelessWidget {
+  Writer({
     Key? key,
     required this.stateManagement,
     required this.writerController,
