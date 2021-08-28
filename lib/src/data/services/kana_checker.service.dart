@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.servic
 
 class KanaCheckerService implements IKanaCheckerService {
   KanaCheckerService() {
-    rootBundle.loadString('lib/assets/points.json').then((response) {
+    rootBundle.loadString('lib/assets/database/points.json').then((response) {
       final jsonFile = json.decode(response) as Map<String, dynamic>;
       data = _convertToData(jsonFile);
     });
@@ -19,7 +19,7 @@ class KanaCheckerService implements IKanaCheckerService {
   late final Map<String, List<List<Offset>>> data;
 
   @override
-  bool checkKana(String kana, int maxStrokes, List<List<Offset>> normalizedStrokes) {
+  bool checkKana(String kana, List<List<Offset>> normalizedStrokes) {
     final oks = <bool>[];
     final strokesData = data[kana];
 

@@ -1,5 +1,5 @@
 import 'dart:ui';
 
 abstract class IKanaCheckerService {
-  bool checkKana(String kana, int maxStrokes, List<List<Offset>> normalizedStrokes);
+  bool checkKana(String kana, List<List<Offset>> normalizedStrokes);
 }

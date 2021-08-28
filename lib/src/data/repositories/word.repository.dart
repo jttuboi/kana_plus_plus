@@ -1,5 +1,5 @@
-import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
-import 'package:kana_plus_plus/src/data/datasources/database.singleton.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache.dart';
+import 'package:kana_plus_plus/src/data/datasources/database.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
