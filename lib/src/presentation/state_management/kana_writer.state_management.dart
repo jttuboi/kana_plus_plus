@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 
-class WriterStateManagement extends ChangeNotifier {
-  WriterStateManagement(this._controller);
+class WriterProvider extends ChangeNotifier {
+  WriterProvider(this._controller);
 
   final WriterController _controller;
 
@@ -21,20 +21,18 @@ class WriterStateManagement extends ChangeNotifier {
 
   String get squareImageUrl => _controller.squareImageUrl;
 
-  String get kanaHintImageUrl => _controller.kanaHintImageUrl;
+  String get kanaHintImageUrl => _controller.kanaToWrite.hintImageUrl;
 
   bool get isTheLastStroke => _controller.isTheLastStroke;
 
   List<List<Offset>> get strokes => _controller.strokes;
 
-  int get generateKanaId => _controller.generateKanaId;
+  String get recoverKanaWrote => _controller.getKanaId();
 
-  List<List<Offset>> strokesNormalized(double startSquareLocation, double endSquareLocation) {
-    return _controller.strokesNormalized(startSquareLocation, endSquareLocation);
-  }
+  List<List<Offset>> get recoverStrokesNormalized => _controller.normalizedStrokes();
 
-  void updateWriter(int maxStrokes, String kanaHintImageUrl, KanaType kanaType) {
-    _controller.updateWriter(maxStrokes, kanaHintImageUrl, kanaType);
+  void updateWriter(KanaToWrite kanaToWrite) {
+    _controller.updateWriter(kanaToWrite);
     notifyListeners();
   }
 

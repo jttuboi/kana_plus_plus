@@ -154,7 +154,7 @@ class AndroidApp extends StatelessWidget {
             trainingStateManagement: TrainingStateManagement(trainingController),
             wordStateManagement: TrainingWordStateManagement(trainingController),
             kanaStateManagement: TrainingKanaStateManagement(trainingController),
-            writerStateManagement: WriterStateManagement(writerController),
+            writerProvider: WriterProvider(writerController),
             writerController: writerController,
           );
         },

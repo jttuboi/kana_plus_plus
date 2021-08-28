@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
@@ -10,6 +11,7 @@ import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewers.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writer.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/progress_bar.dart';
+import 'package:provider/provider.dart';
 
 class TrainingPage extends StatefulWidget {
   const TrainingPage({
@@ -17,14 +19,14 @@ class TrainingPage extends StatefulWidget {
     required this.trainingStateManagement,
     required this.wordStateManagement,
     required this.kanaStateManagement,
-    required this.writerStateManagement,
+    required this.writerProvider,
     required this.writerController,
   }) : super(key: key);
 
   final TrainingStateManagement trainingStateManagement;
   final TrainingWordStateManagement wordStateManagement;
   final TrainingKanaStateManagement kanaStateManagement;
-  final WriterStateManagement writerStateManagement;
+  final WriterProvider writerProvider;
   final WriterController writerController;
 
   @override
@@ -103,7 +105,7 @@ class _TrainingPageState extends State<TrainingPage> {
                     const Spacer(),
                     Flexible(
                       flex: 12,
-                      child: _buildKanaWriter(context),
+                      child: _buildWriter(context),
                     ),
                     const Spacer(),
                   ],
@@ -135,20 +137,23 @@ class _TrainingPageState extends State<TrainingPage> {
     );
   }
 
-  Widget _buildKanaWriter(BuildContext context) {
+  Widget _buildWriter(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
-      child: Writer(
-        stateManagement: widget.writerStateManagement,
-        writerController: widget.writerController,
-        onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecoverd(pointsFiltered, kanaId, context),
+      child: ChangeNotifierProvider(
+        create: (context) => widget.writerProvider,
+        child: Writer(
+          writerProvider: widget.writerProvider,
+          writerController: widget.writerController,
+          onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
+        ),
       ),
     );
   }
 
-  void _onKanaRecoverd(List<List<Offset>> pointsFiltered, int kanaId, BuildContext context) {
-    final situation = widget.kanaStateManagement.updateKana(pointsFiltered, kanaId);
-    widget.writerStateManagement.disable();
+  void _onKanaRecovered(List<List<Offset>> pointsFiltered, String kanaId, BuildContext context) {
+    final situation = widget.kanaStateManagement.updateKana(pointsFiltered, 1);
+    widget.writerProvider.disable();
     Future.delayed(const Duration(milliseconds: 800)).then((value) {
       if (situation.isChangeKana) {
         _goToNextKana();
@@ -157,7 +162,7 @@ class _TrainingPageState extends State<TrainingPage> {
       } else if (situation.isChangeTheLastWord) {
         _goToReviewPage(context);
       }
-      widget.writerStateManagement.enable();
+      widget.writerProvider.enable();
     });
   }
 
@@ -189,10 +194,13 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _updateWriterData() {
-    widget.writerStateManagement.updateWriter(
-      widget.kanaStateManagement.currentKanaMaxStrokes,
-      widget.kanaStateManagement.currentKanaImageUrl,
-      widget.kanaStateManagement.currentKanaType,
+    widget.writerProvider.updateWriter(
+      KanaToWrite(
+        id: 'a',
+        type: widget.kanaStateManagement.currentKanaType,
+        hintImageUrl: widget.kanaStateManagement.currentKanaImageUrl,
+        maxStrokes: widget.kanaStateManagement.currentKanaMaxStrokes,
+      ),
     );
   }
 
