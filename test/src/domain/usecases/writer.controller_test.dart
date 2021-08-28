@@ -23,8 +23,8 @@ void main() {
     );
   });
 
-  group("writer controller tests", () {
-    test("start writer controller", () {
+  group('writer controller tests', () {
+    test('start writer controller', () {
       final repository1 = WritingHandRepositoryMock();
       final controller1 = WriterController(writingHandRepository: repository1, showHint: true);
 
@@ -37,32 +37,32 @@ void main() {
       expect(controller2.writingHandRepository, repository2);
       expect(controller2.showHint, isFalse);
     });
-    test("must give new values to writer", () {
+    test('must give new values to writer', () {
       controller.strokes.addAll(threeStrokesSample);
       controller.maxStrokes = 3;
       controller.kanaType = KanaType.katakana;
 
-      controller.updateWriter(5, "src/a.png", KanaType.hiragana);
+      controller.updateWriter(5, 'src/a.png', KanaType.hiragana);
 
       expect(controller.strokes.length, 0);
-      expect(controller.kanaHintImageUrl, "src/a.png");
+      expect(controller.kanaHintImageUrl, 'src/a.png');
       expect(controller.maxStrokes, 5);
       expect(controller.kanaType, KanaType.hiragana);
     });
   });
-  group("icons url", () {
-    test("must return eraser icon url", () {
+  group('icons url', () {
+    test('must return eraser icon url', () {
       expect(controller.eraserIconUrl, IconUrl.eraser);
     });
-    test("must return undo icon url", () {
+    test('must return undo icon url', () {
       expect(controller.undoIconUrl, IconUrl.undo);
     });
-    test("must return square image url", () {
+    test('must return square image url', () {
       expect(controller.squareImageUrl, ImageUrl.square);
     });
   });
-  group("manipulate strokes", () {
-    test("must add new stroke to strokes", () {
+  group('manipulate strokes', () {
+    test('must add new stroke to strokes', () {
       controller.strokes = [];
       const stroke1 = [Offset(1, 3), Offset(5, 3)];
       const stroke2 = [Offset(2, 8), Offset(8, 1)];
@@ -78,7 +78,7 @@ void main() {
       expect(controller.strokes[0], stroke1);
       expect(controller.strokes[1], stroke2);
     });
-    test("must add an reduced stroke to strokes", () {
+    test('must add an reduced stroke to strokes', () {
       controller.strokes = [];
 
       controller.addStroke(noStroke);
@@ -92,26 +92,26 @@ void main() {
       expect(controller.strokes[0], noStrokeResult);
       expect(controller.strokes[1], shiStrokeResult);
     });
-    test("must return bool if is the last stroke wrote", () {
+    test('must return bool if is the last stroke wrote', () {
       controller.strokes = threeStrokesSample.toList();
       controller.maxStrokes = 3;
 
       expect(controller.isTheLastStroke, isTrue);
     });
-    test("must return bool if is not the last stroke wrote", () {
+    test('must return bool if is not the last stroke wrote', () {
       controller.strokes = threeStrokesSample.toList();
       controller.maxStrokes = 4;
 
       expect(controller.isTheLastStroke, isFalse);
     });
-    test("must clear strokes", () {
+    test('must clear strokes', () {
       controller.strokes = threeStrokesSample.toList();
 
       controller.clearStrokes();
 
       expect(controller.strokes, isEmpty);
     });
-    test("must undo stroke", () {
+    test('must undo stroke', () {
       controller.strokes = fourStrokesSample.toList();
 
       controller.undoTheLastStroke();
@@ -121,7 +121,7 @@ void main() {
       expect(controller.strokes[1], fourStrokesSample[1]);
       expect(controller.strokes[2], fourStrokesSample[2]);
     });
-    test("doesn't undo if it doesn't have any stroke to undo", () {
+    test('doesn't undo if it doesn't have any stroke to undo', () {
       controller.strokes = [];
 
       controller.undoTheLastStroke();
@@ -129,7 +129,7 @@ void main() {
       expect(controller.strokes, isEmpty);
     });
   });
-  test("must return the writing hand from repository", () {
+  test('must return the writing hand from repository', () {
     when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
     final result = controller.writingHand;
@@ -137,14 +137,14 @@ void main() {
     verify(() => writingHandRepository.getWritingHandSelected()).called(1);
     expect(result, WritingHand.left);
   });
-  group("reduce path", () {
-    test("must return empty array when path is empty", () {
+  group('reduce path', () {
+    test('must return empty array when path is empty', () {
       final path = <Offset>[];
       final result = controller.reducePath(path);
 
       expect(result, isEmpty);
     });
-    test("must return the same path when the quantity is <= 10", () {
+    test('must return the same path when the quantity is <= 10', () {
       final path = [
         const Offset(3, 2),
         const Offset(5, 4),
@@ -156,7 +156,7 @@ void main() {
 
       expect(result, path);
     });
-    test("must return the same path when the quantity is <= 10", () {
+    test('must return the same path when the quantity is <= 10', () {
       final path = [
         const Offset(2, 3),
         const Offset(1, 5),
@@ -173,7 +173,7 @@ void main() {
 
       expect(result, path);
     });
-    test("must return the same path when the quantity is <= 20", () {
+    test('must return the same path when the quantity is <= 20', () {
       const path = [
         Offset(2, 3),
         Offset(1, 5),
@@ -200,21 +200,21 @@ void main() {
 
       expect(result, path);
     });
-    test("must return reduced path for horizontal line sample", () {
+    test('must return reduced path for horizontal line sample', () {
       final result = controller.reducePath(horizontalLineStroke);
       expect(result, horizontalLineStrokeResult);
     });
-    test("must return reduced path for shi hiragana sample", () {
+    test('must return reduced path for shi hiragana sample', () {
       final result = controller.reducePath(shiStroke);
       expect(result, shiStrokeResult);
     });
-    test("must return reduced path for no hiragana sample", () {
+    test('must return reduced path for no hiragana sample', () {
       final result = controller.reducePath(noStroke);
       expect(result, noStrokeResult);
     });
   });
-  group("normalized strokes", () {
-    test("must return strokes normalized", () {
+  group('normalized strokes', () {
+    test('must return strokes normalized', () {
       controller.strokes = [shiStrokeResult, noStrokeResult];
       const startLocationOfSquareUsedForDraw = 0.0;
       const endLocationOfSquareUsedForDraw = 206.7;

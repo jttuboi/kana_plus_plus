@@ -140,10 +140,10 @@ class SettingsController {
 
   List<DescriptionModel> getAboutDescriptions() {
     return [
-      DescriptionModel.title("blablable"),
-      DescriptionModel.content("informaçoes sobre mim"),
-      DescriptionModel.content("contato"),
-      DescriptionModel.content("de onde os dados vieram"),
+      DescriptionModel.title('blablable'),
+      DescriptionModel.content('informaçoes sobre mim'),
+      DescriptionModel.content('contato'),
+      DescriptionModel.content('de onde os dados vieram'),
     ];
   }
 
@@ -153,9 +153,9 @@ class SettingsController {
 
   List<DescriptionModel> getPrivacyPolicyDescriptions() {
     return [
-      DescriptionModel.title("citar sobre uso"),
+      DescriptionModel.title('citar sobre uso'),
       DescriptionModel.content(
-          "blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla"),
+          'blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla'),
     ];
   }
 

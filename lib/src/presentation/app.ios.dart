@@ -6,7 +6,7 @@ class IosApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: "Kana++",
+      title: 'Kana++',
       debugShowCheckedModeBanner: false, // TODO remover antes de dar deploy
       home: Container(),
     );

@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
@@ -222,16 +222,16 @@ class _TrainingPageState extends State<TrainingPage> {
       context: context,
       builder: (context) => AlertDialog(
         // TODO strings
-        title: const Text("Do you want to finish your training?"),
-        content: const Text("You're going to lost this training data."),
+        title: const Text('Do you want to finish your training?'),
+        content: const Text('You're going to lost this training data.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text("No"), // TODO strings
+            child: const Text('No'), // TODO strings
           ),
           TextButton(
             onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-            child: const Text("Yes"), // TODO strings
+            child: const Text('Yes'), // TODO strings
           ),
         ],
       ),

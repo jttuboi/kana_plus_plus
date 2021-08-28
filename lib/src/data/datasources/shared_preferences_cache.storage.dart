@@ -20,7 +20,7 @@ class SharedPreferencesCacheStorage implements ICacheStorage {
   }
 
   @override
-  String getString(String key, {String defaultValue = ""}) {
+  String getString(String key, {String defaultValue = ''}) {
     return _preferences.getString(key) ?? defaultValue;
   }
 

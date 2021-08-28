@@ -22,7 +22,7 @@ class Cache {
     return _storage.getBool(key, defaultValue: defaultValue);
   }
 
-  static String getString(String key, {String defaultValue = ""}) {
+  static String getString(String key, {String defaultValue = ''}) {
     return _storage.getString(key, defaultValue: defaultValue);
   }
 

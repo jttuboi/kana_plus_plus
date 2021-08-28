@@ -10,7 +10,7 @@ class Translate {
   const Translate.empty()
       : id = -1,
         code = Default.locale,
-        translate = "";
+        translate = '';
 
   final int id;
   final String code;
@@ -18,6 +18,6 @@ class Translate {
 
   @override
   String toString() {
-    return "Translate($id, $code, $translate)";
+    return 'Translate($id, $code, $translate)';
   }
 }

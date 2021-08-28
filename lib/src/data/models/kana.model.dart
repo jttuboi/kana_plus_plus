@@ -9,7 +9,7 @@ class KanaModel extends Kana {
     required String text,
     required String imageUrl,
     required KanaType type,
-    String romaji = "",
+    String romaji = '',
     String romajiImageUrl = ImageUrl.empty,
     int numberStrokes = 0,
   }) : super(
@@ -30,15 +30,10 @@ class KanaModel extends Kana {
       text: map[TKanas.text] as String,
       type: KanaType.values[map[TKanas.type] as int],
       imageUrl: map[TKanas.imageUrl] as String,
-      romaji:
-          map.containsKey(TKanas.romaji) ? map[TKanas.romaji] as String : "",
+      romaji: map.containsKey(TKanas.romaji) ? map[TKanas.romaji] as String : '',
       // TODO colocar links default para imagens vazias
-      romajiImageUrl: map.containsKey(TKanas.romajiImageUrl)
-          ? map[TKanas.romajiImageUrl] as String
-          : ImageUrl.empty,
-      numberStrokes: map.containsKey(TKanas.numberStrokes)
-          ? map[TKanas.numberStrokes] as int
-          : 0,
+      romajiImageUrl: map.containsKey(TKanas.romajiImageUrl) ? map[TKanas.romajiImageUrl] as String : ImageUrl.empty,
+      numberStrokes: map.containsKey(TKanas.numberStrokes) ? map[TKanas.numberStrokes] as int : 0,
     );
   }
 

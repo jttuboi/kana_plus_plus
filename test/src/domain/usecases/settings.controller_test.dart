@@ -27,28 +27,28 @@ void main() {
     kanaTypeRepository: kanaTypeRepository,
     quantityOfWordsRepository: quantityOfWordsRepository,
   );
-  group("language", () {
-    test("must return the locale code from repository", () {
-      when(() => languageRepository.getLanguageSelected()).thenAnswer((_) => "en");
+  group('language', () {
+    test('must return the locale code from repository', () {
+      when(() => languageRepository.getLanguageSelected()).thenAnswer((_) => 'en');
 
       final result = controller.getLanguageSelected();
 
       verify(() => languageRepository.getLanguageSelected()).called(1);
-      expect(result, "en");
+      expect(result, 'en');
     });
-    test("must send the locale code to repository", () {
-      controller.updateLanguageSelected("en");
+    test('must send the locale code to repository', () {
+      controller.updateLanguageSelected('en');
 
-      verify(() => languageRepository.setLanguageSelected("en")).called(1);
+      verify(() => languageRepository.setLanguageSelected('en')).called(1);
     });
-    test("must return the language icon url", () {
+    test('must return the language icon url', () {
       final result = controller.getLanguageIconUrl();
 
       expect(result, IconUrl.language);
     });
   });
-  group("dark theme", () {
-    test("must return the locale code from repository", () {
+  group('dark theme', () {
+    test('must return the locale code from repository', () {
       when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => false);
 
       final result = controller.isDarkTheme();
@@ -56,19 +56,19 @@ void main() {
       verify(() => darkThemeRepository.isDarkTheme()).called(1);
       expect(result, false);
     });
-    test("must send the dark theme situation to repository", () {
+    test('must send the dark theme situation to repository', () {
       controller.updateDarkTheme(true);
 
       verify(() => darkThemeRepository.setDarkTheme(true)).called(1);
     });
-    test("must return the dark theme icon url", () {
+    test('must return the dark theme icon url', () {
       when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => true);
 
       final result = controller.getDarkThemeIconUrl();
 
       expect(result, IconUrl.darkTheme);
     });
-    test("must return the light theme icon url", () {
+    test('must return the light theme icon url', () {
       when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => false);
 
       final result = controller.getDarkThemeIconUrl();
@@ -76,8 +76,8 @@ void main() {
       expect(result, IconUrl.lightTheme);
     });
   });
-  group("writing hand", () {
-    test("must return the writing hand from repository", () {
+  group('writing hand', () {
+    test('must return the writing hand from repository', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
       final result = controller.getWritingHandSelected();
@@ -85,26 +85,26 @@ void main() {
       verify(() => writingHandRepository.getWritingHandSelected()).called(1);
       expect(result, WritingHand.left);
     });
-    test("must send the dark theme situation to repository", () {
+    test('must send the dark theme situation to repository', () {
       controller.updateWritingHandSelected(WritingHand.right);
 
       verify(() => writingHandRepository.setWritingHandSelected(WritingHand.right)).called(1);
     });
-    test("must return the writing hand left icon url", () {
+    test('must return the writing hand left icon url', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
       final result = controller.getWritingHandIconUrl();
 
       expect(result, IconUrl.writingHandLeft);
     });
-    test("must return the writing hand right icon url", () {
+    test('must return the writing hand right icon url', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.right);
 
       final result = controller.getWritingHandIconUrl();
 
       expect(result, IconUrl.writingHandRight);
     });
-    test("must return the writing hand data", () {
+    test('must return the writing hand data', () {
       final result = controller.getWritingHandData();
 
       expect(result.length, 2);
@@ -114,8 +114,8 @@ void main() {
       expect(result[1].iconUrl, IconUrl.writingHandRight);
     });
   });
-  group("show hint", () {
-    test("must return the show hint value from repository", () {
+  group('show hint', () {
+    test('must return the show hint value from repository', () {
       when(() => showHintRepository.isShowHint()).thenAnswer((_) => false);
 
       final result = controller.isShowHint();
@@ -123,19 +123,19 @@ void main() {
       verify(() => showHintRepository.isShowHint()).called(1);
       expect(result, false);
     });
-    test("must send the show hitn value to repository", () {
+    test('must send the show hitn value to repository', () {
       controller.updateShowHint(true);
 
       verify(() => showHintRepository.setShowHint(true)).called(1);
     });
-    test("must return the show hint icon url", () {
+    test('must return the show hint icon url', () {
       when(() => showHintRepository.isShowHint()).thenAnswer((_) => true);
 
       final result = controller.getShowHintIconUrl();
 
       expect(result, IconUrl.showHint);
     });
-    test("must return the not show hint icon url", () {
+    test('must return the not show hint icon url', () {
       when(() => showHintRepository.isShowHint()).thenAnswer((_) => false);
 
       final result = controller.getShowHintIconUrl();
@@ -143,8 +143,8 @@ void main() {
       expect(result, IconUrl.notShowHint);
     });
   });
-  group("kana type", () {
-    test("must return the kana type from repository", () {
+  group('kana type', () {
+    test('must return the kana type from repository', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
       final result = controller.getKanaTypeSelected();
@@ -152,33 +152,33 @@ void main() {
       verify(() => kanaTypeRepository.getKanaType()).called(1);
       expect(result, KanaType.hiragana);
     });
-    test("must send the kana type to repository", () {
+    test('must send the kana type to repository', () {
       controller.updateKanaTypeSelected(KanaType.both);
 
       verify(() => kanaTypeRepository.setKanaType(KanaType.both)).called(1);
     });
-    test("must return the kana type hiragana icon url", () {
+    test('must return the kana type hiragana icon url', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
       final result = controller.getKanaTypeIconUrl();
 
       expect(result, IconUrl.hiragana);
     });
-    test("must return the kana type katakana icon url", () {
+    test('must return the kana type katakana icon url', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.katakana);
 
       final result = controller.getKanaTypeIconUrl();
 
       expect(result, IconUrl.katakana);
     });
-    test("must return the kana type both icon url", () {
+    test('must return the kana type both icon url', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.both);
 
       final result = controller.getKanaTypeIconUrl();
 
       expect(result, IconUrl.both);
     });
-    test("must return the writing hand data", () {
+    test('must return the writing hand data', () {
       final result = controller.getKanaTypeData();
 
       expect(result.length, 3);
@@ -190,8 +190,8 @@ void main() {
       expect(result[2].iconUrl, IconUrl.both);
     });
   });
-  group("kana type", () {
-    test("must return the quantity from repository", () {
+  group('kana type', () {
+    test('must return the quantity from repository', () {
       when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => 7);
 
       final result = controller.getQuantityOfWords();
@@ -199,43 +199,43 @@ void main() {
       verify(() => quantityOfWordsRepository.getQuantityOfWords()).called(1);
       expect(result, 7);
     });
-    test("must send the quantity to repository", () {
+    test('must send the quantity to repository', () {
       controller.updateQuantityOfWords(10);
 
       verify(() => quantityOfWordsRepository.setQuantityOfWords(10)).called(1);
     });
-    test("must return the quantity of cards icon url", () {
+    test('must return the quantity of cards icon url', () {
       final result = controller.getQuantityOfWordsIconUrl();
 
       expect(result, IconUrl.quantityOfWords);
     });
-    test("must return the minimum quantity of cards", () {
+    test('must return the minimum quantity of cards', () {
       final result = controller.getMinimumQuantityOfWords();
 
       expect(result, Default.minimumTrainingCards.toDouble());
     });
-    test("must return the maximum quantity of cards", () {
+    test('must return the maximum quantity of cards', () {
       final result = controller.getMaximumQuantityOfWords();
 
       expect(result, Default.maximumTrainingCards.toDouble());
     });
   });
-  group("about", () {
-    test("must return the about icon url", () {
+  group('about', () {
+    test('must return the about icon url', () {
       final result = controller.getAboutIconUrl();
 
       expect(result, IconUrl.about);
     });
   });
-  group("privacy policy", () {
-    test("must return the about icon url", () {
+  group('privacy policy', () {
+    test('must return the about icon url', () {
       final result = controller.getPrivacyPolicyIconUrl();
 
       expect(result, IconUrl.privacyPolicy);
     });
   });
-  group("support", () {
-    test("must return the about icon url", () {
+  group('support', () {
+    test('must return the about icon url', () {
       final result = controller.getSupportIconUrl();
 
       expect(result, IconUrl.support);

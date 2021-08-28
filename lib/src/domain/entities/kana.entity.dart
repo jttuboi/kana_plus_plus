@@ -7,17 +7,17 @@ class Kana {
     required this.text,
     required this.type,
     required this.imageUrl,
-    this.romaji = "",
+    this.romaji = '',
     this.romajiImageUrl = ImageUrl.empty,
     this.numberStrokes = 0,
   });
 
   const Kana.empty()
       : id = -1,
-        text = "",
+        text = '',
         type = KanaType.none,
         imageUrl = ImageUrl.empty,
-        romaji = "",
+        romaji = '',
         romajiImageUrl = ImageUrl.empty,
         numberStrokes = 0;
 
@@ -31,6 +31,6 @@ class Kana {
 
   @override
   String toString() {
-    return "Kana($id, $text, $type, $imageUrl, $romaji, $romajiImageUrl, $numberStrokes)";
+    return 'Kana($id, $text, $type, $imageUrl, $romaji, $romajiImageUrl, $numberStrokes)';
   }
 }

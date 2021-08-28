@@ -15,6 +15,6 @@ class WordResult {
 
   @override
   String toString() {
-    return "WordResult($id, $text, $imageUrl, $kanas)";
+    return 'WordResult($id, $text, $imageUrl, $kanas)';
   }
 }

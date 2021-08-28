@@ -47,6 +47,6 @@ class WritingHandTile extends StatelessWidget {
     final JStrings strings = JStrings.of(context)!;
     if (key.isLeft) return strings.settingsWritingHandLeft;
     if (key.isRight) return strings.settingsWritingHandRight;
-    return "";
+    return '';
   }
 }

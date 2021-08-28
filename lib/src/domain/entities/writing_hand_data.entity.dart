@@ -16,6 +16,6 @@ class WritingHandData {
 
   @override
   String toString() {
-    return "WritingHandData($writingHand, $iconUrl)";
+    return 'WritingHandData($writingHand, $iconUrl)';
   }
 }

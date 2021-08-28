@@ -2,7 +2,7 @@ class SelectionOptionArguments {
   const SelectionOptionArguments({
     required this.key,
     required this.label,
-    this.iconUrl = "",
+    this.iconUrl = '',
   });
 
   final dynamic key;

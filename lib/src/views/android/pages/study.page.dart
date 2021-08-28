@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 
 class StudyPage extends StatelessWidget {
@@ -8,34 +8,34 @@ class StudyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Study"),
+        title: const Text('Study'),
       ),
       body: GridView.count(
         crossAxisCount: 4,
         children: [
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.kana),
-            child: const Text("A"),
+            child: const Text('A'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.kana),
-            child: const Text("KA"),
+            child: const Text('KA'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.kana),
-            child: const Text("TA"),
+            child: const Text('TA'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.kana),
-            child: const Text("SA"),
+            child: const Text('SA'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.kana),
-            child: const Text("MA"),
+            child: const Text('MA'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pushNamed(context, Routes.kana),
-            child: const Text("RA"),
+            child: const Text('RA'),
           ),
         ],
       ),

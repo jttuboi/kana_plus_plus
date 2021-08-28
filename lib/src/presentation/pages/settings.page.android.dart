@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/settings.state_management.dart';
@@ -129,8 +129,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ListTile(
                 title: Text(strings.settingsPrivacyPolicy),
-                leading: ImageIcon(
-                    AssetImage(_stateManagement.privacyPolicyIconUrl)),
+                leading: ImageIcon(AssetImage(_stateManagement.privacyPolicyIconUrl)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -9,7 +9,7 @@ class WordsController {
 
   LoadedBy _loadedBy = LoadedBy.none;
   int _id = -1;
-  String _query = "";
+  String _query = '';
 
   Future<List<Word>> showWords() {
     if (_loadedBy.isLoadedById) {

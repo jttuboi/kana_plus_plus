@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewer.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';

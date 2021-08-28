@@ -15,8 +15,7 @@ class KanaTypeTile extends StatelessWidget {
 
   final KanaType kanaType;
   final String iconUrl;
-  final List<SelectionOptionArguments> Function(
-      String Function(KanaType kanaType) kanaTypeText) getOptions;
+  final List<SelectionOptionArguments> Function(String Function(KanaType kanaType) kanaTypeText) getOptions;
   final Function(KanaType kanaType) updateKanaType;
 
   @override
@@ -48,6 +47,6 @@ class KanaTypeTile extends StatelessWidget {
     if (type.isOnlyHiragana) return strings.settingsOnlyHiragana;
     if (type.isOnlyKatakana) return strings.settingsOnlyKatakana;
     if (type.isBoth) return strings.settingsOnlyHiraganaKatakana;
-    return "";
+    return '';
   }
 }

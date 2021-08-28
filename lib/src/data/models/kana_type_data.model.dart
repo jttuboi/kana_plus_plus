@@ -14,15 +14,15 @@ class KanaTypeDataModel extends KanaTypeData {
 
   factory KanaTypeDataModel.fromMap(Map<String, dynamic> map) {
     return KanaTypeDataModel(
-      type: KanaType.values[map["kana_type"] as int],
-      iconUrl: map["icon_url"] as String,
+      type: KanaType.values[map['kana_type'] as int],
+      iconUrl: map['icon_url'] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "kana_type": type,
-      "icon_url": iconUrl,
+      'kana_type': type,
+      'icon_url': iconUrl,
     };
   }
 }

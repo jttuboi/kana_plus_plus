@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
@@ -31,7 +31,7 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
     final JStrings strings = JStrings.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Training settings"), // AQUI localization
+        title: const Text('Training settings'), // AQUI localization
       ),
       body: AnimatedBuilder(
         animation: _stateManagement,

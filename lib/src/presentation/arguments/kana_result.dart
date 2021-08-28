@@ -17,6 +17,6 @@ class KanaResult {
 
   @override
   String toString() {
-    return "KanaResult($id, $imageUrl, $isCorrect, $idWrote, $strokesDrew)";
+    return 'KanaResult($id, $imageUrl, $isCorrect, $idWrote, $strokesDrew)';
   }
 }

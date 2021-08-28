@@ -8,7 +8,7 @@ class Word {
     required this.id,
     required this.text,
     required this.imageUrl,
-    this.romaji = "",
+    this.romaji = '',
     this.type = KanaType.none,
     this.translate = const Translate.empty(),
     this.kanas = const [],
@@ -16,9 +16,9 @@ class Word {
 
   const Word.empty()
       : id = -1,
-        text = "",
+        text = '',
         imageUrl = ImageUrl.empty,
-        romaji = "",
+        romaji = '',
         type = KanaType.none,
         translate = const Translate.empty(),
         kanas = const [];
@@ -33,6 +33,6 @@ class Word {
 
   @override
   String toString() {
-    return "Word($id, $text, $imageUrl, $romaji, $type, $translate, $kanas)";
+    return 'Word($id, $text, $imageUrl, $romaji, $type, $translate, $kanas)';
   }
 }

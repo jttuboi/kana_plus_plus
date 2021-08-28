@@ -13,6 +13,6 @@ class KanaTypeData {
 
   @override
   String toString() {
-    return "KanaTypeData($type, $iconUrl)";
+    return 'KanaTypeData($type, $iconUrl)';
   }
 }

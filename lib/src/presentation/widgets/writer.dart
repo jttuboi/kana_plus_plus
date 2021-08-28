@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/all_stroke.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/current_stroke.provider.dart';

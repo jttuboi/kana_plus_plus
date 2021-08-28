@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 
 class WordDetailPage extends StatelessWidget {

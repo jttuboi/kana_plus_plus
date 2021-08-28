@@ -26,7 +26,7 @@ class WordsSearchDelegate extends SearchDelegate {
       IconButton(
         // TODO icons
         icon: const Icon(Icons.clear),
-        onPressed: () => query = "",
+        onPressed: () => query = '',
       )
     ];
   }
@@ -36,7 +36,7 @@ class WordsSearchDelegate extends SearchDelegate {
     return IconButton(
       // TODO icons
       icon: const Icon(Icons.arrow_back),
-      onPressed: () => close(context, ""),
+      onPressed: () => close(context, ''),
     );
   }
 
@@ -54,9 +54,7 @@ class WordsSearchDelegate extends SearchDelegate {
   }
 
   bool _hasQuery(Word word) {
-    return word.text.contains(query.trim()) ||
-        word.romaji.contains(query.trim()) ||
-        word.translate.translate.contains(query.trim());
+    return word.text.contains(query.trim()) || word.romaji.contains(query.trim()) || word.translate.translate.contains(query.trim());
   }
 
   Widget _buildSuggestions(List<Word> suggestions) {
@@ -65,7 +63,7 @@ class WordsSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         final word = suggestions[index];
         return ListTile(
-          title: Text("${word.text} - ${word.romaji}"),
+          title: Text('${word.text} - ${word.romaji}'),
           subtitle: Text(word.translate.translate),
           onTap: () => close(context, word),
         );

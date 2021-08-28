@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/domain/exception/not_found.exception.dart';
@@ -47,9 +47,7 @@ class _WordsPageState extends State<WordsPage> {
               return _buildLoader();
             }
             if (snapshot.hasError) {
-              return (snapshot.error is NotFoundException)
-                  ? _buildNoData()
-                  : _buildError();
+              return (snapshot.error is NotFoundException) ? _buildNoData() : _buildError();
             }
             if (snapshot.hasData && snapshot.data!.isNotEmpty) {
               final words = snapshot.data!;

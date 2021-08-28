@@ -14,15 +14,15 @@ class WritingHandDataModel extends WritingHandData {
 
   factory WritingHandDataModel.fromMap(Map<String, dynamic> map) {
     return WritingHandDataModel(
-      writingHand: WritingHand.values[map["writing_hand"] as int],
-      iconUrl: map["icon_url"] as String,
+      writingHand: WritingHand.values[map['writing_hand'] as int],
+      iconUrl: map['icon_url'] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "writing_hand": writingHand,
-      "icon_url": iconUrl,
+      'writing_hand': writingHand,
+      'icon_url': iconUrl,
     };
   }
 }

@@ -5,7 +5,7 @@ abstract class ICacheStorage {
 
   bool getBool(String key, {bool defaultValue = false});
 
-  String getString(String key, {String defaultValue = ""});
+  String getString(String key, {String defaultValue = ''});
 
   Future<void> setInt(String key, int value);
 

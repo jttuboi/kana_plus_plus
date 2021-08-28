@@ -10,8 +10,7 @@ class LanguageTile extends StatelessWidget {
   const LanguageTile({Key? key}) : super(key: key);
 
   void _updateLocalizationOnApp(BuildContext context, String localeCode) {
-    Provider.of<LocaleProvider>(context, listen: false)
-        .setLocale(JStrings.supportedLocales.firstWhere((Locale locale) {
+    Provider.of<LocaleProvider>(context, listen: false).setLocale(JStrings.supportedLocales.firstWhere((Locale locale) {
       return locale.toString() == localeCode;
     }));
   }
@@ -48,7 +47,6 @@ class LanguageTile extends StatelessWidget {
   }
 
   String _getText(String localeCode) {
-    return LocaleNamesLocalizationsDelegate.nativeLocaleNames[localeCode] ??
-        "English";
+    return LocaleNamesLocalizationsDelegate.nativeLocaleNames[localeCode] ?? 'English';
   }
 }

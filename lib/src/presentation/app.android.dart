@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:kana_plus_plus/src/data/datasources/cache.dart';
@@ -67,7 +67,7 @@ class AndroidApp extends StatelessWidget {
   List<SingleChildWidget> get _providers {
     return [
       ChangeNotifierProvider(create: (context) {
-        return ThemeProvider(Cache.getBool("dark_theme"));
+        return ThemeProvider(Cache.getBool('dark_theme'));
       }),
       ChangeNotifierProvider(create: (context) {
         return LocaleProvider();
