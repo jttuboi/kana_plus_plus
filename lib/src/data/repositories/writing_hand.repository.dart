@@ -1,6 +1,6 @@
 import 'package:kana_plus_plus/src/data/datasources/cache.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
 
 class WritingHandRepository implements IWritingHandRepository {

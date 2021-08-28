@@ -3,7 +3,7 @@ import 'package:kana_plus_plus/src/data/models/description.model.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.entity.dart';
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand_data.entity.dart';
 import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';

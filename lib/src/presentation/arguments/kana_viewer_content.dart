@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 
 class KanaViewerContent {
   KanaViewerContent({

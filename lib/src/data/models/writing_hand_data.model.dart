@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand_data.entity.dart';
 
 class WritingHandDataModel extends WritingHandData {

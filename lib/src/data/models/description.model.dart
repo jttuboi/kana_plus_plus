@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/domain/entities/description_type.dart';
+import 'package:kana_plus_plus/src/domain/enums/description_type.dart';
 
 class DescriptionModel {
   DescriptionModel.title(this.text) {

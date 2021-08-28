@@ -1,7 +1,7 @@
 import 'dart:ui';
 import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
 
 class KanaViewer extends StatefulWidget {

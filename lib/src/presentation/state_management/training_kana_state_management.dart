@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 

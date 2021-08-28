@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
-import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 
 class WritingHandProvider extends ChangeNotifier {
   WritingHandProvider(this._controller);
@@ -12,8 +12,7 @@ class WritingHandProvider extends ChangeNotifier {
 
   String get iconUrl => _controller.getWritingHandIconUrl();
 
-  List<SelectionOptionArguments> getOptions(
-      String Function(WritingHand writingHand) writingHandText) {
+  List<SelectionOptionArguments> getOptions(String Function(WritingHand writingHand) writingHandText) {
     return _controller.getWritingHandData().map((model) {
       return SelectionOptionArguments(
         key: model.writingHand,
