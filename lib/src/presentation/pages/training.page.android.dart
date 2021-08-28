@@ -3,7 +3,7 @@ import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_word.state_management.dart';

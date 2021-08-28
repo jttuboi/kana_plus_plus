@@ -6,7 +6,7 @@ import 'package:kana_plus_plus/src/data/services/kana_checker.service.dart';
 import 'package:kana_plus_plus/src/data/services/stroke_reducer.service.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.service.dart';
 import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.service.dart';
 

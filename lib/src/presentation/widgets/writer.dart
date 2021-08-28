@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/all_stroke.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/current_stroke.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
 import 'package:provider/provider.dart';
 

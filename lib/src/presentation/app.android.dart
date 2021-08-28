@@ -23,7 +23,7 @@ import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/kana_writer.state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/review.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';

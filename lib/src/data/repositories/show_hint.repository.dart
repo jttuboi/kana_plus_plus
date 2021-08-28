@@ -1,7 +1,7 @@
 import 'package:kana_plus_plus/src/data/datasources/cache.singleton.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
-import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 
 class ShowHintRepository implements IShowHintRepository {
   @override

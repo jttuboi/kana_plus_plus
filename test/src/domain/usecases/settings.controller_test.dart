@@ -3,12 +3,12 @@ import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
-import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/language.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -29,8 +29,7 @@ void main() {
   );
   group("language", () {
     test("must return the locale code from repository", () {
-      when(() => languageRepository.getLanguageSelected())
-          .thenAnswer((_) => "en");
+      when(() => languageRepository.getLanguageSelected()).thenAnswer((_) => "en");
 
       final result = controller.getLanguageSelected();
 
@@ -79,8 +78,7 @@ void main() {
   });
   group("writing hand", () {
     test("must return the writing hand from repository", () {
-      when(() => writingHandRepository.getWritingHandSelected())
-          .thenAnswer((_) => WritingHand.left);
+      when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
       final result = controller.getWritingHandSelected();
 
@@ -90,21 +88,17 @@ void main() {
     test("must send the dark theme situation to repository", () {
       controller.updateWritingHandSelected(WritingHand.right);
 
-      verify(() =>
-              writingHandRepository.setWritingHandSelected(WritingHand.right))
-          .called(1);
+      verify(() => writingHandRepository.setWritingHandSelected(WritingHand.right)).called(1);
     });
     test("must return the writing hand left icon url", () {
-      when(() => writingHandRepository.getWritingHandSelected())
-          .thenAnswer((_) => WritingHand.left);
+      when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
       final result = controller.getWritingHandIconUrl();
 
       expect(result, IconUrl.writingHandLeft);
     });
     test("must return the writing hand right icon url", () {
-      when(() => writingHandRepository.getWritingHandSelected())
-          .thenAnswer((_) => WritingHand.right);
+      when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.right);
 
       final result = controller.getWritingHandIconUrl();
 
@@ -151,8 +145,7 @@ void main() {
   });
   group("kana type", () {
     test("must return the kana type from repository", () {
-      when(() => kanaTypeRepository.getKanaType())
-          .thenAnswer((_) => KanaType.hiragana);
+      when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
       final result = controller.getKanaTypeSelected();
 
@@ -165,24 +158,21 @@ void main() {
       verify(() => kanaTypeRepository.setKanaType(KanaType.both)).called(1);
     });
     test("must return the kana type hiragana icon url", () {
-      when(() => kanaTypeRepository.getKanaType())
-          .thenAnswer((_) => KanaType.hiragana);
+      when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
       final result = controller.getKanaTypeIconUrl();
 
       expect(result, IconUrl.hiragana);
     });
     test("must return the kana type katakana icon url", () {
-      when(() => kanaTypeRepository.getKanaType())
-          .thenAnswer((_) => KanaType.katakana);
+      when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.katakana);
 
       final result = controller.getKanaTypeIconUrl();
 
       expect(result, IconUrl.katakana);
     });
     test("must return the kana type both icon url", () {
-      when(() => kanaTypeRepository.getKanaType())
-          .thenAnswer((_) => KanaType.both);
+      when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.both);
 
       final result = controller.getKanaTypeIconUrl();
 
@@ -202,8 +192,7 @@ void main() {
   });
   group("kana type", () {
     test("must return the quantity from repository", () {
-      when(() => quantityOfWordsRepository.getQuantityOfWords())
-          .thenAnswer((_) => 7);
+      when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => 7);
 
       final result = controller.getQuantityOfWords();
 
@@ -256,8 +245,7 @@ void main() {
 
 class LanguageRepositoryMock extends Mock implements ILanguageRepository {}
 
-class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {
-}
+class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {}
 
 class DarkThemeRepositoryMock extends Mock implements IDarkThemeRepository {}
 
@@ -265,5 +253,4 @@ class ShowHintRepositoryMock extends Mock implements IShowHintRepository {}
 
 class KanaTypeRepositoryMock extends Mock implements IKanaTypeRepository {}
 
-class QuantityOfWordsRepositoryMock extends Mock
-    implements IQuantityOfWordsRepository {}
+class QuantityOfWordsRepositoryMock extends Mock implements IQuantityOfWordsRepository {}

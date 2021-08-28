@@ -2,9 +2,9 @@ import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.entity.dart';
-import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 
 class PreTrainingController {
   PreTrainingController({
@@ -42,10 +42,7 @@ class PreTrainingController {
   }
 
   String getKanaTypeIconUrl() {
-    return getKanaTypeData()
-        .where((kanaTypeItem) => kanaTypeItem.type.equal(kanaType))
-        .first
-        .iconUrl;
+    return getKanaTypeData().where((kanaTypeItem) => kanaTypeItem.type.equal(kanaType)).first.iconUrl;
   }
 
   int getQuantityOfWords() {

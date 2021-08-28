@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/data/datasources/interfaces/cache.storage.interface.dart';
+import 'package:kana_plus_plus/src/data/datasources/cache.interface.storage.dart';
 
 class Cache {
   // singleton

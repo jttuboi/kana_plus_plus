@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -44,8 +44,7 @@ void main() {
   });
   group("kana type", () {
     test("must return the kana type from repository", () {
-      when(() => kanaTypeRepository.getKanaType())
-          .thenAnswer((_) => KanaType.hiragana);
+      when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
       final result = controller.getKanaType();
 
@@ -87,8 +86,7 @@ void main() {
   });
   group("kana type", () {
     test("must return the quantity from repository", () {
-      when(() => quantityOfWordsRepository.getQuantityOfWords())
-          .thenAnswer((_) => 7);
+      when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => 7);
 
       final result = controller.getQuantityOfWords();
 
@@ -117,5 +115,4 @@ class ShowHintRepositoryMock extends Mock implements IShowHintRepository {}
 
 class KanaTypeRepositoryMock extends Mock implements IKanaTypeRepository {}
 
-class QuantityOfWordsRepositoryMock extends Mock
-    implements IQuantityOfWordsRepository {}
+class QuantityOfWordsRepositoryMock extends Mock implements IQuantityOfWordsRepository {}

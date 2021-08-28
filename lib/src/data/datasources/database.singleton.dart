@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/data/datasources/interfaces/database.storage.interface.dart';
+import 'package:kana_plus_plus/src/data/datasources/database.interface.storage.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 
@@ -19,13 +19,11 @@ class Database {
     return _storage.getWords(languageCode);
   }
 
-  static Future<List<WordModel>> getWordsById(
-      int id, String languageCode) async {
+  static Future<List<WordModel>> getWordsById(int id, String languageCode) async {
     return _storage.getWordsById(id, languageCode);
   }
 
-  static Future<List<WordModel>> getWordsByQuery(
-      String query, String languageCode) async {
+  static Future<List<WordModel>> getWordsByQuery(String query, String languageCode) async {
     return _storage.getWordsByQuery(query, languageCode);
   }
 
@@ -33,8 +31,7 @@ class Database {
     return _storage.getWord(id, languageCode);
   }
 
-  static Future<List<WordModel>> getWordsByIds(
-      List<int> ids, KanaType kanaType) async {
+  static Future<List<WordModel>> getWordsByIds(List<int> ids, KanaType kanaType) async {
     return _storage.getWordsByIds(ids, kanaType);
   }
 }

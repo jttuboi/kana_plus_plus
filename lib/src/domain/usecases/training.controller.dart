@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/entities/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
-import 'package:kana_plus_plus/src/domain/repositories/word.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';

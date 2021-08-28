@@ -5,12 +5,12 @@ import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.entity.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand_data.entity.dart';
-import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/language.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.dart';
+import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
 
 class SettingsController {
   SettingsController({
@@ -50,9 +50,7 @@ class SettingsController {
   }
 
   String getDarkThemeIconUrl() {
-    return (darkThemeRepository.isDarkTheme())
-        ? IconUrl.darkTheme
-        : IconUrl.lightTheme;
+    return (darkThemeRepository.isDarkTheme()) ? IconUrl.darkTheme : IconUrl.lightTheme;
   }
 
   WritingHand getWritingHandSelected() {
@@ -65,8 +63,7 @@ class SettingsController {
 
   String getWritingHandIconUrl() {
     return getWritingHandData().firstWhere((model) {
-      return model.writingHand
-          .equal(writingHandRepository.getWritingHandSelected());
+      return model.writingHand.equal(writingHandRepository.getWritingHandSelected());
     }).iconUrl;
   }
 
@@ -92,9 +89,7 @@ class SettingsController {
   }
 
   String getShowHintIconUrl() {
-    return (showHintRepository.isShowHint())
-        ? IconUrl.showHint
-        : IconUrl.notShowHint;
+    return (showHintRepository.isShowHint()) ? IconUrl.showHint : IconUrl.notShowHint;
   }
 
   KanaType getKanaTypeSelected() {
