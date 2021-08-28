@@ -9,7 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class SqliteDatabaseStorage implements IDatabaseStorage {
+class SqfliteDatabaseStorage implements IDatabaseStorage {
   static const int databaseVersion = 1;
   late Database _database;
 
