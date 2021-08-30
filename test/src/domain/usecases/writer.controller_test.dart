@@ -1,24 +1,31 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/data/services/stroke_reducer.service.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.service.dart';
+import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.service.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
-// TODO fazer esses testes
-//   List<List<Offset>> get strokesNormalized => []; // aqui deve procurar pelos strokes normalizados
-//   int get generateKanaId => 0; // aqui deve procurar pelo kana (kanaType)
-
 void main() {
   late IWritingHandRepository writingHandRepository;
+  late IStrokeReducerService strokeReducerService;
+  late IKanaCheckerService kanaCheckerService;
   late WriterController controller;
 
   setUpAll(() {
     writingHandRepository = WritingHandRepositoryMock();
+
+    strokeReducerService = StrokeReducerService(limitPointsToReduce: 20);
+    kanaCheckerService = KanaCheckerServiceMock();
     controller = WriterController(
       writingHandRepository: writingHandRepository,
+      strokeReducerService: strokeReducerService,
+      kanaCheckerService: kanaCheckerService,
       showHint: true,
     );
   });
@@ -26,28 +33,29 @@ void main() {
   group('writer controller tests', () {
     test('start writer controller', () {
       final repository1 = WritingHandRepositoryMock();
-      final controller1 = WriterController(writingHandRepository: repository1, showHint: true);
+      final controller1 = WriterController(
+          writingHandRepository: repository1, strokeReducerService: strokeReducerService, kanaCheckerService: kanaCheckerService, showHint: true);
 
       expect(controller1.writingHandRepository, repository1);
       expect(controller1.showHint, isTrue);
 
       final repository2 = WritingHandRepositoryMock();
-      final controller2 = WriterController(writingHandRepository: repository2, showHint: false);
+      final controller2 = WriterController(
+          writingHandRepository: repository2, strokeReducerService: strokeReducerService, kanaCheckerService: kanaCheckerService, showHint: false);
 
       expect(controller2.writingHandRepository, repository2);
       expect(controller2.showHint, isFalse);
     });
     test('must give new values to writer', () {
       controller.strokes.addAll(threeStrokesSample);
-      controller.maxStrokes = 3;
-      controller.kanaType = KanaType.katakana;
+      controller.kanaToWrite = const KanaToWrite(id: '', type: KanaType.katakana, hintImageUrl: '', maxStrokes: 3);
 
-      controller.updateWriter(5, 'src/a.png', KanaType.hiragana);
+      controller.updateWriter(const KanaToWrite(id: '', type: KanaType.hiragana, hintImageUrl: 'src/a.png', maxStrokes: 5));
 
       expect(controller.strokes.length, 0);
-      expect(controller.kanaHintImageUrl, 'src/a.png');
-      expect(controller.maxStrokes, 5);
-      expect(controller.kanaType, KanaType.hiragana);
+      expect(controller.kanaToWrite.hintImageUrl, 'src/a.png');
+      expect(controller.kanaToWrite.maxStrokes, 5);
+      expect(controller.kanaToWrite.type, KanaType.hiragana);
     });
   });
   group('icons url', () {
@@ -94,13 +102,13 @@ void main() {
     });
     test('must return bool if is the last stroke wrote', () {
       controller.strokes = threeStrokesSample.toList();
-      controller.maxStrokes = 3;
+      controller.kanaToWrite = const KanaToWrite(id: '', type: KanaType.hiragana, hintImageUrl: '', maxStrokes: 3);
 
       expect(controller.isTheLastStroke, isTrue);
     });
     test('must return bool if is not the last stroke wrote', () {
       controller.strokes = threeStrokesSample.toList();
-      controller.maxStrokes = 4;
+      controller.kanaToWrite = const KanaToWrite(id: '', type: KanaType.hiragana, hintImageUrl: '', maxStrokes: 4);
 
       expect(controller.isTheLastStroke, isFalse);
     });
@@ -121,7 +129,7 @@ void main() {
       expect(controller.strokes[1], fourStrokesSample[1]);
       expect(controller.strokes[2], fourStrokesSample[2]);
     });
-    test('doesn't undo if it doesn't have any stroke to undo', () {
+    test('does not undo if it does not have any stroke to undo', () {
       controller.strokes = [];
 
       controller.undoTheLastStroke();
@@ -137,89 +145,14 @@ void main() {
     verify(() => writingHandRepository.getWritingHandSelected()).called(1);
     expect(result, WritingHand.left);
   });
-  group('reduce path', () {
-    test('must return empty array when path is empty', () {
-      final path = <Offset>[];
-      final result = controller.reducePath(path);
-
-      expect(result, isEmpty);
-    });
-    test('must return the same path when the quantity is <= 10', () {
-      final path = [
-        const Offset(3, 2),
-        const Offset(5, 4),
-        const Offset(2, 7),
-        const Offset(5, 5),
-        const Offset(7, 3),
-      ];
-      final result = controller.reducePath(path);
-
-      expect(result, path);
-    });
-    test('must return the same path when the quantity is <= 10', () {
-      final path = [
-        const Offset(2, 3),
-        const Offset(1, 5),
-        const Offset(4, 3),
-        const Offset(7, 4),
-        const Offset(9, 7),
-        const Offset(3, 2),
-        const Offset(5, 4),
-        const Offset(2, 7),
-        const Offset(5, 5),
-        const Offset(7, 3),
-      ];
-      final result = controller.reducePath(path);
-
-      expect(result, path);
-    });
-    test('must return the same path when the quantity is <= 20', () {
-      const path = [
-        Offset(2, 3),
-        Offset(1, 5),
-        Offset(4, 3),
-        Offset(7, 4),
-        Offset(9, 7),
-        Offset(3, 8),
-        Offset(5, 6),
-        Offset(2, 5),
-        Offset(5, 3),
-        Offset(7, 6),
-        Offset(8, 2),
-        Offset(4, 8),
-        Offset(7, 6),
-        Offset(1, 4),
-        Offset(5, 9),
-        Offset(7, 8),
-        Offset(3, 5),
-        Offset(7, 2),
-        Offset(3, 7),
-        Offset(2, 6),
-      ];
-      final result = controller.reducePath(path);
-
-      expect(result, path);
-    });
-    test('must return reduced path for horizontal line sample', () {
-      final result = controller.reducePath(horizontalLineStroke);
-      expect(result, horizontalLineStrokeResult);
-    });
-    test('must return reduced path for shi hiragana sample', () {
-      final result = controller.reducePath(shiStroke);
-      expect(result, shiStrokeResult);
-    });
-    test('must return reduced path for no hiragana sample', () {
-      final result = controller.reducePath(noStroke);
-      expect(result, noStrokeResult);
-    });
-  });
   group('normalized strokes', () {
     test('must return strokes normalized', () {
       controller.strokes = [shiStrokeResult, noStrokeResult];
       const startLocationOfSquareUsedForDraw = 0.0;
       const endLocationOfSquareUsedForDraw = 206.7;
+      controller.setCanvasLimit(startLocationOfSquareUsedForDraw, endLocationOfSquareUsedForDraw);
 
-      final result = controller.strokesNormalized(startLocationOfSquareUsedForDraw, endLocationOfSquareUsedForDraw);
+      final result = controller.normalizedStrokes();
 
       expect(result, [shiStrokeResultNormalized, noStrokeResultNormalized]);
     });
@@ -227,6 +160,14 @@ void main() {
 }
 
 class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {}
+
+class StrokeReducerServiceMock extends Mock implements IStrokeReducerService {}
+
+class KanaCheckerServiceMock extends Mock implements IKanaCheckerService {}
+
+// TODO fazer esses testes
+//   List<List<Offset>> get strokesNormalized => []; // aqui deve procurar pelos strokes normalizados
+//   int get generateKanaId => 0; // aqui deve procurar pelo kana (kanaType)
 
 final threeStrokesSample = [
   const [Offset(0, 1), Offset(1, 2)],

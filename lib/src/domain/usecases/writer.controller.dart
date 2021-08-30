@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
-import 'package:kana_plus_plus/src/data/services/kana_checker.service.dart';
-import 'package:kana_plus_plus/src/data/services/stroke_reducer.service.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
@@ -13,11 +11,10 @@ import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.serv
 class WriterController {
   WriterController({
     required this.writingHandRepository,
+    required this.strokeReducerService,
+    required this.kanaCheckerService,
     required this.showHint,
-  }) {
-    strokeReducerService = StrokeReducerService(limitPointsToReduce: 20);
-    kanaCheckerService = KanaCheckerService();
-  }
+  });
 
   IWritingHandRepository writingHandRepository;
 

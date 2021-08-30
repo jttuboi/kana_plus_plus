@@ -1,10 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana.entity.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/translate.entity.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
-import 'package:kana_plus_plus/src/domain/exception/not_found.exception.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -14,136 +13,98 @@ void main() {
 
   group('show word detail', () {
     test('must return a full word to show in word detail', () {
-      const int wordId = 0;
-      when(() => wordRepository.getWord(wordId))
-          .thenAnswer((_) => Future.value(wordSample1));
+      const String wordId = 'ねこ';
+      when(() => wordRepository.getWord(wordId)).thenAnswer((_) => wordSample0);
 
       final wordResult = controller.showWordDetail(wordId);
 
       verify(() => wordRepository.getWord(wordId)).called(1);
-      expect(wordResult, completion(equals(wordSample1)));
-    });
-
-    test('must throw not found exception when the database don't find word',
-        () {
-      const int wordId = -1;
-      when(() => wordRepository.getWord(wordId)).thenThrow(NotFoundException());
-
-      expect(() => controller.showWordDetail(wordId),
-          throwsA(isA<NotFoundException>()));
-      verify(() => wordRepository.getWord(wordId)).called(1);
+      expect(wordResult, equals(wordSample0));
+      expect(wordResult.id, equals('ねこ'));
+      expect(wordResult.type, equals(KanaType.hiragana));
+      expect(wordResult.romaji, equals('neko'));
+      expect(wordResult.imageUrl, equals('lib/assets/images/words/cat.png'));
+      expect(wordResult.kanas.length, equals(2));
+      expect(wordResult.kanas[0].id, equals('ね'));
+      expect(wordResult.kanas[0].type, equals(KanaType.hiragana));
+      expect(wordResult.kanas[0].imageUrl, equals('lib/assets/images/hiragana/ne.png'));
+      expect(wordResult.kanas[0].romaji, equals('ne'));
+      expect(wordResult.kanas[0].romajiImageUrl, equals('lib/assets/images/romaji/ne.png'));
+      expect(wordResult.kanas[0].strokesQuantity, equals(2));
+      expect(wordResult.kanas[1].id, equals('こ'));
+      expect(wordResult.kanas[1].type, equals(KanaType.hiragana));
+      expect(wordResult.kanas[1].imageUrl, equals('lib/assets/images/hiragana/ko.png'));
+      expect(wordResult.kanas[1].romaji, equals('ko'));
+      expect(wordResult.kanas[1].romajiImageUrl, equals('lib/assets/images/romaji/ko.png'));
+      expect(wordResult.kanas[1].strokesQuantity, equals(2));
     });
   });
 
   group('set to load all words', () {
     test('must return all words when the first call', () {
-      when(() => wordRepository.getWords())
-          .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => wordRepository.getWordsById(0))
-          .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => wordRepository.getWordsByQuery(''))
-          .thenAnswer((invocation) => Future.value(wordsSample2));
+      when(() => wordRepository.getWords()).thenAnswer((invocation) => wordsSample0);
+      when(() => wordRepository.getWordsById('ねこ')).thenAnswer((invocation) => wordsSample1);
+      when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
       final wordsResult = controller.showWords();
 
       verify(() => wordRepository.getWords()).called(1);
-      verifyNever(() => wordRepository.getWordsById(0));
+      verifyNever(() => wordRepository.getWordsById('ねこ'));
       verifyNever(() => wordRepository.getWordsByQuery(''));
-      expect(wordsResult, completion(wordsSample0));
+      expect(wordsResult, wordsSample0);
     });
 
     test('must return all words when setToLoadAllWords is called before', () {
-      when(() => wordRepository.getWords())
-          .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => wordRepository.getWordsById(0))
-          .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => wordRepository.getWordsByQuery(''))
-          .thenAnswer((invocation) => Future.value(wordsSample2));
+      when(() => wordRepository.getWords()).thenAnswer((invocation) => wordsSample0);
+      when(() => wordRepository.getWordsById('ねこ')).thenAnswer((invocation) => wordsSample1);
+      when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
       controller.setToLoadAllWords();
       final wordsResult = controller.showWords();
 
       verify(() => wordRepository.getWords()).called(1);
-      verifyNever(() => wordRepository.getWordsById(0));
+      verifyNever(() => wordRepository.getWordsById('ねこ'));
       verifyNever(() => wordRepository.getWordsByQuery(''));
-      expect(wordsResult, completion(wordsSample0));
-    });
-
-    test('must throw no exception when didn't return any word', () {
-      when(() => wordRepository.getWords()).thenThrow(NotFoundException());
-
-      controller.setToLoadAllWords();
-
-      expect(() => controller.showWords(), throwsA(isA<NotFoundException>()));
-      verify(() => wordRepository.getWords()).called(1);
+      expect(wordsResult, wordsSample0);
     });
   });
 
   group('set to load words by id', () {
-    test(
-        'must return words by id when setToLoadWordsById is called before with word id',
-        () {
-      when(() => wordRepository.getWords())
-          .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => wordRepository.getWordsById(0))
-          .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => wordRepository.getWordsByQuery(''))
-          .thenAnswer((invocation) => Future.value(wordsSample2));
+    test('must return words by id when setToLoadWordsById is called before with word id', () {
+      when(() => wordRepository.getWords()).thenAnswer((invocation) => wordsSample0);
+      when(() => wordRepository.getWordsById('ねこ')).thenAnswer((invocation) => wordsSample1);
+      when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
-      controller.setToLoadWordsById(0);
+      controller.setToLoadWordsById('ねこ');
       final wordsResult = controller.showWords();
 
       verifyNever(() => wordRepository.getWords());
-      verify(() => wordRepository.getWordsById(0)).called(1);
+      verify(() => wordRepository.getWordsById('ねこ')).called(1);
       verifyNever(() => wordRepository.getWordsByQuery(''));
-      expect(wordsResult, completion(wordsSample1));
-    });
-
-    test('must throw no exception when didn't find any word', () {
-      when(() => wordRepository.getWordsById(0)).thenThrow(NotFoundException());
-
-      controller.setToLoadWordsById(0);
-
-      expect(() => controller.showWords(), throwsA(isA<NotFoundException>()));
-      verify(() => wordRepository.getWordsById(0)).called(1);
+      expect(wordsResult, wordsSample1);
     });
   });
 
   group('set to load words by query', () {
-    test(
-        'must return words by query when setToLoadWordsByQuery is called before with query',
-        () {
-      when(() => wordRepository.getWords())
-          .thenAnswer((invocation) => Future.value(wordsSample0));
-      when(() => wordRepository.getWordsById(0))
-          .thenAnswer((invocation) => Future.value(wordsSample1));
-      when(() => wordRepository.getWordsByQuery(''))
-          .thenAnswer((invocation) => Future.value(wordsSample2));
+    test('must return words by query when setToLoadWordsByQuery is called before with query', () {
+      when(() => wordRepository.getWords()).thenAnswer((invocation) => wordsSample0);
+      when(() => wordRepository.getWordsById('ねこ')).thenAnswer((invocation) => wordsSample1);
+      when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
       controller.setToLoadWordsByQuery('');
       final wordsResult = controller.showWords();
 
       verifyNever(() => wordRepository.getWords());
-      verifyNever(() => wordRepository.getWordsById(0));
+      verifyNever(() => wordRepository.getWordsById('ねこ'));
       verify(() => wordRepository.getWordsByQuery('')).called(1);
-      expect(wordsResult, completion(wordsSample2));
-    });
-
-    test('must throw no exception when didn't find any word', () {
-      when(() => wordRepository.getWordsByQuery(''))
-          .thenThrow(NotFoundException());
-
-      controller.setToLoadWordsByQuery('');
-
-      expect(() => controller.showWords(), throwsA(isA<NotFoundException>()));
-      verify(() => wordRepository.getWordsByQuery('')).called(1);
+      expect(wordsResult, wordsSample2);
     });
   });
 }
 
-class WordRepositoryMock extends Mock implements WordRepository {}
+class WordRepositoryMock extends Mock implements IWordRepository {}
 
-const List<Word> wordsSample0 = [
+final wordsSample0 = [
   wordSample0,
   wordSample1,
   wordSample2,
@@ -152,132 +113,163 @@ const List<Word> wordsSample0 = [
   wordSample5,
 ];
 
-const List<Word> wordsSample1 = [
+final wordsSample1 = [
   wordSample0,
 ];
 
-const List<Word> wordsSample2 = [
+final wordsSample2 = [
   wordSample0,
   wordSample1,
   wordSample2,
 ];
 
-const Word wordSample0 = Word(
-  id: 0,
-  text: 'ねこ',
+final wordSample0 = Word(
+  id: 'ねこ',
+  type: KanaType.hiragana,
   romaji: 'neko',
   imageUrl: 'lib/assets/images/words/cat.png',
-  translate: Translate(id: 0, code: 'en', translate: 'cat'),
-  kanas: [
-    Kana(
-        id: 23,
-        text: 'ね',
+)
+  ..setTranslate(const Translate(id: 'ねこ', english: 'cat', portuguese: 'gato', spanish: 'gato'))
+  ..kanas = [
+    const Kana(
+        id: 'ね',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/ne.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 9,
-        text: 'こ',
+        romaji: 'ne',
+        romajiImageUrl: 'lib/assets/images/romaji/ne.png',
+        strokesQuantity: 2),
+    const Kana(
+        id: 'こ',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/ko.png',
-        type: KanaType.hiragana),
-  ],
-);
-const Word wordSample1 = Word(
-  id: 1,
-  text: 'いぬ',
+        romaji: 'ko',
+        romajiImageUrl: 'lib/assets/images/romaji/ko.png',
+        strokesQuantity: 2),
+  ];
+
+final wordSample1 = Word(
+  id: 'いぬ',
+  type: KanaType.hiragana,
   romaji: 'inu',
   imageUrl: 'lib/assets/images/words/dog.png',
-  translate: Translate(id: 0, code: 'en', translate: 'dog'),
-  kanas: [
-    Kana(
-        id: 1,
-        text: 'い',
+)
+  ..setTranslate(const Translate(id: 'いぬ', english: 'dog', portuguese: 'cachorro', spanish: 'perro'))
+  ..kanas = [
+    const Kana(
+        id: 'い',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/i.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 22,
-        text: 'ぬ',
+        romaji: 'i',
+        romajiImageUrl: 'lib/assets/images/romaji/i.png',
+        strokesQuantity: 2),
+    const Kana(
+        id: 'ぬ',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/nu.png',
-        type: KanaType.hiragana),
-  ],
-);
-const Word wordSample2 = Word(
-  id: 2,
-  text: 'とり',
+        romaji: 'nu',
+        romajiImageUrl: 'lib/assets/images/romaji/nu.png',
+        strokesQuantity: 2),
+  ];
+
+final wordSample2 = Word(
+  id: 'とり',
+  type: KanaType.hiragana,
   romaji: 'tori',
   imageUrl: 'lib/assets/images/words/bird.png',
-  translate: Translate(id: 0, code: 'en', translate: 'bird'),
-  kanas: [
-    Kana(
-        id: 19,
-        text: 'と',
+)
+  ..setTranslate(const Translate(id: 'とり', english: 'bird', portuguese: 'pássaro', spanish: 'pájaro'))
+  ..kanas = [
+    const Kana(
+        id: 'と',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/to.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 39,
-        text: 'り',
+        romaji: 'to',
+        romajiImageUrl: 'lib/assets/images/romaji/to.png',
+        strokesQuantity: 2),
+    const Kana(
+        id: 'り',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/ri.png',
-        type: KanaType.hiragana),
-  ],
-);
-const Word wordSample3 = Word(
-  id: 3,
-  text: 'うさぎ',
+        romaji: 'ri',
+        romajiImageUrl: 'lib/assets/images/romaji/ri.png',
+        strokesQuantity: 2),
+  ];
+
+final wordSample3 = Word(
+  id: 'うさぎ',
+  type: KanaType.hiragana,
   romaji: 'usagi',
   imageUrl: 'lib/assets/images/words/rabbit.png',
-  translate: Translate(id: 0, code: 'en', translate: 'rabbit'),
-  kanas: [
-    Kana(
-        id: 2,
-        text: 'う',
+)
+  ..setTranslate(const Translate(id: 'うさぎ', english: 'rabbit', portuguese: 'coelho', spanish: 'conejo'))
+  ..kanas = [
+    const Kana(
+        id: 'う',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/u.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 10,
-        text: 'さ',
+        romaji: 'u',
+        romajiImageUrl: 'lib/assets/images/romaji/u.png',
+        strokesQuantity: 2),
+    const Kana(
+        id: 'さ',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/sa.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 47,
-        text: 'ぎ',
+        romaji: 'sa',
+        romajiImageUrl: 'lib/assets/images/romaji/sa.png',
+        strokesQuantity: 3),
+    const Kana(
+        id: 'ぎ',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/gi.png',
-        type: KanaType.hiragana),
-  ],
-);
-const Word wordSample4 = Word(
-  id: 4,
-  text: 'うし',
+        romaji: 'gi',
+        romajiImageUrl: 'lib/assets/images/romaji/gi.png',
+        strokesQuantity: 6),
+  ];
+
+final wordSample4 = Word(
+  id: 'うし',
+  type: KanaType.hiragana,
   romaji: 'ushi',
   imageUrl: 'lib/assets/images/words/cow.png',
-  translate: Translate(id: 0, code: 'en', translate: 'cow'),
-  kanas: [
-    Kana(
-        id: 2,
-        text: 'う',
+)
+  ..setTranslate(const Translate(id: 'うし', english: 'cow', portuguese: 'vaca', spanish: 'vaca'))
+  ..kanas = [
+    const Kana(
+        id: 'う',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/u.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 11,
-        text: 'し',
-        imageUrl: 'lib/assets/images/hiragana/si.png',
-        type: KanaType.hiragana),
-  ],
-);
-const Word wordSample5 = Word(
-  id: 5,
-  text: 'うま',
+        romaji: 'u',
+        romajiImageUrl: 'lib/assets/images/romaji/u.png',
+        strokesQuantity: 2),
+    const Kana(
+        id: 'し',
+        type: KanaType.hiragana,
+        imageUrl: 'lib/assets/images/hiragana/shi.png',
+        romaji: 'shi',
+        romajiImageUrl: 'lib/assets/images/romaji/shi.png',
+        strokesQuantity: 1),
+  ];
+
+final wordSample5 = Word(
+  id: 'うま',
+  type: KanaType.hiragana,
   romaji: 'uma',
   imageUrl: 'lib/assets/images/words/horse.png',
-  translate: Translate(id: 0, code: 'en', translate: 'horse'),
-  kanas: [
-    Kana(
-        id: 2,
-        text: 'う',
+)
+  ..setTranslate(const Translate(id: 'うま', english: 'horse', portuguese: 'cavalo', spanish: 'caballo'))
+  ..kanas = [
+    const Kana(
+        id: 'う',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/u.png',
-        type: KanaType.hiragana),
-    Kana(
-        id: 30,
-        text: 'ま',
+        romaji: 'u',
+        romajiImageUrl: 'lib/assets/images/romaji/u.png',
+        strokesQuantity: 2),
+    const Kana(
+        id: 'ま',
+        type: KanaType.hiragana,
         imageUrl: 'lib/assets/images/hiragana/ma.png',
-        type: KanaType.hiragana),
-  ],
-);
+        romaji: 'ma',
+        romajiImageUrl: 'lib/assets/images/romaji/ma.png',
+        strokesQuantity: 3),
+  ];
