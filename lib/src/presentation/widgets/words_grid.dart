@@ -10,7 +10,7 @@ class WordsGrid extends StatelessWidget {
   }) : super(key: key);
 
   final List<Word> words;
-  final Function(int id) onTap;
+  final Function(String id) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class WordsGrid extends StatelessWidget {
       itemBuilder: (context1, index) {
         final word = words[index];
         return WordItem(
-          word: word.text,
+          word: word.id,
           imageUrl: word.imageUrl,
           onTap: () => onTap(word.id),
         );

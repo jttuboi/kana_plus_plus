@@ -54,7 +54,7 @@ class WordsSearchDelegate extends SearchDelegate {
   }
 
   bool _hasQuery(Word word) {
-    return word.text.contains(query.trim()) || word.romaji.contains(query.trim()) || word.translate.translate.contains(query.trim());
+    return word.id.contains(query.trim()) || word.romaji.contains(query.trim()) || word.translate.contains(query.trim());
   }
 
   Widget _buildSuggestions(List<Word> suggestions) {
@@ -63,8 +63,8 @@ class WordsSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         final word = suggestions[index];
         return ListTile(
-          title: Text('${word.text} - ${word.romaji}'),
-          subtitle: Text(word.translate.translate),
+          title: Text('${word.id} - ${word.romaji}'),
+          subtitle: Text(word.translate),
           onTap: () => close(context, word),
         );
       },

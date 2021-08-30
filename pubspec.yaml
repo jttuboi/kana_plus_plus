@@ -41,6 +41,11 @@ flutter:
   generate: true
   
   assets:
+    - lib/assets/database/words.json
+    - lib/assets/database/kanas.json
+    - lib/assets/database/translates.json
+    - lib/assets/database/points.json
+
     - lib/assets/icons/about.png
     - lib/assets/icons/dark_theme.png
     - lib/assets/icons/eraser.png

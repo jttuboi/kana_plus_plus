@@ -21,7 +21,7 @@ class ReviewTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.asset(wordResult.imageUrl),
-      title: Text(wordResult.text),
+      title: Text(wordResult.id),
       subtitle: Container(
         alignment: Alignment.centerLeft,
         constraints: const BoxConstraints.expand(width: 200.0, height: 40.0),

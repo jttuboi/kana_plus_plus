@@ -8,23 +8,24 @@ class WordsController {
   final IWordRepository wordRepository;
 
   LoadedBy _loadedBy = LoadedBy.none;
-  int _id = -1;
+  String _id = '';
   String _query = '';
 
-  Future<List<Word>> showWords() {
+  List<Word> showWords() {
     if (_loadedBy.isLoadedById) {
       return wordRepository.getWordsById(_id);
     } else if (_loadedBy.isLoadedByQuery) {
-      return wordRepository.getWordsByQuery(_query);
+      final wordsByQuery = wordRepository.getWordsByQuery(_query);
+      return wordsByQuery;
     }
     return wordRepository.getWords();
   }
 
-  Future<Word> showWordDetail(int id) async {
+  Word showWordDetail(String id) {
     return wordRepository.getWord(id);
   }
 
-  void setToLoadWordsById(int id) {
+  void setToLoadWordsById(String id) {
     _loadedBy = LoadedBy.id;
     _id = id;
   }

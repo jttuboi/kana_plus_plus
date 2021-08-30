@@ -1,8 +1,10 @@
 class ImageUrl {
   ImageUrl._();
 
-  static const empty = 'lib/assets/images/empty.png';
-  static const square = 'lib/assets/images/square.png';
-  static const correct = 'lib/assets/images/correct.png';
-  static const wrong = 'lib/assets/images/wrong.png';
+  static const imageFolder = 'lib/assets/images/';
+
+  static const empty = '${imageFolder}empty.png';
+  static const square = '${imageFolder}square.png';
+  static const correct = '${imageFolder}correct.png';
+  static const wrong = '${imageFolder}wrong.png';
 }

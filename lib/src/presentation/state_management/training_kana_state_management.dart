@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
@@ -28,7 +28,7 @@ class TrainingKanaStateManagement extends ChangeNotifier {
 
   KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) => _controller.kanaOfWord(currentWordIdx, currentKanaIdx);
 
-  UpdateKanaSituation updateKana(List<List<Offset>> strokes, int kanaIdWrote) {
+  UpdateKanaSituation updateKana(List<List<Offset>> strokes, String kanaIdWrote) {
     final situation = _controller.updateKana(strokes, kanaIdWrote);
     notifyListeners();
     return situation;

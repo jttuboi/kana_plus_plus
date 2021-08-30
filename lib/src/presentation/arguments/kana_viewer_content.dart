@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 
 class KanaViewerContent {
@@ -8,23 +8,23 @@ class KanaViewerContent {
     required this.status,
     required this.kanaImageUrl,
     required this.romajiImageUrl,
-    required this.strokesNumber,
+    required this.strokesQuantity,
     required this.kanaType,
-    this.kanaIdWrote = -1,
+    this.kanaIdWrote = '',
     this.strokesDrew = const [],
   });
 
-  final int id;
+  final String id;
   final KanaViewerStatus status;
   final String kanaImageUrl;
   final String romajiImageUrl;
-  final int strokesNumber;
+  final int strokesQuantity;
   final KanaType kanaType;
-  late int kanaIdWrote;
+  late String kanaIdWrote;
   late List<List<Offset>> strokesDrew;
 
   @override
   String toString() {
-    return 'KanaV($id, ${status.toString()}, $kanaImageUrl, $romajiImageUrl, $strokesNumber, ${kanaType.toString()}, $kanaIdWrote, $strokesDrew)';
+    return 'KanaV($id, ${status.toString()}, $kanaImageUrl, $romajiImageUrl, $strokesQuantity, ${kanaType.toString()}, $kanaIdWrote, $strokesDrew)';
   }
 }

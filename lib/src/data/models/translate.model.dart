@@ -2,31 +2,26 @@ import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/translate.entity.dart';
 
 class TranslateModel extends Translate {
-  const TranslateModel({
-    required int id,
-    required String code,
-    required String translate,
+  TranslateModel({
+    required String id,
+    required String english,
+    required String portuguese,
+    required String spanish,
   }) : super(
           id: id,
-          code: code,
-          translate: translate,
+          english: english,
+          portuguese: portuguese,
+          spanish: spanish,
         );
 
-  const TranslateModel.empty() : super.empty();
+  TranslateModel.empty() : super.empty();
 
-  factory TranslateModel.fromMap(Map<String, dynamic> map) {
+  factory TranslateModel.fromJson(Map<String, dynamic> json) {
     return TranslateModel(
-      id: map[TTranslates.wordId] as int,
-      code: map[TTranslates.code] as String,
-      translate: map[TTranslates.translate] as String,
+      id: json[TTranslates.id] as String,
+      english: json[TTranslates.english] as String,
+      portuguese: json[TTranslates.portuguese] as String,
+      spanish: json[TTranslates.spanish] as String,
     );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      TTranslates.wordId: id,
-      TTranslates.code: code,
-      TTranslates.translate: translate,
-    };
   }
 }

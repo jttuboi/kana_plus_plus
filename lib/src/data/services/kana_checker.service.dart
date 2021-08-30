@@ -55,6 +55,7 @@ class KanaCheckerService implements IKanaCheckerService {
       }
     }
     final approveUserPercentage = count / oks.length.toDouble();
+    // ignore: avoid_print
     print('approve percentage = $approveUserPercentage');
     return approveUserPercentage >= percentageToApprove;
   }

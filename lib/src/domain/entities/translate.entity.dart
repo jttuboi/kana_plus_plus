@@ -1,23 +1,24 @@
-import 'package:kana_plus_plus/src/domain/core/consts.dart';
-
 class Translate {
   const Translate({
     required this.id,
-    required this.code,
-    required this.translate,
+    required this.english,
+    required this.portuguese,
+    required this.spanish,
   });
 
   const Translate.empty()
-      : id = -1,
-        code = Default.locale,
-        translate = '';
+      : id = '',
+        english = '',
+        portuguese = '',
+        spanish = '';
 
-  final int id;
-  final String code;
-  final String translate;
+  final String id;
+  final String english;
+  final String portuguese;
+  final String spanish;
 
   @override
   String toString() {
-    return 'Translate($id, $code, $translate)';
+    return 'Translate($id, $english, $portuguese, $spanish)';
   }
 }

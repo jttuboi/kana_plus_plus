@@ -152,7 +152,7 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _onKanaRecovered(List<List<Offset>> pointsFiltered, String kanaId, BuildContext context) {
-    final situation = widget.kanaStateManagement.updateKana(pointsFiltered, 1);
+    final situation = widget.kanaStateManagement.updateKana(pointsFiltered, kanaId);
     widget.writerProvider.disable();
     Future.delayed(const Duration(milliseconds: 800)).then((value) {
       if (situation.isChangeKana) {
@@ -223,7 +223,7 @@ class _TrainingPageState extends State<TrainingPage> {
       builder: (context) => AlertDialog(
         // TODO strings
         title: const Text('Do you want to finish your training?'),
-        content: const Text('You're going to lost this training data.'),
+        content: const Text('You are going to lost this training data.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),

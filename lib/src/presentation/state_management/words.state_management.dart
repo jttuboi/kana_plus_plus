@@ -16,7 +16,7 @@ class WordsStateManagement extends ChangeNotifier {
     return _controller.showWords();
   }
 
-  Future<Word> findWord(int id) async {
+  Future<Word> findWord(String id) async {
     return _controller.showWordDetail(id);
   }
 

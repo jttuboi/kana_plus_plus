@@ -1,37 +1,45 @@
-import 'package:kana_plus_plus/src/data/datasources/cache.dart';
-import 'package:kana_plus_plus/src/data/datasources/database.dart';
+import 'package:kana_plus_plus/src/data/singletons/cache.dart';
+import 'package:kana_plus_plus/src/data/singletons/file.dart';
+import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 
 class WordRepository implements IWordRepository {
   @override
-  Future<List<Word>> getWords() async {
-    final languageCode = Cache.getString('language', defaultValue: Default.locale);
-    return Database.getWords(languageCode);
+  List<Word> getWords() {
+    final languageCode = Cache.getString(SettingsPref.language, defaultValue: Default.locale);
+    return File.getWords().map((wordModel) {
+      wordModel.setLanguageCode(languageCode);
+      return wordModel;
+    }).toList();
   }
 
   @override
-  Future<List<Word>> getWordsById(int id) async {
-    final languageCode = Cache.getString('language', defaultValue: Default.locale);
-    return Database.getWordsById(id, languageCode);
+  List<Word> getWordsById(String id) {
+    final languageCode = Cache.getString(SettingsPref.language, defaultValue: Default.locale);
+    return File.getWordsById(id).map((wordModel) {
+      wordModel.setLanguageCode(languageCode);
+      return wordModel;
+    }).toList();
   }
 
   @override
-  Future<List<Word>> getWordsByQuery(String query) async {
-    final languageCode = Cache.getString('language', defaultValue: Default.locale);
-    return Database.getWordsByQuery(query, languageCode);
+  List<Word> getWordsByQuery(String query) {
+    final languageCode = Cache.getString(SettingsPref.language, defaultValue: Default.locale);
+    return File.getWordsByQuery(query, languageCode);
   }
 
   @override
-  Future<Word> getWord(int id) async {
-    final languageCode = Cache.getString('language', defaultValue: Default.locale);
-    return Database.getWord(id, languageCode);
+  Word getWord(String id) {
+    final languageCode = Cache.getString(SettingsPref.language, defaultValue: Default.locale);
+    final word = File.getWord(id);
+    word.setLanguageCode(languageCode);
+    return word;
   }
 
   @override
-  Future<List<Word>> getWordsByIds(List<int> ids, KanaType kanaType) async {
-    return Database.getWordsByIds(ids, kanaType);
+  List<Word> getWordsByIds(List<String> ids) {
+    return File.getWordsByIds(ids);
   }
 }

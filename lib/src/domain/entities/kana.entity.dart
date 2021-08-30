@@ -1,36 +1,33 @@
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 
 class Kana {
   const Kana({
     required this.id,
-    required this.text,
     required this.type,
     required this.imageUrl,
     this.romaji = '',
     this.romajiImageUrl = ImageUrl.empty,
-    this.numberStrokes = 0,
+    this.strokesQuantity = 0,
   });
 
   const Kana.empty()
-      : id = -1,
-        text = '',
+      : id = '',
         type = KanaType.none,
         imageUrl = ImageUrl.empty,
         romaji = '',
         romajiImageUrl = ImageUrl.empty,
-        numberStrokes = 0;
+        strokesQuantity = 0;
 
-  final int id;
-  final String text;
+  final String id;
   final KanaType type;
   final String imageUrl;
   final String romaji;
   final String romajiImageUrl;
-  final int numberStrokes;
+  final int strokesQuantity;
 
   @override
   String toString() {
-    return 'Kana($id, $text, $type, $imageUrl, $romaji, $romajiImageUrl, $numberStrokes)';
+    return 'Kana($id, $type, $imageUrl, $romaji, $romajiImageUrl, $strokesQuantity)';
   }
 }

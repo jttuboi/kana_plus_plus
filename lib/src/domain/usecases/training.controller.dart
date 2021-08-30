@@ -2,8 +2,7 @@ import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/sqflite_database.storage.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
@@ -30,8 +29,8 @@ class TrainingController {
 
   List<WordViewerContent> wordsToTraining = [];
 
-  Future<bool> get isReady async {
-    await _generateDataForTest();
+  bool get isReady {
+    _generateDataForTest();
     return true;
   }
 
@@ -45,7 +44,7 @@ class TrainingController {
 
   String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
 
-  int get currentKanaMaxStrokes => wordsToTraining[wordIdx].kanas[kanaIdx].strokesNumber;
+  int get currentKanaMaxStrokes => wordsToTraining[wordIdx].kanas[kanaIdx].strokesQuantity;
 
   String get currentKanaImageUrl => wordsToTraining[wordIdx].kanas[kanaIdx].kanaImageUrl;
 
@@ -59,7 +58,7 @@ class TrainingController {
     return wordsToTraining[currentWordIdx].kanas[currentKanaIdx];
   }
 
-  UpdateKanaSituation updateKana(List<List<Offset>> strokesNormalized, int kanaIdWrote) {
+  UpdateKanaSituation updateKana(List<List<Offset>> strokesNormalized, String kanaIdWrote) {
     // gera o que o kana viewer vai mostrar após escrito kana writer
     final preview = wordsToTraining[wordIdx].kanas[kanaIdx];
     wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
@@ -67,7 +66,7 @@ class TrainingController {
         status: (kanaIdWrote == preview.id) ? KanaViewerStatus.showCorrect : KanaViewerStatus.showWrong,
         romajiImageUrl: preview.romajiImageUrl,
         kanaImageUrl: preview.kanaImageUrl,
-        strokesNumber: preview.strokesNumber,
+        strokesQuantity: preview.strokesQuantity,
         kanaType: preview.kanaType,
         kanaIdWrote: kanaIdWrote,
         strokesDrew: strokesNormalized);
@@ -84,7 +83,7 @@ class TrainingController {
         status: KanaViewerStatus.showSelected,
         romajiImageUrl: preview2.romajiImageUrl,
         kanaImageUrl: preview2.kanaImageUrl,
-        strokesNumber: preview2.strokesNumber,
+        strokesQuantity: preview2.strokesQuantity,
         kanaType: preview2.kanaType,
       );
     }
@@ -119,7 +118,6 @@ class TrainingController {
       }
       wordsResult.add(WordResult(
         id: wordsToTraining[w].id,
-        text: wordsToTraining[w].text,
         imageUrl: wordsToTraining[w].imageUrl,
         kanas: kanasResult,
       ));
@@ -128,11 +126,8 @@ class TrainingController {
   }
 
   // TEST /////////////////////////////////////////////////////////////////////
-  Future<void> _generateDataForTest() async {
-    final List<Word> words = await wordRepository.getWordsByIds(
-      _generateRandomIds(),
-      kanaType,
-    );
+  void _generateDataForTest() {
+    final List<Word> words = wordRepository.getWordsByIds(_generateRandomIds());
 
     for (int w = 0; w < words.length; w++) {
       final List<KanaViewerContent> kanas = [];
@@ -143,34 +138,257 @@ class TrainingController {
             status: (k == 0) ? KanaViewerStatus.showSelected : KanaViewerStatus.showInitial,
             kanaImageUrl: words[w].kanas[k].imageUrl,
             romajiImageUrl: words[w].kanas[k].romajiImageUrl,
-            strokesNumber: words[w].kanas[k].numberStrokes,
+            strokesQuantity: words[w].kanas[k].strokesQuantity,
             kanaType: words[w].kanas[k].type,
           ),
         );
       }
       wordsToTraining.add(WordViewerContent(
         id: words[w].id,
-        text: words[w].text,
         imageUrl: words[w].imageUrl,
         kanas: kanas,
       ));
     }
   }
 
-  List<int> _generateRandomIds() {
+  List<String> _generateRandomIds() {
     final List<int> randomIds = [];
     for (int i = 0; i < quantityOfWords; i++) {
       int randomId = -1;
       bool ok = false;
       while (!ok) {
-        randomId = Random().nextInt(wordsTest.length);
+        randomId = Random().nextInt(testListWords.length);
         if (!randomIds.contains(randomId)) {
           ok = true;
         }
       }
       randomIds.add(randomId);
     }
-    return randomIds;
+
+    final List<String> randomIds2 = [];
+    for (final numberId in randomIds) {
+      randomIds2.add(testListWords[numberId]);
+    }
+    return randomIds2;
   }
   // TEST /////////////////////////////////////////////////////////////////////
 }
+
+final testListWords = [
+  'ねこ',
+  'いぬ',
+  'とり',
+  'うさぎ',
+  'うし',
+  'うま',
+  'ひつじ',
+  'やぎ',
+  'ぶた',
+  'むし',
+  'はち',
+  'くも',
+  'あり',
+  'さかな',
+  'かめ',
+  'へび',
+  'わに',
+  'えび',
+  'かえる',
+  'ひ',
+  'つき',
+  'やま',
+  'どうくつ',
+  'しま',
+  'うみ',
+  'かわ',
+  'いけ',
+  'たき',
+  'き',
+  'もり',
+  'はな',
+  'はる',
+  'なつ',
+  'あき',
+  'ふゆ',
+  'ゆき',
+  'あめ',
+  'あらし',
+  'にじ',
+  'べんとう',
+  'さしみ',
+  'すし',
+  'みそしる',
+  'ラーメン',
+  'にく',
+  'ソーセージ',
+  'たまご',
+  'はちみつ',
+  'にんじん',
+  'にんにく',
+  'レタス',
+  'ブロッコリー',
+  'カリフラワー',
+  'トマト',
+  'じゃがいも',
+  'なす',
+  'きのこ',
+  'かぼちゃ',
+  'ピーナッツ',
+  'りんご',
+  'オレンジ',
+  'バナナ',
+  'すいか',
+  'いちご',
+  'パイナップル',
+  'ぶどう',
+  'チェリー',
+  'メロン',
+  'ココナッツ',
+  'アボカド',
+  'みず',
+  'コーヒー',
+  'おちゃ',
+  'ぎゅうにゅう',
+  'おさけ',
+  'ワイン',
+  'ビール',
+  'くるま',
+  'タクシー',
+  'バス',
+  'トラック',
+  'バイク',
+  'じてんしゃ',
+  'でんしゃ',
+  'ちかてつ',
+  'ふね',
+  'ボート',
+  'ひこうき',
+  'ヘリコプター',
+  'ロケット',
+  'えき',
+  'くうこう',
+  'みなと',
+  'ぎんこう',
+  'びょういん',
+  'がっこう',
+  'としょかん',
+  'ホテル',
+  'こうじょう',
+  'きょうかい',
+  'どうぶつえん',
+  'みせ',
+  'やっきょく',
+  'バー',
+  'デパート',
+  'スーパー',
+  'きっさてん',
+  'レストラン',
+  'ノート',
+  'えんぴつ',
+  'けしゴム',
+  'ペン',
+  'ほん',
+  'つくえ',
+  'かみ',
+  'はさみ',
+  'コンピューター',
+  'スマートフォン',
+  'でんわ',
+  'エーティーエム',
+  'いえ',
+  'しんしつ',
+  'だいどころ',
+  'トイレ',
+  'ドア',
+  'かぎ',
+  'まど',
+  'たんす',
+  'いす',
+  'ソファー',
+  'ベッド',
+  'れいぞうこ',
+  'せんたくき',
+  'テレビ',
+  'アイロン',
+  'エアコン',
+  'せんぷうき',
+  'でんしレンジ',
+  'ストーブ',
+  'はし',
+  'グラス',
+  'スプーン',
+  'フォーク',
+  'しょくど',
+  'タオル',
+  'シャワー',
+  'せっけん',
+  'シャンプー',
+  'はみがきこ',
+  'ティシャツ',
+  'コート',
+  'レインコート',
+  'パンツ',
+  'ジャケット',
+  'ドレス',
+  'ショーツ',
+  'ジーパン',
+  'イヤリング',
+  'ネックレス',
+  'ベルト',
+  'スリッパ',
+  'サンダル',
+  'ブーツ',
+  'アメリカ',
+  'アルゼンチン',
+  'オーストラリア',
+  'ブラジル',
+  'チリ',
+  'エジプト',
+  'フランス',
+  'ドイツ',
+  'イギリス',
+  'イタリア',
+  'にほん',
+  'メキシコ',
+  'モロッコ',
+  'ニュージーランド',
+  'ナイジェリア',
+  'フィリピン',
+  'ポルトガル',
+  'ロシア',
+  'みなみアフリカ',
+  'かんこく',
+  'スペイン',
+  'タイ',
+  'トルコ',
+  'やきゅう',
+  'すいえい',
+  'ピンポン',
+  'サッカー',
+  'テニス',
+  'バスケットボール',
+  'バレーボール',
+  'フットボール',
+  'ラグビー',
+  'ボクシング',
+  'しろ',
+  'くろ',
+  'あか',
+  'あお',
+  'みどり',
+  'きいろ',
+  'ちゃいろ',
+  'きんいろ',
+  'ぎんいろ',
+  'ももいろ',
+  'だいだいいろ',
+  'アイスクリーム',
+  'バター',
+  'ボタン',
+  'チケット',
+  'パン',
+  'ピザ',
+  'ポテチ',
+  'サンドイッチ',
+  'サラダ',
+];

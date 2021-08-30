@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:kana_plus_plus/src/data/datasources/cache.dart';
+import 'package:kana_plus_plus/src/data/singletons/cache.dart';
 import 'package:kana_plus_plus/src/data/repositories/dark_theme.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/kana_type.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/language.repository.dart';

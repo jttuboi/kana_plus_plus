@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
 
@@ -26,8 +26,7 @@ class PreTrainingStateManagement extends ChangeNotifier {
 
   String get kanaTypeIconUrl => _controller.getKanaTypeIconUrl();
 
-  List<SelectionOptionArguments> getKanaTypeOptions(
-      String Function(KanaType kanaType) kanaTypeText) {
+  List<SelectionOptionArguments> getKanaTypeOptions(String Function(KanaType kanaType) kanaTypeText) {
     return _controller.getKanaTypeData().map((model) {
       return SelectionOptionArguments(
         key: model.type,

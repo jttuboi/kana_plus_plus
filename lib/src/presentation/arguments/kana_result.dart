@@ -9,10 +9,10 @@ class KanaResult {
     required this.strokesDrew,
   });
 
-  final int id;
+  final String id;
   final String imageUrl;
   final bool isCorrect;
-  final int idWrote;
+  final String idWrote;
   final List<List<Offset>> strokesDrew;
 
   @override
