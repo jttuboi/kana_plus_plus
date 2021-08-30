@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart';
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';

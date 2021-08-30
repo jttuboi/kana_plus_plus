@@ -1,6 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/data/services/stroke_reducer.service.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
@@ -56,17 +54,6 @@ void main() {
       expect(controller.kanaToWrite.hintImageUrl, 'src/a.png');
       expect(controller.kanaToWrite.maxStrokes, 5);
       expect(controller.kanaToWrite.type, KanaType.hiragana);
-    });
-  });
-  group('icons url', () {
-    test('must return eraser icon url', () {
-      expect(controller.eraserIconUrl, IconUrl.eraser);
-    });
-    test('must return undo icon url', () {
-      expect(controller.undoIconUrl, IconUrl.undo);
-    });
-    test('must return square image url', () {
-      expect(controller.squareImageUrl, ImageUrl.square);
     });
   });
   group('manipulate strokes', () {

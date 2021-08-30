@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repository.dart';
@@ -31,7 +30,7 @@ void main() {
     test('must return the locale code from repository', () {
       when(() => languageRepository.getLanguageSelected()).thenAnswer((_) => 'en');
 
-      final result = controller.getLanguageSelected();
+      final result = controller.languageSelected;
 
       verify(() => languageRepository.getLanguageSelected()).called(1);
       expect(result, 'en');
@@ -41,37 +40,32 @@ void main() {
 
       verify(() => languageRepository.setLanguageSelected('en')).called(1);
     });
-    test('must return the language icon url', () {
-      final result = controller.getLanguageIconUrl();
-
-      expect(result, IconUrl.language);
-    });
   });
   group('dark theme', () {
     test('must return the locale code from repository', () {
       when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => false);
 
-      final result = controller.isDarkTheme();
+      final result = controller.darkThemeSelected;
 
       verify(() => darkThemeRepository.isDarkTheme()).called(1);
       expect(result, false);
     });
     test('must send the dark theme situation to repository', () {
-      controller.updateDarkTheme(true);
+      controller.updateDarkThemeSelected(true);
 
       verify(() => darkThemeRepository.setDarkTheme(true)).called(1);
     });
     test('must return the dark theme icon url', () {
       when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => true);
 
-      final result = controller.getDarkThemeIconUrl();
+      final result = controller.darkThemeIconUrl;
 
       expect(result, IconUrl.darkTheme);
     });
     test('must return the light theme icon url', () {
       when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => false);
 
-      final result = controller.getDarkThemeIconUrl();
+      final result = controller.darkThemeIconUrl;
 
       expect(result, IconUrl.lightTheme);
     });
@@ -80,7 +74,7 @@ void main() {
     test('must return the writing hand from repository', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
-      final result = controller.getWritingHandSelected();
+      final result = controller.writingHandSelected;
 
       verify(() => writingHandRepository.getWritingHandSelected()).called(1);
       expect(result, WritingHand.left);
@@ -93,19 +87,19 @@ void main() {
     test('must return the writing hand left icon url', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
-      final result = controller.getWritingHandIconUrl();
+      final result = controller.writingHandIconUrl;
 
       expect(result, IconUrl.writingHandLeft);
     });
     test('must return the writing hand right icon url', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.right);
 
-      final result = controller.getWritingHandIconUrl();
+      final result = controller.writingHandIconUrl;
 
       expect(result, IconUrl.writingHandRight);
     });
     test('must return the writing hand data', () {
-      final result = controller.getWritingHandData();
+      final result = controller.getWritingHandData;
 
       expect(result.length, 2);
       expect(result[0].writingHand, WritingHand.left);
@@ -118,27 +112,27 @@ void main() {
     test('must return the show hint value from repository', () {
       when(() => showHintRepository.isShowHint()).thenAnswer((_) => false);
 
-      final result = controller.isShowHint();
+      final result = controller.showHintSelected;
 
       verify(() => showHintRepository.isShowHint()).called(1);
       expect(result, false);
     });
     test('must send the show hitn value to repository', () {
-      controller.updateShowHint(true);
+      controller.updateShowHintSelected(true);
 
       verify(() => showHintRepository.setShowHint(true)).called(1);
     });
     test('must return the show hint icon url', () {
       when(() => showHintRepository.isShowHint()).thenAnswer((_) => true);
 
-      final result = controller.getShowHintIconUrl();
+      final result = controller.showHintIconUrl;
 
       expect(result, IconUrl.showHint);
     });
     test('must return the not show hint icon url', () {
       when(() => showHintRepository.isShowHint()).thenAnswer((_) => false);
 
-      final result = controller.getShowHintIconUrl();
+      final result = controller.showHintIconUrl;
 
       expect(result, IconUrl.notShowHint);
     });
@@ -147,7 +141,7 @@ void main() {
     test('must return the kana type from repository', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
-      final result = controller.getKanaTypeSelected();
+      final result = controller.kanaTypeSelected;
 
       verify(() => kanaTypeRepository.getKanaType()).called(1);
       expect(result, KanaType.hiragana);
@@ -160,26 +154,26 @@ void main() {
     test('must return the kana type hiragana icon url', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
 
-      final result = controller.getKanaTypeIconUrl();
+      final result = controller.kanaTypeIconUrl;
 
       expect(result, IconUrl.hiragana);
     });
     test('must return the kana type katakana icon url', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.katakana);
 
-      final result = controller.getKanaTypeIconUrl();
+      final result = controller.kanaTypeIconUrl;
 
       expect(result, IconUrl.katakana);
     });
     test('must return the kana type both icon url', () {
       when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.both);
 
-      final result = controller.getKanaTypeIconUrl();
+      final result = controller.kanaTypeIconUrl;
 
       expect(result, IconUrl.both);
     });
     test('must return the writing hand data', () {
-      final result = controller.getKanaTypeData();
+      final result = controller.kanaTypeData;
 
       expect(result.length, 3);
       expect(result[0].type, KanaType.hiragana);
@@ -194,7 +188,7 @@ void main() {
     test('must return the quantity from repository', () {
       when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => 7);
 
-      final result = controller.getQuantityOfWords();
+      final result = controller.quantityOfWords;
 
       verify(() => quantityOfWordsRepository.getQuantityOfWords()).called(1);
       expect(result, 7);
@@ -203,42 +197,6 @@ void main() {
       controller.updateQuantityOfWords(10);
 
       verify(() => quantityOfWordsRepository.setQuantityOfWords(10)).called(1);
-    });
-    test('must return the quantity of cards icon url', () {
-      final result = controller.getQuantityOfWordsIconUrl();
-
-      expect(result, IconUrl.quantityOfWords);
-    });
-    test('must return the minimum quantity of cards', () {
-      final result = controller.getMinimumQuantityOfWords();
-
-      expect(result, Default.minimumTrainingCards.toDouble());
-    });
-    test('must return the maximum quantity of cards', () {
-      final result = controller.getMaximumQuantityOfWords();
-
-      expect(result, Default.maximumTrainingCards.toDouble());
-    });
-  });
-  group('about', () {
-    test('must return the about icon url', () {
-      final result = controller.getAboutIconUrl();
-
-      expect(result, IconUrl.about);
-    });
-  });
-  group('privacy policy', () {
-    test('must return the about icon url', () {
-      final result = controller.getPrivacyPolicyIconUrl();
-
-      expect(result, IconUrl.privacyPolicy);
-    });
-  });
-  group('support', () {
-    test('must return the about icon url', () {
-      final result = controller.getSupportIconUrl();
-
-      expect(result, IconUrl.support);
     });
   });
 }

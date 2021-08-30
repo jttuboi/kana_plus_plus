@@ -9,13 +9,13 @@ class WritingHandTile extends StatelessWidget {
     Key? key,
     required this.writingHand,
     required this.iconUrl,
-    required this.getOptions,
+    required this.options,
     required this.updateWritingHand,
   }) : super(key: key);
 
   final WritingHand writingHand;
   final String iconUrl;
-  final List<SelectionOptionArguments> Function(String Function(WritingHand writingHand) writingHandText) getOptions;
+  final List<SelectionOptionArguments> Function(String Function(WritingHand writingHand) writingHandText) options;
   final Function(WritingHand writingHand) updateWritingHand;
 
   @override
@@ -31,8 +31,8 @@ class WritingHandTile extends StatelessWidget {
           builder: (context2) => SelectionOptionPage(
             title: strings.settingsSelectWritingHand,
             selectedOptionKey: writingHand,
-            options: getOptions((writingHand2) {
-              return _getText(context, writingHand2);
+            options: options((pWritingHand) {
+              return _getText(context, pWritingHand);
             }),
             onSelected: (selectedKey) {
               updateWritingHand(selectedKey as WritingHand);

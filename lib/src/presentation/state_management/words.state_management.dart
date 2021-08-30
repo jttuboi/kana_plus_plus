@@ -12,9 +12,7 @@ class WordsStateManagement extends ChangeNotifier {
   // after this, it doesn't fill anymore because the first set is all words.
   List<Word> wordsLoaded = [];
 
-  Future<List<Word>> get wordsLoading async {
-    return _controller.showWords();
-  }
+  Future<List<Word>> get wordsLoading async => _controller.showWords();
 
   Future<Word> findWord(String id) async {
     return _controller.showWordDetail(id);

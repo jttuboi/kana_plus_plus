@@ -25,6 +25,6 @@ class KanaViewerContent {
 
   @override
   String toString() {
-    return 'KanaV($id, ${status.toString()}, $kanaImageUrl, $romajiImageUrl, $strokesQuantity, ${kanaType.toString()}, $kanaIdWrote, $strokesDrew)';
+    return 'KanaViewer($id, ${status.toString()}, $kanaImageUrl, $romajiImageUrl, $strokesQuantity, ${kanaType.toString()}, $kanaIdWrote, $strokesDrew)';
   }
 }

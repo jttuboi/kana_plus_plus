@@ -6,12 +6,12 @@ class DarkThemeProvider extends ChangeNotifier {
 
   final SettingsController _controller;
 
-  bool get darkTheme => _controller.isDarkTheme();
+  bool get darkTheme => _controller.darkThemeSelected;
 
-  String get iconUrl => _controller.getDarkThemeIconUrl();
+  String get iconUrl => _controller.darkThemeIconUrl;
 
   void updateDarkTheme(bool pIsDarkTheme) {
-    _controller.updateDarkTheme(pIsDarkTheme);
+    _controller.updateDarkThemeSelected(pIsDarkTheme);
     notifyListeners();
   }
 }

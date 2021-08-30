@@ -15,21 +15,15 @@ class WriterProvider extends ChangeNotifier {
 
   bool get isShowHint => _controller.showHint;
 
-  String get eraserIconUrl => _controller.eraserIconUrl;
-
-  String get undoIconUrl => _controller.undoIconUrl;
-
-  String get squareImageUrl => _controller.squareImageUrl;
-
   String get kanaHintImageUrl => _controller.kanaToWrite.hintImageUrl;
 
   bool get isTheLastStroke => _controller.isTheLastStroke;
 
   List<List<Offset>> get strokes => _controller.strokes;
 
-  String get recoverKanaWrote => _controller.getKanaId();
+  String get kanaWrote => _controller.getKanaId();
 
-  List<List<Offset>> get recoverStrokesNormalized => _controller.normalizedStrokes();
+  List<List<Offset>> get normalizedStrokes => _controller.normalizedStrokes();
 
   void updateWriter(KanaToWrite kanaToWrite) {
     _controller.updateWriter(kanaToWrite);

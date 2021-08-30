@@ -13,7 +13,6 @@ import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/writing_hand.repository.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
-import 'package:kana_plus_plus/src/domain/usecases/review.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
@@ -25,13 +24,8 @@ import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/review.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/training.state_management.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/training_word.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.android.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
@@ -68,12 +62,8 @@ class AndroidApp extends StatelessWidget {
 
   List<SingleChildWidget> get _providers {
     return [
-      ChangeNotifierProvider(create: (context) {
-        return ThemeProvider(Cache.getBool('dark_theme'));
-      }),
-      ChangeNotifierProvider(create: (context) {
-        return LocaleProvider();
-      }),
+      ChangeNotifierProvider(create: (context) => ThemeProvider(Cache.getBool('dark_theme'))),
+      ChangeNotifierProvider(create: (context) => LocaleProvider()),
     ];
   }
 
@@ -94,72 +84,61 @@ class AndroidApp extends StatelessWidget {
     return Provider.of<ThemeProvider>(context).mode;
   }
 
-  ThemeData get _theme {
-    return ThemeData(
-      brightness: Brightness.light,
-      primarySwatch: Colors.indigo,
-    );
-  }
+  ThemeData get _theme => ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.indigo,
+      );
 
-  ThemeData get _darkTheme {
-    return ThemeData(
-      brightness: Brightness.dark,
-      primarySwatch: Colors.indigo,
-    );
-  }
+  ThemeData get _darkTheme => ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.indigo,
+      );
 
-  Map<String, WidgetBuilder> get _routes {
-    return {
-      Routes.menu: (context) => const MenuPage(),
-      Routes.study: (context) => const StudyPage(),
-      Routes.kana: (context) => const KanaPage(),
-      Routes.preTraining: (context) => PreTrainingPage(
-            PreTrainingController(
-              showHintRepository: ShowHintRepository(),
-              kanaTypeRepository: KanaTypeRepository(),
-              quantityOfWordsRepository: QuantityOfWordsRepository(),
+  Map<String, WidgetBuilder> get _routes => {
+        Routes.menu: (context) => const MenuPage(),
+        Routes.study: (context) => const StudyPage(),
+        Routes.kana: (context) => const KanaPage(),
+        Routes.preTraining: (context) => PreTrainingPage(
+              PreTrainingController(
+                showHintRepository: ShowHintRepository(),
+                kanaTypeRepository: KanaTypeRepository(),
+                quantityOfWordsRepository: QuantityOfWordsRepository(),
+              ),
             ),
-          ),
-      Routes.words: (context) => WordsPage(
-            WordsController(
-              wordRepository: WordRepository(),
+        Routes.words: (context) => WordsPage(
+              WordsController(
+                wordRepository: WordRepository(),
+              ),
             ),
-          ),
-      Routes.settings: (context) => SettingsPage(
-            SettingsController(
-              languageRepository: LanguageRepository(),
-              writingHandRepository: WritingHandRepository(),
-              showHintRepository: ShowHintRepository(),
-              darkThemeRepository: DarkThemeRepository(),
-              kanaTypeRepository: KanaTypeRepository(),
-              quantityOfWordsRepository: QuantityOfWordsRepository(),
+        Routes.settings: (context) => SettingsPage(
+              SettingsController(
+                languageRepository: LanguageRepository(),
+                writingHandRepository: WritingHandRepository(),
+                showHintRepository: ShowHintRepository(),
+                darkThemeRepository: DarkThemeRepository(),
+                kanaTypeRepository: KanaTypeRepository(),
+                quantityOfWordsRepository: QuantityOfWordsRepository(),
+              ),
             ),
-          ),
-    };
-  }
+      };
 
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     if (settings.name == Routes.training) {
       final args = settings.arguments! as PreTrainingArguments;
       return MaterialPageRoute(
         builder: (context) {
-          final trainingController = TrainingController(
-            wordRepository: WordRepository(),
-            kanaType: args.kanaType,
-            quantityOfWords: args.quantityOfWords,
-          );
-          final writerController = WriterController(
-            writingHandRepository: WritingHandRepository(),
-            strokeReducerService: StrokeReducerService(limitPointsToReduce: 20),
-            kanaCheckerService: KanaCheckerService(),
-            showHint: args.showHint,
-          );
           return TrainingPage(
-            trainingStateManagement: TrainingStateManagement(trainingController),
-            wordStateManagement: TrainingWordStateManagement(trainingController),
-            kanaStateManagement: TrainingKanaStateManagement(trainingController),
-            writerProvider: WriterProvider(writerController),
-            writerController: writerController,
+            trainingController: TrainingController(
+              wordRepository: WordRepository(),
+              kanaType: args.kanaType,
+              quantityOfWords: args.quantityOfWords,
+            ),
+            writerController: WriterController(
+              writingHandRepository: WritingHandRepository(),
+              strokeReducerService: StrokeReducerService(limitPointsToReduce: 20),
+              kanaCheckerService: KanaCheckerService(),
+              showHint: args.showHint,
+            ),
           );
         },
       );
@@ -167,7 +146,6 @@ class AndroidApp extends StatelessWidget {
       final args = settings.arguments! as TrainingArguments;
       return MaterialPageRoute(
         builder: (context) => ReviewPage(
-          reviewStateManagement: ReviewStateManagement(ReviewController()),
           wordsResult: args.wordsResult,
         ),
       );

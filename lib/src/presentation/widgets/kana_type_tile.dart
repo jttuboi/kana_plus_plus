@@ -9,13 +9,13 @@ class KanaTypeTile extends StatelessWidget {
     Key? key,
     required this.kanaType,
     required this.iconUrl,
-    required this.getOptions,
+    required this.options,
     required this.updateKanaType,
   }) : super(key: key);
 
   final KanaType kanaType;
   final String iconUrl;
-  final List<SelectionOptionArguments> Function(String Function(KanaType kanaType) kanaTypeText) getOptions;
+  final List<SelectionOptionArguments> Function(String Function(KanaType kanaType) kanaTypeText) options;
   final Function(KanaType kanaType) updateKanaType;
 
   @override
@@ -31,8 +31,8 @@ class KanaTypeTile extends StatelessWidget {
           builder: (context2) => SelectionOptionPage(
               title: strings.settingsSelectKanaType,
               selectedOptionKey: kanaType,
-              options: getOptions((kanaType2) {
-                return _getText(context, kanaType2);
+              options: options((pKanaType) {
+                return _getText(context, pKanaType);
               }),
               onSelected: (selectedKey) {
                 updateKanaType(selectedKey as KanaType);

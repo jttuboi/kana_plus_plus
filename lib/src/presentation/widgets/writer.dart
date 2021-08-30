@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/all_stroke.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/current_stroke.provider.dart';
@@ -74,7 +75,7 @@ class _SupportButtons extends StatelessWidget {
             builder: (context, provider, child) {
               return ElevatedButton(
                 onPressed: provider.isDisabled ? null : () => _clearStrokes(context),
-                child: ImageIcon(AssetImage(provider.eraserIconUrl)),
+                child: const ImageIcon(AssetImage(IconUrl.eraser)),
               );
             },
           ),
@@ -86,7 +87,7 @@ class _SupportButtons extends StatelessWidget {
             builder: (context, provider, child) {
               return ElevatedButton(
                 onPressed: provider.isDisabled ? null : () => _undoStroke(context),
-                child: ImageIcon(AssetImage(provider.undoIconUrl)),
+                child: const ImageIcon(AssetImage(IconUrl.undo)),
               );
             },
           ),
@@ -178,7 +179,7 @@ class _Drawer extends StatelessWidget {
     allStrokesProvider.addStroke(currentStrokeProvider.points);
     currentStrokeProvider.resetPoints();
     if (writerProvider.isTheLastStroke) {
-      onKanaRecovered(writerProvider.recoverStrokesNormalized, writerProvider.recoverKanaWrote);
+      onKanaRecovered(writerProvider.normalizedStrokes, writerProvider.kanaWrote);
     }
   }
 }
@@ -225,59 +226,3 @@ class _CurrentStrokePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
-
-  // Expanded newMethod() {
-  //   return Expanded(
-  //     child: AspectRatio(
-  //       aspectRatio: 1.0,
-  //       child: Stack(
-  //         fit: StackFit.expand,
-  //         children: [
-  //           Image.asset(stateManagement.squareImageUrl, fit: BoxFit.fill),
-  //           if (stateManagement.isShowHint)
-  //             AnimatedBuilder(
-  //               animation: stateManagement,
-  //               builder: (context, child) => Image.asset(stateManagement.kanaHintImageUrl, fit: BoxFit.fill),
-  //             ),
-  //           AnimatedBuilder(
-  //             animation: stateManagement,
-  //             builder: (context, child) => Consumer<AllStrokesProvider>(
-  //               builder: (context, provider, child) {
-  //                 return Stack(
-  //                   fit: StackFit.expand,
-  //                   children: [
-  //                     RepaintBoundary(
-  //                       child: CustomPaint(isComplex: true, painter: _AllStrokesPainter(provider.strokes)),
-  //                     )
-  //                   ],
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //           Consumer<CurrentStrokeProvider>(
-  //             builder: (context, provider, child) {
-  //               return Stack(
-  //                 fit: StackFit.expand,
-  //                 children: [
-  //                   RepaintBoundary(
-  //                     child: CustomPaint(isComplex: true, painter: _CurrentStrokePainter(provider.points)),
-  //                   ),
-  //                   AnimatedBuilder(
-  //                     animation: stateManagement,
-  //                     builder: (context, child) {
-  //                       return GestureDetector(
-  //                         key: gestureKey,
-  //                         onPanStart: stateManagement.isDisabled ? null : (details) => _startStroke(details, context),
-  //                         onPanUpdate: stateManagement.isDisabled ? null : (details) => _updateStroke(details, context),
-  //                         onPanEnd: stateManagement.isDisabled ? null : (details) => _finishStroke(context),
-  //                       );
-  //                     },
-  //                   ),
-  //                 ],
-  //               );
-  //             },
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );

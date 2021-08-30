@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
@@ -9,71 +8,87 @@ import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart'
 import 'package:mocktail/mocktail.dart';
 
 void main() {
-  final showHintRepository = ShowHintRepositoryMock();
-  final kanaTypeRepository = KanaTypeRepositoryMock();
-  final quantityOfWordsRepository = QuantityOfWordsRepositoryMock();
-  final controller = PreTrainingController(
-    showHintRepository: showHintRepository,
-    kanaTypeRepository: kanaTypeRepository,
-    quantityOfWordsRepository: quantityOfWordsRepository,
-  );
+  late IShowHintRepository showHintRepository;
+  late IKanaTypeRepository kanaTypeRepository;
+  late IQuantityOfWordsRepository quantityOfWordsRepository;
+
+  setUp(() {
+    showHintRepository = ShowHintRepositoryMock();
+    kanaTypeRepository = KanaTypeRepositoryMock();
+    quantityOfWordsRepository = QuantityOfWordsRepositoryMock();
+  });
+
+  PreTrainingController _startController({bool showHint = false, KanaType kanaType = KanaType.none, int quantityOfWords = 0}) {
+    when(() => showHintRepository.isShowHint()).thenAnswer((_) => showHint);
+    when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => kanaType);
+    when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => quantityOfWords);
+    return PreTrainingController(
+      showHintRepository: showHintRepository,
+      kanaTypeRepository: kanaTypeRepository,
+      quantityOfWordsRepository: quantityOfWordsRepository,
+    );
+  }
 
   group('show hint', () {
     test('must return the show hint value from repository', () {
-      when(() => showHintRepository.isShowHint()).thenAnswer((_) => false);
+      // ignore: avoid_redundant_argument_values
+      final controller = _startController(showHint: false);
 
-      final result = controller.isShowHint();
+      final result = controller.showHint;
 
       verify(() => showHintRepository.isShowHint()).called(1);
       expect(result, false);
     });
     test('must return the show hint icon url', () {
-      controller.showHint = true;
+      final controller = _startController(showHint: true);
 
-      final result = controller.getShowHintIconUrl();
+      final result = controller.showHintIconUrl;
 
       expect(result, IconUrl.showHint);
     });
     test('must return the not show hint icon url', () {
-      controller.showHint = false;
+      // ignore: avoid_redundant_argument_values
+      final controller = _startController(showHint: false);
 
-      final result = controller.getShowHintIconUrl();
+      final result = controller.showHintIconUrl;
 
       expect(result, IconUrl.notShowHint);
     });
   });
   group('kana type', () {
     test('must return the kana type from repository', () {
-      when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => KanaType.hiragana);
+      final controller = _startController(kanaType: KanaType.hiragana);
 
-      final result = controller.getKanaType();
+      final result = controller.kanaType;
 
       verify(() => kanaTypeRepository.getKanaType()).called(1);
       expect(result, KanaType.hiragana);
     });
     test('must return the kana type hiragana icon url', () {
-      controller.kanaType = KanaType.hiragana;
+      final controller = _startController(kanaType: KanaType.hiragana);
 
-      final result = controller.getKanaTypeIconUrl();
+      final result = controller.kanaTypeIconUrl;
 
       expect(result, IconUrl.hiragana);
     });
     test('must return the kana type katakana icon url', () {
-      controller.kanaType = KanaType.katakana;
+      final controller = _startController(kanaType: KanaType.katakana);
 
-      final result = controller.getKanaTypeIconUrl();
+      final result = controller.kanaTypeIconUrl;
 
       expect(result, IconUrl.katakana);
     });
     test('must return the kana type both icon url', () {
-      controller.kanaType = KanaType.both;
+      final controller = _startController(kanaType: KanaType.both);
 
-      final result = controller.getKanaTypeIconUrl();
+      final result = controller.kanaTypeIconUrl;
 
       expect(result, IconUrl.both);
     });
     test('must return the writing hand data', () {
-      final result = controller.getKanaTypeData();
+      final controller = _startController();
+
+      final result = controller.kanaTypeData;
 
       expect(result.length, 3);
       expect(result[0].type, KanaType.hiragana);
@@ -84,29 +99,14 @@ void main() {
       expect(result[2].iconUrl, IconUrl.both);
     });
   });
-  group('kana type', () {
+  group('quantity of words', () {
     test('must return the quantity from repository', () {
-      when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => 7);
+      final controller = _startController(quantityOfWords: 7);
 
-      final result = controller.getQuantityOfWords();
+      final result = controller.quantityOfWords;
 
       verify(() => quantityOfWordsRepository.getQuantityOfWords()).called(1);
       expect(result, 7);
-    });
-    test('must return the quantity of cards icon url', () {
-      final result = controller.getQuantityOfWordsIconUrl();
-
-      expect(result, IconUrl.quantityOfWords);
-    });
-    test('must return the minimum quantity of cards', () {
-      final result = controller.getMinimumQuantityOfWords();
-
-      expect(result, Default.minimumTrainingCards.toDouble());
-    });
-    test('must return the maximum quantity of cards', () {
-      final result = controller.getMaximumQuantityOfWords();
-
-      expect(result, Default.maximumTrainingCards.toDouble());
     });
   });
 }

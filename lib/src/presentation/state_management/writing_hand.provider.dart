@@ -8,12 +8,12 @@ class WritingHandProvider extends ChangeNotifier {
 
   final SettingsController _controller;
 
-  WritingHand get writingHand => _controller.getWritingHandSelected();
+  WritingHand get writingHand => _controller.writingHandSelected;
 
-  String get iconUrl => _controller.getWritingHandIconUrl();
+  String get iconUrl => _controller.writingHandIconUrl;
 
-  List<SelectionOptionArguments> getOptions(String Function(WritingHand writingHand) writingHandText) {
-    return _controller.getWritingHandData().map((model) {
+  List<SelectionOptionArguments> options(String Function(WritingHand writingHand) writingHandText) {
+    return _controller.getWritingHandData.map((model) {
       return SelectionOptionArguments(
         key: model.writingHand,
         label: writingHandText(model.writingHand),

@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
@@ -34,42 +33,32 @@ class TrainingController {
     return true;
   }
 
-  String get quitIconUrl => IconUrl.quitTraining;
-
-  String get squareImageUrl => ImageUrl.square;
-
-  String get correctImageUrl => ImageUrl.correct;
-
-  String get wrongImageUrl => ImageUrl.wrong;
-
   String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
 
-  int get currentKanaMaxStrokes => wordsToTraining[wordIdx].kanas[kanaIdx].strokesQuantity;
+  KanaToWrite get currentKanaToWrite => KanaToWrite(
+        id: wordsToTraining[wordIdx].kanas[kanaIdx].id,
+        type: wordsToTraining[wordIdx].kanas[kanaIdx].kanaType,
+        hintImageUrl: wordsToTraining[wordIdx].kanas[kanaIdx].kanaImageUrl,
+        maxStrokes: wordsToTraining[wordIdx].kanas[kanaIdx].strokesQuantity,
+      );
 
-  String get currentKanaImageUrl => wordsToTraining[wordIdx].kanas[kanaIdx].kanaImageUrl;
+  int getMaxKanasOfWord(int currentWordIdx) => wordsToTraining[currentWordIdx].kanas.length;
 
-  KanaType get currentKanaType => wordsToTraining[wordIdx].kanas[kanaIdx].kanaType;
-
-  int getMaxKanasOfWord(int currentWordIdx) {
-    return wordsToTraining[currentWordIdx].kanas.length;
-  }
-
-  KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) {
-    return wordsToTraining[currentWordIdx].kanas[currentKanaIdx];
-  }
+  KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) => wordsToTraining[currentWordIdx].kanas[currentKanaIdx];
 
   UpdateKanaSituation updateKana(List<List<Offset>> strokesNormalized, String kanaIdWrote) {
     // gera o que o kana viewer vai mostrar após escrito kana writer
     final preview = wordsToTraining[wordIdx].kanas[kanaIdx];
     wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
-        id: preview.id,
-        status: (kanaIdWrote == preview.id) ? KanaViewerStatus.showCorrect : KanaViewerStatus.showWrong,
-        romajiImageUrl: preview.romajiImageUrl,
-        kanaImageUrl: preview.kanaImageUrl,
-        strokesQuantity: preview.strokesQuantity,
-        kanaType: preview.kanaType,
-        kanaIdWrote: kanaIdWrote,
-        strokesDrew: strokesNormalized);
+      id: preview.id,
+      status: (kanaIdWrote == preview.id) ? KanaViewerStatus.showCorrect : KanaViewerStatus.showWrong,
+      romajiImageUrl: preview.romajiImageUrl,
+      kanaImageUrl: preview.kanaImageUrl,
+      strokesQuantity: preview.strokesQuantity,
+      kanaType: preview.kanaType,
+      kanaIdWrote: kanaIdWrote,
+      strokesDrew: strokesNormalized,
+    );
 
     // muda para o próximo kana
     kanaIdx++;

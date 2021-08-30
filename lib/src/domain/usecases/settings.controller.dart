@@ -1,6 +1,5 @@
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/data/models/description.model.dart';
-import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.entity.dart';
 import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
@@ -29,137 +28,75 @@ class SettingsController {
   final IKanaTypeRepository kanaTypeRepository;
   final IQuantityOfWordsRepository quantityOfWordsRepository;
 
-  String getLanguageSelected() {
-    return languageRepository.getLanguageSelected();
-  }
+  String get languageSelected => languageRepository.getLanguageSelected();
 
   void updateLanguageSelected(String value) {
     languageRepository.setLanguageSelected(value);
   }
 
-  String getLanguageIconUrl() {
-    return IconUrl.language;
-  }
+  bool get darkThemeSelected => darkThemeRepository.isDarkTheme();
 
-  bool isDarkTheme() {
-    return darkThemeRepository.isDarkTheme();
-  }
-
-  void updateDarkTheme(bool value) {
+  void updateDarkThemeSelected(bool value) {
     darkThemeRepository.setDarkTheme(value);
   }
 
-  String getDarkThemeIconUrl() {
-    return (darkThemeRepository.isDarkTheme()) ? IconUrl.darkTheme : IconUrl.lightTheme;
-  }
+  String get darkThemeIconUrl => (darkThemeRepository.isDarkTheme()) ? IconUrl.darkTheme : IconUrl.lightTheme;
 
-  WritingHand getWritingHandSelected() {
-    return writingHandRepository.getWritingHandSelected();
-  }
+  WritingHand get writingHandSelected => writingHandRepository.getWritingHandSelected();
 
   void updateWritingHandSelected(WritingHand value) {
     writingHandRepository.setWritingHandSelected(value);
   }
 
-  String getWritingHandIconUrl() {
-    return getWritingHandData().firstWhere((model) {
-      return model.writingHand.equal(writingHandRepository.getWritingHandSelected());
-    }).iconUrl;
-  }
+  String get writingHandIconUrl => getWritingHandData.firstWhere((model) {
+        return model.writingHand.equal(writingHandRepository.getWritingHandSelected());
+      }).iconUrl;
 
-  List<WritingHandData> getWritingHandData() {
-    return [
-      const WritingHandData(
-        writingHand: WritingHand.left,
-        iconUrl: IconUrl.writingHandLeft,
-      ),
-      const WritingHandData(
-        writingHand: WritingHand.right,
-        iconUrl: IconUrl.writingHandRight,
-      ),
-    ];
-  }
+  List<WritingHandData> get getWritingHandData => [
+        const WritingHandData(writingHand: WritingHand.left, iconUrl: IconUrl.writingHandLeft),
+        const WritingHandData(writingHand: WritingHand.right, iconUrl: IconUrl.writingHandRight),
+      ];
 
-  bool isShowHint() {
-    return showHintRepository.isShowHint();
-  }
+  bool get showHintSelected => showHintRepository.isShowHint();
 
-  void updateShowHint(bool value) {
+  void updateShowHintSelected(bool value) {
     showHintRepository.setShowHint(value);
   }
 
-  String getShowHintIconUrl() {
-    return (showHintRepository.isShowHint()) ? IconUrl.showHint : IconUrl.notShowHint;
-  }
+  String get showHintIconUrl => (showHintRepository.isShowHint()) ? IconUrl.showHint : IconUrl.notShowHint;
 
-  KanaType getKanaTypeSelected() {
-    return kanaTypeRepository.getKanaType();
-  }
+  KanaType get kanaTypeSelected => kanaTypeRepository.getKanaType();
 
   void updateKanaTypeSelected(KanaType value) {
     kanaTypeRepository.setKanaType(value);
   }
 
-  String getKanaTypeIconUrl() {
-    return getKanaTypeData().firstWhere((model) {
-      return model.type.equal(kanaTypeRepository.getKanaType());
-    }).iconUrl;
-  }
+  String get kanaTypeIconUrl => kanaTypeData.firstWhere((model) {
+        return model.type.equal(kanaTypeRepository.getKanaType());
+      }).iconUrl;
 
-  List<KanaTypeData> getKanaTypeData() {
-    return [
-      const KanaTypeData(type: KanaType.hiragana, iconUrl: IconUrl.hiragana),
-      const KanaTypeData(type: KanaType.katakana, iconUrl: IconUrl.katakana),
-      const KanaTypeData(type: KanaType.both, iconUrl: IconUrl.both),
-    ];
-  }
+  List<KanaTypeData> get kanaTypeData => [
+        const KanaTypeData(type: KanaType.hiragana, iconUrl: IconUrl.hiragana),
+        const KanaTypeData(type: KanaType.katakana, iconUrl: IconUrl.katakana),
+        const KanaTypeData(type: KanaType.both, iconUrl: IconUrl.both),
+      ];
 
-  int getQuantityOfWords() {
-    return quantityOfWordsRepository.getQuantityOfWords();
-  }
+  int get quantityOfWords => quantityOfWordsRepository.getQuantityOfWords();
 
   void updateQuantityOfWords(int value) {
     quantityOfWordsRepository.setQuantityOfWords(value);
   }
 
-  String getQuantityOfWordsIconUrl() {
-    return IconUrl.quantityOfWords;
-  }
+  List<DescriptionModel> get aboutDescriptions => [
+        DescriptionModel.title('blablable'),
+        DescriptionModel.content('informaçoes sobre mim'),
+        DescriptionModel.content('contato'),
+        DescriptionModel.content('de onde os dados vieram'),
+      ];
 
-  double getMinimumQuantityOfWords() {
-    return Default.minimumTrainingCards.toDouble();
-  }
-
-  double getMaximumQuantityOfWords() {
-    return Default.maximumTrainingCards.toDouble();
-  }
-
-  String getAboutIconUrl() {
-    return IconUrl.about;
-  }
-
-  List<DescriptionModel> getAboutDescriptions() {
-    return [
-      DescriptionModel.title('blablable'),
-      DescriptionModel.content('informaçoes sobre mim'),
-      DescriptionModel.content('contato'),
-      DescriptionModel.content('de onde os dados vieram'),
-    ];
-  }
-
-  String getPrivacyPolicyIconUrl() {
-    return IconUrl.privacyPolicy;
-  }
-
-  List<DescriptionModel> getPrivacyPolicyDescriptions() {
-    return [
-      DescriptionModel.title('citar sobre uso'),
-      DescriptionModel.content(
-          'blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla'),
-    ];
-  }
-
-  String getSupportIconUrl() {
-    return IconUrl.support;
-  }
+  List<DescriptionModel> get privacyPolicyDescriptions => [
+        DescriptionModel.title('citar sobre uso'),
+        DescriptionModel.content(
+            'blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla'),
+      ];
 }

@@ -79,11 +79,7 @@ class _WordsPageState extends State<WordsPage> {
 
   void _onTapWordItem(BuildContext context, String id) {
     _stateManagement.findWord(id).then((value) {
-      Navigator.pushNamed(
-        context,
-        Routes.word,
-        arguments: WordsArguments(word: value),
-      );
+      Navigator.pushNamed(context, Routes.word, arguments: WordsArguments(word: value));
     });
   }
 

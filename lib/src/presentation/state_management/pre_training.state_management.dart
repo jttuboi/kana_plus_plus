@@ -5,17 +5,13 @@ import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart'
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
 
 class PreTrainingStateManagement extends ChangeNotifier {
-  PreTrainingStateManagement(this._controller) {
-    _controller.showHint = _controller.isShowHint();
-    _controller.kanaType = _controller.getKanaType();
-    _controller.quantityOfWords = _controller.getQuantityOfWords();
-  }
+  PreTrainingStateManagement(this._controller);
 
   final PreTrainingController _controller;
 
   bool get showHint => _controller.showHint;
 
-  String get showHintIconUrl => _controller.getShowHintIconUrl();
+  String get showHintIconUrl => _controller.showHintIconUrl;
 
   void updateShowHint(bool value) {
     _controller.showHint = value;
@@ -24,10 +20,10 @@ class PreTrainingStateManagement extends ChangeNotifier {
 
   KanaType get kanaType => _controller.kanaType;
 
-  String get kanaTypeIconUrl => _controller.getKanaTypeIconUrl();
+  String get kanaTypeIconUrl => _controller.kanaTypeIconUrl;
 
   List<SelectionOptionArguments> getKanaTypeOptions(String Function(KanaType kanaType) kanaTypeText) {
-    return _controller.getKanaTypeData().map((model) {
+    return _controller.kanaTypeData.map((model) {
       return SelectionOptionArguments(
         key: model.type,
         label: kanaTypeText(model.type),
@@ -42,12 +38,6 @@ class PreTrainingStateManagement extends ChangeNotifier {
   }
 
   int get quantityOfWords => _controller.quantityOfWords;
-
-  double get minWords => _controller.getMinimumQuantityOfWords();
-
-  double get maxWords => _controller.getMaximumQuantityOfWords();
-
-  String get quantityOfWordsIconUrl => _controller.getQuantityOfWordsIconUrl();
 
   void updateQuantity(double value) {
     _controller.quantityOfWords = value.toInt();

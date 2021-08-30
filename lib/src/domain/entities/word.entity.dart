@@ -51,6 +51,6 @@ class Word {
 
   @override
   String toString() {
-    return 'Word($id, $imageUrl, $romaji, $type, $kanas, $_translate2, $_languageCode)';
+    return 'Word($id, $imageUrl, $romaji, $type, $_translate2, $_languageCode, $kanas)';
   }
 }

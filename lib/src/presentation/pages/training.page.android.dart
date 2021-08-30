@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/training.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_word.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
@@ -16,17 +16,11 @@ import 'package:provider/provider.dart';
 class TrainingPage extends StatefulWidget {
   const TrainingPage({
     Key? key,
-    required this.trainingStateManagement,
-    required this.wordStateManagement,
-    required this.kanaStateManagement,
-    required this.writerProvider,
+    required this.trainingController,
     required this.writerController,
   }) : super(key: key);
 
-  final TrainingStateManagement trainingStateManagement;
-  final TrainingWordStateManagement wordStateManagement;
-  final TrainingKanaStateManagement kanaStateManagement;
-  final WriterProvider writerProvider;
+  final TrainingController trainingController;
   final WriterController writerController;
 
   @override
@@ -34,7 +28,19 @@ class TrainingPage extends StatefulWidget {
 }
 
 class _TrainingPageState extends State<TrainingPage> {
-  final PageController _pageController = PageController();
+  late final TrainingWordStateManagement wordStateManagement;
+  late final TrainingKanaStateManagement kanaStateManagement;
+  late final WriterProvider writerProvider;
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    wordStateManagement = TrainingWordStateManagement(widget.trainingController);
+    kanaStateManagement = TrainingKanaStateManagement(widget.trainingController);
+    writerProvider = WriterProvider(widget.writerController);
+    _pageController = PageController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,7 @@ class _TrainingPageState extends State<TrainingPage> {
         return false;
       },
       child: FutureBuilder<bool>(
-        future: widget.trainingStateManagement.isReady,
+        future: wordStateManagement.isReady,
         builder: (context2, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return _buildLoader();
@@ -56,7 +62,7 @@ class _TrainingPageState extends State<TrainingPage> {
             _updateWriterData();
             return _buildData(context);
           }
-          return _buildNoData(); // TODO talvez _buildError()
+          return _buildNoData();
         },
       ),
     );
@@ -69,18 +75,18 @@ class _TrainingPageState extends State<TrainingPage> {
         backgroundColor: Colors.white.withOpacity(0.0),
         //elevation: 0.1,
         leading: IconButton(
-          icon: ImageIcon(AssetImage(widget.trainingStateManagement.quitIconUrl)),
+          icon: const ImageIcon(AssetImage(IconUrl.quitTraining)),
           onPressed: () => _buildQuitDialog(context),
         ),
       ),
       body: Column(
         children: [
           AnimatedBuilder(
-            animation: widget.wordStateManagement,
+            animation: wordStateManagement,
             builder: (context, child) {
               return ProgressBar(
-                widget.wordStateManagement.wordIdx,
-                maxWords: widget.trainingStateManagement.maxQuantityOfWords,
+                wordStateManagement.wordIdx,
+                maxWords: wordStateManagement.maxQuantityOfWords,
               );
             },
           ),
@@ -88,7 +94,7 @@ class _TrainingPageState extends State<TrainingPage> {
             child: PageView.builder(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.wordStateManagement.numberOfWordsToStudy,
+              itemCount: wordStateManagement.numberOfWordsToStudy,
               itemBuilder: (context, index) {
                 return Column(
                   children: [
@@ -120,9 +126,9 @@ class _TrainingPageState extends State<TrainingPage> {
 
   Widget _buildPicture() {
     return AnimatedBuilder(
-      animation: widget.wordStateManagement,
+      animation: wordStateManagement,
       builder: (context, child) {
-        return Image.asset(widget.wordStateManagement.currentImageUrl);
+        return Image.asset(wordStateManagement.currentImageUrl);
       },
     );
   }
@@ -131,7 +137,7 @@ class _TrainingPageState extends State<TrainingPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: KanaViewers(
-        stateManagement: widget.kanaStateManagement,
+        stateManagement: kanaStateManagement,
         wordIdxToShow: index,
       ),
     );
@@ -141,9 +147,9 @@ class _TrainingPageState extends State<TrainingPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: ChangeNotifierProvider(
-        create: (context) => widget.writerProvider,
+        create: (context) => writerProvider,
         child: Writer(
-          writerProvider: widget.writerProvider,
+          writerProvider: writerProvider,
           writerController: widget.writerController,
           onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
         ),
@@ -152,8 +158,8 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _onKanaRecovered(List<List<Offset>> pointsFiltered, String kanaId, BuildContext context) {
-    final situation = widget.kanaStateManagement.updateKana(pointsFiltered, kanaId);
-    widget.writerProvider.disable();
+    final situation = kanaStateManagement.updateKana(pointsFiltered, kanaId);
+    writerProvider.disable();
     Future.delayed(const Duration(milliseconds: 800)).then((value) {
       if (situation.isChangeKana) {
         _goToNextKana();
@@ -162,7 +168,7 @@ class _TrainingPageState extends State<TrainingPage> {
       } else if (situation.isChangeTheLastWord) {
         _goToReviewPage(context);
       }
-      widget.writerProvider.enable();
+      writerProvider.enable();
     });
   }
 
@@ -173,12 +179,12 @@ class _TrainingPageState extends State<TrainingPage> {
   void _goToNextWord() {
     _pageController
         .animateToPage(
-      widget.wordStateManagement.wordIdx,
+      wordStateManagement.wordIdx,
       duration: const Duration(milliseconds: 500),
       curve: Curves.linear,
     )
         .then((value) {
-      widget.wordStateManagement.updateState();
+      wordStateManagement.updateState();
       _updateWriterData();
     });
   }
@@ -188,20 +194,13 @@ class _TrainingPageState extends State<TrainingPage> {
       context,
       Routes.review,
       arguments: TrainingArguments(
-        wordsResult: widget.wordStateManagement.wordsResult,
+        wordsResult: wordStateManagement.wordsResult,
       ),
     );
   }
 
   void _updateWriterData() {
-    widget.writerProvider.updateWriter(
-      KanaToWrite(
-        id: 'a',
-        type: widget.kanaStateManagement.currentKanaType,
-        hintImageUrl: widget.kanaStateManagement.currentKanaImageUrl,
-        maxStrokes: widget.kanaStateManagement.currentKanaMaxStrokes,
-      ),
-    );
+    writerProvider.updateWriter(kanaStateManagement.currentKanaToWrite);
   }
 
   Widget _buildLoader() {

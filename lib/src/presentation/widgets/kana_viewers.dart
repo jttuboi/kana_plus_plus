@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana_state_management.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewer.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -67,9 +68,9 @@ class _KanaViewersState extends State<KanaViewers> {
               index: index,
               child: KanaViewer(
                 widget.stateManagement.kanaOfWord(widget.wordIdxToShow, index),
-                squareImageUrl: widget.stateManagement.squareImageUrl,
-                correctImageUrl: widget.stateManagement.correctImageUrl,
-                wrongImageUrl: widget.stateManagement.wrongImageUrl,
+                squareImageUrl: ImageUrl.square,
+                correctImageUrl: ImageUrl.correct,
+                wrongImageUrl: ImageUrl.wrong,
               ),
             );
           },

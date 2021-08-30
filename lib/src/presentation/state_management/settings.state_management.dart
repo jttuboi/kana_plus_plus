@@ -6,15 +6,7 @@ class SettingsStateManagement {
 
   final SettingsController _controller;
 
-  String get aboutIconUrl => _controller.getAboutIconUrl();
+  List<DescriptionModel> get aboutDescriptions => _controller.aboutDescriptions;
 
-  String get privacyPolicyIconUrl => _controller.getPrivacyPolicyIconUrl();
-
-  String get supportIconUrl => _controller.getSupportIconUrl();
-
-  List<DescriptionModel> get aboutDescriptions =>
-      _controller.getAboutDescriptions();
-
-  List<DescriptionModel> get privacyPolicyDescriptions =>
-      _controller.getPrivacyPolicyDescriptions();
+  List<DescriptionModel> get privacyPolicyDescriptions => _controller.privacyPolicyDescriptions;
 }

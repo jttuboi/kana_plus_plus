@@ -14,9 +14,7 @@ class DescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBar(title: Text(title)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -47,10 +45,7 @@ class _DescriptionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.w700),
-      ),
+      child: Text(text, style: const TextStyle(fontWeight: FontWeight.w700)),
     );
   }
 }

@@ -24,9 +24,8 @@ class SelectionOptionPage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
+        // TODO mudar o app bar ou pelo menos a cor dele
+        appBar: AppBar(title: Text(title)),
         body: ListView.builder(
           itemCount: options.length,
           itemBuilder: (context, index) {
@@ -34,17 +33,14 @@ class SelectionOptionPage extends StatelessWidget {
             return RadioListTile(
               title: Text(option.label),
               value: index,
-              groupValue:
-                  options.indexWhere((SelectionOptionArguments pOption) {
+              groupValue: options.indexWhere((SelectionOptionArguments pOption) {
                 return pOption.key == selectedOptionKey;
               }),
               onChanged: (int? value) {
                 onSelected(options[value!].key);
                 Navigator.pop(context);
               },
-              secondary: (option.iconUrl.isNotEmpty)
-                  ? ImageIcon(AssetImage(option.iconUrl))
-                  : null,
+              secondary: (option.iconUrl.isNotEmpty) ? ImageIcon(AssetImage(option.iconUrl)) : null,
               controlAffinity: ListTileControlAffinity.trailing,
             );
           },

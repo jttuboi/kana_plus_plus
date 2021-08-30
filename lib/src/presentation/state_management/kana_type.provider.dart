@@ -8,12 +8,12 @@ class KanaTypeProvider extends ChangeNotifier {
 
   final SettingsController _controller;
 
-  KanaType get kanaType => _controller.getKanaTypeSelected();
+  KanaType get kanaType => _controller.kanaTypeSelected;
 
-  String get iconUrl => _controller.getKanaTypeIconUrl();
+  String get iconUrl => _controller.kanaTypeIconUrl;
 
-  List<SelectionOptionArguments> getOptions(String Function(KanaType kanaType) kanaTypeText) {
-    return _controller.getKanaTypeData().map((model) {
+  List<SelectionOptionArguments> options(String Function(KanaType kanaType) kanaTypeText) {
+    return _controller.kanaTypeData.map((model) {
       return SelectionOptionArguments(
         key: model.type,
         label: kanaTypeText(model.type),

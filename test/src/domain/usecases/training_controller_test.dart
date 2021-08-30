@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
@@ -34,31 +32,6 @@ void main() {
     expect(controller2.quantityOfWords, 423);
   });
 
-  group('images url', () {
-    test('must return quit icon url', () {
-      expect(controller.quitIconUrl, IconUrl.quitTraining);
-    });
-    test('must return square image url', () {
-      expect(controller.squareImageUrl, ImageUrl.square);
-    });
-    test('must return correct image url', () {
-      expect(controller.correctImageUrl, ImageUrl.correct);
-    });
-    test('must return wrong image url', () {
-      expect(controller.wrongImageUrl, ImageUrl.wrong);
-    });
-  });
-  // TODO test('must return wrong image url', () {
-  // precisa colocar os dados que vem do vbanco de dados e checar no wordsToTraining
-  //when(() => wordRepository.getWord(wordId)).thenAnswer((_) => Future.value(wordSample1));
-
-  //final result = controller.isReady;
-
-  // verify(() => _generateDataForTest).called(1); // precisa chamar o dado certo
-  //  expect(result, completion(isTrue));
-  //expect(controller.wordsToTraining, matcher)
-  // });
-
   test('must return current word image url', () {
     controller.wordsToTraining = wordsContent;
 
@@ -79,85 +52,85 @@ void main() {
 
     controller.wordIdx = 0;
     controller.kanaIdx = 0;
-    expect(controller.currentKanaMaxStrokes, 3);
+    expect(controller.currentKanaToWrite.maxStrokes, 3);
 
     controller.wordIdx = 0;
     controller.kanaIdx = 1;
-    expect(controller.currentKanaMaxStrokes, 2);
+    expect(controller.currentKanaToWrite.maxStrokes, 2);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 0;
-    expect(controller.currentKanaMaxStrokes, 3);
+    expect(controller.currentKanaToWrite.maxStrokes, 3);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 1;
-    expect(controller.currentKanaMaxStrokes, 1);
+    expect(controller.currentKanaToWrite.maxStrokes, 1);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 2;
-    expect(controller.currentKanaMaxStrokes, 4);
+    expect(controller.currentKanaToWrite.maxStrokes, 4);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 3;
-    expect(controller.currentKanaMaxStrokes, 3);
+    expect(controller.currentKanaToWrite.maxStrokes, 3);
 
     controller.wordIdx = 2;
     controller.kanaIdx = 0;
-    expect(controller.currentKanaMaxStrokes, 3);
+    expect(controller.currentKanaToWrite.maxStrokes, 3);
 
     controller.wordIdx = 2;
     controller.kanaIdx = 1;
-    expect(controller.currentKanaMaxStrokes, 2);
+    expect(controller.currentKanaToWrite.maxStrokes, 2);
 
     controller.wordIdx = 2;
     controller.kanaIdx = 2;
-    expect(controller.currentKanaMaxStrokes, 5);
+    expect(controller.currentKanaToWrite.maxStrokes, 5);
   });
   test('must return image url of current kana', () {
     controller.wordsToTraining = wordsContent;
     controller.wordIdx = 1;
     controller.kanaIdx = 1;
 
-    expect(controller.currentKanaImageUrl, 'shi.png');
+    expect(controller.currentKanaToWrite.hintImageUrl, 'shi.png');
   });
   test('must return the kana type from current kana of current word', () {
     controller.wordsToTraining = wordsContent;
 
     controller.wordIdx = 0;
     controller.kanaIdx = 0;
-    expect(controller.currentKanaType, KanaType.hiragana);
+    expect(controller.currentKanaToWrite.type, KanaType.hiragana);
 
     controller.wordIdx = 0;
     controller.kanaIdx = 1;
-    expect(controller.currentKanaType, KanaType.hiragana);
+    expect(controller.currentKanaToWrite.type, KanaType.hiragana);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 0;
-    expect(controller.currentKanaType, KanaType.hiragana);
+    expect(controller.currentKanaToWrite.type, KanaType.hiragana);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 1;
-    expect(controller.currentKanaType, KanaType.hiragana);
+    expect(controller.currentKanaToWrite.type, KanaType.hiragana);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 2;
-    expect(controller.currentKanaType, KanaType.katakana);
+    expect(controller.currentKanaToWrite.type, KanaType.katakana);
 
     controller.wordIdx = 1;
     controller.kanaIdx = 3;
-    expect(controller.currentKanaType, KanaType.katakana);
+    expect(controller.currentKanaToWrite.type, KanaType.katakana);
 
     controller.wordIdx = 2;
     controller.kanaIdx = 0;
-    expect(controller.currentKanaType, KanaType.katakana);
+    expect(controller.currentKanaToWrite.type, KanaType.katakana);
 
     controller.wordIdx = 2;
     controller.kanaIdx = 1;
-    expect(controller.currentKanaType, KanaType.katakana);
+    expect(controller.currentKanaToWrite.type, KanaType.katakana);
 
     controller.wordIdx = 2;
     controller.kanaIdx = 2;
-    expect(controller.currentKanaType, KanaType.katakana);
+    expect(controller.currentKanaToWrite.type, KanaType.katakana);
   });
   test('must return the max of kanas of word', () {
     controller.wordsToTraining = wordsContent;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/settings.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
@@ -41,24 +42,12 @@ class _SettingsPageState extends State<SettingsPage> {
     final JStrings strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => LanguageProvider(widget.controller),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => WritingHandProvider(widget.controller),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => DarkThemeProvider(widget.controller),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ShowHintProvider(widget.controller),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => KanaTypeProvider(widget.controller),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => QuantityOfWordsProvider(widget.controller),
-        ),
+        ChangeNotifierProvider(create: (context) => LanguageProvider(widget.controller)),
+        ChangeNotifierProvider(create: (context) => WritingHandProvider(widget.controller)),
+        ChangeNotifierProvider(create: (context) => DarkThemeProvider(widget.controller)),
+        ChangeNotifierProvider(create: (context) => ShowHintProvider(widget.controller)),
+        ChangeNotifierProvider(create: (context) => KanaTypeProvider(widget.controller)),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsProvider(widget.controller)),
       ],
       builder: (context, child) {
         return Scaffold(
@@ -75,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   return WritingHandTile(
                     writingHand: provider.writingHand,
                     iconUrl: provider.iconUrl,
-                    getOptions: provider.getOptions,
+                    options: provider.options,
                     updateWritingHand: provider.updateWritingHand,
                   );
                 },
@@ -96,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   return KanaTypeTile(
                     kanaType: provider.kanaType,
                     iconUrl: provider.iconUrl,
-                    getOptions: provider.getOptions,
+                    options: provider.options,
                     updateKanaType: provider.updateKanaType,
                   );
                 },
@@ -105,9 +94,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (context, provider, child) {
                   return QuantityOfWordsTile(
                     quantity: provider.quantity,
-                    iconUrl: provider.iconUrl,
-                    minWords: provider.minWords,
-                    maxWords: provider.maxWords,
                     updateQuantity: provider.updateQuantity,
                   );
                 },
@@ -116,7 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
               SubHeaderTile(strings.settingsOthers),
               ListTile(
                 title: Text(strings.settingsAbout),
-                leading: ImageIcon(AssetImage(_stateManagement.aboutIconUrl)),
+                leading: const ImageIcon(AssetImage(IconUrl.about)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -129,7 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ListTile(
                 title: Text(strings.settingsPrivacyPolicy),
-                leading: ImageIcon(AssetImage(_stateManagement.privacyPolicyIconUrl)),
+                leading: const ImageIcon(AssetImage(IconUrl.privacyPolicy)),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -143,7 +129,7 @@ class _SettingsPageState extends State<SettingsPage> {
               // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
               ListTile(
                 title: Text(strings.settingsSupport),
-                leading: ImageIcon(AssetImage(_stateManagement.supportIconUrl)),
+                leading: const ImageIcon(AssetImage(IconUrl.support)),
               ),
             ],
           ),

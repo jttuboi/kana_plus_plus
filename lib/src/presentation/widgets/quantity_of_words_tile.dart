@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
+import 'package:kana_plus_plus/src/domain/core/consts.dart';
 
 class QuantityOfWordsTile extends StatelessWidget {
   const QuantityOfWordsTile({
     Key? key,
     required this.quantity,
-    required this.iconUrl,
-    required this.minWords,
-    required this.maxWords,
     required this.updateQuantity,
   }) : super(key: key);
 
   final int quantity;
-  final String iconUrl;
-  final double minWords;
-  final double maxWords;
   final Function(double quantity) updateQuantity;
 
   int get _step => 1;
@@ -23,7 +19,7 @@ class QuantityOfWordsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final JStrings strings = JStrings.of(context)!;
     return ListTile(
-      leading: ImageIcon(AssetImage(iconUrl)),
+      leading: const ImageIcon(AssetImage(IconUrl.quantityOfWords)),
       title: Text(strings.settingsQuantityOfWords),
       subtitle: SliderTheme(
         data: SliderTheme.of(context).copyWith(
@@ -32,9 +28,9 @@ class QuantityOfWordsTile extends StatelessWidget {
         child: Slider(
           value: quantity.toDouble(),
           label: quantity.toString(),
-          min: minWords,
-          max: maxWords,
-          divisions: (maxWords - minWords) ~/ _step,
+          min: Default.minimumTrainingCards.toDouble(),
+          max: Default.maximumTrainingCards.toDouble(),
+          divisions: (Default.maximumTrainingCards.toDouble() - Default.minimumTrainingCards.toDouble()) ~/ _step,
           onChanged: updateQuantity,
         ),
       ),
@@ -53,8 +49,7 @@ class _CustomTrackShape extends RoundedRectSliderTrackShape {
   }) {
     final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx + 6;
-    final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
     final double trackWidth = parentBox.size.width - 22;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }

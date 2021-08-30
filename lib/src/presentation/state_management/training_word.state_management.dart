@@ -7,6 +7,10 @@ class TrainingWordStateManagement extends ChangeNotifier {
 
   final TrainingController _controller;
 
+  Future<bool> get isReady async => _controller.isReady;
+
+  int get maxQuantityOfWords => _controller.quantityOfWords;
+
   int get wordIdx => _controller.wordIdx;
 
   String get currentImageUrl => _controller.currentImageUrl;

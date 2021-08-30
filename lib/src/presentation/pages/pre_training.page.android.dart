@@ -46,14 +46,11 @@ class _PreTrainingPageState extends State<PreTrainingPage> {
             KanaTypeTile(
               kanaType: _stateManagement.kanaType,
               iconUrl: _stateManagement.kanaTypeIconUrl,
-              getOptions: _stateManagement.getKanaTypeOptions,
+              options: _stateManagement.getKanaTypeOptions,
               updateKanaType: _stateManagement.updateKanaType,
             ),
             QuantityOfWordsTile(
               quantity: _stateManagement.quantityOfWords,
-              iconUrl: _stateManagement.quantityOfWordsIconUrl,
-              minWords: _stateManagement.minWords,
-              maxWords: _stateManagement.maxWords,
               updateQuantity: _stateManagement.updateQuantity,
             ),
             Container(

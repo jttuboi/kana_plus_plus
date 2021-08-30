@@ -6,13 +6,7 @@ class QuantityOfWordsProvider extends ChangeNotifier {
 
   final SettingsController _controller;
 
-  int get quantity => _controller.getQuantityOfWords();
-
-  double get minWords => _controller.getMinimumQuantityOfWords();
-
-  double get maxWords => _controller.getMaximumQuantityOfWords();
-
-  String get iconUrl => _controller.getQuantityOfWordsIconUrl();
+  int get quantity => _controller.quantityOfWords;
 
   void updateQuantity(double value) {
     _controller.updateQuantityOfWords(value.toInt());

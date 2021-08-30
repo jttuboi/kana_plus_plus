@@ -6,12 +6,12 @@ class ShowHintProvider extends ChangeNotifier {
 
   final SettingsController _controller;
 
-  bool get showHint => _controller.isShowHint();
+  bool get showHint => _controller.showHintSelected;
 
-  String get iconUrl => _controller.getShowHintIconUrl();
+  String get iconUrl => _controller.showHintIconUrl;
 
   void updateShowHint(bool pIsShowHint) {
-    _controller.updateShowHint(pIsShowHint);
+    _controller.updateShowHintSelected(pIsShowHint);
     notifyListeners();
   }
 }

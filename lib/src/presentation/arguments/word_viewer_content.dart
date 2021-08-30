@@ -13,6 +13,6 @@ class WordViewerContent {
 
   @override
   String toString() {
-    return 'WordV($id, $imageUrl, $kanas)';
+    return 'WordViewer($id, $imageUrl, $kanas)';
   }
 }

@@ -1,7 +1,4 @@
 import 'dart:ui';
-
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
@@ -30,12 +27,6 @@ class WriterController {
   double _endCanvasLimit = 100.0;
 
   WritingHand get writingHand => writingHandRepository.getWritingHandSelected();
-
-  String get eraserIconUrl => IconUrl.eraser;
-
-  String get undoIconUrl => IconUrl.undo;
-
-  String get squareImageUrl => ImageUrl.square;
 
   bool get isTheLastStroke => strokes.length >= kanaToWrite.maxStrokes;
 
