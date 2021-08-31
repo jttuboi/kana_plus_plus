@@ -26,7 +26,9 @@ class WriterController {
   double _startCanvasLimit = 0.0;
   double _endCanvasLimit = 100.0;
 
-  WritingHand get writingHand => writingHandRepository.getWritingHandSelected();
+  bool get isWritingHandRight => writingHandRepository.getWritingHandSelected().isRight;
+
+  String get kanaHintImageUrl => kanaToWrite.hintImageUrl;
 
   bool get isTheLastStroke => strokes.length >= kanaToWrite.maxStrokes;
 
@@ -54,12 +56,12 @@ class WriterController {
     }
   }
 
-  String getKanaId() {
-    final isOk = kanaCheckerService.checkKana(kanaToWrite.id, normalizedStrokes());
+  String get kanaWrote {
+    final isOk = kanaCheckerService.checkKana(kanaToWrite.id, normalizedStrokes);
     return isOk ? kanaToWrite.id : '';
   }
 
-  List<List<Offset>> normalizedStrokes() {
+  List<List<Offset>> get normalizedStrokes {
     final strokesNormalized = <List<Offset>>[];
     for (final stroke in strokes) {
       final strokeNormalized = <Offset>[];

@@ -135,9 +135,9 @@ void main() {
   test('must return the max of kanas of word', () {
     controller.wordsToTraining = wordsContent;
 
-    expect(controller.getMaxKanasOfWord(0), 2);
-    expect(controller.getMaxKanasOfWord(1), 4);
-    expect(controller.getMaxKanasOfWord(2), 3);
+    expect(controller.maxKanasOfWord(0), 2);
+    expect(controller.maxKanasOfWord(1), 4);
+    expect(controller.maxKanasOfWord(2), 3);
   });
 
   test('must return kana', () {

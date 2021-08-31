@@ -28,12 +28,14 @@ class TrainingController {
 
   List<WordViewerContent> wordsToTraining = [];
 
-  bool get isReady {
+  Future<bool> get isReady async {
     _generateDataForTest();
     return true;
   }
 
   String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
+
+  int get numberOfWordsToStudy => wordsToTraining.length;
 
   KanaToWrite get currentKanaToWrite => KanaToWrite(
         id: wordsToTraining[wordIdx].kanas[kanaIdx].id,
@@ -42,7 +44,7 @@ class TrainingController {
         maxStrokes: wordsToTraining[wordIdx].kanas[kanaIdx].strokesQuantity,
       );
 
-  int getMaxKanasOfWord(int currentWordIdx) => wordsToTraining[currentWordIdx].kanas.length;
+  int maxKanasOfWord(int currentWordIdx) => wordsToTraining[currentWordIdx].kanas.length;
 
   KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) => wordsToTraining[currentWordIdx].kanas[currentKanaIdx];
 

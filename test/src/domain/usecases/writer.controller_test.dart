@@ -127,10 +127,10 @@ void main() {
   test('must return the writing hand from repository', () {
     when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
-    final result = controller.writingHand;
+    final result = controller.isWritingHandRight;
 
     verify(() => writingHandRepository.getWritingHandSelected()).called(1);
-    expect(result, WritingHand.left);
+    expect(result, false);
   });
   group('normalized strokes', () {
     test('must return strokes normalized', () {
@@ -139,7 +139,7 @@ void main() {
       const endLocationOfSquareUsedForDraw = 206.7;
       controller.setCanvasLimit(startLocationOfSquareUsedForDraw, endLocationOfSquareUsedForDraw);
 
-      final result = controller.normalizedStrokes();
+      final result = controller.normalizedStrokes;
 
       expect(result, [shiStrokeResultNormalized, noStrokeResultNormalized]);
     });

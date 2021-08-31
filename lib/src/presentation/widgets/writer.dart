@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
@@ -12,12 +11,10 @@ import 'package:provider/provider.dart';
 class Writer extends StatelessWidget {
   const Writer({
     Key? key,
-    required this.writerProvider,
     required this.writerController,
     required this.onKanaRecovered,
   }) : super(key: key);
 
-  final WriterProvider writerProvider;
   final WriterController writerController;
   final Function(List<List<Offset>> strokes, String kanaIdWrote) onKanaRecovered;
 
@@ -28,7 +25,7 @@ class Writer extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AllStrokesProvider(writerController)),
         ChangeNotifierProvider(create: (context) => CurrentStrokeProvider(writerController)),
       ],
-      child: writerProvider.isWritingHandRight ? _buildRightHand() : _buildLeftHand(),
+      child: writerController.isWritingHandRight ? _buildRightHand() : _buildLeftHand(),
     );
   }
 
@@ -56,7 +53,7 @@ class Writer extends StatelessWidget {
     return Expanded(
       child: AspectRatio(
         aspectRatio: 1.0,
-        child: _Drawer(onKanaRecovered: onKanaRecovered),
+        child: _Drawer(writerController: writerController, onKanaRecovered: onKanaRecovered),
       ),
     );
   }
@@ -108,8 +105,13 @@ class _SupportButtons extends StatelessWidget {
 }
 
 class _Drawer extends StatelessWidget {
-  const _Drawer({Key? key, required this.onKanaRecovered}) : super(key: key);
+  const _Drawer({
+    Key? key,
+    required this.writerController,
+    required this.onKanaRecovered,
+  }) : super(key: key);
 
+  final WriterController writerController;
   final Function(List<List<Offset>> strokes, String kanaIdWrote) onKanaRecovered;
 
   @override
@@ -125,6 +127,13 @@ class _Drawer extends StatelessWidget {
           children: [
             Container(color: Colors.grey[200], height: size, width: size),
             CustomPaint(painter: BorderPainter(), size: Size.square(size)),
+            Consumer<WriterProvider>(
+              builder: (context, provider, child) {
+                return (writerController.showHint)
+                    ? Image.asset(writerController.kanaHintImageUrl, height: size, width: size, fit: BoxFit.cover)
+                    : Container();
+              },
+            ),
             SizedBox(
               height: size,
               width: size,
@@ -173,13 +182,12 @@ class _Drawer extends StatelessWidget {
   }
 
   void _finishStroke(BuildContext context) {
-    final writerProvider = Provider.of<WriterProvider>(context, listen: false);
     final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
     final allStrokesProvider = Provider.of<AllStrokesProvider>(context, listen: false);
     allStrokesProvider.addStroke(currentStrokeProvider.points);
     currentStrokeProvider.resetPoints();
-    if (writerProvider.isTheLastStroke) {
-      onKanaRecovered(writerProvider.normalizedStrokes, writerProvider.kanaWrote);
+    if (writerController.isTheLastStroke) {
+      onKanaRecovered(writerController.normalizedStrokes, writerController.kanaWrote);
     }
   }
 }
