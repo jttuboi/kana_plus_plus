@@ -57,6 +57,7 @@ class WriterController {
   }
 
   String get kanaWrote {
+    //print('kanaWrote -> kanaToWrite = $kanaToWrite');
     final isOk = kanaCheckerService.checkKana(kanaToWrite.id, normalizedStrokes);
     return isOk ? kanaToWrite.id : '';
   }

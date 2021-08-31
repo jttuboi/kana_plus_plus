@@ -100,7 +100,7 @@ class _TrainingPage extends StatelessWidget {
           return _buildError();
         }
         if (snapshot.hasData && snapshot.data! == true) {
-          _updateWriterData(context);
+          writerController.updateWriter(trainingController.currentKanaToWrite);
           return _buildData(context);
         }
         return _buildNoData();
@@ -113,10 +113,7 @@ class _TrainingPage extends StatelessWidget {
       children: [
         Consumer<TrainingWordProvider>(
           builder: (context, value, child) {
-            return ProgressBar(
-              trainingController.wordIdx,
-              maxWords: trainingController.quantityOfWords,
-            );
+            return ProgressBar(trainingController.wordIdx, maxWords: trainingController.quantityOfWords);
           },
         ),
         Flexible(

@@ -49,6 +49,8 @@ class TrainingController {
   KanaViewerContent kanaOfWord(int currentWordIdx, int currentKanaIdx) => wordsToTraining[currentWordIdx].kanas[currentKanaIdx];
 
   UpdateKanaSituation updateKana(List<List<Offset>> strokesNormalized, String kanaIdWrote) {
+    //print(strokesNormalized);
+    //print(kanaIdWrote);
     // gera o que o kana viewer vai mostrar após escrito kana writer
     final preview = wordsToTraining[wordIdx].kanas[kanaIdx];
     wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
@@ -113,6 +115,7 @@ class TrainingController {
         kanas: kanasResult,
       ));
     }
+    //print('wordsResult $wordsResult');
     return wordsResult;
   }
 
@@ -140,6 +143,8 @@ class TrainingController {
         kanas: kanas,
       ));
     }
+
+    //print('_generateDataForTest -> wordsToTraining $wordsToTraining');
   }
 
   List<String> _generateRandomIds() {
