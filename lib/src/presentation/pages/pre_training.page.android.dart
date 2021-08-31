@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/pre_training.state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
