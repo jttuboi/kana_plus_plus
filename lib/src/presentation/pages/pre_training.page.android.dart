@@ -57,9 +57,10 @@ class _PreTrainingPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
-                onPressed: () => Navigator.pushNamed(
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(
                   context,
                   Routes.training,
+                  ModalRoute.withName(Routes.menu),
                   arguments: PreTrainingArguments(
                     showHint: preTrainingController.showHint,
                     kanaType: preTrainingController.kanaType,

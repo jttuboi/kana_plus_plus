@@ -67,7 +67,7 @@ class TrainingPage extends StatelessWidget {
             child: const Text('No'), // TODO strings
           ),
           TextButton(
-            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+            onPressed: () => Navigator.popUntil(context, ModalRoute.withName(Routes.menu)),
             child: const Text('Yes'), // TODO strings
           ),
         ],
@@ -202,7 +202,12 @@ class _TrainingPage extends StatelessWidget {
   }
 
   void _goToReviewPage(BuildContext context) {
-    Navigator.pushNamed(context, Routes.review, arguments: TrainingArguments(wordsResult: trainingController.wordsResult));
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      Routes.review,
+      ModalRoute.withName(Routes.menu),
+      arguments: TrainingArguments(wordsResult: trainingController.wordsResult),
+    );
   }
 
   void _updateWriterData(BuildContext context) {
