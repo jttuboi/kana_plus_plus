@@ -20,7 +20,7 @@ class KanaTypeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     return ListTile(
       title: Text(strings.settingsKanaType),
       subtitle: Text(_getText(context, kanaType)),
@@ -43,7 +43,7 @@ class KanaTypeTile extends StatelessWidget {
   }
 
   String _getText(BuildContext context, KanaType type) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     if (type.isOnlyHiragana) return strings.settingsOnlyHiragana;
     if (type.isOnlyKatakana) return strings.settingsOnlyKatakana;
     if (type.isBoth) return strings.settingsOnlyHiraganaKatakana;

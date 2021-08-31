@@ -17,7 +17,7 @@ class QuantityOfWordsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     return ListTile(
       leading: const ImageIcon(AssetImage(IconUrl.quantityOfWords)),
       title: Text(strings.settingsQuantityOfWords),

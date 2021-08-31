@@ -20,7 +20,7 @@ class WritingHandTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     return ListTile(
       title: Text(strings.settingsWritingHand),
       subtitle: Text(_getText(context, writingHand)),
@@ -44,7 +44,7 @@ class WritingHandTile extends StatelessWidget {
   }
 
   String _getText(BuildContext context, WritingHand key) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     if (key.isLeft) return strings.settingsWritingHandLeft;
     if (key.isRight) return strings.settingsWritingHandRight;
     return '';

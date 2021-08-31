@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/settings.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
@@ -19,35 +18,22 @@ import 'package:kana_plus_plus/src/presentation/state_management/show_hint.provi
 import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.provider.dart';
 import 'package:provider/provider.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage(this.controller, {Key? key}) : super(key: key);
+class SettingsPage extends StatelessWidget {
+  const SettingsPage(this.settingsController, {Key? key}) : super(key: key);
 
-  final SettingsController controller;
-
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  late final SettingsStateManagement _stateManagement;
-
-  @override
-  void initState() {
-    super.initState();
-    _stateManagement = SettingsStateManagement(widget.controller);
-  }
+  final SettingsController settingsController;
 
   @override
   Widget build(BuildContext context) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => LanguageProvider(widget.controller)),
-        ChangeNotifierProvider(create: (context) => WritingHandProvider(widget.controller)),
-        ChangeNotifierProvider(create: (context) => DarkThemeProvider(widget.controller)),
-        ChangeNotifierProvider(create: (context) => ShowHintProvider(widget.controller)),
-        ChangeNotifierProvider(create: (context) => KanaTypeProvider(widget.controller)),
-        ChangeNotifierProvider(create: (context) => QuantityOfWordsProvider(widget.controller)),
+        ChangeNotifierProvider(create: (context) => LanguageProvider(settingsController)),
+        ChangeNotifierProvider(create: (context) => WritingHandProvider(settingsController)),
+        ChangeNotifierProvider(create: (context) => DarkThemeProvider(settingsController)),
+        ChangeNotifierProvider(create: (context) => ShowHintProvider(settingsController)),
+        ChangeNotifierProvider(create: (context) => KanaTypeProvider(settingsController)),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsProvider(settingsController)),
       ],
       builder: (context, child) {
         return Scaffold(
@@ -108,7 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   MaterialPageRoute(
                     builder: (context) => DescriptionPage(
                       title: strings.settingsAbout,
-                      descriptions: _stateManagement.aboutDescriptions,
+                      descriptions: settingsController.aboutDescriptions,
                     ),
                   ),
                 ),
@@ -121,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   MaterialPageRoute(
                     builder: (context) => DescriptionPage(
                       title: strings.settingsPrivacyPolicy,
-                      descriptions: _stateManagement.privacyPolicyDescriptions,
+                      descriptions: settingsController.privacyPolicyDescriptions,
                     ),
                   ),
                 ),

@@ -15,7 +15,7 @@ class ShowHintTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     return SwitchListTile(
       title: Text(strings.settingsShowHint),
       value: showHint,

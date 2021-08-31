@@ -8,13 +8,12 @@ class DarkThemeTile extends StatelessWidget {
   const DarkThemeTile({Key? key}) : super(key: key);
 
   void _updateThemeOnApp(BuildContext context, bool isDarkTheme) {
-    Provider.of<ThemeProvider>(context, listen: false)
-        .updateThemeMode(isDarkTheme);
+    Provider.of<ThemeProvider>(context, listen: false).updateThemeMode(isDarkTheme);
   }
 
   @override
   Widget build(BuildContext context) {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     return Consumer<DarkThemeProvider>(
       builder: (context, provider, child) {
         return SwitchListTile(

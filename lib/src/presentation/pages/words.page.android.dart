@@ -64,7 +64,7 @@ class _WordsPageState extends State<WordsPage> {
   }
 
   Future<void> _onPressedSearchButton(BuildContext context) async {
-    final JStrings strings = JStrings.of(context)!;
+    final strings = JStrings.of(context)!;
     final queryResult = await showSearch(
       context: context,
       delegate: WordsSearchDelegate(
