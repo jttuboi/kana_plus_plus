@@ -67,12 +67,7 @@ class _KanaViewersState extends State<KanaViewers> {
               key: ValueKey(index),
               controller: _autoScrollController,
               index: index,
-              child: KanaViewer(
-                widget.trainingController.kanaOfWord(widget.wordIdxToShow, index),
-                squareImageUrl: ImageUrl.square,
-                correctImageUrl: ImageUrl.correct,
-                wrongImageUrl: ImageUrl.wrong,
-              ),
+              child: KanaViewer(widget.trainingController.kanaOfWord(widget.wordIdxToShow, index)),
             );
           },
           separatorBuilder: (context, index) => const SizedBox(width: 5),

@@ -1,22 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
 
 class KanaViewer extends StatefulWidget {
-  const KanaViewer(
-    this.content, {
-    Key? key,
-    required this.squareImageUrl,
-    required this.correctImageUrl,
-    required this.wrongImageUrl,
-  }) : super(key: key);
+  const KanaViewer(this.content, {Key? key}) : super(key: key);
 
   final KanaViewerContent content;
-  final String squareImageUrl;
-  final String correctImageUrl;
-  final String wrongImageUrl;
 
   @override
   _KanaViewerState createState() => _KanaViewerState();
@@ -49,24 +43,30 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
-        Image.asset(widget.squareImageUrl),
-        if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
-          Image.asset(widget.content.romajiImageUrl)
-        else ...[
-          Image.asset(widget.content.kanaImageUrl),
-          LayoutBuilder(builder: (context, constraints) {
-            // 80.0 is an random number. I don't know how to decide this. I only know the witdh and height is based of KanaViewers,
-            // in other words, width is infinite and height has a limit size.
-            final size = !constraints.hasInfiniteHeight ? constraints.maxHeight : (!constraints.hasInfiniteWidth ? constraints.maxWidth : 80.0);
-            return UserKanaViewer(strokes: widget.content.strokesDrew, size: Size(size, size));
-          })
-        ],
-        if (widget.content.status.isShowCorrect) Image.asset(widget.correctImageUrl),
-        if (widget.content.status.isShowWrong) Image.asset(widget.wrongImageUrl),
-      ],
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 1.0,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final size = Size(constraints.maxWidth, constraints.maxHeight);
+
+            return Stack(
+              children: [
+                if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
+                CustomPaint(painter: BorderPainter(), size: size),
+                if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
+                  Image.asset(widget.content.romajiImageUrl)
+                else ...[
+                  SvgPicture.asset(widget.content.kanaImageUrl),
+                  UserKanaViewer(strokes: widget.content.strokesDrew, size: size),
+                ],
+                if (widget.content.status.isShowCorrect) Image.asset(ImageUrl.correct),
+                if (widget.content.status.isShowWrong) Image.asset(ImageUrl.wrong),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 

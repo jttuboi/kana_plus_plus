@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
@@ -20,7 +21,7 @@ class ReviewKanaContent extends StatelessWidget {
       child: Stack(
         children: [
           Image.asset(ImageUrl.square),
-          Image.asset(kanaResult.imageUrl),
+          SvgPicture.asset(kanaResult.imageUrl),
           UserKanaViewer(
             strokes: kanaResult.strokesDrew,
             size: const Size(32.0, 32.0),

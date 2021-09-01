@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/all_stroke.provider.dart';
@@ -130,7 +131,7 @@ class _Drawer extends StatelessWidget {
             Consumer<WriterProvider>(
               builder: (context, provider, child) {
                 return (writerController.showHint)
-                    ? Image.asset(writerController.kanaHintImageUrl, height: size, width: size, fit: BoxFit.cover)
+                    ? SvgPicture.asset(writerController.kanaHintImageUrl, height: size, width: size, fit: BoxFit.cover)
                     : Container();
               },
             ),
