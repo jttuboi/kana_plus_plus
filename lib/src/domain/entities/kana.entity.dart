@@ -7,7 +7,6 @@ class Kana {
     required this.type,
     required this.imageUrl,
     this.romaji = '',
-    this.romajiImageUrl = ImageUrl.empty,
     this.strokesQuantity = 0,
   });
 
@@ -16,18 +15,16 @@ class Kana {
         type = KanaType.none,
         imageUrl = ImageUrl.empty,
         romaji = '',
-        romajiImageUrl = ImageUrl.empty,
         strokesQuantity = 0;
 
   final String id;
   final KanaType type;
   final String imageUrl;
   final String romaji;
-  final String romajiImageUrl;
   final int strokesQuantity;
 
   @override
   String toString() {
-    return 'Kana($id, $type, $imageUrl, $romaji, $romajiImageUrl, $strokesQuantity)';
+    return 'Kana($id, $type, $imageUrl, $romaji, $strokesQuantity)';
   }
 }

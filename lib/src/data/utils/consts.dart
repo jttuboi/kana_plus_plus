@@ -16,7 +16,6 @@ class TKanas {
   static const type = 'type';
   static const imageUrl = 'imageUrl';
   static const romaji = 'romaji';
-  static const romajiImageUrl = 'romajiImageUrl';
   static const strokesQuantity = 'strokesQuantity';
 }
 

@@ -9,14 +9,12 @@ class KanaModel extends Kana {
     required String imageUrl,
     required KanaType type,
     String romaji = '',
-    String romajiImageUrl = ImageUrl.empty,
     int strokesQuantity = 0,
   }) : super(
           id: id,
           type: type,
           imageUrl: imageUrl,
           romaji: romaji,
-          romajiImageUrl: romajiImageUrl,
           strokesQuantity: strokesQuantity,
         );
 
@@ -28,7 +26,6 @@ class KanaModel extends Kana {
       type: toKanaType(json[TKanas.type] as String),
       imageUrl: ImageUrl.imageFolder + (json[TKanas.imageUrl] as String),
       romaji: json[TKanas.romaji] as String,
-      romajiImageUrl: ImageUrl.imageFolder + (json[TKanas.romajiImageUrl] as String),
       strokesQuantity: json[TKanas.strokesQuantity] as int,
     );
   }

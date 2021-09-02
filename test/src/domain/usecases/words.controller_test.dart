@@ -29,13 +29,11 @@ void main() {
       expect(wordResult.kanas[0].type, equals(KanaType.hiragana));
       expect(wordResult.kanas[0].imageUrl, equals('lib/assets/images/hiragana/ne.png'));
       expect(wordResult.kanas[0].romaji, equals('ne'));
-      expect(wordResult.kanas[0].romajiImageUrl, equals('lib/assets/images/romaji/ne.png'));
       expect(wordResult.kanas[0].strokesQuantity, equals(2));
       expect(wordResult.kanas[1].id, equals('こ'));
       expect(wordResult.kanas[1].type, equals(KanaType.hiragana));
       expect(wordResult.kanas[1].imageUrl, equals('lib/assets/images/hiragana/ko.png'));
       expect(wordResult.kanas[1].romaji, equals('ko'));
-      expect(wordResult.kanas[1].romajiImageUrl, equals('lib/assets/images/romaji/ko.png'));
       expect(wordResult.kanas[1].strokesQuantity, equals(2));
     });
   });
@@ -131,20 +129,8 @@ final wordSample0 = Word(
 )
   ..setTranslate(const Translate(id: 'ねこ', english: 'cat', portuguese: 'gato', spanish: 'gato'))
   ..kanas = [
-    const Kana(
-        id: 'ね',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/ne.png',
-        romaji: 'ne',
-        romajiImageUrl: 'lib/assets/images/romaji/ne.png',
-        strokesQuantity: 2),
-    const Kana(
-        id: 'こ',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/ko.png',
-        romaji: 'ko',
-        romajiImageUrl: 'lib/assets/images/romaji/ko.png',
-        strokesQuantity: 2),
+    const Kana(id: 'ね', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/ne.png', romaji: 'ne', strokesQuantity: 2),
+    const Kana(id: 'こ', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/ko.png', romaji: 'ko', strokesQuantity: 2),
   ];
 
 final wordSample1 = Word(
@@ -155,20 +141,8 @@ final wordSample1 = Word(
 )
   ..setTranslate(const Translate(id: 'いぬ', english: 'dog', portuguese: 'cachorro', spanish: 'perro'))
   ..kanas = [
-    const Kana(
-        id: 'い',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/i.png',
-        romaji: 'i',
-        romajiImageUrl: 'lib/assets/images/romaji/i.png',
-        strokesQuantity: 2),
-    const Kana(
-        id: 'ぬ',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/nu.png',
-        romaji: 'nu',
-        romajiImageUrl: 'lib/assets/images/romaji/nu.png',
-        strokesQuantity: 2),
+    const Kana(id: 'い', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/i.png', romaji: 'i', strokesQuantity: 2),
+    const Kana(id: 'ぬ', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/nu.png', romaji: 'nu', strokesQuantity: 2),
   ];
 
 final wordSample2 = Word(
@@ -179,20 +153,8 @@ final wordSample2 = Word(
 )
   ..setTranslate(const Translate(id: 'とり', english: 'bird', portuguese: 'pássaro', spanish: 'pájaro'))
   ..kanas = [
-    const Kana(
-        id: 'と',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/to.png',
-        romaji: 'to',
-        romajiImageUrl: 'lib/assets/images/romaji/to.png',
-        strokesQuantity: 2),
-    const Kana(
-        id: 'り',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/ri.png',
-        romaji: 'ri',
-        romajiImageUrl: 'lib/assets/images/romaji/ri.png',
-        strokesQuantity: 2),
+    const Kana(id: 'と', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/to.png', romaji: 'to', strokesQuantity: 2),
+    const Kana(id: 'り', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/ri.png', romaji: 'ri', strokesQuantity: 2),
   ];
 
 final wordSample3 = Word(
@@ -203,27 +165,9 @@ final wordSample3 = Word(
 )
   ..setTranslate(const Translate(id: 'うさぎ', english: 'rabbit', portuguese: 'coelho', spanish: 'conejo'))
   ..kanas = [
-    const Kana(
-        id: 'う',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/u.png',
-        romaji: 'u',
-        romajiImageUrl: 'lib/assets/images/romaji/u.png',
-        strokesQuantity: 2),
-    const Kana(
-        id: 'さ',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/sa.png',
-        romaji: 'sa',
-        romajiImageUrl: 'lib/assets/images/romaji/sa.png',
-        strokesQuantity: 3),
-    const Kana(
-        id: 'ぎ',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/gi.png',
-        romaji: 'gi',
-        romajiImageUrl: 'lib/assets/images/romaji/gi.png',
-        strokesQuantity: 6),
+    const Kana(id: 'う', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/u.png', romaji: 'u', strokesQuantity: 2),
+    const Kana(id: 'さ', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/sa.png', romaji: 'sa', strokesQuantity: 3),
+    const Kana(id: 'ぎ', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/gi.png', romaji: 'gi', strokesQuantity: 6),
   ];
 
 final wordSample4 = Word(
@@ -234,20 +178,8 @@ final wordSample4 = Word(
 )
   ..setTranslate(const Translate(id: 'うし', english: 'cow', portuguese: 'vaca', spanish: 'vaca'))
   ..kanas = [
-    const Kana(
-        id: 'う',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/u.png',
-        romaji: 'u',
-        romajiImageUrl: 'lib/assets/images/romaji/u.png',
-        strokesQuantity: 2),
-    const Kana(
-        id: 'し',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/shi.png',
-        romaji: 'shi',
-        romajiImageUrl: 'lib/assets/images/romaji/shi.png',
-        strokesQuantity: 1),
+    const Kana(id: 'う', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/u.png', romaji: 'u', strokesQuantity: 2),
+    const Kana(id: 'し', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/shi.png', romaji: 'shi', strokesQuantity: 1),
   ];
 
 final wordSample5 = Word(
@@ -258,18 +190,6 @@ final wordSample5 = Word(
 )
   ..setTranslate(const Translate(id: 'うま', english: 'horse', portuguese: 'cavalo', spanish: 'caballo'))
   ..kanas = [
-    const Kana(
-        id: 'う',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/u.png',
-        romaji: 'u',
-        romajiImageUrl: 'lib/assets/images/romaji/u.png',
-        strokesQuantity: 2),
-    const Kana(
-        id: 'ま',
-        type: KanaType.hiragana,
-        imageUrl: 'lib/assets/images/hiragana/ma.png',
-        romaji: 'ma',
-        romajiImageUrl: 'lib/assets/images/romaji/ma.png',
-        strokesQuantity: 3),
+    const Kana(id: 'う', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/u.png', romaji: 'u', strokesQuantity: 2),
+    const Kana(id: 'ま', type: KanaType.hiragana, imageUrl: 'lib/assets/images/hiragana/ma.png', romaji: 'ma', strokesQuantity: 3),
   ];

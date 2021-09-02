@@ -160,19 +160,21 @@ void main() {
       controller.wordsToTraining = [
         WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
           KanaViewerContent(
-              id: 'あ',
-              status: KanaViewerStatus.showSelected,
-              kanaImageUrl: 'a.png',
-              romajiImageUrl: 'ra.png',
-              strokesQuantity: 3,
-              kanaType: KanaType.hiragana),
+            id: 'あ',
+            status: KanaViewerStatus.showSelected,
+            kanaImageUrl: 'a.png',
+            romaji: 'a',
+            strokesQuantity: 3,
+            kanaType: KanaType.hiragana,
+          ),
           KanaViewerContent(
-              id: 'め',
-              status: KanaViewerStatus.showInitial,
-              kanaImageUrl: 'me.png',
-              romajiImageUrl: 'rme.png',
-              strokesQuantity: 2,
-              kanaType: KanaType.hiragana),
+            id: 'め',
+            status: KanaViewerStatus.showInitial,
+            kanaImageUrl: 'me.png',
+            romaji: 'me',
+            strokesQuantity: 2,
+            kanaType: KanaType.hiragana,
+          ),
         ]),
       ];
       controller.kanaIdx = 0;
@@ -194,12 +196,12 @@ void main() {
       expect(word.kanas.length, 2);
       expect(word.kanas[0].id, 'あ');
       expect(word.kanas[0].kanaImageUrl, 'a.png');
-      expect(word.kanas[0].romajiImageUrl, 'ra.png');
+      expect(word.kanas[0].romaji, 'a');
       expect(word.kanas[0].strokesQuantity, 3);
       expect(word.kanas[0].kanaType, KanaType.hiragana);
       expect(word.kanas[1].id, 'め');
       expect(word.kanas[1].kanaImageUrl, 'me.png');
-      expect(word.kanas[1].romajiImageUrl, 'rme.png');
+      expect(word.kanas[1].romaji, 'me');
       expect(word.kanas[1].strokesQuantity, 2);
       expect(word.kanas[1].kanaType, KanaType.hiragana);
 
@@ -222,21 +224,22 @@ void main() {
       controller.wordsToTraining = [
         WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
           KanaViewerContent(
-              id: 'あ',
-              status: KanaViewerStatus.showWrong,
-              kanaImageUrl: 'a.png',
-              romajiImageUrl: 'ra.png',
-              strokesQuantity: 3,
-              kanaType: KanaType.hiragana,
-              //kanaIdWrote: -1, // if is -1, the kana is not found
-              strokesDrew: firstStrokes),
+            id: 'あ',
+            status: KanaViewerStatus.showWrong,
+            kanaImageUrl: 'a.png',
+            romaji: 'a',
+            strokesQuantity: 3,
+            kanaType: KanaType.hiragana,
+            strokesDrew: firstStrokes,
+          ),
           KanaViewerContent(
-              id: 'め',
-              status: KanaViewerStatus.showSelected,
-              kanaImageUrl: 'me.png',
-              romajiImageUrl: 'rme.png',
-              strokesQuantity: 2,
-              kanaType: KanaType.hiragana),
+            id: 'め',
+            status: KanaViewerStatus.showSelected,
+            kanaImageUrl: 'me.png',
+            romaji: 'me',
+            strokesQuantity: 2,
+            kanaType: KanaType.hiragana,
+          ),
         ]),
       ];
       controller.kanaIdx = 1;
@@ -258,7 +261,7 @@ void main() {
       expect(word.kanas.length, 2);
       expect(word.kanas[0].id, 'あ');
       expect(word.kanas[0].kanaImageUrl, 'a.png');
-      expect(word.kanas[0].romajiImageUrl, 'ra.png');
+      expect(word.kanas[0].romaji, 'a');
       expect(word.kanas[0].strokesQuantity, 3);
       expect(word.kanas[0].kanaType, KanaType.hiragana);
       expect(word.kanas[0].status, KanaViewerStatus.showWrong);
@@ -266,7 +269,7 @@ void main() {
       expect(word.kanas[0].strokesDrew, firstStrokes);
       expect(word.kanas[1].id, 'め');
       expect(word.kanas[1].kanaImageUrl, 'me.png');
-      expect(word.kanas[1].romajiImageUrl, 'rme.png');
+      expect(word.kanas[1].romaji, 'me');
       expect(word.kanas[1].strokesQuantity, 2);
       expect(word.kanas[1].kanaType, KanaType.hiragana);
 
@@ -379,21 +382,23 @@ void main() {
     controller.wordsToTraining = [
       WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
         KanaViewerContent(
-            id: 'あ',
-            // if showSelected or showInitial, is considered isCorrect = false
-            status: KanaViewerStatus.showSelected,
-            kanaImageUrl: 'a.png',
-            romajiImageUrl: 'ra.png',
-            strokesQuantity: 3,
-            kanaType: KanaType.hiragana),
+          id: 'あ',
+          // if showSelected or showInitial, is considered isCorrect = false
+          status: KanaViewerStatus.showSelected,
+          kanaImageUrl: 'a.png',
+          romaji: 'a',
+          strokesQuantity: 3,
+          kanaType: KanaType.hiragana,
+        ),
         KanaViewerContent(
-            id: 'め',
-            // if showSelected or showInitial, is considered isCorrect = false
-            status: KanaViewerStatus.showInitial,
-            kanaImageUrl: 'me.png',
-            romajiImageUrl: 'rme.png',
-            strokesQuantity: 2,
-            kanaType: KanaType.hiragana),
+          id: 'め',
+          // if showSelected or showInitial, is considered isCorrect = false
+          status: KanaViewerStatus.showInitial,
+          kanaImageUrl: 'me.png',
+          romaji: 'me',
+          strokesQuantity: 2,
+          kanaType: KanaType.hiragana,
+        ),
       ]),
     ];
 
@@ -419,7 +424,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'あ',
         status: KanaViewerStatus.showCorrect,
         kanaImageUrl: 'a.png',
-        romajiImageUrl: 'ra.png',
+        romaji: 'a',
         strokesQuantity: 3,
         kanaType: KanaType.hiragana,
         kanaIdWrote: 'あ',
@@ -432,7 +437,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'め',
         status: KanaViewerStatus.showWrong,
         kanaImageUrl: 'me.png',
-        romajiImageUrl: 'rme.png',
+        romaji: 'me',
         strokesQuantity: 2,
         kanaType: KanaType.hiragana,
         kanaIdWrote: 'あ',
@@ -446,7 +451,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'け',
         status: KanaViewerStatus.showWrong,
         kanaImageUrl: 'ke.png',
-        romajiImageUrl: 'rke.png',
+        romaji: 'ke',
         strokesQuantity: 3,
         kanaType: KanaType.hiragana,
         kanaIdWrote: 'あ',
@@ -458,7 +463,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'し',
         status: KanaViewerStatus.showCorrect,
         kanaImageUrl: 'shi.png',
-        romajiImageUrl: 'rshi.png',
+        romaji: 'shi',
         strokesQuantity: 1,
         kanaType: KanaType.hiragana,
         kanaIdWrote: 'あ',
@@ -470,7 +475,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'ゴ',
         status: KanaViewerStatus.showCorrect,
         kanaImageUrl: 'go.png',
-        romajiImageUrl: 'rgo.png',
+        romaji: 'go',
         strokesQuantity: 4,
         kanaType: KanaType.katakana,
         kanaIdWrote: 'あ',
@@ -482,7 +487,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'ム',
         status: KanaViewerStatus.showWrong,
         kanaImageUrl: 'mu.png',
-        romajiImageUrl: 'rmu.png',
+        romaji: 'mu',
         strokesQuantity: 3,
         kanaType: KanaType.katakana,
         kanaIdWrote: 'あ',
@@ -496,7 +501,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'サ',
         status: KanaViewerStatus.showCorrect,
         kanaImageUrl: 'sa.png',
-        romajiImageUrl: 'rsa.png',
+        romaji: 'sa',
         strokesQuantity: 3,
         kanaType: KanaType.katakana,
         kanaIdWrote: 'あ',
@@ -508,7 +513,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'ラ',
         status: KanaViewerStatus.showCorrect,
         kanaImageUrl: 'ra.png',
-        romajiImageUrl: 'rra.png',
+        romaji: 'ra',
         strokesQuantity: 2,
         kanaType: KanaType.katakana,
         kanaIdWrote: 'あ',
@@ -520,7 +525,7 @@ final List<WordViewerContent> wordsContent = [
         id: 'ダ',
         status: KanaViewerStatus.showWrong,
         kanaImageUrl: 'da.png',
-        romajiImageUrl: 'rda.png',
+        romaji: 'da',
         strokesQuantity: 5,
         kanaType: KanaType.katakana,
         kanaIdWrote: 'あ',
