@@ -65,10 +65,12 @@ flutter:
     - lib/assets/icons/writing_hand_left.png
     - lib/assets/icons/writing_hand_right.png
 
+    - lib/assets/tests/images/
+    - lib/assets/tests/images/kanas/
+    - lib/assets/tests/images/romaji/
+    - lib/assets/tests/images/words/
+
     - lib/assets/images/empty.png
-    - lib/assets/images/square.png
-    - lib/assets/images/correct.png
-    - lib/assets/images/wrong.png
 
     - lib/assets/images/kanas/あ.svg
     - lib/assets/images/kanas/い.svg

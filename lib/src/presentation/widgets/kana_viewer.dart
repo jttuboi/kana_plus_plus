@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
@@ -53,15 +52,22 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
             return Stack(
               children: [
                 if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
-                CustomPaint(painter: BorderPainter(), size: size),
+                CustomPaint(
+                  painter: BorderPainter(
+                      borderWidth: 4.0,
+                      borderColor: (widget.content.status.isShowCorrect)
+                          ? Colors.blueAccent
+                          : (widget.content.status.isShowWrong)
+                              ? Colors.redAccent
+                              : Colors.grey[500]!),
+                  size: size,
+                ),
                 if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
-                  Image.asset(widget.content.romajiImageUrl)
+                  RomajiViewer(widget.content.romaji)
                 else ...[
                   SvgPicture.asset(widget.content.kanaImageUrl),
                   UserKanaViewer(strokes: widget.content.strokesDrew, size: size),
                 ],
-                if (widget.content.status.isShowCorrect) Image.asset(ImageUrl.correct),
-                if (widget.content.status.isShowWrong) Image.asset(ImageUrl.wrong),
               ],
             );
           },
@@ -77,7 +83,7 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
         builder: (context, child) {
           return Transform.scale(
             scale: 1 + _controller.value * 0.1,
-            child: Image.asset(widget.content.romajiImageUrl),
+            child: RomajiViewer(widget.content.romaji),
           );
         },
       ),
@@ -97,5 +103,21 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
         },
       ),
     ];
+  }
+}
+
+class RomajiViewer extends StatelessWidget {
+  const RomajiViewer(this.romaji, {Key? key}) : super(key: key);
+
+  final String romaji;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        romaji,
+        style: const TextStyle(color: Color(0xff4d4d4d), fontSize: 50),
+      ),
+    );
   }
 }

@@ -7,7 +7,7 @@ class KanaViewerContent {
     required this.id,
     required this.status,
     required this.kanaImageUrl,
-    required this.romajiImageUrl,
+    required this.romaji,
     required this.strokesQuantity,
     required this.kanaType,
     this.kanaIdWrote = '',
@@ -17,7 +17,7 @@ class KanaViewerContent {
   final String id;
   final KanaViewerStatus status;
   final String kanaImageUrl;
-  final String romajiImageUrl;
+  final String romaji;
   final int strokesQuantity;
   final KanaType kanaType;
   late String kanaIdWrote;
@@ -25,6 +25,6 @@ class KanaViewerContent {
 
   @override
   String toString() {
-    return 'KanaViewer($id, ${status.toString()}, $kanaImageUrl, $romajiImageUrl, $strokesQuantity, ${kanaType.toString()}, $kanaIdWrote, $strokesDrew)';
+    return 'KanaViewer($id, ${status.toString()}, $kanaImageUrl, $romaji, $strokesQuantity, ${kanaType.toString()}, $kanaIdWrote, $strokesDrew)';
   }
 }

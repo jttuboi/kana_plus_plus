@@ -56,7 +56,7 @@ class TrainingController {
     wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
       id: preview.id,
       status: (kanaIdWrote == preview.id) ? KanaViewerStatus.showCorrect : KanaViewerStatus.showWrong,
-      romajiImageUrl: preview.romajiImageUrl,
+      romaji: preview.romaji,
       kanaImageUrl: preview.kanaImageUrl,
       strokesQuantity: preview.strokesQuantity,
       kanaType: preview.kanaType,
@@ -74,7 +74,7 @@ class TrainingController {
       wordsToTraining[wordIdx].kanas[kanaIdx] = KanaViewerContent(
         id: preview2.id,
         status: KanaViewerStatus.showSelected,
-        romajiImageUrl: preview2.romajiImageUrl,
+        romaji: preview2.romaji,
         kanaImageUrl: preview2.kanaImageUrl,
         strokesQuantity: preview2.strokesQuantity,
         kanaType: preview2.kanaType,
@@ -131,7 +131,7 @@ class TrainingController {
             id: words[w].kanas[k].id,
             status: (k == 0) ? KanaViewerStatus.showSelected : KanaViewerStatus.showInitial,
             kanaImageUrl: words[w].kanas[k].imageUrl,
-            romajiImageUrl: words[w].kanas[k].romajiImageUrl,
+            romaji: words[w].kanas[k].romaji,
             strokesQuantity: words[w].kanas[k].strokesQuantity,
             kanaType: words[w].kanas[k].type,
           ),

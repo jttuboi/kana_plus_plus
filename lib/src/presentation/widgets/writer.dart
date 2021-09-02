@@ -126,8 +126,7 @@ class _Drawer extends StatelessWidget {
 
         return Stack(
           children: [
-            Container(color: Colors.grey[200], height: size, width: size),
-            CustomPaint(painter: BorderPainter(), size: Size.square(size)),
+            CustomPaint(painter: BorderPainter(borderWidth: 9.0, borderColor: Colors.grey[500]!), size: Size.square(size)),
             Consumer<WriterProvider>(
               builder: (context, provider, child) {
                 return (writerController.showHint)
