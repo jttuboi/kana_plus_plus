@@ -4,7 +4,7 @@ import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/usecases/training.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_viewer_content.dart';
 import 'package:mocktail/mocktail.dart';

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 
 class CurrentStrokeProvider extends ChangeNotifier {
   CurrentStrokeProvider(this._controller);

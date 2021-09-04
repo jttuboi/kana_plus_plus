@@ -8,7 +8,7 @@ import 'package:kana_plus_plus/src/domain/repositories/language.interface.reposi
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/usecases/settings.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

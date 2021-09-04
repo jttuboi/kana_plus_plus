@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
-import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';

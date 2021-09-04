@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/usecases/word_to_kana_converter.dart';
+import 'package:kana_plus_plus/src/domain/controllers/word_to_kana_converter.dart';
 
 void main() {
   final converter = WordToKanaConverter();

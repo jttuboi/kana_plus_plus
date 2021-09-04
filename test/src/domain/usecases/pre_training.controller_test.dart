@@ -4,7 +4,7 @@ import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

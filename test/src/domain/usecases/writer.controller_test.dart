@@ -6,7 +6,7 @@ import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.service.dart';
 import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.service.dart';
-import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

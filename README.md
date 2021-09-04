@@ -49,7 +49,7 @@ São interfaces que retornam os dados do sistema. Não necessita o conhecimento 
 ##### services
 São interfaces que retornam os dados relacionados a parte externa em relação ao sistema.
 
-##### usecases
+##### controllers
 São classes que representam as regras de negócio do sistema.
 
 #### data

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
-import 'package:kana_plus_plus/src/domain/usecases/writer.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 
 class WriterProvider extends ChangeNotifier {
   WriterProvider(this._controller);

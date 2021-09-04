@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/domain/usecases/pre_training.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
