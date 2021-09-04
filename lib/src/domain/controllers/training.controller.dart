@@ -1,11 +1,12 @@
 import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
-import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
@@ -14,14 +15,16 @@ import 'package:kana_plus_plus/src/presentation/arguments/word_viewer_content.da
 class TrainingController {
   TrainingController({
     required this.wordRepository,
+    required this.kanaChecker,
     required this.kanaType,
     required this.quantityOfWords,
   });
 
-  IWordRepository wordRepository;
+  final IWordRepository wordRepository;
+  final KanaChecker kanaChecker;
 
-  KanaType kanaType;
-  int quantityOfWords;
+  final KanaType kanaType;
+  final int quantityOfWords;
 
   int wordIdx = 0;
   int kanaIdx = 0;
@@ -29,6 +32,7 @@ class TrainingController {
   List<WordViewerContent> wordsToTraining = [];
 
   Future<bool> get isReady async {
+    await kanaChecker.load();
     _generateDataForTest();
     return true;
   }

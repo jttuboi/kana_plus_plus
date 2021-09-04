@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';

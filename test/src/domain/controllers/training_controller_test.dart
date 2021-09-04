@@ -1,31 +1,34 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
-import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
+import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_viewer_content.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
   final wordRepository = WordRepositoryMock();
+  final kanaChecker = KanaChecker();
   final controller = TrainingController(
     wordRepository: wordRepository,
+    kanaChecker: kanaChecker,
     kanaType: KanaType.hiragana,
     quantityOfWords: 10,
   );
   test('training controller init test', () {
     final repository1 = WordRepositoryMock();
-    final controller1 = TrainingController(wordRepository: repository1, kanaType: KanaType.hiragana, quantityOfWords: 1);
+    final controller1 = TrainingController(wordRepository: repository1, kanaChecker: kanaChecker, kanaType: KanaType.hiragana, quantityOfWords: 1);
 
     expect(controller1.wordRepository, repository1);
     expect(controller1.kanaType, KanaType.hiragana);
     expect(controller1.quantityOfWords, 1);
 
     final repository2 = WordRepositoryMock();
-    final controller2 = TrainingController(wordRepository: repository2, kanaType: KanaType.both, quantityOfWords: 423);
+    final controller2 = TrainingController(wordRepository: repository2, kanaChecker: kanaChecker, kanaType: KanaType.both, quantityOfWords: 423);
 
     expect(controller2.wordRepository, repository2);
     expect(controller2.kanaType, KanaType.both);

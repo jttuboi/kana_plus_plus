@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/pages/selection_option.page.android.dart';
 

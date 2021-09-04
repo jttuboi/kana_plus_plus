@@ -1,5 +1,5 @@
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
 
 class WritingHandData {
   const WritingHandData({

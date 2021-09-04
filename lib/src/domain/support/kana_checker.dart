@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/services.dart';
-import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.service.dart';
 
-class KanaCheckerService implements IKanaCheckerService {
-  KanaCheckerService() {
-    rootBundle.loadString('lib/assets/database/points.json').then((response) {
+class KanaChecker {
+  Future<void> load() async {
+    return rootBundle.loadString('lib/assets/database/points.json').then((response) {
       final jsonFile = json.decode(response) as Map<String, dynamic>;
       data = _convertToData(jsonFile);
     });

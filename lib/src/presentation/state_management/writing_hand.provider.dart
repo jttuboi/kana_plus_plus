@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
-import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
 
 class WritingHandProvider extends ChangeNotifier {
   WritingHandProvider(this._controller);

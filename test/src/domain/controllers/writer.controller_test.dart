@@ -1,29 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/data/services/stroke_reducer.service.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.service.dart';
-import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.service.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
+import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
+import 'package:kana_plus_plus/src/domain/support/stroke_reducer.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
   late IWritingHandRepository writingHandRepository;
-  late IStrokeReducerService strokeReducerService;
-  late IKanaCheckerService kanaCheckerService;
   late WriterController controller;
+  final strokeReducer = StrokeReducer(limitPointsToReduce: 20);
+  final kanaChecker = KanaChecker();
 
   setUpAll(() {
     writingHandRepository = WritingHandRepositoryMock();
-
-    strokeReducerService = StrokeReducerService(limitPointsToReduce: 20);
-    kanaCheckerService = KanaCheckerServiceMock();
     controller = WriterController(
       writingHandRepository: writingHandRepository,
-      strokeReducerService: strokeReducerService,
-      kanaCheckerService: kanaCheckerService,
+      strokeReducer: strokeReducer,
+      kanaChecker: kanaChecker,
       showHint: true,
     );
   });
@@ -31,15 +27,15 @@ void main() {
   group('writer controller tests', () {
     test('start writer controller', () {
       final repository1 = WritingHandRepositoryMock();
-      final controller1 = WriterController(
-          writingHandRepository: repository1, strokeReducerService: strokeReducerService, kanaCheckerService: kanaCheckerService, showHint: true);
+      final controller1 =
+          WriterController(writingHandRepository: repository1, strokeReducer: strokeReducer, kanaChecker: kanaChecker, showHint: true);
 
       expect(controller1.writingHandRepository, repository1);
       expect(controller1.showHint, isTrue);
 
       final repository2 = WritingHandRepositoryMock();
-      final controller2 = WriterController(
-          writingHandRepository: repository2, strokeReducerService: strokeReducerService, kanaCheckerService: kanaCheckerService, showHint: false);
+      final controller2 =
+          WriterController(writingHandRepository: repository2, strokeReducer: strokeReducer, kanaChecker: kanaChecker, showHint: false);
 
       expect(controller2.writingHandRepository, repository2);
       expect(controller2.showHint, isFalse);
@@ -147,10 +143,6 @@ void main() {
 }
 
 class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {}
-
-class StrokeReducerServiceMock extends Mock implements IStrokeReducerService {}
-
-class KanaCheckerServiceMock extends Mock implements IKanaCheckerService {}
 
 // TODO fazer esses testes
 //   List<List<Offset>> get strokesNormalized => []; // aqui deve procurar pelos strokes normalizados

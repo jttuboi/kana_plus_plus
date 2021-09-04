@@ -4,7 +4,7 @@ import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart'
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';
 import 'package:kana_plus_plus/src/data/models/translate.model.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
-import 'package:kana_plus_plus/src/domain/controllers/word_to_kana_converter.dart';
+import 'package:kana_plus_plus/src/domain/support/word_to_kana_converter.dart';
 
 class JsonFileStorage implements IFileStorage {
   final data = JsonData();

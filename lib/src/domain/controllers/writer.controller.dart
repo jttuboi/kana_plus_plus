@@ -1,24 +1,23 @@
 import 'dart:ui';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
-import 'package:kana_plus_plus/src/domain/enums/writing_hand.dart';
+import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/services/kana_checker.interface.service.dart';
-import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.service.dart';
+import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
+import 'package:kana_plus_plus/src/domain/support/stroke_reducer.dart';
 
 class WriterController {
   WriterController({
     required this.writingHandRepository,
-    required this.strokeReducerService,
-    required this.kanaCheckerService,
+    required this.strokeReducer,
+    required this.kanaChecker,
     required this.showHint,
   });
 
-  IWritingHandRepository writingHandRepository;
+  final IWritingHandRepository writingHandRepository;
+  final StrokeReducer strokeReducer;
+  final KanaChecker kanaChecker;
 
-  late final IStrokeReducerService strokeReducerService;
-  late final IKanaCheckerService kanaCheckerService;
-
-  bool showHint;
+  final bool showHint;
 
   List<List<Offset>> strokes = [];
   late KanaToWrite kanaToWrite;
@@ -43,7 +42,7 @@ class WriterController {
   }
 
   void addStroke(List<Offset> stroke) {
-    strokes.add(strokeReducerService.reduce(stroke));
+    strokes.add(strokeReducer.reduce(stroke));
   }
 
   void clearStrokes() {
@@ -58,7 +57,7 @@ class WriterController {
 
   String get kanaWrote {
     //print('kanaWrote -> kanaToWrite = $kanaToWrite');
-    final isOk = kanaCheckerService.checkKana(kanaToWrite.id, normalizedStrokes);
+    final isOk = kanaChecker.checkKana(kanaToWrite.id, normalizedStrokes);
     return isOk ? kanaToWrite.id : '';
   }
 

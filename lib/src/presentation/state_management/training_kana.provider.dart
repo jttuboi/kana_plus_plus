@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
+import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 
 class TrainingKanaProvider extends ChangeNotifier {

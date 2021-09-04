@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:kana_plus_plus/src/data/services/kana_checker.service.dart';
-import 'package:kana_plus_plus/src/data/services/stroke_reducer.service.dart';
 import 'package:kana_plus_plus/src/data/singletons/cache.dart';
 import 'package:kana_plus_plus/src/data/repositories/dark_theme.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/kana_type.repository.dart';
@@ -17,6 +15,8 @@ import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
+import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
+import 'package:kana_plus_plus/src/domain/support/stroke_reducer.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
@@ -127,16 +127,18 @@ class AndroidApp extends StatelessWidget {
       final args = settings.arguments! as PreTrainingArguments;
       return MaterialPageRoute(
         builder: (context) {
+          final kanaChecker = KanaChecker();
           return TrainingPage(
             trainingController: TrainingController(
               wordRepository: WordRepository(),
+              kanaChecker: kanaChecker,
               kanaType: args.kanaType,
               quantityOfWords: args.quantityOfWords,
             ),
             writerController: WriterController(
               writingHandRepository: WritingHandRepository(),
-              strokeReducerService: StrokeReducerService(limitPointsToReduce: 20),
-              kanaCheckerService: KanaCheckerService(),
+              strokeReducer: StrokeReducer(limitPointsToReduce: 20),
+              kanaChecker: kanaChecker,
               showHint: args.showHint,
             ),
           );

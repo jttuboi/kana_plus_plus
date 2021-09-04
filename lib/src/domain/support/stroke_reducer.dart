@@ -1,10 +1,8 @@
 import 'dart:collection';
 import 'dart:ui';
 
-import 'package:kana_plus_plus/src/domain/services/stroke_reducer.interface.service.dart';
-
-class StrokeReducerService implements IStrokeReducerService {
-  StrokeReducerService({required this.limitPointsToReduce});
+class StrokeReducer {
+  StrokeReducer({required this.limitPointsToReduce});
 
   final int limitPointsToReduce;
 

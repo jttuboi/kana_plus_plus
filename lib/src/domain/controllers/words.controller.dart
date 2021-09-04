@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/domain/enums/loaded_by.dart';
+import 'package:kana_plus_plus/src/domain/core/loaded_by.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 

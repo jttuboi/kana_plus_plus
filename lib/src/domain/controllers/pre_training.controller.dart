@@ -1,5 +1,5 @@
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.dart';
 import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
