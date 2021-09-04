@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Copyright (C) 2009/2010/2011 Ulrich Apel.
+This work is distributed under the conditions of the Creative Commons
+Attribution-Share Alike 3.0 Licence. This means you are free:
+* to Share - to copy, distribute and transmit the work
+* to Remix - to adapt the work
+
+Under the following conditions:
+* Attribution. You must attribute the work by stating your use of KanjiVG in
+  your own copyright header and linking to KanjiVG's website
+  (http://kanjivg.tagaini.net)
+* Share Alike. If you alter, transform, or build upon this work, you may
+  distribute the resulting work only under the same or similar license to this
+  one.
+
+See http://creativecommons.org/licenses/by-sa/3.0/ for more details.
+-->
+
+<svg
+   width="109"
+   height="109"
+   viewBox="0 0 109 109"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="テォ.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="7.0091743"
+     inkscape:cx="52.716623"
+     inkscape:cy="54.5"
+     inkscape:window-width="2491"
+     inkscape:window-height="1057"
+     inkscape:window-x="61"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <g
+     id="kvg:StrokePaths_030c6"
+     style="fill:none;stroke:#000000;stroke-width:3.14527102;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.95635875,0,0,0.95127378,-9.1278038,2.8463741)">
+    <g
+       id="kvg:030c6"
+       style="stroke-width:3.14527102;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030c6-s1"
+         d="m 36.5,21.5 c 2.12,1.25 4.38,1.59 7.25,1.25 C 54.37,21.5 60.63,20.5 68.37,19.5 72.1,19.02 74,19 76.5,19.25"
+         style="stroke-width:3.14527102;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030c6-s2"
+         d="m 20,44.12 c 2.88,1 5.26,1.05 7.5,0.75 22.38,-3 37,-5.62 54.13,-6.12 5.62,-0.16 7.75,0 10.38,0.62"
+         style="stroke-width:3.14527102;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030c6-s3"
+         d="m 58,43.25 c 0.88,1 1.32,2.63 1.12,4.38 C 57.38,63 47.5,82.62 34.5,89.5"
+         style="stroke-width:3.14527102;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text7"
+     style="font-size:8px;fill:#808080"
+     x="23.245182"
+     y="18.964659">1</text>
+  <g
+     id="kvg:StrokePaths_030a9"
+     style="fill:none;stroke:#000000;stroke-width:5.77117672;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.52078253,0,0,0.51886856,55.658365,39.216292)">
+    <g
+       id="kvg:030a9"
+       style="stroke-width:5.77117672;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030a9-s1"
+         d="m 26,50.69 c 3.11,1.49 6,1.3 8.75,0.86 14.32,-2.3 27.34,-3.76 40.17,-4.53 2.65,-0.16 5.05,0.14 8.31,1.15"
+         style="stroke-width:5.77117672;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030a9-s2"
+         d="m 58.49,33.57 c 1.05,1.18 1.31,3.16 1.31,4.86 0,6.36 -0.2,36.73 -0.2,46.58 0,16.19 -4.67,5.96 -7.35,4.37"
+         style="stroke-width:5.77117672;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030a9-s3"
+         d="m 58.41,49.45 c 0,1.29 -1.31,2.87 -2.88,4.77 -6.26,7.55 -16.79,18.08 -27.51,26.22"
+         style="stroke-width:5.77117672;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text7-8"
+     style="font-size:8px;fill:#808080"
+     x="65.939339"
+     y="61.086216">4</text>
+  <text
+     id="text9-0"
+     style="font-size:8px;fill:#808080"
+     x="90.108604"
+     y="53.578365">5</text>
+  <text
+     id="text11-6"
+     style="font-size:8px;fill:#808080"
+     x="89.868652"
+     y="73.405586">6</text>
+  <text
+     id="text9"
+     style="font-size:8px;fill:#808080"
+     x="8.1051302"
+     y="40.891361">2</text>
+  <text
+     id="text11"
+     style="font-size:8px;fill:#808080"
+     x="51.664032"
+     y="51.592045">3</text>
+</svg>

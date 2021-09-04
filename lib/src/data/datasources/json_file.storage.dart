@@ -4,6 +4,7 @@ import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart'
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';
 import 'package:kana_plus_plus/src/data/models/translate.model.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
+import 'package:kana_plus_plus/src/domain/usecases/word_to_kana_converter.dart';
 
 class JsonFileStorage implements IFileStorage {
   final data = JsonData();
@@ -31,16 +32,12 @@ class JsonFileStorage implements IFileStorage {
         data.words[model.id] = model;
       }
     });
-    data.words.forEach((id, word) {
-      // add translate
-      word.setTranslate(data.translates[id]!);
 
-      // add kanas
-      word.kanas = [];
-      for (var i = 0; i < id.length; i++) {
-        final char = id[i];
-        word.kanas.add(data.kanas[char]!);
-      }
+    final converter = WordToKanaConverter();
+
+    data.words.forEach((wordId, wordModel) {
+      wordModel.setTranslate(data.translates[wordId]!);
+      wordModel.kanas = converter.convert(wordId, data.kanas);
     });
   }
 

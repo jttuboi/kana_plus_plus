@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana.entity.dart';
-import 'package:kana_plus_plus/src/domain/entities/translate.entity.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana.dart';
+import 'package:kana_plus_plus/src/domain/entities/translate.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';

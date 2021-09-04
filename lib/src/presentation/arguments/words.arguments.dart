@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordsArguments {
   WordsArguments({

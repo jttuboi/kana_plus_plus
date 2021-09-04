@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordsSearchDelegate extends SearchDelegate {
   WordsSearchDelegate(this.words, String searchFieldLabel)

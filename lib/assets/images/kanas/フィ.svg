@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Copyright (C) 2009/2010/2011 Ulrich Apel.
+This work is distributed under the conditions of the Creative Commons
+Attribution-Share Alike 3.0 Licence. This means you are free:
+* to Share - to copy, distribute and transmit the work
+* to Remix - to adapt the work
+
+Under the following conditions:
+* Attribution. You must attribute the work by stating your use of KanjiVG in
+  your own copyright header and linking to KanjiVG's website
+  (http://kanjivg.tagaini.net)
+* Share Alike. If you alter, transform, or build upon this work, you may
+  distribute the resulting work only under the same or similar license to this
+  one.
+
+See http://creativecommons.org/licenses/by-sa/3.0/ for more details.
+-->
+
+<svg
+   width="109"
+   height="109"
+   viewBox="0 0 109 109"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="フィ.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     showguides="false"
+     inkscape:zoom="7.0091743"
+     inkscape:cx="52.716623"
+     inkscape:cy="54.5"
+     inkscape:window-width="2491"
+     inkscape:window-height="1057"
+     inkscape:window-x="61"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <g
+     id="kvg:StrokePaths_030d5"
+     style="fill:none;stroke:#000000;stroke-width:2.62702308;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(1.144956,0,0,1.1390058,-14.808342,-9.2939678)">
+    <g
+       id="kvg:030d5"
+       style="stroke-width:2.62702308;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030d5-s1"
+         d="m 24.5,30 c 1.88,1.88 3.5,2.04 6.5,1.62 14.5,-2 29,-4.38 43.75,-6.88 6.82,-1.16 10.58,2.29 6.88,9.12 C 71.25,53 60.38,73.38 31.62,87.5"
+         style="stroke-width:2.62702308;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text5"
+     style="font-size:8px;fill:#808080"
+     x="10.216387"
+     y="20.029213">1</text>
+  <g
+     id="kvg:StrokePaths_030a3"
+     style="fill:none;stroke:#000000;stroke-width:5.67794586;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.52237845,0,0,0.53441023,60.397058,39.295292)">
+    <g
+       id="kvg:030a3"
+       style="stroke-width:5.67794586;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030a3-s1"
+         d="m 67.75,32.78 c 0.1,1.39 -0.27,3.07 -1.28,4.37 C 58.49,47.39 47.75,60.7 30.5,71.23"
+         style="stroke-width:5.67794586;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030a3-s2"
+         d="m 57.19,54.22 c 0.81,0.92 1.02,2.46 1.02,3.79 0,1.33 0,26.33 0,27.87 0,1.54 -0.1,7.48 -0.1,9.63"
+         style="stroke-width:5.67794586;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text6"
+     style="font-size:8px;fill:#808080"
+     x="86.944344"
+     y="57.014576">2</text>
+  <text
+     id="text8"
+     style="font-size:8px;fill:#808080"
+     x="94.101418"
+     y="71.988815">3</text>
+</svg>

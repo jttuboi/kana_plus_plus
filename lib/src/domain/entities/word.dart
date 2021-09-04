@@ -1,7 +1,7 @@
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/entities/translate.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/translate.dart';
 
 class Word {
   Word({

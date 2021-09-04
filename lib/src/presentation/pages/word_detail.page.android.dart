@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordDetailPage extends StatelessWidget {
   const WordDetailPage({Key? key, required this.word}) : super(key: key);

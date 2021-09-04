@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Copyright (C) 2009/2010/2011 Ulrich Apel.
+This work is distributed under the conditions of the Creative Commons
+Attribution-Share Alike 3.0 Licence. This means you are free:
+* to Share - to copy, distribute and transmit the work
+* to Remix - to adapt the work
+
+Under the following conditions:
+* Attribution. You must attribute the work by stating your use of KanjiVG in
+  your own copyright header and linking to KanjiVG's website
+  (http://kanjivg.tagaini.net)
+* Share Alike. If you alter, transform, or build upon this work, you may
+  distribute the resulting work only under the same or similar license to this
+  one.
+
+See http://creativecommons.org/licenses/by-sa/3.0/ for more details.
+-->
+
+<svg
+   width="109"
+   height="109"
+   viewBox="0 0 109 109"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="キョ.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="7.0091743"
+     inkscape:cx="50.790576"
+     inkscape:cy="54.5"
+     inkscape:window-width="2491"
+     inkscape:window-height="1057"
+     inkscape:window-x="61"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <g
+     id="kvg:StrokePaths_030ad"
+     style="fill:none;stroke:#000000;stroke-width:3.76193252;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.80463688,0,0,0.79035203,-5.6634377,11.03459)">
+    <g
+       id="kvg:030ad"
+       style="stroke-width:3.76193252;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030ad-s1"
+         d="m 27,40.5 c 1.75,0.62 4.77,1.09 7.25,0.38 C 46,37.5 64.87,32.75 71.75,31 c 2.62,-0.67 6.75,-1.12 9,-1"
+         style="stroke-width:3.76193252;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030ad-s2"
+         d="m 19.5,65.8 c 2.28,0.84 6.24,1.18 9.46,0.17 17.79,-5.59 32.67,-9.09 49.17,-12.99 3.43,-0.81 8.81,-1.52 11.74,-1.35"
+         style="stroke-width:3.76193252;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030ad-s3"
+         d="m 48.87,16.75 c 2.5,1.75 3.43,3.24 3.88,6.12 2.12,13.62 6.38,45.38 8.25,59.25 0.4,3 1,8.38 1.38,11.12"
+         style="stroke-width:3.76193252;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text7"
+     style="font-size:7.14786px;fill:#808080;stroke-width:1"
+     x="13.821733"
+     y="38.853676">1</text>
+  <text
+     id="text9"
+     style="font-size:7.14786px;fill:#808080;stroke-width:1"
+     x="8.3969555"
+     y="58.585205">2</text>
+  <text
+     id="text11"
+     style="font-size:7.14786px;fill:#808080;stroke-width:1"
+     x="25.493261"
+     y="27.358873">3</text>
+  <g
+     id="kvg:StrokePaths_030e7"
+     style="fill:none;stroke:#000000;stroke-width:4.54336363;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.66249824,0,0,0.65811651,48.077056,24.694113)">
+    <g
+       id="kvg:030e7"
+       style="stroke-width:4.54336363;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030e7-s1"
+         d="m 33.5,50.62 c 1.9,1.21 4.09,1.6 7.39,1.21 11.19,-1.32 21.35,-2.46 29.07,-3.44 4.79,-0.61 5.49,0.4 5.2,5.16 -0.79,12.56 -1.5,24.79 -2.4,34.21"
+         style="stroke-width:4.54336363;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030e7-s2"
+         d="m 33.6,69.04 c 1.9,1.21 4.09,1.6 7.39,1.21 8.39,-0.99 18.23,-1.85 24.86,-2.47 2.21,-0.2 4.21,0.04 6.21,0.44"
+         style="stroke-width:4.54336363;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030e7-s3"
+         d="m 29,90.06 c 2.2,1.05 3.79,1.36 7.29,1.05 9.99,-0.88 23.47,-2.35 33.07,-2.35 2.7,0 4.49,0 7.49,0.44"
+         style="stroke-width:4.54336363;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text7-1"
+     style="font-size:5.68354px;fill:#808080;stroke-width:1"
+     x="71.212402"
+     y="54.029301"
+     transform="scale(0.9999329,1.0000671)">4</text>
+  <text
+     id="text9-3"
+     style="font-size:5.68354px;fill:#808080;stroke-width:1"
+     x="68.521202"
+     y="66.471581"
+     transform="scale(0.9999329,1.0000671)">5</text>
+  <text
+     id="text11-2"
+     style="font-size:5.68354px;fill:#808080;stroke-width:1"
+     x="66.45974"
+     y="79.552544"
+     transform="scale(0.9999329,1.0000671)">6</text>
+</svg>

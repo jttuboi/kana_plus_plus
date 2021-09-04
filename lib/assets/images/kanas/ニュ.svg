@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Copyright (C) 2009/2010/2011 Ulrich Apel.
+This work is distributed under the conditions of the Creative Commons
+Attribution-Share Alike 3.0 Licence. This means you are free:
+* to Share - to copy, distribute and transmit the work
+* to Remix - to adapt the work
+
+Under the following conditions:
+* Attribution. You must attribute the work by stating your use of KanjiVG in
+  your own copyright header and linking to KanjiVG's website
+  (http://kanjivg.tagaini.net)
+* Share Alike. If you alter, transform, or build upon this work, you may
+  distribute the resulting work only under the same or similar license to this
+  one.
+
+See http://creativecommons.org/licenses/by-sa/3.0/ for more details.
+-->
+
+<svg
+   width="109"
+   height="109"
+   viewBox="0 0 109 109"
+   version="1.1"
+   id="svg11"
+   sodipodi:docname="ニュ.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs15" />
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="7.0091743"
+     inkscape:cx="79.538613"
+     inkscape:cy="36.808901"
+     inkscape:window-width="2491"
+     inkscape:window-height="1057"
+     inkscape:window-x="61"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg11" />
+  <g
+     id="kvg:StrokePaths_030cb"
+     style="fill:none;stroke:#000000;stroke-width:3.89064489;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.77898338,0,0,0.76325759,-5.5492702,13.041392)">
+    <g
+       id="kvg:030cb"
+       style="stroke-width:3.89064489;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030cb-s1"
+         d="m 32.63,34.69 c 2.5,1.19 4.33,1.6 7.45,1.35 11.55,-0.91 18.3,-2.41 27.04,-3.18 2.64,-0.23 6.27,-0.16 8.39,0.08"
+         style="stroke-width:3.89064489;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030cb-s2"
+         d="m 20,74.88 c 2.62,1 4.78,1.45 9.12,0.75 20.25,-3.25 36.5,-3.88 52.38,-3.88 3.75,0 8,1 11.12,2.38"
+         style="stroke-width:3.89064489;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text6"
+     style="font-size:5.55685px;fill:#808080;stroke-width:1"
+     x="17.708181"
+     y="35.493664">1</text>
+  <text
+     id="text8"
+     style="font-size:5.55685px;fill:#808080;stroke-width:1"
+     x="8.5752831"
+     y="66.175392">2</text>
+  <g
+     id="kvg:StrokePaths_030e5"
+     style="fill:none;stroke:#000000;stroke-width:7.02273898;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     transform="matrix(0.43500722,0,0,0.41950099,62.269945,34.278951)">
+    <g
+       id="kvg:030e5"
+       style="stroke-width:7.02273898;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         id="kvg:030e5-s1"
+         d="m 34.8,52.84 c 1.91,1.21 4.13,1.67 7.44,1.21 10.65,-1.51 13.99,-1.68 21.71,-2.97 5.43,-0.9 6.26,0.13 5.23,5.12 -1.91,9.25 -3.92,19.45 -5.23,27.49"
+         style="stroke-width:7.02273898;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         id="kvg:030e5-s2"
+         d="m 24.5,86.21 c 2.21,1.21 3.84,1.73 7.34,1.21 18.54,-2.79 28.95,-3.12 43.52,-3.12 3.02,0 5.93,0.4 8.95,0.9"
+         style="stroke-width:7.02273898;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     id="text6-5"
+     style="font-size:5.55685px;fill:#808080;stroke-width:1"
+     x="75.130699"
+     y="52.540901">3</text>
+  <text
+     id="text8-5"
+     style="font-size:5.55685px;fill:#808080;stroke-width:1"
+     x="70.313629"
+     y="66.696259">4</text>
+</svg>

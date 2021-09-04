@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/usecases/words.controller.dart';
 
 class WordsStateManagement extends ChangeNotifier {

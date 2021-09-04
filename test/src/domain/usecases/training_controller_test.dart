@@ -293,7 +293,6 @@ void main() {
     expect(result[0].imageUrl, 'rain.png');
     expect(result[0].kanas.length, 2);
     expect(result[0].kanas[0].id, 'あ');
-    expect(result[0].kanas[0].imageUrl, 'a.png');
     expect(result[0].kanas[0].isCorrect, isTrue);
     expect(result[0].kanas[0].idWrote, 'あ');
     expect(result[0].kanas[0].strokesDrew, const [
@@ -302,7 +301,6 @@ void main() {
       [Offset(3, 3)]
     ]);
     expect(result[0].kanas[1].id, 'め');
-    expect(result[0].kanas[1].imageUrl, 'me.png');
     expect(result[0].kanas[1].isCorrect, isFalse);
     expect(result[0].kanas[1].idWrote, 'あ');
     expect(result[0].kanas[1].strokesDrew, const [
@@ -314,7 +312,6 @@ void main() {
     expect(result[1].imageUrl, 'eraser.png');
     expect(result[1].kanas.length, 4);
     expect(result[1].kanas[0].id, 'け');
-    expect(result[1].kanas[0].imageUrl, 'ke.png');
     expect(result[1].kanas[0].isCorrect, isFalse);
     expect(result[1].kanas[0].idWrote, 'あ');
     expect(result[1].kanas[0].strokesDrew, const [
@@ -322,7 +319,6 @@ void main() {
       [Offset(5, 5)]
     ]);
     expect(result[1].kanas[1].id, 'し');
-    expect(result[1].kanas[1].imageUrl, 'shi.png');
     expect(result[1].kanas[1].isCorrect, isTrue);
     expect(result[1].kanas[1].idWrote, 'あ');
     expect(result[1].kanas[1].strokesDrew, const [
@@ -330,7 +326,6 @@ void main() {
       [Offset(5, 5)]
     ]);
     expect(result[1].kanas[2].id, 'ゴ');
-    expect(result[1].kanas[2].imageUrl, 'go.png');
     expect(result[1].kanas[2].isCorrect, isTrue);
     expect(result[1].kanas[2].idWrote, 'あ');
     expect(result[1].kanas[2].strokesDrew, const [
@@ -338,7 +333,6 @@ void main() {
       [Offset(5, 5)]
     ]);
     expect(result[1].kanas[3].id, 'ム');
-    expect(result[1].kanas[3].imageUrl, 'mu.png');
     expect(result[1].kanas[3].isCorrect, isFalse);
     expect(result[1].kanas[3].idWrote, 'あ');
     expect(result[1].kanas[3].strokesDrew, const [
@@ -350,7 +344,6 @@ void main() {
     expect(result[2].imageUrl, 'salad.png');
     expect(result[2].kanas.length, 3);
     expect(result[2].kanas[0].id, 'サ');
-    expect(result[2].kanas[0].imageUrl, 'sa.png');
     expect(result[2].kanas[0].isCorrect, isTrue);
     expect(result[2].kanas[0].idWrote, 'あ');
     expect(result[2].kanas[0].strokesDrew, const [
@@ -358,7 +351,6 @@ void main() {
       [Offset(5, 5)]
     ]);
     expect(result[2].kanas[1].id, 'ラ');
-    expect(result[2].kanas[1].imageUrl, 'ra.png');
     expect(result[2].kanas[1].isCorrect, isTrue);
     expect(result[2].kanas[1].idWrote, 'あ');
     expect(result[2].kanas[1].strokesDrew, const [
@@ -366,7 +358,6 @@ void main() {
       [Offset(5, 5)]
     ]);
     expect(result[2].kanas[2].id, 'ダ');
-    expect(result[2].kanas[2].imageUrl, 'da.png');
     expect(result[2].kanas[2].isCorrect, isFalse);
     expect(result[2].kanas[2].idWrote, 'あ');
     expect(result[2].kanas[2].strokesDrew, const [
@@ -405,12 +396,10 @@ void main() {
     final result = controller.wordsResult;
 
     expect(result[0].kanas[0].isCorrect, isFalse);
-    expect(result[0].kanas[0].imageUrl, 'a.png');
     expect(result[0].kanas[0].idWrote, '');
     expect(result[0].kanas[0].strokesDrew, []);
 
     expect(result[0].kanas[1].isCorrect, isFalse);
-    expect(result[0].kanas[1].imageUrl, 'me.png');
     expect(result[0].kanas[1].idWrote, '');
     expect(result[0].kanas[1].strokesDrew, []);
   });

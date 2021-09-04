@@ -4,7 +4,7 @@ import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/enums/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/enums/update_kana_situation.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.entity.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
@@ -103,7 +103,6 @@ class TrainingController {
           KanaResult(
             isCorrect: kanaContent.status.isShowCorrect,
             id: kanaContent.id,
-            imageUrl: kanaContent.kanaImageUrl,
             idWrote: kanaContent.kanaIdWrote,
             strokesDrew: kanaContent.strokesDrew,
           ),
