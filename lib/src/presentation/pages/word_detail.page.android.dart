@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordDetailPage extends StatelessWidget {
@@ -31,7 +32,7 @@ class WordDetailPage extends StatelessWidget {
                 flex: 11,
                 child: Hero(
                   tag: word.imageUrl,
-                  child: Image.asset(word.imageUrl),
+                  child: SvgPicture.asset(word.imageUrl),
                 ),
               ),
               const Spacer(),

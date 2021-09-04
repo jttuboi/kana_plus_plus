@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/review_kana_content.dart';
 
@@ -14,7 +15,7 @@ class ReviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(wordResult.imageUrl),
+      leading: SvgPicture.asset(wordResult.imageUrl, width: 56.0),
       title: Text(wordResult.id),
       subtitle: Container(
         alignment: Alignment.centerLeft,

@@ -142,7 +142,7 @@
     { "id": "グラス", "en": "glass", "pt_BR": "copo", "es": "vaso" },
     { "id": "スプーン", "en": "spoon", "pt_BR": "colher", "es": "cuchara" },
     { "id": "フォーク", "en": "fork", "pt_BR": "faca", "es": "cuchillo" },
-    { "id": "しょくど", "en": "dining room", "pt_BR": "sala de jantar", "es": "comedor" },
+    { "id": "しょくどう", "en": "dining room", "pt_BR": "sala de jantar", "es": "comedor" },
     { "id": "タオル", "en": "towel", "pt_BR": "toalha", "es": "toalla" },
     { "id": "シャワー", "en": "shower", "pt_BR": "chuveiro", "es": "ducha" },
     { "id": "せっけん", "en": "soap", "pt_BR": "sabão", "es": "jabón" },

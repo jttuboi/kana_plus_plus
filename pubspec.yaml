@@ -50,7 +50,6 @@ flutter:
     - lib/assets/tests/images/kanas/
     - lib/assets/tests/images/words/
 
-    - lib/assets/images/empty.png
-
+    - lib/assets/images/
     - lib/assets/images/kanas/
     - lib/assets/images/words/

@@ -3,5 +3,5 @@ class ImageUrl {
 
   static const imageFolder = 'lib/assets/tests/images/';
 
-  static const empty = '${imageFolder}empty.png';
+  static const empty = '${imageFolder}empty.svg';
 }

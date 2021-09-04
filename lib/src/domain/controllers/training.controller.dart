@@ -37,7 +37,7 @@ class TrainingController {
     return true;
   }
 
-  String get currentImageUrl => wordsToTraining[wordIdx].imageUrl;
+  String get wordImageUrl => wordsToTraining[wordIdx].imageUrl;
 
   int get numberOfWordsToStudy => wordsToTraining.length;
 
@@ -317,7 +317,7 @@ final testListWords = [
   'グラス',
   'スプーン',
   'フォーク',
-  'しょくど',
+  'しょくどう',
   'タオル',
   'シャワー',
   'せっけん',

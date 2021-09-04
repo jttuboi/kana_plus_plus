@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WordItem extends StatelessWidget {
   const WordItem({
@@ -27,7 +28,7 @@ class WordItem extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Hero(
                 tag: imageUrl,
-                child: Image.asset(imageUrl),
+                child: SvgPicture.asset(imageUrl),
               ),
             ),
             Container(),

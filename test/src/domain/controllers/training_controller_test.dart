@@ -40,15 +40,15 @@ void main() {
 
     const wordIdxToCheck1 = 0;
     controller.wordIdx = wordIdxToCheck1;
-    expect(controller.currentImageUrl, controller.wordsToTraining[wordIdxToCheck1].imageUrl);
+    expect(controller.wordImageUrl, controller.wordsToTraining[wordIdxToCheck1].imageUrl);
 
     const wordIdxToCheck2 = 1;
     controller.wordIdx = wordIdxToCheck2;
-    expect(controller.currentImageUrl, controller.wordsToTraining[wordIdxToCheck2].imageUrl);
+    expect(controller.wordImageUrl, controller.wordsToTraining[wordIdxToCheck2].imageUrl);
 
     const wordIdxToCheck3 = 2;
     controller.wordIdx = wordIdxToCheck3;
-    expect(controller.currentImageUrl, controller.wordsToTraining[wordIdxToCheck3].imageUrl);
+    expect(controller.wordImageUrl, controller.wordsToTraining[wordIdxToCheck3].imageUrl);
   });
   test('must return the max strokes from current kana of current word', () {
     controller.wordsToTraining = wordsContent;

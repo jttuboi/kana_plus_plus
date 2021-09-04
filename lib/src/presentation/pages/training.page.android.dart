@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
@@ -129,7 +130,7 @@ class _TrainingPage extends StatelessWidget {
                     flex: 10,
                     child: Consumer<TrainingWordProvider>(
                       builder: (context, value, child) {
-                        return Image.asset(trainingController.currentImageUrl);
+                        return SvgPicture.asset(trainingController.wordImageUrl);
                       },
                     ),
                   ),
