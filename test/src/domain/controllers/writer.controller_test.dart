@@ -25,7 +25,7 @@ void main() {
   });
 
   group('writer controller tests', () {
-    test('start writer controller', () {
+    test('must set variable when start writer controller', () {
       final repository1 = WritingHandRepositoryMock();
       final controller1 =
           WriterController(writingHandRepository: repository1, strokeReducer: strokeReducer, kanaChecker: kanaChecker, showHint: true);

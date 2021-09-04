@@ -21,8 +21,8 @@ void main() {
       }
     });
   });
-  group('check all data', () {
-    test('みなみアフリカ', () {
+  group('check data', () {
+    test('must check all data returned of word みなみアフリカ', () {
       final kanas = converter.convert('みなみアフリカ', kanasJson);
 
       expect(kanas[0].id, 'み');
@@ -67,7 +67,7 @@ void main() {
       expect(kanas[6].type, KanaType.katakana);
       expect(kanas[6].strokesQuantity, 2);
     });
-    test('ぎゅうにゅう', () {
+    test('must check all data returned of word ぎゅうにゅう', () {
       final kanas = converter.convert('ぎゅうにゅう', kanasJson);
 
       expect(kanas[0].id, 'ぎゅ');
@@ -94,7 +94,7 @@ void main() {
       expect(kanas[3].type, KanaType.hiragana);
       expect(kanas[3].strokesQuantity, 2);
     });
-    test('やっきょく', () {
+    test('must check all data returned of word やっきょく', () {
       final kanas = converter.convert('やっきょく', kanasJson);
 
       expect(kanas[0].id, 'や');
@@ -121,7 +121,7 @@ void main() {
       expect(kanas[3].type, KanaType.hiragana);
       expect(kanas[3].strokesQuantity, 1);
     });
-    test('ニュージーランド', () {
+    test('must check all data returned of word ニュージーランド', () {
       final kanas = converter.convert('ニュージーランド', kanasJson);
 
       expect(kanas[0].id, 'ニュ');
@@ -168,7 +168,7 @@ void main() {
     });
   });
   group('check hiragana ids and romajis', () {
-    test('gojuuon', () {
+    test('must check id and romaji with gojuuon samples', () {
       expectKR(converter.convert('ひ', kanasJson), kanasE: [KE('ひ', 'hi')]);
       expectKR(converter.convert('あき', kanasJson), kanasE: [KE('あ', 'a'), KE('き', 'ki')]);
       expectKR(converter.convert('ももいろ', kanasJson), kanasE: [KE('も', 'mo'), KE('も', 'mo'), KE('い', 'i'), KE('ろ', 'ro')]);
@@ -180,7 +180,7 @@ void main() {
       expectKR(converter.convert('えんぴつ', kanasJson), kanasE: [KE('え', 'e'), KE('ん', 'n'), KE('ぴ', 'pi'), KE('つ', 'tsu')]);
       expectKR(converter.convert('せんぷうき', kanasJson), kanasE: [KE('せ', 'se'), KE('ん', 'n'), KE('ぷ', 'pu'), KE('う', 'u'), KE('き', 'ki')]);
     });
-    test('youon', () {
+    test('must check id and romaji with youon samples', () {
       expectKR(converter.convert('ぎゅうにゅう', kanasJson), kanasE: [KE('ぎゅ', 'gyu'), KE('う', 'u'), KE('にゅ', 'nyu'), KE('う', 'u')]);
       expectKR(converter.convert('じてんしゃ', kanasJson), kanasE: [KE('じ', 'ji'), KE('て', 'te'), KE('ん', 'n'), KE('しゃ', 'sha')]);
       expectKR(converter.convert('かぼちゃ', kanasJson), kanasE: [KE('か', 'ka'), KE('ぼ', 'bo'), KE('ちゃ', 'cha')]);
@@ -188,7 +188,7 @@ void main() {
       expectKR(converter.convert('こうじょう', kanasJson), kanasE: [KE('こ', 'ko'), KE('う', 'u'), KE('じょ', 'jo'), KE('う', 'u')]);
       expectKR(converter.convert('しょくどう', kanasJson), kanasE: [KE('しょ', 'sho'), KE('く', 'ku'), KE('ど', 'do'), KE('う', 'u')]);
     });
-    test('sokuon', () {
+    test('must check id and romaji with sokuon samples', () {
       expectKR(converter.convert('きっさてん', kanasJson), kanasE: [KE('き', 'ki'), KE('っ', 's'), KE('さ', 'sa'), KE('て', 'te'), KE('ん', 'n')]);
       expectKR(converter.convert('がっこう', kanasJson), kanasE: [KE('が', 'ga'), KE('っ', 'k'), KE('こ', 'ko'), KE('う', 'u')]);
       expectKR(converter.convert('せっけん', kanasJson), kanasE: [KE('せ', 'se'), KE('っ', 'k'), KE('け', 'ke'), KE('ん', 'n')]);
@@ -196,7 +196,7 @@ void main() {
     });
   });
   group('check katakana ids and romajis', () {
-    test('gojuuon', () {
+    test('must check id and romaji with gojuuon samples', () {
       expectKR(converter.convert('ロシア', kanasJson), kanasE: [KE('ロ', 'ro'), KE('シ', 'shi'), KE('ア', 'a')]);
       expectKR(converter.convert('タオル', kanasJson), kanasE: [KE('タ', 'ta'), KE('オ', 'o'), KE('ル', 'ru')]);
       expectKR(converter.convert('トルコ', kanasJson), kanasE: [KE('ト', 'to'), KE('ル', 'ru'), KE('コ', 'ko')]);
@@ -205,7 +205,7 @@ void main() {
       expectKR(converter.convert('ドア', kanasJson), kanasE: [KE('ド', 'do'), KE('ア', 'a')]);
       expectKR(converter.convert('ピンポン', kanasJson), kanasE: [KE('ピ', 'pi'), KE('ン', 'n'), KE('ポ', 'po'), KE('ン', 'n')]);
     });
-    test('youon', () {
+    test('must check id and romaji with youon samples', () {
       expectKR(converter.convert('ジャケット', kanasJson), kanasE: [KE('ジャ', 'ja'), KE('ケ', 'ke'), KE('ッ', 't'), KE('ト', 'to')]);
       expectKR(converter.convert('シャンプー', kanasJson), kanasE: [KE('シャ', 'sha'), KE('ン', 'n'), KE('プ', 'pu'), KE('ー', 'u')]);
       expectKR(converter.convert('シャワー', kanasJson), kanasE: [KE('シャ', 'sha'), KE('ワ', 'wa'), KE('ー', 'a')]);
@@ -215,21 +215,21 @@ void main() {
           kanasE: [KE('コ', 'ko'), KE('ン', 'n'), KE('ピュ', 'pyu'), KE('ー', 'u'), KE('タ', 'ta'), KE('ー', 'a')]);
       expectKR(converter.convert('ショーツ', kanasJson), kanasE: [KE('ショ', 'sho'), KE('ー', 'o'), KE('ツ', 'tsu')]);
     });
-    test('sokuon', () {
+    test('must check id and romaji with sokuon samples', () {
       expectKR(converter.convert('ネックレス', kanasJson), kanasE: [KE('ネ', 'ne'), KE('ッ', 'k'), KE('ク', 'ku'), KE('レ', 're'), KE('ス', 'su')]);
       expectKR(converter.convert('ココナッツ', kanasJson), kanasE: [KE('コ', 'ko'), KE('コ', 'ko'), KE('ナ', 'na'), KE('ッ', 't'), KE('ツ', 'tsu')]);
       expectKR(converter.convert('ベッド', kanasJson), kanasE: [KE('ベ', 'be'), KE('ッ', 'd'), KE('ド', 'do')]);
       expectKR(converter.convert('ピーナッツ', kanasJson), kanasE: [KE('ピ', 'pi'), KE('ー', 'i'), KE('ナ', 'na'), KE('ッ', 't'), KE('ツ', 'tsu')]);
       expectKR(converter.convert('サッカー', kanasJson), kanasE: [KE('サ', 'sa'), KE('ッ', 'k'), KE('カ', 'ka'), KE('ー', 'a')]);
     });
-    test('small vowel', () {
+    test('must check id and romaji with small vowel samples', () {
       expectKR(converter.convert('チェリー', kanasJson), kanasE: [KE('チェ', 'che'), KE('リ', 'ri'), KE('ー', 'i')]);
       expectKR(converter.convert('ソファー', kanasJson), kanasE: [KE('ソ', 'so'), KE('ファ', 'fa'), KE('ー', 'a')]);
       expectKR(converter.convert('エーティーエム', kanasJson),
           kanasE: [KE('エ', 'e'), KE('ー', 'e'), KE('ティ', 'ti'), KE('ー', 'i'), KE('エ', 'e'), KE('ム', 'mu')]);
       expectKR(converter.convert('フォーク', kanasJson), kanasE: [KE('フォ', 'fo'), KE('ー', 'o'), KE('ク', 'ku')]);
     });
-    test('long vowel', () {
+    test('must check id and romaji with long vowel samples', () {
       expectKR(converter.convert('スプーン', kanasJson), kanasE: [KE('ス', 'su'), KE('プ', 'pu'), KE('ー', 'u'), KE('ン', 'n')]);
       expectKR(converter.convert('ブーツ', kanasJson), kanasE: [KE('ブ', 'bu'), KE('ー', 'u'), KE('ツ', 'tsu')]);
       expectKR(converter.convert('コーヒー', kanasJson), kanasE: [KE('コ', 'ko'), KE('ー', 'o'), KE('ヒ', 'hi'), KE('ー', 'i')]);
@@ -239,7 +239,7 @@ void main() {
   });
 
   group('check both ids and romajis', () {
-    test('has hiragana and katakana', () {
+    test('must check id and romaji with hiragana and katakana syllabes', () {
       expectKR(converter.convert('けしゴム', kanasJson), kanasE: [KE('け', 'ke'), KE('し', 'shi'), KE('ゴ', 'go'), KE('ム', 'mu')]);
       expectKR(converter.convert('でんしレンジ', kanasJson),
           kanasE: [KE('で', 'de'), KE('ん', 'n'), KE('し', 'shi'), KE('レ', 're'), KE('ン', 'n'), KE('ジ', 'ji')]);

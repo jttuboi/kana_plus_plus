@@ -19,7 +19,7 @@ void main() {
     kanaType: KanaType.hiragana,
     quantityOfWords: 10,
   );
-  test('training controller init test', () {
+  test('must set variables on init training controller', () {
     final repository1 = WordRepositoryMock();
     final controller1 = TrainingController(wordRepository: repository1, kanaChecker: kanaChecker, kanaType: KanaType.hiragana, quantityOfWords: 1);
 
