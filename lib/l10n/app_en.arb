@@ -42,5 +42,13 @@
     "settingsSupport": "Support development of this app",
     "@settingsSupport": { "description": "" },
     "searchLabelInWords": "Japanese, romaji or translation",
-    "@searchLabelInWords": { "description": "" }
+    "@searchLabelInWords": { "description": "" },
+    "trainingQuitTitle": "Do you want to finish your training?",
+    "@trainingQuitTitle": { "description": "" },
+    "trainingQuitContent": "You are going to lost this training data.",
+    "@trainingQuitContent": { "description": "" },
+    "trainingQuitAnswerNo": "No",
+    "@trainingQuitAnswerNo": { "description": "" },
+    "trainingQuitAnswerYes": "Yes",
+    "@trainingQuitAnswerYes": { "description": "" }
 }

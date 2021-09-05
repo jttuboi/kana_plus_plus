@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
@@ -8,6 +9,7 @@ import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dar
 import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_word.provider.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewers.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writer.dart';
@@ -38,12 +40,13 @@ class TrainingPage extends StatelessWidget {
           return false;
         },
         child: Scaffold(
+          backgroundColor: trainingBackgroundColor,
           appBar: AppBar(
-            shadowColor: Colors.white.withOpacity(0.0),
-            backgroundColor: Colors.white.withOpacity(0.0),
-            //elevation: 0.1,
+            shadowColor: appBarInvisibleColor,
+            backgroundColor: appBarInvisibleColor,
+            elevation: appBarInvisibleElevation,
             leading: IconButton(
-              icon: const ImageIcon(AssetImage(IconUrl.quitTraining)),
+              icon: ImageIcon(const AssetImage(IconUrl.quitTraining), color: appBarInvisibleIconButton),
               onPressed: () => _buildQuitDialog(context),
             ),
           ),
@@ -57,19 +60,20 @@ class TrainingPage extends StatelessWidget {
   }
 
   void _buildQuitDialog(BuildContext context) {
+    final strings = JStrings.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Do you want to finish your training?'), // TODO strings
-        content: const Text('You are going to lost this training data.'),
+        title: Text(strings.trainingQuitTitle),
+        content: Text(strings.trainingQuitContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'), // TODO strings
+            child: Text(strings.trainingQuitAnswerNo),
           ),
           TextButton(
             onPressed: () => Navigator.popUntil(context, ModalRoute.withName(Routes.menu)),
-            child: const Text('Yes'), // TODO strings
+            child: Text(strings.trainingQuitAnswerYes),
           ),
         ],
       ),
@@ -217,7 +221,6 @@ class _TrainingPage extends StatelessWidget {
   }
 
   Widget _buildLoader() {
-    // TODO colocar shimmer aqui
     return const Center(child: CircularProgressIndicator());
   }
 

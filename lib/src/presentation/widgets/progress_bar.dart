@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 
 class ProgressBar extends StatefulWidget {
   const ProgressBar(
@@ -14,8 +15,7 @@ class ProgressBar extends StatefulWidget {
   _ProgressBarState createState() => _ProgressBarState();
 }
 
-class _ProgressBarState extends State<ProgressBar>
-    with SingleTickerProviderStateMixin {
+class _ProgressBarState extends State<ProgressBar> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Tween<double> _valueTween;
   late Animation<double> _curve;
@@ -66,8 +66,8 @@ class _ProgressBarState extends State<ProgressBar>
       builder: (context, child) {
         return LinearProgressIndicator(
           value: _valueTween.evaluate(_curve),
-          backgroundColor: Colors.green,
-          color: Colors.red,
+          backgroundColor: defaultProgressBarColor,
+          color: fillingProgressBarColor,
           minHeight: 6,
         );
       },

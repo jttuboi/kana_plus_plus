@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
 
@@ -56,17 +57,22 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
                   painter: BorderPainter(
                       borderWidth: 4.0,
                       borderColor: (widget.content.status.isShowCorrect)
-                          ? Colors.blueAccent
+                          ? correctBorderColor
                           : (widget.content.status.isShowWrong)
-                              ? Colors.redAccent
-                              : Colors.grey[500]!),
+                              ? wrongBorderColor
+                              : defaultBorderColor),
                   size: size,
                 ),
                 if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
                   RomajiViewer(widget.content.romaji)
                 else ...[
                   SvgPicture.asset(widget.content.kanaImageUrl),
-                  UserKanaViewer(strokes: widget.content.strokesDrew, size: size),
+                  Center(
+                      child: SizedBox(
+                    width: size.width - 8.0,
+                    height: size.height - 8.0,
+                    child: UserKanaViewer(strokes: widget.content.strokesDrew, size: size),
+                  )),
                 ],
               ],
             );
@@ -96,7 +102,7 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
                 alignment: Alignment.center,
                 width: constraints.maxHeight,
                 height: constraints.maxHeight,
-                color: Colors.black.withOpacity(0.0),
+                color: Colors.transparent,
               ),
             ),
           );

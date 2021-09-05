@@ -6,7 +6,6 @@ class StrokeReducer {
 
   final int limitPointsToReduce;
 
-  @override
   List<Offset> reduce(List<Offset> stroke) {
     if (stroke.length <= limitPointsToReduce) {
       return stroke;

@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+final Color appBarInvisibleColor = Colors.transparent;
+const double appBarInvisibleElevation = 0.0;
+final Color appBarInvisibleIconButton = Colors.grey.shade700;
+
+final Color trainingBackgroundColor = Colors.grey.shade50;
+
+const Color defaultProgressBarColor = Colors.grey;
+final Color fillingProgressBarColor = Colors.green.shade300;
+
+final Color correctBorderColor = Colors.blueAccent;
+final Color wrongBorderColor = Colors.redAccent;
+final Color defaultBorderColor = Colors.grey.shade500;
+
+final writerButtonStyle = ButtonStyle(
+  backgroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
+  overlayColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+  side: MaterialStateBorderSide.resolveWith((states) => const BorderSide(color: Colors.grey)),
+  animationDuration: const Duration(milliseconds: 50),
+  enableFeedback: false,
+);
+final Color writerIconButtonColor = Colors.grey.shade700;
+
+final allStrokesPaint = Paint()
+  ..isAntiAlias = true
+  ..strokeWidth = 14.0
+  ..strokeCap = StrokeCap.round
+  ..strokeJoin = StrokeJoin.round
+  ..color = Colors.black;
+
+final drawingStrokePaint = Paint()
+  ..isAntiAlias = true
+  ..strokeWidth = 18.0
+  ..strokeCap = StrokeCap.round
+  ..strokeJoin = StrokeJoin.round
+  ..color = Colors.black87;
+
+final userStrokesPaint = Paint()
+  ..isAntiAlias = true
+  ..strokeWidth = 5.0
+  ..strokeCap = StrokeCap.round
+  ..strokeJoin = StrokeJoin.round
+  ..color = Colors.black;

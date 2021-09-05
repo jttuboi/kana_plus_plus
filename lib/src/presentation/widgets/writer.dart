@@ -6,6 +6,7 @@ import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/all_stroke.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/current_stroke.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +35,7 @@ class Writer extends StatelessWidget {
     return Row(
       children: [
         const _SupportButtons(),
-        const SizedBox(width: 4),
+        const SizedBox(width: 8.0),
         _buildDrawer(),
       ],
     );
@@ -44,7 +45,7 @@ class Writer extends StatelessWidget {
     return Row(
       children: [
         _buildDrawer(),
-        const SizedBox(width: 4),
+        const SizedBox(width: 8.0),
         const _SupportButtons(),
       ],
     );
@@ -67,29 +68,33 @@ class _SupportButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 12.0),
         Flexible(
           fit: FlexFit.tight,
           child: Consumer<WriterProvider>(
             builder: (context, provider, child) {
               return ElevatedButton(
+                style: writerButtonStyle,
                 onPressed: provider.isDisabled ? null : () => _clearStrokes(context),
-                child: const ImageIcon(AssetImage(IconUrl.eraser)),
+                child: ImageIcon(const AssetImage(IconUrl.eraser), color: writerIconButtonColor),
               );
             },
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8.0),
         Flexible(
           fit: FlexFit.tight,
           child: Consumer<WriterProvider>(
             builder: (context, provider, child) {
               return ElevatedButton(
+                style: writerButtonStyle,
                 onPressed: provider.isDisabled ? null : () => _undoStroke(context),
-                child: const ImageIcon(AssetImage(IconUrl.undo)),
+                child: ImageIcon(const AssetImage(IconUrl.undo), color: writerIconButtonColor),
               );
             },
           ),
         ),
+        const SizedBox(height: 12.0),
       ],
     );
   }
@@ -122,11 +127,11 @@ class _Drawer extends StatelessWidget {
         final size = constraints.maxWidth;
 
         final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-        currentStrokeProvider.setCanvasLimit(0, size);
+        currentStrokeProvider.setCanvasLimit(16.0, size - 16.0);
 
         return Stack(
           children: [
-            CustomPaint(painter: BorderPainter(borderWidth: 9.0, borderColor: Colors.grey[500]!), size: Size.square(size)),
+            CustomPaint(painter: BorderPainter(borderWidth: 9.0, borderColor: defaultBorderColor), size: Size.square(size)),
             Consumer<WriterProvider>(
               builder: (context, provider, child) {
                 return (writerController.showHint)
@@ -199,14 +204,8 @@ class _AllStrokesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..strokeWidth = 16.0
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..color = Colors.black;
-
     for (final points in strokes) {
-      canvas.drawPoints(PointMode.polygon, points, paint);
+      canvas.drawPoints(PointMode.polygon, points, allStrokesPaint);
     }
   }
 
@@ -221,14 +220,7 @@ class _CurrentStrokePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..isAntiAlias = true
-      ..strokeWidth = 18.0
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..color = Colors.black.withOpacity(0.9);
-
-    canvas.drawPoints(PointMode.polygon, points, paint);
+    canvas.drawPoints(PointMode.polygon, points, drawingStrokePaint);
   }
 
   @override

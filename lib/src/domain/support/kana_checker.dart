@@ -16,7 +16,6 @@ class KanaChecker {
 
   late final Map<String, List<List<Offset>>> data;
 
-  @override
   bool checkKana(String kana, List<List<Offset>> normalizedStrokes) {
     final oks = <bool>[];
     final strokesData = data[kana];

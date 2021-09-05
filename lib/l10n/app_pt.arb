@@ -20,5 +20,9 @@
     "settingsAbout": "Sobre",
     "settingsPrivacyPolicy": "Política de privacidade",
     "settingsSupport": "Apoiar o desenvolvimento deste aplicativo",
-    "searchLabelInWords": "japonês, romaji or tradução"
+    "searchLabelInWords": "japonês, romaji or tradução",
+    "trainingQuitTitle": "Deseja terminar seu treinamento?",
+    "trainingQuitContent": "Você irá perder os dados desse treinamento.",
+    "trainingQuitAnswerNo": "Não",
+    "trainingQuitAnswerYes": "Sim"
 }
