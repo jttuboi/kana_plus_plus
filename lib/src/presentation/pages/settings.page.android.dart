@@ -46,7 +46,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               SubHeaderTile(strings.settingsBasic),
               const LanguageTile(),
-              const DarkThemeTile(),
+              //const DarkThemeTile(),
               Consumer<WritingHandProvider>(
                 builder: (context, provider, child) {
                   return WritingHandTile(
@@ -119,6 +119,7 @@ class SettingsPage extends StatelessWidget {
                 title: Text(strings.settingsSupport),
                 leading: SvgPicture.asset(IconUrl.support, color: defaultTileIconColor, width: defaultTileIconSize),
               ),
+              const SizedBox(height: 8.0),
             ],
           ),
         );
