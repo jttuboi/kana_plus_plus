@@ -40,13 +40,9 @@ class TrainingPage extends StatelessWidget {
           return false;
         },
         child: Scaffold(
-          backgroundColor: trainingBackgroundColor,
           appBar: AppBar(
-            shadowColor: appBarInvisibleColor,
-            backgroundColor: appBarInvisibleColor,
-            elevation: appBarInvisibleElevation,
             leading: IconButton(
-              icon: SvgPicture.asset(IconUrl.quitTraining, color: appBarInvisibleIconButton),
+              icon: SvgPicture.asset(IconUrl.quitTraining, color: Theme.of(context).primaryIconTheme.color),
               onPressed: () => _buildQuitDialog(context),
             ),
           ),

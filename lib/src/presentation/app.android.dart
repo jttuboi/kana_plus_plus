@@ -26,6 +26,7 @@ import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.d
 import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.android.dart';
 import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
@@ -50,8 +51,8 @@ class AndroidApp extends StatelessWidget {
             supportedLocales: _supportedLocales,
             locale: _locale(context),
             themeMode: _themeMode(context),
-            theme: _theme,
-            darkTheme: _darkTheme,
+            theme: lightTheme,
+            darkTheme: darkTheme,
             routes: _routes,
             onGenerateRoute: _onGenerateRoute,
           );
@@ -83,16 +84,6 @@ class AndroidApp extends StatelessWidget {
   ThemeMode _themeMode(BuildContext context) {
     return Provider.of<ThemeProvider>(context).mode;
   }
-
-  ThemeData get _theme => ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.indigo,
-      );
-
-  ThemeData get _darkTheme => ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.indigo,
-      );
 
   Map<String, WidgetBuilder> get _routes => {
         Routes.menu: (context) => const MenuPage(),

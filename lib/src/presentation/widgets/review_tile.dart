@@ -16,7 +16,7 @@ class ReviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: SvgPicture.asset(wordResult.imageUrl, width: 56.0),
+      leading: SvgPicture.asset(wordResult.imageUrl, width: 40.0),
       title: Text(wordResult.id, style: reviewTileTitleStyle),
       subtitle: Container(
         alignment: Alignment.centerLeft,

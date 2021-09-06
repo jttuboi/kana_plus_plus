@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 
-const Color appBarInvisibleColor = Colors.transparent;
-const double appBarInvisibleElevation = 0.0;
-final Color appBarInvisibleIconButton = Colors.grey.shade700;
+final lightTheme = ThemeData(
+  brightness: Brightness.light,
+  primarySwatch: Colors.orange,
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Colors.transparent,
+    shadowColor: Colors.transparent,
+    elevation: 0.0,
+  ),
+  primaryIconTheme: IconThemeData(
+    color: Colors.grey.shade700,
+    size: 24.0,
+  ),
+  scaffoldBackgroundColor: Colors.grey.shade50,
+);
 
-final Color appBarZoomColor = Colors.amber.shade800;
+final darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  primarySwatch: Colors.deepOrange,
+);
+
 const TextStyle appBarZoomTextStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontSize: 40,
 );
 
-final Color trainingBackgroundColor = Colors.grey.shade50;
+double appBarExpandedHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height * 1 / 5;
+}
 
 final Color defaultProgressBarColor = Colors.grey.shade400;
 final Color fillingProgressBarColor = Colors.blueAccent;
@@ -51,7 +68,6 @@ final userStrokesPaint = Paint()
   ..color = Colors.black;
 
 const reviewTileTitleStyle = TextStyle(fontWeight: FontWeight.bold);
-final reviewDividerListColor = Colors.grey.shade300;
 
 const Color defaultTileIconColor = Colors.grey;
 const double defaultTileIconSize = 40;

@@ -25,14 +25,11 @@ class ReviewPage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: trainingBackgroundColor,
         extendBodyBehindAppBar: true,
         body: CustomScrollView(
           semanticChildCount: wordsResult.length + 1,
           slivers: [
             SliverAppBar(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
               flexibleSpace: LayoutBuilder(builder: (context, constraints) {
                 final isCollapsed = constraints.biggest.height <= MediaQuery.of(context).padding.top + kToolbarHeight + 1;
                 return FlexibleSpaceBar(
@@ -40,22 +37,21 @@ class ReviewPage extends StatelessWidget {
                   // TODO mudar a fonte do review title, talvez aumentar a fonte
                   title: isCollapsed ? null : Text(strings.reviewTitle, style: appBarZoomTextStyle),
                   // TODO criar um background pro review
-                  background: Container(color: appBarZoomColor, child: SvgPicture.asset('lib/assets/images/kanas/あ.svg', fit: BoxFit.cover)),
+                  background:
+                      Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset('lib/assets/images/kanas/あ.svg', fit: BoxFit.cover)),
                 );
               }),
               leading: IconButton(
-                icon: SvgPicture.asset(IconUrl.backMenu, color: appBarInvisibleIconButton),
+                icon: SvgPicture.asset(IconUrl.backMenu, color: Theme.of(context).primaryIconTheme.color),
                 onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
               ),
-              expandedHeight: MediaQuery.of(context).size.height * 1 / 4,
+              expandedHeight: appBarExpandedHeight(context),
               pinned: true,
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  return index.isEven
-                      ? ReviewTile(wordResult: wordsResult[index ~/ 2])
-                      : Divider(thickness: 1.0, color: reviewDividerListColor, indent: 16.0, endIndent: 16.0);
+                  return index.isEven ? ReviewTile(wordResult: wordsResult[index ~/ 2]) : const Divider(indent: 72.0);
                 },
                 semanticIndexCallback: (widget, localIndex) {
                   return localIndex.isEven ? localIndex ~/ 2 : null;
