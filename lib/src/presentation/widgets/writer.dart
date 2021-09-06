@@ -76,7 +76,7 @@ class _SupportButtons extends StatelessWidget {
               return ElevatedButton(
                 style: writerButtonStyle,
                 onPressed: provider.isDisabled ? null : () => _clearStrokes(context),
-                child: ImageIcon(const AssetImage(IconUrl.eraser), color: writerIconButtonColor),
+                child: SvgPicture.asset(IconUrl.eraser, color: writerIconButtonColor, width: 32),
               );
             },
           ),
@@ -89,7 +89,7 @@ class _SupportButtons extends StatelessWidget {
               return ElevatedButton(
                 style: writerButtonStyle,
                 onPressed: provider.isDisabled ? null : () => _undoStroke(context),
-                child: ImageIcon(const AssetImage(IconUrl.undo), color: writerIconButtonColor),
+                child: SvgPicture.asset(IconUrl.undo, color: writerIconButtonColor, width: 32),
               );
             },
           ),

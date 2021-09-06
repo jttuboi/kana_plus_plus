@@ -13,8 +13,8 @@ const TextStyle appBarZoomTextStyle = TextStyle(
 
 final Color trainingBackgroundColor = Colors.grey.shade50;
 
-const Color defaultProgressBarColor = Colors.grey;
-final Color fillingProgressBarColor = Colors.green.shade300;
+final Color defaultProgressBarColor = Colors.grey.shade400;
+final Color fillingProgressBarColor = Colors.blueAccent;
 
 final Color correctBorderColor = Colors.blueAccent;
 final Color wrongBorderColor = Colors.redAccent;

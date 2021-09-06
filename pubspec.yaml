@@ -19,12 +19,13 @@ dependencies:
   google_fonts: ^2.1.0
   intl: ^0.17.0
   logger: ^1.0.0
-  path:
+  path: ^1.8.0
   path_provider: ^2.0.2
   provider: ^5.0.0
   scroll_to_index: ^2.0.0
   shared_preferences: ^2.0.6
-  sqflite:
+  sqflite: ^2.0.0+4
+  step_progress_indicator: ^1.0.1
 
 dev_dependencies:
   flutter_test:

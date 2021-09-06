@@ -13,8 +13,8 @@ import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewers.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writer.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/progress_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({
@@ -46,7 +46,7 @@ class TrainingPage extends StatelessWidget {
             backgroundColor: appBarInvisibleColor,
             elevation: appBarInvisibleElevation,
             leading: IconButton(
-              icon: ImageIcon(const AssetImage(IconUrl.quitTraining), color: appBarInvisibleIconButton),
+              icon: SvgPicture.asset(IconUrl.quitTraining, color: appBarInvisibleIconButton),
               onPressed: () => _buildQuitDialog(context),
             ),
           ),
@@ -118,7 +118,14 @@ class _TrainingPage extends StatelessWidget {
       children: [
         Consumer<TrainingWordProvider>(
           builder: (context, value, child) {
-            return ProgressBar(trainingController.wordIdx, maxWords: trainingController.quantityOfWords);
+            return StepProgressIndicator(
+              currentStep: trainingController.wordIdx,
+              totalSteps: trainingController.quantityOfWords,
+              size: 5.0,
+              padding: 0.5,
+              selectedColor: fillingProgressBarColor,
+              unselectedColor: defaultProgressBarColor,
+            );
           },
         ),
         Flexible(

@@ -18,8 +18,8 @@ class IconUrl {
   static const writingHandLeft = '${iconsFolder}writing_hand_left.png';
   static const writingHandRight = '${iconsFolder}writing_hand_right.png';
   static const language = '${iconsFolder}language.png';
-  static const eraser = '${iconsFolder}eraser.png';
-  static const undo = '${iconsFolder}undo.png';
-  static const quitTraining = '${iconsFolder}quit.png';
+  static const eraser = '${iconsFolder}eraser.svg';
+  static const undo = '${iconsFolder}undo.svg';
+  static const quitTraining = '${iconsFolder}quit.svg';
   static const backMenu = '${iconsFolder}back.svg';
 }
