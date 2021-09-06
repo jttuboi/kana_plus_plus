@@ -50,5 +50,7 @@
     "trainingQuitAnswerNo": "No",
     "@trainingQuitAnswerNo": { "description": "" },
     "trainingQuitAnswerYes": "Yes",
-    "@trainingQuitAnswerYes": { "description": "" }
+    "@trainingQuitAnswerYes": { "description": "" },
+    "reviewTitle": "REVIEW",
+    "@reviewTitle": { "description": "" }
 }

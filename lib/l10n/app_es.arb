@@ -24,5 +24,6 @@
     "trainingQuitTitle": "¿Quieres terminar tu entrenamiento?",
     "trainingQuitContent": "Vas a perder estos datos de entrenamiento.",
     "trainingQuitAnswerNo": "No",
-    "trainingQuitAnswerYes": "Sí"
+    "trainingQuitAnswerYes": "Sí",
+    "reviewTitle": "REVISÍON"
 }

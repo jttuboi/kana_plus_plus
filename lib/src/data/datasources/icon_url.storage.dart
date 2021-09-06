@@ -21,4 +21,5 @@ class IconUrl {
   static const eraser = '${iconsFolder}eraser.png';
   static const undo = '${iconsFolder}undo.png';
   static const quitTraining = '${iconsFolder}quit.png';
+  static const backMenu = '${iconsFolder}back.svg';
 }

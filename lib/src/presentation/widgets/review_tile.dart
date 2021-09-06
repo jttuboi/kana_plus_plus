@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/review_kana_content.dart';
 
 class ReviewTile extends StatelessWidget {
@@ -16,7 +17,7 @@ class ReviewTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: SvgPicture.asset(wordResult.imageUrl, width: 56.0),
-      title: Text(wordResult.id),
+      title: Text(wordResult.id, style: reviewTileTitleStyle),
       subtitle: Container(
         alignment: Alignment.centerLeft,
         constraints: const BoxConstraints.expand(width: 200.0, height: 40.0),
