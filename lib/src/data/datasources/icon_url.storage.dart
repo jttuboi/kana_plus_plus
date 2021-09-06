@@ -3,21 +3,21 @@ class IconUrl {
 
   static const iconsFolder = 'lib/assets/icons/';
 
-  static const empty = '${iconsFolder}empty.png';
-  static const showHint = '${iconsFolder}show_hint.png';
-  static const notShowHint = '${iconsFolder}not_show_hint.png';
-  static const hiragana = '${iconsFolder}hiragana.png';
-  static const katakana = '${iconsFolder}katakana.png';
-  static const both = '${iconsFolder}hiragana_katakana.png';
-  static const quantityOfWords = '${iconsFolder}quantity_of_words.png';
-  static const about = '${iconsFolder}about.png';
-  static const privacyPolicy = '${iconsFolder}privacy_policy.png';
-  static const support = '${iconsFolder}support.png';
-  static const darkTheme = '${iconsFolder}dark_theme.png';
-  static const lightTheme = '${iconsFolder}light_theme.png';
-  static const writingHandLeft = '${iconsFolder}writing_hand_left.png';
-  static const writingHandRight = '${iconsFolder}writing_hand_right.png';
-  static const language = '${iconsFolder}language.png';
+  static const empty = '${iconsFolder}empty.svg';
+  static const showHint = '${iconsFolder}show_hint.svg';
+  static const notShowHint = '${iconsFolder}not_show_hint.svg';
+  static const hiragana = '${iconsFolder}hiragana.svg';
+  static const katakana = '${iconsFolder}katakana.svg';
+  static const both = '${iconsFolder}both.svg';
+  static const quantityOfWords = '${iconsFolder}quantity_of_words.svg';
+  static const about = '${iconsFolder}about.svg';
+  static const privacyPolicy = '${iconsFolder}privacy_policy.svg';
+  static const support = '${iconsFolder}support.svg';
+  static const darkTheme = '${iconsFolder}dark_theme.svg';
+  static const lightTheme = '${iconsFolder}light_theme.svg';
+  static const writingHandLeft = '${iconsFolder}writing_hand_left.svg';
+  static const writingHandRight = '${iconsFolder}writing_hand_right.svg';
+  static const language = '${iconsFolder}language.svg';
   static const eraser = '${iconsFolder}eraser.svg';
   static const undo = '${iconsFolder}undo.svg';
   static const quitTraining = '${iconsFolder}quit.svg';

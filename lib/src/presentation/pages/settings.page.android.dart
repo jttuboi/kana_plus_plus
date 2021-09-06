@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/dark_theme_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';
@@ -88,7 +90,7 @@ class SettingsPage extends StatelessWidget {
               SubHeaderTile(strings.settingsOthers),
               ListTile(
                 title: Text(strings.settingsAbout),
-                leading: const ImageIcon(AssetImage(IconUrl.about)),
+                leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -101,7 +103,7 @@ class SettingsPage extends StatelessWidget {
               ),
               ListTile(
                 title: Text(strings.settingsPrivacyPolicy),
-                leading: const ImageIcon(AssetImage(IconUrl.privacyPolicy)),
+                leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -115,7 +117,7 @@ class SettingsPage extends StatelessWidget {
               // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
               ListTile(
                 title: Text(strings.settingsSupport),
-                leading: const ImageIcon(AssetImage(IconUrl.support)),
+                leading: SvgPicture.asset(IconUrl.support, color: defaultTileIconColor, width: defaultTileIconSize),
               ),
             ],
           ),

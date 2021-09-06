@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 
 class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage({
@@ -40,7 +42,7 @@ class SelectionOptionPage extends StatelessWidget {
                 onSelected(options[value!].key);
                 Navigator.pop(context);
               },
-              secondary: (option.iconUrl.isNotEmpty) ? ImageIcon(AssetImage(option.iconUrl)) : null,
+              secondary: (option.iconUrl.isEmpty) ? null : SvgPicture.asset(option.iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
               controlAffinity: ListTileControlAffinity.trailing,
             );
           },

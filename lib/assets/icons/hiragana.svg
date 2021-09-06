@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 48 48" width="48">
+  <path
+     style="fill:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"
+     d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 8 A 16 16 0 0 1 40 24 A 16 16 0 0 1 24 40 A 16 16 0 0 1 8 24 A 16 16 0 0 1 24 8 z "/>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 16.586812,18.788731 C 19.684549,18.671146 24.001835,18.331932 28.0409,17.487249"/>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 22.397576,13.505938 C 20.326523,20.864514 20.88583,28.083592 22.256437,34.340102"/>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 29.227572,22.580877 c -2.507583,5.828877 -10.497138,14.298815 -13.357463,11.124717 -3.154972,-3.501068 2.040788,-8.592967 9.018772,-9.229099 9.833833,-0.896479 10.431082,7.605151 3.76365,10.017566"/>
+</svg>

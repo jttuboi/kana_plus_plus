@@ -39,6 +39,7 @@ class _PreTrainingPage extends StatelessWidget {
         builder: (context, provider, child) => ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
+            const SizedBox(height: 8.0),
             ShowHintTile(
               showHint: preTrainingController.showHint,
               iconUrl: preTrainingController.showHintIconUrl,

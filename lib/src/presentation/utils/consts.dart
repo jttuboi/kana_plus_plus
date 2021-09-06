@@ -51,3 +51,7 @@ final userStrokesPaint = Paint()
   ..color = Colors.black;
 
 const reviewTileTitleStyle = TextStyle(fontWeight: FontWeight.bold);
+final reviewDividerListColor = Colors.grey.shade300;
+
+const Color defaultTileIconColor = Colors.grey;
+const double defaultTileIconSize = 40;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 
 class QuantityOfWordsTile extends StatelessWidget {
   const QuantityOfWordsTile({
@@ -19,19 +21,25 @@ class QuantityOfWordsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
     return ListTile(
-      leading: const ImageIcon(AssetImage(IconUrl.quantityOfWords)),
+      leading: SizedBox(
+        height: double.infinity,
+        child: SvgPicture.asset(IconUrl.quantityOfWords, color: defaultTileIconColor, width: defaultTileIconSize),
+      ),
       title: Text(strings.settingsQuantityOfWords),
-      subtitle: SliderTheme(
-        data: SliderTheme.of(context).copyWith(
-          trackShape: _CustomTrackShape(),
-        ),
-        child: Slider(
-          value: quantity.toDouble(),
-          label: quantity.toString(),
-          min: Default.minimumTrainingCards.toDouble(),
-          max: Default.maximumTrainingCards.toDouble(),
-          divisions: (Default.maximumTrainingCards.toDouble() - Default.minimumTrainingCards.toDouble()) ~/ _step,
-          onChanged: updateQuantity,
+      subtitle: SizedBox(
+        height: 36,
+        child: SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            trackShape: _CustomTrackShape(),
+          ),
+          child: Slider(
+            value: quantity.toDouble(),
+            label: quantity.toString(),
+            min: Default.minimumTrainingCards.toDouble(),
+            max: Default.maximumTrainingCards.toDouble(),
+            divisions: (Default.maximumTrainingCards.toDouble() - Default.minimumTrainingCards.toDouble()) ~/ _step,
+            onChanged: updateQuantity,
+          ),
         ),
       ),
     );

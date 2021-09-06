@@ -28,6 +28,7 @@ class ReviewPage extends StatelessWidget {
         backgroundColor: trainingBackgroundColor,
         extendBodyBehindAppBar: true,
         body: CustomScrollView(
+          semanticChildCount: wordsResult.length + 1,
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.transparent,
@@ -54,9 +55,9 @@ class ReviewPage extends StatelessWidget {
                 (context, index) {
                   return index.isEven
                       ? ReviewTile(wordResult: wordsResult[index ~/ 2])
-                      : const Divider(thickness: 1.0, indent: 16.0, endIndent: 16.0);
+                      : Divider(thickness: 1.0, color: reviewDividerListColor, indent: 16.0, endIndent: 16.0);
                 },
-                semanticIndexCallback: (Widget widget, int localIndex) {
+                semanticIndexCallback: (widget, localIndex) {
                   return localIndex.isEven ? localIndex ~/ 2 : null;
                 },
                 childCount: max(0, wordsResult.length * 2 - 1),
