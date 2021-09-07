@@ -1,12 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/review_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
 
 class ReviewPage extends StatelessWidget {
   const ReviewPage({
@@ -30,21 +28,10 @@ class ReviewPage extends StatelessWidget {
         body: CustomScrollView(
           semanticChildCount: wordsResult.length + 1,
           slivers: [
-            SliverAppBar(
-              flexibleSpace: LayoutBuilder(builder: (context, constraints) {
-                final isCollapsed = constraints.biggest.height <= MediaQuery.of(context).padding.top + kToolbarHeight + 1;
-                return FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: isCollapsed ? null : Text(strings.reviewTitle, style: appBarZoomTextStyle),
-                  background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(BannerUrl.review, fit: BoxFit.cover)),
-                );
-              }),
-              leading: IconButton(
-                icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
-                onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-              ),
-              expandedHeight: appBarExpandedHeight(context),
-              pinned: true,
+            SliverFlexibleAppBar(
+              title: strings.reviewTitle,
+              bannerUrl: BannerUrl.review,
+              onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(

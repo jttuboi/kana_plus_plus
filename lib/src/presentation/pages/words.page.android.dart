@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/words_grid.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/words_search_delegate.dart';
 
 class WordsPage extends StatefulWidget {
@@ -30,37 +32,61 @@ class _WordsPageState extends State<WordsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = JStrings.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => _onPressedSearchButton(context),
-            icon: SvgPicture.asset(IconUrl.search, color: Theme.of(context).primaryIconTheme.color),
+      extendBodyBehindAppBar: true,
+      body: CustomScrollView(
+        slivers: [
+          SliverFlexibleAppBar(
+            title: strings.wordsTitle,
+            bannerUrl: BannerUrl.words,
+            onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+            actions: [
+              IconButton(
+                onPressed: () => _onPressedSearchButton(context),
+                icon: SvgPicture.asset(IconUrl.search, color: Theme.of(context).primaryIconTheme.color),
+              ),
+            ],
+          ),
+          SliverFillRemaining(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FutureBuilder<List<Word>>(
+                future: _stateManagement.wordsLoading,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return _buildLoader();
+                  }
+                  if (snapshot.hasError) {
+                    return _buildError(context);
+                  }
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    final words = snapshot.data!;
+                    _updateWordsLoaded(words);
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        childAspectRatio: 9 / 10,
+                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8.0,
+                      ),
+                      itemCount: words.length,
+                      itemBuilder: (context1, index) {
+                        final word = words[index];
+                        return WordItem(
+                          word: word.id,
+                          imageUrl: word.imageUrl,
+                          onTap: () => _onTapWordItem(context, word.id),
+                        );
+                      },
+                    );
+                  }
+                  return _buildNoData(context);
+                },
+              ),
+            ),
           ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<List<Word>>(
-          future: _stateManagement.wordsLoading,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return _buildLoader();
-            }
-            if (snapshot.hasError) {
-              return _buildError(context);
-            }
-            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-              final words = snapshot.data!;
-              _updateWordsLoaded(words);
-              return WordsGrid(
-                words: words,
-                onTap: (id) => _onTapWordItem(context, id),
-              );
-            }
-            return _buildNoData(context);
-          },
-        ),
       ),
     );
   }

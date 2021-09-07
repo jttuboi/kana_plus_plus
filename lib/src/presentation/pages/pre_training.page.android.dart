@@ -6,11 +6,11 @@ import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class PreTrainingPage extends StatelessWidget {
@@ -41,21 +41,11 @@ class _PreTrainingPage extends StatelessWidget {
       body: CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
         slivers: [
-          SliverAppBar(
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: FittedBox(fit: BoxFit.fitWidth, child: Text(strings.preTrainingTitle, style: appBarZoomTextStyle)),
-              ),
-              background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(BannerUrl.preTraining, fit: BoxFit.cover)),
-            ),
-            leading: IconButton(
-              icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
-              onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-            ),
-            expandedHeight: appBarExpandedHeight(context),
-            pinned: true,
+          SliverFlexibleAppBar(
+            title: strings.preTrainingTitle,
+            bannerUrl: BannerUrl.preTraining,
+            isFlexible: false,
+            onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
           ),
           SliverFillRemaining(
             child: Consumer<PreTrainingProvider>(

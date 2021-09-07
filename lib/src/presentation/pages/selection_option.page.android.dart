@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
 
 class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage({
@@ -32,21 +32,11 @@ class SelectionOptionPage extends StatelessWidget {
         body: CustomScrollView(
           physics: const NeverScrollableScrollPhysics(),
           slivers: [
-            SliverAppBar(
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: appBarZoomTextStyle)),
-                ),
-                background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(bannerUrl, fit: BoxFit.cover)),
-              ),
-              leading: IconButton(
-                icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
-                onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-              ),
-              expandedHeight: appBarExpandedHeight(context),
-              pinned: true,
+            SliverFlexibleAppBar(
+              title: title,
+              bannerUrl: bannerUrl,
+              isFlexible: false,
+              onBackButtonPressed: () => Navigator.pop(context),
             ),
             SliverFillRemaining(
               child: ListView.builder(

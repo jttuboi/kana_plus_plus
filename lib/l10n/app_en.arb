@@ -54,5 +54,7 @@
     "reviewTitle": "REVIEW",
     "@reviewTitle": { "description": "" },
     "preTrainingTitle": "TRAINING SETTINGS",
-    "@preTrainingTitle": { "description": "" }
+    "@preTrainingTitle": { "description": "" },
+    "wordsTitle": "WORDS",
+    "@wordsTitle": { "description": "" }
 }

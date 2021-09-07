@@ -11,6 +11,7 @@ import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
@@ -41,21 +42,10 @@ class SettingsPage extends StatelessWidget {
         return Scaffold(
           body: CustomScrollView(
             slivers: [
-              SliverAppBar(
-                flexibleSpace: LayoutBuilder(builder: (context, constraints) {
-                  final isCollapsed = constraints.biggest.height <= MediaQuery.of(context).padding.top + kToolbarHeight + 1;
-                  return FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: isCollapsed ? null : Text(strings.settingsTitle, style: appBarZoomTextStyle),
-                    background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(BannerUrl.settings, fit: BoxFit.cover)),
-                  );
-                }),
-                leading: IconButton(
-                  icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
-                  onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-                ),
-                expandedHeight: appBarExpandedHeight(context),
-                pinned: true,
+              SliverFlexibleAppBar(
+                title: strings.settingsTitle,
+                bannerUrl: BannerUrl.settings,
+                onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
               ),
               SliverFillRemaining(
                 child: ListView(
