@@ -16,7 +16,7 @@ void main() {
       const String wordId = 'ねこ';
       when(() => wordRepository.getWord(wordId)).thenAnswer((_) => wordSample0);
 
-      final wordResult = controller.showWordDetail(wordId);
+      final wordResult = controller.wordDetail(wordId);
 
       verify(() => wordRepository.getWord(wordId)).called(1);
       expect(wordResult, equals(wordSample0));
@@ -44,7 +44,7 @@ void main() {
       when(() => wordRepository.getWordsById('ねこ')).thenAnswer((invocation) => wordsSample1);
       when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
-      final wordsResult = controller.showWords();
+      final wordsResult = controller.wordsToShow;
 
       verify(() => wordRepository.getWords()).called(1);
       verifyNever(() => wordRepository.getWordsById('ねこ'));
@@ -58,7 +58,7 @@ void main() {
       when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
       controller.setToLoadAllWords();
-      final wordsResult = controller.showWords();
+      final wordsResult = controller.wordsToShow;
 
       verify(() => wordRepository.getWords()).called(1);
       verifyNever(() => wordRepository.getWordsById('ねこ'));
@@ -74,7 +74,7 @@ void main() {
       when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
       controller.setToLoadWordsById('ねこ');
-      final wordsResult = controller.showWords();
+      final wordsResult = controller.wordsToShow;
 
       verifyNever(() => wordRepository.getWords());
       verify(() => wordRepository.getWordsById('ねこ')).called(1);
@@ -90,7 +90,7 @@ void main() {
       when(() => wordRepository.getWordsByQuery('')).thenAnswer((invocation) => wordsSample2);
 
       controller.setToLoadWordsByQuery('');
-      final wordsResult = controller.showWords();
+      final wordsResult = controller.wordsToShow;
 
       verifyNever(() => wordRepository.getWords());
       verifyNever(() => wordRepository.getWordsById('ねこ'));

@@ -4,8 +4,10 @@ import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordsSearchDelegate extends SearchDelegate {
-  WordsSearchDelegate(this.words, String searchFieldLabel)
-      : super(
+  WordsSearchDelegate({
+    required this.words,
+    required String searchFieldLabel,
+  }) : super(
           keyboardType: TextInputType.text,
           searchFieldLabel: searchFieldLabel,
         );

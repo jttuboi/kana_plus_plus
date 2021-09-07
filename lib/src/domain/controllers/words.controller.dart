@@ -11,7 +11,9 @@ class WordsController {
   String _id = '';
   String _query = '';
 
-  List<Word> showWords() {
+  List<Word> get allWords => wordRepository.getWords();
+
+  List<Word> get wordsToShow {
     if (_loadedBy.isLoadedById) {
       return wordRepository.getWordsById(_id);
     } else if (_loadedBy.isLoadedByQuery) {
@@ -19,10 +21,6 @@ class WordsController {
       return wordsByQuery;
     }
     return wordRepository.getWords();
-  }
-
-  Word showWordDetail(String id) {
-    return wordRepository.getWord(id);
   }
 
   void setToLoadWordsById(String id) {
@@ -37,5 +35,9 @@ class WordsController {
 
   void setToLoadAllWords() {
     _loadedBy = LoadedBy.none;
+  }
+
+  Word wordDetail(String id) {
+    return wordRepository.getWord(id);
   }
 }
