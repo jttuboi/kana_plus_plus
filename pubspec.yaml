@@ -48,6 +48,7 @@ flutter:
     - lib/assets/icons/
 
     - lib/assets/tests/images/
+    - lib/assets/tests/images/banners/
     - lib/assets/tests/images/kanas/
     - lib/assets/tests/images/words/
 
