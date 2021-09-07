@@ -3,7 +3,7 @@ include: package:lint/analysis_options.yaml
 analyzer:
   errors:
     # allow having TODOs in the code
-    todo: ignore
+    todo: info
 
 
 linter:

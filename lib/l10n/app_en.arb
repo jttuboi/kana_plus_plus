@@ -52,5 +52,7 @@
     "trainingQuitAnswerYes": "Yes",
     "@trainingQuitAnswerYes": { "description": "" },
     "reviewTitle": "REVIEW",
-    "@reviewTitle": { "description": "" }
+    "@reviewTitle": { "description": "" },
+    "preTrainingTitle": "TRAINING SETTINGS",
+    "@preTrainingTitle": { "description": "" }
 }

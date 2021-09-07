@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordsSearchDelegate extends SearchDelegate {
@@ -24,8 +26,7 @@ class WordsSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        // TODO icons
-        icon: const Icon(Icons.clear),
+        icon: SvgPicture.asset(IconUrl.clear, color: Theme.of(context).primaryIconTheme.color),
         onPressed: () => query = '',
       )
     ];
@@ -34,8 +35,7 @@ class WordsSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      // TODO icons
-      icon: const Icon(Icons.arrow_back),
+      icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
       onPressed: () => close(context, ''),
     );
   }

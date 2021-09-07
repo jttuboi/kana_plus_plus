@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData(
   brightness: Brightness.light,
-  primarySwatch: Colors.orange,
+  primarySwatch: Colors.deepPurple,
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.transparent,
     shadowColor: Colors.transparent,
@@ -12,12 +12,16 @@ final lightTheme = ThemeData(
     color: Colors.grey.shade700,
     size: 24.0,
   ),
+  accentIconTheme: IconThemeData(
+    color: Colors.grey.shade300,
+    size: 40.0,
+  ),
   scaffoldBackgroundColor: Colors.grey.shade50,
 );
 
 final darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primarySwatch: Colors.deepOrange,
+  primarySwatch: Colors.deepPurple,
 );
 
 const TextStyle appBarZoomTextStyle = TextStyle(
@@ -31,7 +35,7 @@ double appBarExpandedHeight(BuildContext context) {
 }
 
 final Color defaultProgressBarColor = Colors.grey.shade400;
-final Color fillingProgressBarColor = Colors.blueAccent;
+//final Color fillingProgressBarColor = Colors.blueAccent;
 
 final Color correctBorderColor = Colors.blueAccent;
 final Color wrongBorderColor = Colors.redAccent;

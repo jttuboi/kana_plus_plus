@@ -4,7 +4,7 @@
     "settingsLanguage": "Idioma",
     "settingsSelectLanguage": "Selecione o idioma",
     "settingsDarkTheme": "Tema escuro",
-    "settingsDefaultTrainingSetting": "Configuração de treinamento padrão",
+    "settingsDefaultTrainingSetting": "Configuração de treino padrão",
     "settingsWritingHand": "Mão que escreve",
     "settingsSelectWritingHand": "Selecione mão que escreve",
     "settingsWritingHandLeft": "Canhoto",
@@ -22,8 +22,9 @@
     "settingsSupport": "Apoiar o desenvolvimento deste aplicativo",
     "searchLabelInWords": "japonês, romaji or tradução",
     "trainingQuitTitle": "Deseja terminar seu treinamento?",
-    "trainingQuitContent": "Você irá perder os dados desse treinamento.",
+    "trainingQuitContent": "Você irá perder os dados desse treino.",
     "trainingQuitAnswerNo": "Não",
     "trainingQuitAnswerYes": "Sim",
-    "reviewTitle": "REVISÃO"
+    "reviewTitle": "REVISÃO",
+    "preTrainingTitle": "CONFIGURAÇÕES de TREINO"
 }

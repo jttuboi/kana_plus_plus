@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
@@ -31,48 +36,79 @@ class _PreTrainingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = JStrings.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Training settings'), // AQUI localization
-      ),
-      body: Consumer<PreTrainingProvider>(
-        builder: (context, provider, child) => ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const SizedBox(height: 8.0),
-            ShowHintTile(
-              showHint: preTrainingController.showHint,
-              iconUrl: preTrainingController.showHintIconUrl,
-              updateShowHint: provider.updateShowHint,
-            ),
-            KanaTypeTile(
-              kanaType: preTrainingController.kanaType,
-              iconUrl: preTrainingController.kanaTypeIconUrl,
-              options: provider.getKanaTypeOptions,
-              updateKanaType: provider.updateKanaType,
-            ),
-            QuantityOfWordsTile(
-              quantity: preTrainingController.quantityOfWords,
-              updateQuantity: provider.updateQuantity,
-            ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  Routes.training,
-                  ModalRoute.withName(Routes.menu),
-                  arguments: PreTrainingArguments(
-                    showHint: preTrainingController.showHint,
-                    kanaType: preTrainingController.kanaType,
-                    quantityOfWords: preTrainingController.quantityOfWords,
-                  ),
-                ),
-                child: const Icon(Icons.play_arrow),
+      body: CustomScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: FittedBox(fit: BoxFit.fitWidth, child: Text(strings.preTrainingTitle, style: appBarZoomTextStyle)),
               ),
+              background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(BannerUrl.preTraining, fit: BoxFit.cover)),
             ),
-          ],
-        ),
+            leading: IconButton(
+              icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
+              onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+            ),
+            expandedHeight: appBarExpandedHeight(context),
+            pinned: true,
+          ),
+          SliverFillRemaining(
+            child: Consumer<PreTrainingProvider>(
+              builder: (context, provider, child) {
+                return ListView(
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    const SizedBox(height: 8.0),
+                    ShowHintTile(
+                      showHint: preTrainingController.showHint,
+                      iconUrl: preTrainingController.showHintIconUrl,
+                      updateShowHint: provider.updateShowHint,
+                    ),
+                    KanaTypeTile(
+                      kanaType: preTrainingController.kanaType,
+                      iconUrl: preTrainingController.kanaTypeIconUrl,
+                      options: provider.getKanaTypeOptions,
+                      updateKanaType: provider.updateKanaType,
+                    ),
+                    QuantityOfWordsTile(
+                      quantity: preTrainingController.quantityOfWords,
+                      updateQuantity: provider.updateQuantity,
+                    ),
+                    MaterialButton(
+                      color: Theme.of(context).accentColor,
+                      shape: const CircleBorder(),
+                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.training,
+                        ModalRoute.withName(Routes.menu),
+                        arguments: PreTrainingArguments(
+                          showHint: preTrainingController.showHint,
+                          kanaType: preTrainingController.kanaType,
+                          quantityOfWords: preTrainingController.quantityOfWords,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SvgPicture.asset(
+                          IconUrl.play,
+                          color: Theme.of(context).accentIconTheme.color,
+                          width: Theme.of(context).accentIconTheme.size,
+                          height: Theme.of(context).accentIconTheme.size,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

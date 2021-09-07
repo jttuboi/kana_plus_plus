@@ -25,5 +25,6 @@
     "trainingQuitContent": "Vas a perder estos datos de entrenamiento.",
     "trainingQuitAnswerNo": "No",
     "trainingQuitAnswerYes": "Sí",
-    "reviewTitle": "REVISÍON"
+    "reviewTitle": "REVISÍON",
+    "preTrainingTitle": "AJUSTES DE ENTRENAMIENTO"
 }

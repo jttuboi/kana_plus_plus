@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
@@ -33,7 +35,7 @@ class _WordsPageState extends State<WordsPage> {
         actions: [
           IconButton(
             onPressed: () => _onPressedSearchButton(context),
-            icon: const Icon(Icons.search),
+            icon: SvgPicture.asset(IconUrl.search, color: Theme.of(context).primaryIconTheme.color),
           ),
         ],
       ),
@@ -46,7 +48,7 @@ class _WordsPageState extends State<WordsPage> {
               return _buildLoader();
             }
             if (snapshot.hasError) {
-              return _buildError();
+              return _buildError(context);
             }
             if (snapshot.hasData && snapshot.data!.isNotEmpty) {
               final words = snapshot.data!;
@@ -56,7 +58,7 @@ class _WordsPageState extends State<WordsPage> {
                 onTap: (id) => _onTapWordItem(context, id),
               );
             }
-            return _buildNoData();
+            return _buildNoData(context);
           },
         ),
       ),
@@ -95,13 +97,25 @@ class _WordsPageState extends State<WordsPage> {
     return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildError() {
-    // TODO icon
-    return const Center(child: Icon(Icons.error));
+  Widget _buildError(BuildContext context) {
+    return Center(
+      child: SvgPicture.asset(
+        IconUrl.error,
+        color: Theme.of(context).primaryIconTheme.color,
+        width: Theme.of(context).primaryIconTheme.size,
+        height: Theme.of(context).primaryIconTheme.size,
+      ),
+    );
   }
 
-  Widget _buildNoData() {
-    // TODO icon
-    return const Center(child: Icon(Icons.cloud_off));
+  Widget _buildNoData(BuildContext context) {
+    return Center(
+      child: SvgPicture.asset(
+        IconUrl.error,
+        color: Theme.of(context).primaryIconTheme.color,
+        width: Theme.of(context).primaryIconTheme.size,
+        height: Theme.of(context).primaryIconTheme.size,
+      ),
+    );
   }
 }

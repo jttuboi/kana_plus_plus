@@ -98,13 +98,13 @@ class _TrainingPage extends StatelessWidget {
           return _buildLoader();
         }
         if (snapshot.hasError) {
-          return _buildError();
+          return _buildError(context);
         }
         if (snapshot.hasData && snapshot.data! == true) {
           writerController.updateWriter(trainingController.currentKanaToWrite);
           return _buildData(context);
         }
-        return _buildNoData();
+        return _buildNoData(context);
       },
     );
   }
@@ -119,7 +119,7 @@ class _TrainingPage extends StatelessWidget {
               totalSteps: trainingController.quantityOfWords,
               size: 5.0,
               padding: 0.5,
-              selectedColor: fillingProgressBarColor,
+              selectedColor: Theme.of(context).accentColor,
               unselectedColor: defaultProgressBarColor,
             );
           },
@@ -227,11 +227,25 @@ class _TrainingPage extends StatelessWidget {
     return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildError() {
-    return const Center(child: Icon(Icons.error));
+  Widget _buildError(BuildContext context) {
+    return Center(
+      child: SvgPicture.asset(
+        IconUrl.error,
+        color: Theme.of(context).primaryIconTheme.color,
+        width: Theme.of(context).primaryIconTheme.size,
+        height: Theme.of(context).primaryIconTheme.size,
+      ),
+    );
   }
 
-  Widget _buildNoData() {
-    return const Center(child: Icon(Icons.cloud_off));
+  Widget _buildNoData(BuildContext context) {
+    return Center(
+      child: SvgPicture.asset(
+        IconUrl.error,
+        color: Theme.of(context).primaryIconTheme.color,
+        width: Theme.of(context).primaryIconTheme.size,
+        height: Theme.of(context).primaryIconTheme.size,
+      ),
+    );
   }
 }

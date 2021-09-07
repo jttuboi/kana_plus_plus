@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/selection_option.page.android.dart';
@@ -35,6 +36,7 @@ class LanguageTile extends StatelessWidget {
             MaterialPageRoute(
               builder: (context2) => SelectionOptionPage(
                 title: strings.settingsSelectLanguage,
+                bannerUrl: BannerUrl.language,
                 selectedOptionKey: provider.languageSelected,
                 options: provider.options((localeCode) {
                   return _getText(localeCode);

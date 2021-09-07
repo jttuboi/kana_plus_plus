@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
@@ -34,15 +35,12 @@ class ReviewPage extends StatelessWidget {
                 final isCollapsed = constraints.biggest.height <= MediaQuery.of(context).padding.top + kToolbarHeight + 1;
                 return FlexibleSpaceBar(
                   centerTitle: true,
-                  // TODO mudar a fonte do review title, talvez aumentar a fonte
                   title: isCollapsed ? null : Text(strings.reviewTitle, style: appBarZoomTextStyle),
-                  // TODO criar um background pro review
-                  background:
-                      Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset('lib/assets/images/kanas/あ.svg', fit: BoxFit.cover)),
+                  background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(BannerUrl.review, fit: BoxFit.cover)),
                 );
               }),
               leading: IconButton(
-                icon: SvgPicture.asset(IconUrl.backMenu, color: Theme.of(context).primaryIconTheme.color),
+                icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
                 onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
               ),
               expandedHeight: appBarExpandedHeight(context),

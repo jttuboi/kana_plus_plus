@@ -52,5 +52,6 @@ flutter:
     - lib/assets/tests/images/words/
 
     - lib/assets/images/
+    - lib/assets/images/banners/
     - lib/assets/images/kanas/
     - lib/assets/images/words/
