@@ -9,7 +9,7 @@ final lightTheme = ThemeData(
     elevation: 0.0,
   ),
   primaryIconTheme: IconThemeData(
-    color: Colors.grey.shade700,
+    color: Colors.grey.shade500,
     size: 24.0,
   ),
   accentIconTheme: IconThemeData(

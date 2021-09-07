@@ -40,7 +40,14 @@ class SliverFlexibleAppBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: appBarZoomTextStyle)),
       ),
-      background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(bannerUrl, fit: BoxFit.cover)),
+      background: Container(
+        color: Theme.of(context).primaryColor,
+        child: SvgPicture.asset(
+          bannerUrl,
+          fit: BoxFit.cover,
+          color: Theme.of(context).toggleableActiveColor,
+        ),
+      ),
     );
   }
 
@@ -56,7 +63,14 @@ class SliverFlexibleAppBar extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: appBarZoomTextStyle)),
                 ),
-          background: Container(color: Theme.of(context).primaryColor, child: SvgPicture.asset(bannerUrl, fit: BoxFit.cover)),
+          background: Container(
+            color: Theme.of(context).primaryColor,
+            child: SvgPicture.asset(
+              bannerUrl,
+              fit: BoxFit.cover,
+              color: Theme.of(context).toggleableActiveColor,
+            ),
+          ),
         );
       },
     );

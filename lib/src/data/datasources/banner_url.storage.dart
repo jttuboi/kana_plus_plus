@@ -1,7 +1,7 @@
 class BannerUrl {
   BannerUrl._();
 
-  static const bannersFolder = 'lib/assets/images/banners/';
+  static const bannersFolder = 'lib/assets/tests/images/banners/';
 
   static const preTraining = '${bannersFolder}pre_training.svg';
   static const review = '${bannersFolder}review.svg';
