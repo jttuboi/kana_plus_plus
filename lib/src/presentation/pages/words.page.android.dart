@@ -5,7 +5,7 @@ import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/words.state_management.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';

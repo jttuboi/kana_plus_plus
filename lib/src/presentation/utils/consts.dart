@@ -75,3 +75,6 @@ const reviewTileTitleStyle = TextStyle(fontWeight: FontWeight.bold);
 
 const Color defaultTileIconColor = Colors.grey;
 const double defaultTileIconSize = 40;
+
+final wordDetailTitleStyle = const TextStyle(fontSize: 30);
+final wordDetailContentStyle = TextStyle(fontSize: 25, color: Colors.grey.shade600);

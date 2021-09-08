@@ -42,7 +42,9 @@ class WriterController {
   }
 
   void addStroke(List<Offset> stroke) {
-    strokes.add(strokeReducer.reduce(stroke));
+    if (stroke.length > 3) {
+      strokes.add(strokeReducer.reduce(stroke));
+    }
   }
 
   void clearStrokes() {

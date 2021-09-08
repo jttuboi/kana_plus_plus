@@ -46,7 +46,7 @@ class WordItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
-                          ..strokeWidth = 10
+                          ..strokeWidth = 8
                           ..color = Colors.white.withOpacity(0.5),
                       ),
                     ),
@@ -56,23 +56,23 @@ class WordItem extends StatelessWidget {
                     child: Text(
                       word,
                       style: TextStyle(
-                          fontSize: 37,
-                          fontWeight: FontWeight.bold,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 7
-                            ..color = Colors.grey[200]! //.withOpacity(0.8),
-                          ),
+                        fontSize: 37,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 4
+                          ..color = Colors.deepPurple,
+                      ),
                     ),
                   ),
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                       word,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 37,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Colors.white.withOpacity(0.8),
                       ),
                     ),
                   ),

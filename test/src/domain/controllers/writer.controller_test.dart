@@ -53,10 +53,41 @@ void main() {
     });
   });
   group('manipulate strokes', () {
+    test('must ignore stroke less than 3 points', () {
+      controller.strokes = [];
+      const stroke1 = <Offset>[];
+      const stroke2 = [Offset(2, 8)];
+      const stroke3 = [Offset(4, 3), Offset(3, 4)];
+      const stroke4 = [Offset(1, 1), Offset(4, 2), Offset(6, 4)];
+      const stroke5 = [Offset(1, 3), Offset(5, 3), Offset(8, 5), Offset(8, 3)];
+
+      controller.addStroke(stroke1);
+
+      expect(controller.strokes.length, 0);
+
+      controller.addStroke(stroke2);
+
+      expect(controller.strokes.length, 0);
+
+      controller.addStroke(stroke3);
+
+      expect(controller.strokes.length, 0);
+
+      controller.addStroke(stroke4);
+
+      expect(controller.strokes.length, 0);
+
+      controller.addStroke(stroke5);
+
+      expect(controller.strokes.length, 1);
+      expect(controller.strokes[0], stroke5);
+    });
     test('must add new stroke to strokes', () {
       controller.strokes = [];
-      const stroke1 = [Offset(1, 3), Offset(5, 3)];
-      const stroke2 = [Offset(2, 8), Offset(8, 1)];
+      const stroke1 = [Offset(1, 3), Offset(5, 3), Offset(8, 5), Offset(8, 3)];
+      const stroke2 = [Offset(2, 8), Offset(8, 1), Offset(3, 1), Offset(7, 5)];
+      const stroke3 = [Offset(4, 3), Offset(3, 4), Offset(4, 5), Offset(3, 1)];
+      const stroke4 = [Offset(1, 1), Offset(4, 2), Offset(6, 4), Offset(6, 2)];
 
       controller.addStroke(stroke1);
 
@@ -64,10 +95,14 @@ void main() {
       expect(controller.strokes[0], stroke1);
 
       controller.addStroke(stroke2);
+      controller.addStroke(stroke3);
+      controller.addStroke(stroke4);
 
-      expect(controller.strokes.length, 2);
+      expect(controller.strokes.length, 4);
       expect(controller.strokes[0], stroke1);
       expect(controller.strokes[1], stroke2);
+      expect(controller.strokes[2], stroke3);
+      expect(controller.strokes[3], stroke4);
     });
     test('must add an reduced stroke to strokes', () {
       controller.strokes = [];
