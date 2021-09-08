@@ -38,7 +38,7 @@ class SliverFlexibleAppBar extends StatelessWidget {
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: appBarZoomTextStyle)),
+        child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: sliverFlexibleAppBarTextStyle)),
       ),
       background: Container(
         color: Theme.of(context).primaryColor,
@@ -61,7 +61,7 @@ class SliverFlexibleAppBar extends StatelessWidget {
               ? null
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: appBarZoomTextStyle)),
+                  child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: sliverFlexibleAppBarTextStyle)),
                 ),
           background: Container(
             color: Theme.of(context).primaryColor,

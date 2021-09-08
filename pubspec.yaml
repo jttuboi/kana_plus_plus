@@ -16,7 +16,6 @@ dependencies:
     sdk: flutter
   flutter_localized_locales: ^2.0.2
   flutter_svg: ^0.22.0
-  google_fonts: ^2.1.0
   intl: ^0.17.0
   logger: ^1.0.0
   path: ^1.8.0
@@ -56,3 +55,8 @@ flutter:
     - lib/assets/images/banners/
     - lib/assets/images/kanas/
     - lib/assets/images/words/
+
+  fonts:
+    - family: Permanent Marker
+      fonts:
+        - asset: lib/assets/fonts/permanent_marker/PermanentMarker-Regular.ttf

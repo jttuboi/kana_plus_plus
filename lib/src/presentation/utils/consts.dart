@@ -24,10 +24,11 @@ final darkTheme = ThemeData(
   primarySwatch: Colors.deepPurple,
 );
 
-const TextStyle appBarZoomTextStyle = TextStyle(
+const TextStyle sliverFlexibleAppBarTextStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontSize: 40,
+  fontFamily: defaultTitleFontFamily,
 );
 
 double appBarExpandedHeight(BuildContext context) {
@@ -76,5 +77,14 @@ const reviewTileTitleStyle = TextStyle(fontWeight: FontWeight.bold);
 const Color defaultTileIconColor = Colors.grey;
 const double defaultTileIconSize = 40;
 
-final wordDetailTitleStyle = const TextStyle(fontSize: 30);
+const wordDetailTitleStyle = TextStyle(fontSize: 30);
 final wordDetailContentStyle = TextStyle(fontSize: 25, color: Colors.grey.shade600);
+
+const defaultTitleFontFamily = 'Permanent Marker';
+
+const menuTitleTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 100,
+  fontWeight: FontWeight.w700,
+  fontFamily: defaultTitleFontFamily,
+);
