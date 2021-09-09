@@ -64,7 +64,7 @@ class AndroidApp extends StatelessWidget {
   List<SingleChildWidget> get _providers {
     return [
       ChangeNotifierProvider(create: (context) => ThemeProvider(Cache.getBool('dark_theme'))),
-      ChangeNotifierProvider(create: (context) => LocaleProvider()),
+      ChangeNotifierProvider(create: (context) => LocaleProvider(LanguageRepository())),
     ];
   }
 
@@ -82,7 +82,8 @@ class AndroidApp extends StatelessWidget {
   }
 
   ThemeMode _themeMode(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).mode;
+    return ThemeMode.light;
+    //return Provider.of<ThemeProvider>(context).mode;
   }
 
   Map<String, WidgetBuilder> get _routes => {

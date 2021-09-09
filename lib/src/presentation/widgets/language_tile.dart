@@ -13,12 +13,6 @@ import 'package:provider/provider.dart';
 class LanguageTile extends StatelessWidget {
   const LanguageTile({Key? key}) : super(key: key);
 
-  void _updateLocalizationOnApp(BuildContext context, String localeCode) {
-    Provider.of<LocaleProvider>(context, listen: false).setLocale(JStrings.supportedLocales.firstWhere((Locale locale) {
-      return locale.toString() == localeCode;
-    }));
-  }
-
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
@@ -44,7 +38,7 @@ class LanguageTile extends StatelessWidget {
                 onSelected: (selectedKey) {
                   final String key = selectedKey as String;
                   provider.updateLanguageSelected(key);
-                  _updateLocalizationOnApp(context, key);
+                  Provider.of<LocaleProvider>(context, listen: false).updateLocale();
                 },
               ),
             ),
