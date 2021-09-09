@@ -54,6 +54,7 @@ flutter:
     - lib/assets/images/
     - lib/assets/images/banners/
     - lib/assets/images/kanas/
+    - lib/assets/images/menu/kanas/
     - lib/assets/images/words/
 
   fonts:
