@@ -29,5 +29,9 @@
     "preTrainingTitle": "CONFIGURAÇÕES DE TREINO",
     "wordsTitle": "PALAVRAS",
     "wordDetailRomaji": "Romaji",
-    "wordDetailTranslate": "Tradução"
+    "wordDetailTranslate": "Tradução",
+    "menuStudy": "estudo",
+    "menuTraining": "treino",
+    "menuWords": "palavras",
+    "menuSettings": "configurações"
 }

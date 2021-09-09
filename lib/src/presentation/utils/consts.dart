@@ -88,3 +88,11 @@ const menuTitleTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
   fontFamily: defaultTitleFontFamily,
 );
+
+final menuButtonIconColor = Colors.grey.shade200;
+
+final menuButtonTextStyle = TextStyle(
+  color: menuButtonIconColor,
+  fontSize: 30,
+  fontFamily: defaultTitleFontFamily,
+);

@@ -26,4 +26,8 @@ class IconUrl {
   static const clear = '${iconsFolder}clear.svg';
   static const search = '${iconsFolder}search.svg';
   static const play = '${iconsFolder}play.svg';
+  static const settings = '${iconsFolder}settings.svg';
+  static const study = '${iconsFolder}study.svg';
+  static const words = '${iconsFolder}words.svg';
+  static const training = '${iconsFolder}training.svg';
 }

@@ -60,5 +60,13 @@
     "wordDetailRomaji": "Romaji",
     "@wordDetailTRomaji": { "description": "" },
     "wordDetailTranslate": "Translate",
-    "@wordDetailTranslate": { "description": "" }
+    "@wordDetailTranslate": { "description": "" },
+    "menuStudy": "study",
+    "@menuStudy": { "description": "" },
+    "menuTraining": "training",
+    "@menuTraining": { "description": "" },
+    "menuWords": "words",
+    "@menuWords": { "description": "" },
+    "menuSettings": "settings",
+    "@menuSettings": { "description": "" }
 }

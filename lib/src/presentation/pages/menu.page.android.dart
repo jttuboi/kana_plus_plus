@@ -1,6 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
@@ -27,10 +30,12 @@ class _MenuContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = JStrings.of(context)!;
     return SafeArea(
       child: Column(
         children: [
           Flexible(
+            flex: 3,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -41,7 +46,7 @@ class _MenuContent extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 3,
+            flex: 7,
             child: GridView.count(
               mainAxisSpacing: 16.0,
               crossAxisSpacing: 16.0,
@@ -52,19 +57,47 @@ class _MenuContent extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamed(context, Routes.study),
-                  child: const Icon(Icons.menu_book, size: 80),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(IconUrl.study, width: 80, height: 80, color: menuButtonIconColor),
+                      const SizedBox(height: 4.0),
+                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuStudy, style: menuButtonTextStyle)),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamed(context, Routes.preTraining),
-                  child: const Icon(Icons.mode_edit, size: 80),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(IconUrl.training, width: 80, height: 80, color: menuButtonIconColor),
+                      const SizedBox(height: 4.0),
+                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuTraining, style: menuButtonTextStyle)),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamed(context, Routes.words),
-                  child: const Icon(Icons.style, size: 80),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(IconUrl.words, width: 80, height: 80, color: menuButtonIconColor),
+                      const SizedBox(height: 4.0),
+                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuWords, style: menuButtonTextStyle)),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamed(context, Routes.settings),
-                  child: const Icon(Icons.settings, size: 80),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(IconUrl.settings, width: 80, height: 80, color: menuButtonIconColor),
+                      const SizedBox(height: 4.0),
+                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuSettings, style: menuButtonTextStyle)),
+                    ],
+                  ),
                 ),
               ],
             ),
