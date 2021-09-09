@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
@@ -49,6 +48,11 @@ class LanguageTile extends StatelessWidget {
   }
 
   String _getText(String localeCode) {
-    return LocaleNamesLocalizationsDelegate.nativeLocaleNames[localeCode] ?? 'English';
+    if (localeCode == 'es') {
+      return 'Español';
+    } else if (localeCode == 'pt_BR') {
+      return 'Português brasileiro';
+    }
+    return 'English';
   }
 }
