@@ -56,5 +56,9 @@
     "preTrainingTitle": "TRAINING SETTINGS",
     "@preTrainingTitle": { "description": "" },
     "wordsTitle": "WORDS",
-    "@wordsTitle": { "description": "" }
+    "@wordsTitle": { "description": "" },
+    "wordDetailRomaji": "Romaji",
+    "@wordDetailTRomaji": { "description": "" },
+    "wordDetailTranslate": "Translate",
+    "@wordDetailTranslate": { "description": "" }
 }

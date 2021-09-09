@@ -27,5 +27,7 @@
     "trainingQuitAnswerYes": "Sim",
     "reviewTitle": "REVISÃO",
     "preTrainingTitle": "CONFIGURAÇÕES DE TREINO",
-    "wordsTitle": "PALAVRAS"
+    "wordsTitle": "PALAVRAS",
+    "wordDetailRomaji": "Romaji",
+    "wordDetailTranslate": "Tradução"
 }

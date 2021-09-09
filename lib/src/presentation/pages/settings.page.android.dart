@@ -7,11 +7,11 @@ import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/sliver_flexible_app_bar.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
@@ -39,100 +39,93 @@ class SettingsPage extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => QuantityOfWordsProvider(settingsController)),
       ],
       builder: (context, child) {
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverFlexibleAppBar(
-                title: strings.settingsTitle,
-                bannerUrl: BannerUrl.settings,
-                onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-              ),
-              SliverFillRemaining(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    SubHeaderTile(strings.settingsBasic),
-                    const LanguageTile(),
-                    //const DarkThemeTile(),
-                    Consumer<WritingHandProvider>(
-                      builder: (context, provider, child) {
-                        return WritingHandTile(
-                          writingHand: provider.writingHand,
-                          iconUrl: provider.iconUrl,
-                          options: provider.options,
-                          updateWritingHand: provider.updateWritingHand,
-                        );
-                      },
-                    ),
-                    const Divider(),
-                    SubHeaderTile(strings.settingsDefaultTrainingSetting),
-                    Consumer<ShowHintProvider>(
-                      builder: (context, provider, child) {
-                        return ShowHintTile(
-                          showHint: provider.showHint,
-                          iconUrl: provider.iconUrl,
-                          updateShowHint: provider.updateShowHint,
-                        );
-                      },
-                    ),
-                    Consumer<KanaTypeProvider>(
-                      builder: (context, provider, child) {
-                        return KanaTypeTile(
-                          kanaType: provider.kanaType,
-                          iconUrl: provider.iconUrl,
-                          options: provider.options,
-                          updateKanaType: provider.updateKanaType,
-                        );
-                      },
-                    ),
-                    Consumer<QuantityOfWordsProvider>(
-                      builder: (context, provider, child) {
-                        return QuantityOfWordsTile(
-                          quantity: provider.quantity,
-                          updateQuantity: provider.updateQuantity,
-                        );
-                      },
-                    ),
-                    const Divider(),
-                    SubHeaderTile(strings.settingsOthers),
-                    ListTile(
-                      title: Text(strings.settingsAbout),
-                      leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DescriptionPage(
-                            title: strings.settingsAbout,
-                            descriptions: settingsController.aboutDescriptions,
-                          ),
+        return FlexibleScaffold(
+            title: strings.settingsTitle,
+            bannerUrl: BannerUrl.settings,
+            onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+            sliverContent: SliverFillRemaining(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  SubHeaderTile(strings.settingsBasic),
+                  const LanguageTile(),
+                  //const DarkThemeTile(),
+                  Consumer<WritingHandProvider>(
+                    builder: (context, provider, child) {
+                      return WritingHandTile(
+                        writingHand: provider.writingHand,
+                        iconUrl: provider.iconUrl,
+                        options: provider.options,
+                        updateWritingHand: provider.updateWritingHand,
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  SubHeaderTile(strings.settingsDefaultTrainingSetting),
+                  Consumer<ShowHintProvider>(
+                    builder: (context, provider, child) {
+                      return ShowHintTile(
+                        showHint: provider.showHint,
+                        iconUrl: provider.iconUrl,
+                        updateShowHint: provider.updateShowHint,
+                      );
+                    },
+                  ),
+                  Consumer<KanaTypeProvider>(
+                    builder: (context, provider, child) {
+                      return KanaTypeTile(
+                        kanaType: provider.kanaType,
+                        iconUrl: provider.iconUrl,
+                        options: provider.options,
+                        updateKanaType: provider.updateKanaType,
+                      );
+                    },
+                  ),
+                  Consumer<QuantityOfWordsProvider>(
+                    builder: (context, provider, child) {
+                      return QuantityOfWordsTile(
+                        quantity: provider.quantity,
+                        updateQuantity: provider.updateQuantity,
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  SubHeaderTile(strings.settingsOthers),
+                  ListTile(
+                    title: Text(strings.settingsAbout),
+                    leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DescriptionPage(
+                          title: strings.settingsAbout,
+                          descriptions: settingsController.aboutDescriptions,
                         ),
                       ),
                     ),
-                    ListTile(
-                      title: Text(strings.settingsPrivacyPolicy),
-                      leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DescriptionPage(
-                            title: strings.settingsPrivacyPolicy,
-                            descriptions: settingsController.privacyPolicyDescriptions,
-                          ),
+                  ),
+                  ListTile(
+                    title: Text(strings.settingsPrivacyPolicy),
+                    leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DescriptionPage(
+                          title: strings.settingsPrivacyPolicy,
+                          descriptions: settingsController.privacyPolicyDescriptions,
                         ),
                       ),
                     ),
-                    // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
-                    ListTile(
-                      title: Text(strings.settingsSupport),
-                      leading: SvgPicture.asset(IconUrl.support, color: defaultTileIconColor, width: defaultTileIconSize),
-                    ),
-                  ],
-                ),
+                  ),
+                  // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
+                  ListTile(
+                    title: Text(strings.settingsSupport),
+                    leading: SvgPicture.asset(IconUrl.support, color: defaultTileIconColor, width: defaultTileIconSize),
+                  ),
+                ],
               ),
-            ],
-          ),
-        );
+            ));
       },
     );
   }

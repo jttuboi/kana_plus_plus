@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
@@ -11,6 +12,7 @@ class WordDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = JStrings.of(context)!;
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context);
@@ -54,7 +56,7 @@ class WordDetailPage extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Romaji', style: wordDetailTitleStyle),
+                                  Text(strings.wordDetailRomaji, style: wordDetailTitleStyle),
                                   Text(word.romaji, style: wordDetailContentStyle),
                                 ],
                               ),
@@ -64,7 +66,7 @@ class WordDetailPage extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Translate', style: wordDetailTitleStyle),
+                                  Text(strings.wordDetailTranslate, style: wordDetailTitleStyle),
                                   Text(word.translate, style: wordDetailContentStyle),
                                 ],
                               ),

@@ -27,5 +27,7 @@
     "trainingQuitAnswerYes": "Sí",
     "reviewTitle": "REVISÍON",
     "preTrainingTitle": "AJUSTES DE ENTRENAMIENTO",
-    "wordsTitle": "PALABRAS"
+    "wordsTitle": "PALABRAS",
+    "wordDetailRomaji": "Romaji",
+    "wordDetailTranslate": "Traducción"
 }
