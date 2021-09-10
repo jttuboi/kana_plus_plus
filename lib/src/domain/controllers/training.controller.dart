@@ -21,7 +21,7 @@ class TrainingController {
   });
 
   final IWordRepository wordRepository;
-  final KanaChecker kanaChecker;
+  final IKanaChecker kanaChecker;
 
   final KanaType kanaType;
   final int quantityOfWords;

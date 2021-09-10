@@ -2,63 +2,101 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 
-class KanaChecker {
+abstract class IKanaChecker {
+  Future<void> load();
+
+  bool checkKana(String kana, List<List<Offset>> normalizedStrokes);
+}
+
+class KanaChecker implements IKanaChecker {
+  KanaChecker({this.percentageToApprove = 0.8});
+
+  @override
   Future<void> load() async {
     return rootBundle.loadString('lib/assets/database/points.json').then((response) {
       final jsonFile = json.decode(response) as Map<String, dynamic>;
-      data = _convertToData(jsonFile);
+      data = convertToData(jsonFile);
     });
   }
 
   // TODO mudar as constantes antes de finalizar o app
   static const powRadius = 0.0225; // radius = 0.15 = 15% de 100 pixels
-  static const percentageToApprove = 0.65; // 65%
+  final double percentageToApprove;
 
   late final Map<String, List<List<Offset>>> data;
 
+  @override
   bool checkKana(String kana, List<List<Offset>> normalizedStrokes) {
-    final oks = <bool>[];
-    final strokesData = data[kana];
+    final dataStrokes = data[kana]!;
+    final userStrokes = normalizedStrokes;
 
-    //print('user = $normalizedStrokes');
-    //print('data = $strokesData');
+    // all points need to be true to approve
+    final dataStrokesChecked = <List<bool>>[];
+    for (final dataStroke in dataStrokes) {
+      dataStrokesChecked.add(List<bool>.filled(dataStroke.length, false));
+    }
 
-    for (int strokeIdx = 0; strokeIdx < normalizedStrokes.length; strokeIdx++) {
-      final strokeToCheck = normalizedStrokes[strokeIdx];
-      for (int pointIdx = 0; pointIdx < strokeToCheck.length; pointIdx++) {
-        final pointToCheck = strokeToCheck[pointIdx];
-        oks.add(_isInside(pointToCheck, strokesData![strokeIdx]));
+    // 90% of all points need to be true to approve
+    final userPointsChecked = <bool>[];
+
+    // check if the user points is inside of data stroke
+    for (int i = 0; i < userStrokes.length; i++) {
+      final dataStroke = dataStrokes[i];
+      final userStroke = userStrokes[i];
+      final dataStrokeChecked = dataStrokesChecked[i];
+
+      for (final userPoint in userStroke) {
+        bool userPointAdded = false;
+        for (int j = 0; j < dataStroke.length; j++) {
+          final dataPoint = dataStroke[j];
+          if (pow(dataPoint.dx - userPoint.dx, 2) + pow(dataPoint.dy - userPoint.dy, 2) <= powRadius) {
+            if (!userPointAdded) {
+              userPointsChecked.add(true);
+              userPointAdded = true;
+            }
+            dataStrokeChecked[j] = true;
+          }
+        }
+        if (!userPointAdded) {
+          userPointsChecked.add(false);
+        }
       }
     }
-    return _isOk(oks);
+
+    // verify conditions
+    return allDataStrokesChecked(dataStrokesChecked) && allUserPointsChecked(userPointsChecked);
   }
 
-  bool _isInside(Offset pointToCheck, List<Offset> strokeData) {
-    //print('check (${pointToCheck.dx}, ${pointToCheck.dy})');
-    for (int pointIdx = 0; pointIdx < strokeData.length; pointIdx++) {
-      //print('data[$pointIdx] (${strokeData[pointIdx].dx}, ${strokeData[pointIdx].dy})');
-      if (pow(strokeData[pointIdx].dx - pointToCheck.dx, 2) + pow(strokeData[pointIdx].dy - pointToCheck.dy, 2) <= powRadius) {
-        return true;
+  bool allDataStrokesChecked(List<List<bool>> strokesChecked) {
+    //print(strokesChecked);
+    for (final strokeChecked in strokesChecked) {
+      for (final pointChecked in strokeChecked) {
+        if (!pointChecked) {
+          Logger().i('all points checked -> false');
+          return false;
+        }
       }
     }
-    return false;
+    Logger().i('all points checked -> true');
+    return true;
   }
 
-  bool _isOk(List<bool> oks) {
+  bool allUserPointsChecked(List<bool> pointsChecked) {
+    //print(pointsChecked);
     double count = 0.0;
-    for (final ok in oks) {
-      if (ok) {
+    for (final pointChecked in pointsChecked) {
+      if (pointChecked) {
         count++;
       }
     }
-    final approveUserPercentage = count / oks.length.toDouble();
-    // ignore: avoid_print
-    print('approve percentage = $approveUserPercentage');
+    final approveUserPercentage = count / pointsChecked.length.toDouble();
+    Logger().i('approve percentage -> $approveUserPercentage >= $percentageToApprove <- percentage to approve');
     return approveUserPercentage >= percentageToApprove;
   }
 
-  Map<String, List<List<Offset>>> _convertToData(Map<String, dynamic> jsonFile) {
+  Map<String, List<List<Offset>>> convertToData(Map<String, dynamic> jsonFile) {
     return jsonFile.map((key, value) {
       final strokes = value as List<dynamic>;
       final newStrokes = <List<Offset>>[];
@@ -74,3 +112,24 @@ class KanaChecker {
     });
   }
 }
+
+
+// final tuple = _isUserPointInsideDataStroke(userPoint, dataStroke);
+// final isInside = tuple[0] as bool;
+// final indexDataPoint = tuple[1] as int;
+// userPointsChecked.add(isInside);
+// if (indexDataPoint != -1) {
+//   dataStrokeChecked[indexDataPoint] = isInside;
+// }
+
+// // tuple[0] is bool represented for if user point is inside of data source.
+// // tuple[1] is in represented for index of data point is checked. if doesn't have, return -1.
+// List<dynamic> _isUserPointInsideDataStroke(Offset userPoint, List<Offset> dataStroke) {
+//   for (int j = 0; j < dataStroke.length; j++) {
+//     final dataPoint = dataStroke[j];
+//     if (pow(dataPoint.dx - userPoint.dx, 2) + pow(dataPoint.dy - userPoint.dy, 2) <= powRadius) {
+//       return [true, j];
+//     }
+//   }
+//   return [false, -1];
+// }

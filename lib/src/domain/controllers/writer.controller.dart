@@ -15,7 +15,7 @@ class WriterController {
 
   final IWritingHandRepository writingHandRepository;
   final StrokeReducer strokeReducer;
-  final KanaChecker kanaChecker;
+  final IKanaChecker kanaChecker;
 
   final bool showHint;
 
