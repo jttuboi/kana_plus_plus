@@ -1,3 +1,4 @@
+import 'package:kana_plus_plus/src/domain/entities/word_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
 
 class WordResult {
@@ -6,6 +7,14 @@ class WordResult {
     required this.imageUrl,
     required this.kanas,
   });
+
+  factory WordResult.fromWordViewerContent(WordViewerContent wordContent) {
+    return WordResult(
+      id: wordContent.id,
+      imageUrl: wordContent.imageUrl,
+      kanas: wordContent.kanas.map((kanaContent) => KanaResult.fromKanaViewerContent(kanaContent)).toList(),
+    );
+  }
 
   final String id;
   final String imageUrl;

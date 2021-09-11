@@ -4,6 +4,7 @@ import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart'
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';
 import 'package:kana_plus_plus/src/data/models/translate.model.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/support/word_to_kana_converter.dart';
 
 class JsonFileStorage implements IFileStorage {
@@ -69,12 +70,8 @@ class JsonFileStorage implements IFileStorage {
   }
 
   @override
-  List<WordModel> getWordsByIds(List<String> ids) {
-    final words = <WordModel>[];
-    for (final id in ids) {
-      words.add(data.words[id]!);
-    }
-    return words;
+  List<WordModel> getWordsByKanaType(KanaType kanaType) {
+    return data.words.entries.where((entry) => entry.value.type == kanaType).map((entry) => entry.value).toList();
   }
 }
 

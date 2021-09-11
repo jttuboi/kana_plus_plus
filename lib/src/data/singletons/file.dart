@@ -1,5 +1,6 @@
 import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 
 class File {
   // singleton
@@ -31,7 +32,7 @@ class File {
     return _storage.getWord(id);
   }
 
-  static List<WordModel> getWordsByIds(List<String> ids) {
-    return _storage.getWordsByIds(ids);
+  static List<WordModel> getWordsByKanaType(KanaType kanaType) {
+    return _storage.getWordsByKanaType(kanaType);
   }
 }

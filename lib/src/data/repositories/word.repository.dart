@@ -2,6 +2,7 @@ import 'package:kana_plus_plus/src/data/singletons/cache.dart';
 import 'package:kana_plus_plus/src/data/singletons/file.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
+import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 
@@ -39,7 +40,14 @@ class WordRepository implements IWordRepository {
   }
 
   @override
-  List<Word> getWordsByIds(List<String> ids) {
-    return File.getWordsByIds(ids);
+  List<Word> getWordsForTraining(KanaType kanaType, int quantityOfWords) {
+    if (kanaType.isBoth) {
+      final allWords = File.getWords();
+      allWords.shuffle();
+      return allWords.sublist(0, quantityOfWords);
+    }
+    final wordsByKanaType = File.getWordsByKanaType(kanaType);
+    wordsByKanaType.shuffle();
+    return wordsByKanaType.sublist(0, quantityOfWords);
   }
 }
