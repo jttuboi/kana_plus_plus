@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrainingPage extends StatelessWidget {
-  const TrainingPage({
+  TrainingPage({
     Key? key,
     required this.trainingController,
     required this.writerController,
@@ -25,6 +25,7 @@ class TrainingPage extends StatelessWidget {
 
   final TrainingController trainingController;
   final WriterController writerController;
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +35,99 @@ class TrainingPage extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TrainingKanaProvider(trainingController)),
         ChangeNotifierProvider(create: (context) => WriterProvider(writerController)),
       ],
-      child: WillPopScope(
-        onWillPop: () async {
-          _buildQuitDialog(context);
-          return false;
+      child: FutureBuilder<bool>(
+        future: trainingController.isReady,
+        builder: (context2, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return _buildLoader();
+          }
+          if (snapshot.hasError) {
+            return _buildError(context2);
+          }
+          if (snapshot.hasData && snapshot.data! == true) {
+            writerController.updateWriter(trainingController.currentKanaToWrite);
+            return _buildData(context2);
+          }
+          return _buildNoData(context2);
         },
-        child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: SvgPicture.asset(IconUrl.quitTraining, color: Theme.of(context).primaryIconTheme.color),
-              onPressed: () => _buildQuitDialog(context),
+      ),
+    );
+  }
+
+  Widget _buildData(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        _buildQuitDialog(context);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: SvgPicture.asset(IconUrl.quitTraining, color: Theme.of(context).primaryIconTheme.color),
+            onPressed: () => _buildQuitDialog(context),
+          ),
+        ),
+        body: Column(
+          children: [
+            Consumer<TrainingWordProvider>(
+              builder: (context, value, child) {
+                return StepProgressIndicator(
+                  currentStep: trainingController.wordIdx,
+                  totalSteps: trainingController.quantityOfWords,
+                  size: 5.0,
+                  padding: 0.5,
+                  selectedColor: Theme.of(context).accentColor,
+                  unselectedColor: defaultProgressBarColor,
+                );
+              },
             ),
-          ),
-          body: _TrainingPage(
-            trainingController: trainingController,
-            writerController: writerController,
-          ),
+            Flexible(
+              child: PageView.builder(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: trainingController.numberOfWordsToStudy,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      const Spacer(),
+                      Flexible(
+                        flex: 10,
+                        child: Consumer<TrainingWordProvider>(
+                          builder: (context, value, child) {
+                            return SvgPicture.asset(trainingController.wordImageUrl);
+                          },
+                        ),
+                      ),
+                      const Spacer(),
+                      Flexible(
+                        flex: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: KanaViewers(trainingController: trainingController, wordIdxToShow: index),
+                        ),
+                      ),
+                      const Spacer(),
+                      Flexible(
+                        flex: 12,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: Consumer<WriterProvider>(
+                            builder: (context, value, child) {
+                              return Writer(
+                                writerController: writerController,
+                                onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -73,104 +151,6 @@ class TrainingPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _TrainingPage extends StatelessWidget {
-  _TrainingPage({
-    Key? key,
-    required this.trainingController,
-    required this.writerController,
-  }) : super(key: key);
-
-  final TrainingController trainingController;
-  final WriterController writerController;
-
-  final PageController _pageController = PageController();
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: trainingController.isReady,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return _buildLoader();
-        }
-        if (snapshot.hasError) {
-          return _buildError(context);
-        }
-        if (snapshot.hasData && snapshot.data! == true) {
-          writerController.updateWriter(trainingController.currentKanaToWrite);
-          return _buildData(context);
-        }
-        return _buildNoData(context);
-      },
-    );
-  }
-
-  Widget _buildData(BuildContext context) {
-    return Column(
-      children: [
-        Consumer<TrainingWordProvider>(
-          builder: (context, value, child) {
-            return StepProgressIndicator(
-              currentStep: trainingController.wordIdx,
-              totalSteps: trainingController.quantityOfWords,
-              size: 5.0,
-              padding: 0.5,
-              selectedColor: Theme.of(context).accentColor,
-              unselectedColor: defaultProgressBarColor,
-            );
-          },
-        ),
-        Flexible(
-          child: PageView.builder(
-            controller: _pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: trainingController.numberOfWordsToStudy,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  const Spacer(),
-                  Flexible(
-                    flex: 10,
-                    child: Consumer<TrainingWordProvider>(
-                      builder: (context, value, child) {
-                        return SvgPicture.asset(trainingController.wordImageUrl);
-                      },
-                    ),
-                  ),
-                  const Spacer(),
-                  Flexible(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: KanaViewers(trainingController: trainingController, wordIdxToShow: index),
-                    ),
-                  ),
-                  const Spacer(),
-                  Flexible(
-                    flex: 12,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Consumer<WriterProvider>(
-                        builder: (context, value, child) {
-                          return Writer(
-                            writerController: writerController,
-                            onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 
@@ -224,28 +204,24 @@ class _TrainingPage extends StatelessWidget {
   }
 
   Widget _buildLoader() {
-    return const Center(child: CircularProgressIndicator());
+    return const Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator())));
   }
 
   Widget _buildError(BuildContext context) {
-    return Center(
-      child: SvgPicture.asset(
-        IconUrl.error,
-        color: Theme.of(context).primaryIconTheme.color,
-        width: Theme.of(context).primaryIconTheme.size,
-        height: Theme.of(context).primaryIconTheme.size,
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: SvgPicture.asset(
+          IconUrl.error,
+          color: Theme.of(context).primaryIconTheme.color,
+          width: Theme.of(context).primaryIconTheme.size,
+          height: Theme.of(context).primaryIconTheme.size,
+        ),
       ),
     );
   }
 
   Widget _buildNoData(BuildContext context) {
-    return Center(
-      child: SvgPicture.asset(
-        IconUrl.error,
-        color: Theme.of(context).primaryIconTheme.color,
-        width: Theme.of(context).primaryIconTheme.size,
-        height: Theme.of(context).primaryIconTheme.size,
-      ),
-    );
+    return _buildError(context);
   }
 }
