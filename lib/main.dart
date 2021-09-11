@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kana_plus_plus/src/data/datasources/json_file.storage.dart';
@@ -6,12 +5,12 @@ import 'package:kana_plus_plus/src/data/datasources/shared_preferences_cache.sto
 import 'package:kana_plus_plus/src/data/singletons/cache.dart';
 import 'package:kana_plus_plus/src/data/singletons/file.dart';
 import 'package:kana_plus_plus/src/presentation/app.android.dart';
-import 'package:kana_plus_plus/src/presentation/app.ios.dart';
 
 void main() {
   // init services before app start
   init().whenComplete(() {
-    Platform.isIOS ? runApp(const IosApp()) : runApp(AndroidApp());
+    runApp(AndroidApp());
+    //Platform.isIOS ? runApp(const IosApp()) : runApp(AndroidApp());
   });
 }
 

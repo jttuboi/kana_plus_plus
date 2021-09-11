@@ -19,19 +19,17 @@ class AppController {
   Locale get locale {
     return JStrings.supportedLocales.firstWhere((Locale locale) {
       return locale.languageCode == languageRepository.getLanguageSelected();
+    }, orElse: () {
+      return defaultLocale;
     });
   }
 
   void setDeviceLocale(Locale? deviceLocale) {
     if (deviceLocale == null) {
-      // default english
       languageRepository.setLanguageSelected(defaultLocale.languageCode);
-    }
-
-    if (isFirstTime) {
-      // find and set the device locale. if doesn't support it, set english by default
+    } else if (isFirstTime) {
       final localeFound = JStrings.supportedLocales.firstWhere((Locale locale) {
-        return locale.languageCode == deviceLocale!.languageCode;
+        return locale.languageCode == deviceLocale.languageCode;
       }, orElse: () {
         return defaultLocale;
       });
