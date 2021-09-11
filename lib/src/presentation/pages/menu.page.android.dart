@@ -4,24 +4,35 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
+import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
 import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/introduction.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/menu_background.dart';
 
-class MenuPage extends StatelessWidget {
-  const MenuPage({Key? key}) : super(key: key);
+class MenuPage extends StatefulWidget {
+  const MenuPage(this.appController, {Key? key}) : super(key: key);
+
+  final AppController appController;
 
   @override
+  _MenuPageState createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: const [
-          MenuBackground(),
-          _MenuContent(),
-        ],
-      ),
-    );
+    return (widget.appController.isFirstTime)
+        ? Introduction(onFinished: () => setState(() => widget.appController.finishFirstTime()))
+        : Scaffold(
+            body: Stack(
+              children: const [
+                MenuBackground(),
+                _MenuContent(),
+              ],
+            ),
+          );
   }
 }
 

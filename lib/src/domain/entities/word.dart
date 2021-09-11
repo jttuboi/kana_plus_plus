@@ -1,4 +1,5 @@
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
+import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/translate.dart';
@@ -29,11 +30,11 @@ class Word {
   late String _languageCode;
 
   String get translate {
-    if (_languageCode == 'en') {
+    if (_languageCode == TTranslates.english) {
       return _translate2.english;
-    } else if (_languageCode == 'pt_BR') {
+    } else if (_languageCode == TTranslates.portuguese) {
       return _translate2.portuguese;
-    } else if (_languageCode == 'es') {
+    } else if (_languageCode == TTranslates.spanish) {
       return _translate2.spanish;
     }
     return '';

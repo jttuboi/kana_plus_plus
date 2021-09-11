@@ -1,18 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
 
 class LocaleProvider extends ChangeNotifier {
-  LocaleProvider(this.languageRepository);
+  LocaleProvider(this._controller);
 
-  final ILanguageRepository languageRepository;
+  final AppController _controller;
 
-  Locale get locale {
-    return JStrings.supportedLocales.firstWhere((Locale locale) {
-      return locale.toString() == languageRepository.getLanguageSelected();
-    });
-  }
+  Locale get locale => _controller.locale;
 
   void updateLocale() {
     notifyListeners();

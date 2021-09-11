@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/j_strings.dart';
 
 final lightTheme = ThemeData(
   brightness: Brightness.light,
@@ -17,6 +18,7 @@ final lightTheme = ThemeData(
     size: 40.0,
   ),
   scaffoldBackgroundColor: Colors.grey.shade50,
+  fontFamily: defaultFontFamily,
 );
 
 final darkTheme = ThemeData(
@@ -81,6 +83,7 @@ const wordDetailTitleStyle = TextStyle(fontSize: 30);
 final wordDetailContentStyle = TextStyle(fontSize: 25, color: Colors.grey.shade600);
 
 const defaultTitleFontFamily = 'Permanent Marker';
+const defaultFontFamily = 'PT Sans';
 
 const menuTitleTextStyle = TextStyle(
   color: Colors.white,
@@ -96,3 +99,7 @@ final menuButtonTextStyle = TextStyle(
   fontSize: 30,
   fontFamily: defaultTitleFontFamily,
 );
+
+const darkPurple = Color.fromRGBO(58, 39, 89, 1);
+
+final defaultLocale = JStrings.supportedLocales.first;

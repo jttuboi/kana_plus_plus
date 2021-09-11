@@ -33,5 +33,16 @@
     "menuStudy": "estudio",
     "menuTraining": "entrenamiento",
     "menuWords": "palabras",
-    "menuSettings": "configuración"
+    "menuSettings": "configuración",
+    "introWriting": "Aquí aprenderás a escribir hiragana y katakana.",
+    "introVocabulary": "También aprenderás un vocabulario básico que te ayudará en tu camino hacia la fluidez japonesa.",
+    "introStudy": "Para esto, hay dos formas:\nEl área de estudio donde mostrarás la teoría del alfabeto,",
+    "introTraining": "y el área de entrenamiento donde practicarás la escritura del alfabeto.",
+    "introRecommendation": "Si es posible, use el lápiz óptico para un mejor uso.",
+    "introLetsStarted": "Iniciar",
+    "introTitleWriting": "Bienvenido",
+    "introTitleVocabulary": "Incrementa tu vocabulario",
+    "introTitleStudy": "Aprende los alfabetos",
+    "introTitleTraining": "Practica los trazos",
+    "introTitleRecommendation": "Usar lápiz óptico"
 }

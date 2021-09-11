@@ -16,6 +16,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^0.22.0
   intl: ^0.17.0
+  introduction_screen: ^2.1.0
   logger: ^1.0.0
   path: ^1.8.0
   path_provider: ^2.0.2
@@ -54,9 +55,20 @@ flutter:
     - lib/assets/images/banners/
     - lib/assets/images/kanas/
     - lib/assets/images/menu/kanas/
+    - lib/assets/images/menu/introduction/
     - lib/assets/images/words/
 
   fonts:
     - family: Permanent Marker
       fonts:
         - asset: lib/assets/fonts/permanent_marker/PermanentMarker-Regular.ttf
+    - family: PT Sans
+      fonts:
+        - asset: lib/assets/fonts/pt_sans/PTSans-Regular.ttf
+        - asset: lib/assets/fonts/pt_sans/PTSans-Bold.ttf
+          weight: 700
+        - asset: lib/assets/fonts/pt_sans/PTSans-Italic.ttf
+          style: italic
+        - asset: lib/assets/fonts/pt_sans/PTSans-BoldItalic.ttf
+          style: italic
+          weight: 700

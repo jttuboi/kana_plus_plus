@@ -50,7 +50,7 @@ class LanguageTile extends StatelessWidget {
   String _getText(String localeCode) {
     if (localeCode == 'es') {
       return 'Español';
-    } else if (localeCode == 'pt_BR') {
+    } else if (localeCode == 'pt') {
       return 'Português brasileiro';
     }
     return 'English';

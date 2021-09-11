@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kana_plus_plus/src/presentation/pages/falling_kana_animation.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 
 class MenuBackground extends StatefulWidget {
   const MenuBackground({Key? key}) : super(key: key);
@@ -138,7 +139,10 @@ class _MenuBackgroundState extends State<MenuBackground> {
 class _Layer0Painter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(Rect.fromLTRB(0.0, 0.0, size.width, size.height), Paint()..color = Colors.deepPurple.shade200);
+    canvas.drawRect(
+      Rect.fromLTRB(0.0, 0.0, size.width, size.height),
+      Paint()..color = Colors.deepPurple.shade200,
+    );
   }
 
   @override
@@ -187,7 +191,7 @@ class _Layer2Painter extends CustomPainter {
         ..lineTo(0.0, size.height / 2 - 20.0)
         ..quadraticBezierTo(size.width - 50.0, size.height / 2 - 50.0, size.width - 20.0, 0.0)
         ..close(),
-      Paint()..color = const Color.fromRGBO(58, 39, 89, 1),
+      Paint()..color = darkPurple,
     );
 
     canvas.drawPath(

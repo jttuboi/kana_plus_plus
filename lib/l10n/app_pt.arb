@@ -33,5 +33,16 @@
     "menuStudy": "estudo",
     "menuTraining": "treino",
     "menuWords": "palavras",
-    "menuSettings": "configurações"
+    "menuSettings": "configurações",
+    "introWriting": "Aqui você irá aprender a escrita de hiragana e katakana.",
+    "introVocabulary": "Também irá aprender um vocabulário básico para ajudar no caminho da fluência em japonês.",
+    "introStudy": "Para isso, há duas partes:\nA área de estudo em que mostrará a teoria do alfabeto,",
+    "introTraining": "e a área de treino em que exercitará a escrita do alfabeto.",
+    "introRecommendation": "Se possível, utilize a caneta stylus para melhor aproveitamento.",
+    "introLetsStarted": "Iniciar",
+    "introTitleWriting": "Bem vindo",
+    "introTitleVocabulary": "Aumente seu vocabulário",
+    "introTitleStudy": "Conheça os alfabetos",
+    "introTitleTraining": "Exercite os traços",
+    "introTitleRecommendation": "Utilize caneta stylus"
 }

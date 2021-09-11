@@ -8,17 +8,13 @@ class LanguageProvider extends ChangeNotifier {
 
   final SettingsController _controller;
 
-  final List<String> _ignoreLocaleCodes = ['pt'];
-
   String get languageSelected => _controller.languageSelected;
 
   List<SelectionOptionArguments> options(String Function(String localeCode) languageText) {
-    return JStrings.supportedLocales.where((Locale locale) {
-      return !_ignoreLocaleCodes.contains(locale.toString());
-    }).map((Locale locale) {
+    return JStrings.supportedLocales.map((Locale locale) {
       return SelectionOptionArguments(
-        key: locale.toString(),
-        label: languageText(locale.toString()),
+        key: locale.languageCode,
+        label: languageText(locale.languageCode),
       );
     }).toList();
   }

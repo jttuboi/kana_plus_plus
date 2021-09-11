@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 
 class FallingKanaAnimation extends StatefulWidget {
-  FallingKanaAnimation({
+  const FallingKanaAnimation({
     Key? key,
     required this.initialPosition,
     required this.endYPosition,
@@ -18,19 +19,6 @@ class FallingKanaAnimation extends StatefulWidget {
   final double kanaSize;
   final Color kanaColor;
   final int durationInMilliseconds;
-
-  final List<String> kanasImageUrl = [
-    'lib/assets/images/menu/kanas/あ.svg',
-    'lib/assets/images/menu/kanas/ア.svg',
-    'lib/assets/images/menu/kanas/い.svg',
-    'lib/assets/images/menu/kanas/イ.svg',
-    'lib/assets/images/menu/kanas/う.svg',
-    'lib/assets/images/menu/kanas/ウ.svg',
-    'lib/assets/images/menu/kanas/え.svg',
-    'lib/assets/images/menu/kanas/エ.svg',
-    'lib/assets/images/menu/kanas/お.svg',
-    'lib/assets/images/menu/kanas/オ.svg',
-  ];
 
   @override
   _FallingKanaAnimationState createState() => _FallingKanaAnimationState();
@@ -49,7 +37,7 @@ class _FallingKanaAnimationState extends State<FallingKanaAnimation> with Ticker
   void initState() {
     super.initState();
     random = Random();
-    kanaIndex = random.nextInt(widget.kanasImageUrl.length);
+    kanaIndex = random.nextInt(ImageUrl.menuKanas.length);
     controller = AnimationController(vsync: this, duration: Duration(milliseconds: widget.durationInMilliseconds));
     fallingAnimation = Tween<double>(begin: widget.initialPosition.dy, end: widget.endYPosition).animate(controller)
       ..addListener(() {
@@ -62,7 +50,7 @@ class _FallingKanaAnimationState extends State<FallingKanaAnimation> with Ticker
           }
 
           if (!repeated && controller.value >= 0.99) {
-            kanaIndex = random.nextInt(widget.kanasImageUrl.length);
+            kanaIndex = random.nextInt(ImageUrl.menuKanas.length);
             repeated = true;
           }
         });
@@ -98,7 +86,7 @@ class _FallingKanaAnimationState extends State<FallingKanaAnimation> with Ticker
           child: Opacity(
             opacity: opacityAnimation.value,
             child: SvgPicture.asset(
-              widget.kanasImageUrl[kanaIndex],
+              ImageUrl.menuKanas[kanaIndex],
               width: widget.kanaSize,
               height: widget.kanaSize,
               color: widget.kanaColor,
