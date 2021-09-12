@@ -54,7 +54,7 @@ class _MenuContent extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Text(AppDefault.title.toUpperCase(), textAlign: TextAlign.center, style: menuTitleTextStyle),
+                child: Text(App.title.toUpperCase(), textAlign: TextAlign.center, style: menuTitleTextStyle),
               ),
             ),
           ),

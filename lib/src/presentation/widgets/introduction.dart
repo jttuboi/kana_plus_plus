@@ -67,33 +67,3 @@ class Introduction extends StatelessWidget {
     );
   }
 }
-
-final introductionDotsDecorator = DotsDecorator(
-  size: const Size(10, 10),
-  color: Colors.grey.shade400,
-  activeSize: const Size(20, 10),
-  activeColor: Colors.grey.shade200,
-  activeShape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10.0),
-  ),
-);
-
-final introductionPageDecoration = PageDecoration(
-  titleTextStyle: TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.bold,
-    fontFamily: defaultTitleFontFamily,
-    color: Colors.grey.shade200,
-    letterSpacing: 2.0,
-  ),
-  bodyTextStyle: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-    color: Colors.grey.shade200,
-  ),
-  descriptionPadding: const EdgeInsets.all(16.0).copyWith(bottom: 0.0),
-  imagePadding: const EdgeInsets.all(24),
-);
-
-const introductionButtonTextStyle = TextStyle(fontSize: 17.0, letterSpacing: 1.0, fontWeight: FontWeight.bold);
-final introductionButtonStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(darkPurple));

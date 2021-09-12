@@ -9,6 +9,7 @@ import 'package:kana_plus_plus/src/data/repositories/show_hint.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/writing_hand.repository.dart';
 import 'package:kana_plus_plus/src/data/singletons/database.dart';
+import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
@@ -44,13 +45,13 @@ class AndroidApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ThemeProvider(Database.getBool('dark_theme'))),
+        ChangeNotifierProvider(create: (context) => ThemeProvider(Database.getBool(DatabaseTag.darkTheme))),
         ChangeNotifierProvider(create: (context) => LocaleProvider(appController)),
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
         return Consumer<LocaleProvider>(builder: (context, localeProvider, child) {
           return MaterialApp(
-            title: AppDefault.title,
+            title: App.title,
             debugShowCheckedModeBanner: false, // TODO end - remover antes de dar deploy
             localizationsDelegates: JStrings.localizationsDelegates,
             supportedLocales: JStrings.supportedLocales,

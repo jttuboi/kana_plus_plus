@@ -20,6 +20,7 @@ import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.d
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -42,75 +43,79 @@ class SettingsPage extends StatelessWidget {
       ],
       builder: (context, child) {
         return FlexibleScaffold(
-            title: strings.settingsTitle,
-            bannerUrl: BannerUrl.settings,
-            onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-            sliverContent: SliverFillRemaining(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  SubHeaderTile(strings.settingsBasic),
-                  const LanguageTile(),
-                  //const DarkThemeTile(),
-                  Consumer<WritingHandProvider>(
-                    builder: (context, provider, child) {
-                      return WritingHandTile(
-                        writingHand: provider.writingHand,
-                        iconUrl: provider.iconUrl,
-                        options: provider.options,
-                        updateWritingHand: provider.updateWritingHand,
-                      );
-                    },
-                  ),
-                  const Divider(),
-                  SubHeaderTile(strings.settingsDefaultTrainingSetting),
-                  Consumer<ShowHintProvider>(
-                    builder: (context, provider, child) {
-                      return ShowHintTile(
-                        showHint: provider.showHint,
-                        iconUrl: provider.iconUrl,
-                        updateShowHint: provider.updateShowHint,
-                      );
-                    },
-                  ),
-                  Consumer<KanaTypeProvider>(
-                    builder: (context, provider, child) {
-                      return KanaTypeTile(
-                        kanaType: provider.kanaType,
-                        iconUrl: provider.iconUrl,
-                        options: provider.options,
-                        updateKanaType: provider.updateKanaType,
-                      );
-                    },
-                  ),
-                  Consumer<QuantityOfWordsProvider>(
-                    builder: (context, provider, child) {
-                      return QuantityOfWordsTile(
-                        quantity: provider.quantity,
-                        updateQuantity: provider.updateQuantity,
-                      );
-                    },
-                  ),
-                  const Divider(),
-                  SubHeaderTile(strings.settingsOthers),
-                  ListTile(
-                    title: Text(strings.settingsAbout),
-                    leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
-                    onTap: () => Navigator.pushNamed(context, Routes.about),
-                  ),
-                  ListTile(
-                    title: Text(strings.settingsPrivacyPolicy),
-                    leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
-                    onTap: () async {
-                      await canLaunch(AppDefault.privacyPolicyUrl)
-                          ? await launch(AppDefault.privacyPolicyUrl)
-                          : throw 'Could not launch ${AppDefault.privacyPolicyUrl}';
-                    },
-                  ),
-                ],
-              ),
-            ));
+          title: strings.settingsTitle,
+          bannerUrl: BannerUrl.settings,
+          onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+          sliverContent: SliverFillRemaining(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                SubHeaderTile(strings.settingsBasic),
+                const LanguageTile(),
+                //const DarkThemeTile(),
+                Consumer<WritingHandProvider>(
+                  builder: (context, provider, child) {
+                    return WritingHandTile(
+                      writingHand: provider.writingHand,
+                      iconUrl: provider.iconUrl,
+                      options: provider.options,
+                      updateWritingHand: provider.updateWritingHand,
+                    );
+                  },
+                ),
+                const Divider(),
+                SubHeaderTile(strings.settingsDefaultTrainingSetting),
+                Consumer<ShowHintProvider>(
+                  builder: (context, provider, child) {
+                    return ShowHintTile(
+                      showHint: provider.showHint,
+                      iconUrl: provider.iconUrl,
+                      updateShowHint: provider.updateShowHint,
+                    );
+                  },
+                ),
+                Consumer<KanaTypeProvider>(
+                  builder: (context, provider, child) {
+                    return KanaTypeTile(
+                      kanaType: provider.kanaType,
+                      iconUrl: provider.iconUrl,
+                      options: provider.options,
+                      updateKanaType: provider.updateKanaType,
+                    );
+                  },
+                ),
+                Consumer<QuantityOfWordsProvider>(
+                  builder: (context, provider, child) {
+                    return QuantityOfWordsTile(
+                      quantity: provider.quantity,
+                      updateQuantity: provider.updateQuantity,
+                    );
+                  },
+                ),
+                const Divider(),
+                SubHeaderTile(strings.settingsOthers),
+                ListTile(
+                  title: Text(strings.settingsAbout),
+                  leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
+                  onTap: () => Navigator.pushNamed(context, Routes.about),
+                ),
+                ListTile(
+                  title: Text(strings.settingsPrivacyPolicy),
+                  leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
+                  onTap: () async {
+                    if (await canLaunch(App.privacyPolicyUrl)) {
+                      await launch(App.privacyPolicyUrl);
+                    } else {
+                      // do nothing
+                      Logger().e('Could not launch ${App.privacyPolicyUrl}');
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }

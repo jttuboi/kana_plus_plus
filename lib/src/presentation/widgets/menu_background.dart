@@ -141,7 +141,7 @@ class _Layer0Painter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(
       Rect.fromLTRB(0.0, 0.0, size.width, size.height),
-      Paint()..color = Colors.deepPurple.shade200,
+      menuBackgroundBackPaint,
     );
   }
 
@@ -161,7 +161,7 @@ class _Layer1Painter extends CustomPainter {
         ..quadraticBezierTo(0.0 + 50.0, size.height / 2 + 50.0, size.width, size.height / 2 + 20.0)
         ..lineTo(size.width, 0)
         ..close(),
-      Paint()..color = Colors.deepPurple.shade400,
+      menuBackgroundMiddlePaint,
     );
 
     canvas.drawPath(
@@ -171,9 +171,7 @@ class _Layer1Painter extends CustomPainter {
         ..quadraticBezierTo(0.0 + 50.0, size.height / 2 + 50.0, size.width, size.height / 2 + 20.0)
         ..lineTo(size.width, 0)
         ..close(),
-      Paint()
-        ..color = Colors.black87
-        ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 10),
+      menuBackgroundMiddleBlurPaint,
     );
   }
 
@@ -191,7 +189,7 @@ class _Layer2Painter extends CustomPainter {
         ..lineTo(0.0, size.height / 2 - 20.0)
         ..quadraticBezierTo(size.width - 50.0, size.height / 2 - 50.0, size.width - 20.0, 0.0)
         ..close(),
-      Paint()..color = darkPurple,
+      menuBackgroundFrontPaint,
     );
 
     canvas.drawPath(
@@ -199,9 +197,7 @@ class _Layer2Painter extends CustomPainter {
         ..lineTo(0.0, size.height / 2 - 20.0)
         ..quadraticBezierTo(size.width - 50.0, size.height / 2 - 50.0, size.width - 20.0, 0.0)
         ..close(),
-      Paint()
-        ..color = Colors.black87
-        ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 10),
+      menuBackgroundFrontBlurPaint,
     );
   }
 

@@ -6,11 +6,11 @@ import 'package:kana_plus_plus/src/domain/repositories/language.interface.reposi
 class LanguageRepository implements ILanguageRepository {
   @override
   String getLanguageSelected() {
-    return Database.getString(SettingsPref.language, defaultValue: Default.locale);
+    return Database.getString(DatabaseTag.language, defaultValue: Default.locale);
   }
 
   @override
   void setLanguageSelected(String value) {
-    Database.setString(SettingsPref.language, value);
+    Database.setString(DatabaseTag.language, value);
   }
 }

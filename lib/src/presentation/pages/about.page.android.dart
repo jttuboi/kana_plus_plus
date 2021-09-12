@@ -39,7 +39,7 @@ class AboutPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(strings.aboutAppVersionTitle, style: aboutAppVersionTitleTextStyle),
-                      const Text(AppDefault.version, style: aboutAppVersionTextStyle),
+                      const Text(App.version, style: aboutAppVersionTextStyle),
                     ],
                   ),
                 ),
@@ -49,7 +49,7 @@ class AboutPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(strings.aboutDeveloperTitle, style: aboutDeveloperTitleTextStyle),
-                      const Text(DeveloperDefault.name, style: aboutDeveloperTextStyle),
+                      const Text(Developer.name, style: aboutDeveloperTextStyle),
                     ],
                   ),
                 ),
@@ -62,7 +62,7 @@ class AboutPage extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           style: aboutContactTextStyle,
-                          text: DeveloperDefault.contact,
+                          text: Developer.contact,
                           recognizer: TapGestureRecognizer()..onTap = _onContactTap,
                         ),
                       ),
@@ -104,7 +104,7 @@ class AboutPage extends StatelessWidget {
   Future<void> _onContactTap() async {
     final emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: DeveloperDefault.contact,
+      path: Developer.contact,
       query: _encodeQueryParameters({'subject': Default.contactSubject}),
     );
     launch(emailLaunchUri.toString());
@@ -112,9 +112,9 @@ class AboutPage extends StatelessWidget {
 
   Future<void> _onRatePressed() async {
     if (Platform.isIOS) {
-      await LaunchReview.launch(iOSAppId: AppDefault.iosId);
+      await LaunchReview.launch(iOSAppId: App.iosId);
     } else if (Platform.isAndroid) {
-      await LaunchReview.launch(androidAppId: AppDefault.androidId);
+      await LaunchReview.launch(androidAppId: App.androidId);
     } else {
       // if web or desktop, it doesn't support yet.
     }

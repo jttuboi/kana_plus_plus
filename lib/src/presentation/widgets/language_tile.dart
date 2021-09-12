@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
+import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/presentation/pages/selection_option.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/language.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
@@ -19,7 +20,7 @@ class LanguageTile extends StatelessWidget {
       builder: (context, provider, child) {
         return ListTile(
           title: Text(strings.settingsLanguage),
-          subtitle: Text(_getText(provider.languageSelected)),
+          subtitle: Text(toLanguageText(provider.languageSelected)),
           leading: SizedBox(
             height: double.infinity,
             child: SvgPicture.asset(IconUrl.language, color: defaultTileIconColor, width: defaultTileIconSize),
@@ -32,7 +33,7 @@ class LanguageTile extends StatelessWidget {
                 bannerUrl: BannerUrl.language,
                 selectedOptionKey: provider.languageSelected,
                 options: provider.options((localeCode) {
-                  return _getText(localeCode);
+                  return toLanguageText(localeCode);
                 }),
                 onSelected: (selectedKey) {
                   final String key = selectedKey as String;
@@ -45,14 +46,5 @@ class LanguageTile extends StatelessWidget {
         );
       },
     );
-  }
-
-  String _getText(String localeCode) {
-    if (localeCode == 'es') {
-      return 'Español';
-    } else if (localeCode == 'pt') {
-      return 'Português brasileiro';
-    }
-    return 'English';
   }
 }

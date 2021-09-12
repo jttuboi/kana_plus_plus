@@ -35,9 +35,9 @@ class ShareButton extends StatelessWidget {
     final box = context.findRenderObject() as RenderBox?;
     final sharePositionOrigin = box!.localToGlobal(Offset.zero) & box.size;
     if (Platform.isIOS) {
-      await Share.share(AppDefault.appStoreUrl, subject: AppDefault.appStoreUrl, sharePositionOrigin: sharePositionOrigin);
+      await Share.share(App.appStoreUrl, subject: App.appStoreUrl, sharePositionOrigin: sharePositionOrigin);
     } else if (Platform.isAndroid) {
-      await Share.share(AppDefault.playStoreUrl, subject: Default.emailSubject, sharePositionOrigin: sharePositionOrigin);
+      await Share.share(App.playStoreUrl, subject: Default.emailSubject, sharePositionOrigin: sharePositionOrigin);
     } else {
       // if web or desktop, it doesn't support yet.
     }

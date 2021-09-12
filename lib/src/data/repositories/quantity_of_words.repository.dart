@@ -6,11 +6,11 @@ import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interfa
 class QuantityOfWordsRepository implements IQuantityOfWordsRepository {
   @override
   int getQuantityOfWords() {
-    return Database.getInt(SettingsPref.quantityOfWords, defaultValue: Default.minimumTrainingCards);
+    return Database.getInt(DatabaseTag.quantityOfWords, defaultValue: Default.minimumTrainingCards);
   }
 
   @override
   void setQuantityOfWords(int value) {
-    Database.setInt(SettingsPref.quantityOfWords, value);
+    Database.setInt(DatabaseTag.quantityOfWords, value);
   }
 }

@@ -4,6 +4,7 @@ import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart'
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';
 import 'package:kana_plus_plus/src/data/models/translate.model.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
+import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/support/word_to_kana_converter.dart';
 
@@ -12,21 +13,21 @@ class JsonStorage implements IFileStorage {
 
   @override
   Future<void> init() async {
-    await rootBundle.loadString('lib/assets/database/translates.json').then((response) {
+    await rootBundle.loadString(FileUrl.translates).then((response) {
       final jsonFile = json.decode(response) as List<dynamic>;
       for (final jsonData in jsonFile) {
         final model = TranslateModel.fromJson(jsonData as Map<String, dynamic>);
         data.translates[model.id] = model;
       }
     });
-    await rootBundle.loadString('lib/assets/database/kanas.json').then((response) {
+    await rootBundle.loadString(FileUrl.kanas).then((response) {
       final jsonFile = json.decode(response) as List<dynamic>;
       for (final jsonData in jsonFile) {
         final model = KanaModel.fromJson(jsonData as Map<String, dynamic>);
         data.kanas[model.id] = model;
       }
     });
-    await rootBundle.loadString('lib/assets/database/words.json').then((response) {
+    await rootBundle.loadString(FileUrl.words).then((response) {
       final jsonFile = json.decode(response) as List<dynamic>;
       for (final jsonData in jsonFile) {
         final model = WordModel.fromJson(jsonData as Map<String, dynamic>);

@@ -9,7 +9,7 @@ import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository
 class WordRepository implements IWordRepository {
   @override
   List<Word> getWords() {
-    final languageCode = Database.getString(SettingsPref.language, defaultValue: Default.locale);
+    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
     return File.getWords().map((wordModel) {
       wordModel.setLanguageCode(languageCode);
       return wordModel;
@@ -18,7 +18,7 @@ class WordRepository implements IWordRepository {
 
   @override
   List<Word> getWordsById(String id) {
-    final languageCode = Database.getString(SettingsPref.language, defaultValue: Default.locale);
+    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
     return File.getWordsById(id).map((wordModel) {
       wordModel.setLanguageCode(languageCode);
       return wordModel;
@@ -27,13 +27,13 @@ class WordRepository implements IWordRepository {
 
   @override
   List<Word> getWordsByQuery(String query) {
-    final languageCode = Database.getString(SettingsPref.language, defaultValue: Default.locale);
+    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
     return File.getWordsByQuery(query, languageCode);
   }
 
   @override
   Word getWord(String id) {
-    final languageCode = Database.getString(SettingsPref.language, defaultValue: Default.locale);
+    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
     final word = File.getWord(id);
     word.setLanguageCode(languageCode);
     return word;

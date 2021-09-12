@@ -28,8 +28,8 @@ class TTranslates {
   static const spanish = 'es';
 }
 
-class SettingsPref {
-  SettingsPref._();
+class DatabaseTag {
+  DatabaseTag._();
   static const language = 'language';
   static const writingHand = 'writing_hand';
   static const darkTheme = 'dark_theme';
@@ -37,6 +37,12 @@ class SettingsPref {
   static const kanaType = 'kana_type';
   static const quantityOfWords = 'quantity_of_words';
   static const firstTime = 'first_time';
+}
+
+class FileUrl {
+  static const translates = 'lib/assets/database/translates.json';
+  static const kanas = 'lib/assets/database/kanas.json';
+  static const words = 'lib/assets/database/words.json';
 }
 
 KanaType toKanaType(String data) {
