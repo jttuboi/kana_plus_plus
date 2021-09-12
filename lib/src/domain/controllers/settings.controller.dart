@@ -9,7 +9,6 @@ import 'package:kana_plus_plus/src/domain/repositories/language.interface.reposi
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/about.arguments.dart';
 
 class SettingsController {
   SettingsController({
@@ -86,17 +85,4 @@ class SettingsController {
   void updateQuantityOfWords(int value) {
     quantityOfWordsRepository.setQuantityOfWords(value);
   }
-
-  AboutArguments get aboutArguments => const AboutArguments(
-        appVersion: '1.0',
-        developer: 'Jairo Toshio Tuboi',
-        contact: 'tuboi.studios@gmail.com',
-        contactSubject: 'Contact via Kana++',
-        androidShareText: 'https://play.google.com/store/apps/details?id=br.com.kana_plus_plus',
-        androidReviewId: 'br.com.kana_plus_plus',
-        iosShareText: '',
-        iosReviewId: '',
-      );
-
-  String get privacyPolicyUrl => 'https://tuboi-studios.github.io/kana_plus_plus_terms_of_use_and_privacy_policy';
 }

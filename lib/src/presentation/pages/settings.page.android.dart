@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
+import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/kana_type.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/language.provider.dart';
@@ -96,14 +97,15 @@ class SettingsPage extends StatelessWidget {
                   ListTile(
                     title: Text(strings.settingsAbout),
                     leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
-                    onTap: () => Navigator.pushNamed(context, Routes.about, arguments: settingsController.aboutArguments),
+                    onTap: () => Navigator.pushNamed(context, Routes.about),
                   ),
                   ListTile(
                     title: Text(strings.settingsPrivacyPolicy),
                     leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
                     onTap: () async {
-                      final url = settingsController.privacyPolicyUrl;
-                      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+                      await canLaunch(AppDefault.privacyPolicyUrl)
+                          ? await launch(AppDefault.privacyPolicyUrl)
+                          : throw 'Could not launch ${AppDefault.privacyPolicyUrl}';
                     },
                   ),
                   // TODO https://developer.android.com/google/play/billing/index.html?authuser=3

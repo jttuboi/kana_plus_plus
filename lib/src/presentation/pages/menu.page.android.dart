@@ -10,6 +10,7 @@ import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/introduction.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/menu_background.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/share_button.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage(this.appController, {Key? key}) : super(key: key);
@@ -27,9 +28,10 @@ class _MenuPageState extends State<MenuPage> {
         ? Introduction(onFinished: () => setState(() => widget.appController.finishFirstTime()))
         : Scaffold(
             body: Stack(
-              children: const [
-                MenuBackground(),
-                _MenuContent(),
+              children: [
+                const MenuBackground(),
+                _MenuExtra(widget.appController),
+                const _MenuContent(),
               ],
             ),
           );
@@ -52,7 +54,7 @@ class _MenuContent extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Text(appTitle.toUpperCase(), textAlign: TextAlign.center, style: menuTitleTextStyle),
+                child: Text(AppDefault.title.toUpperCase(), textAlign: TextAlign.center, style: menuTitleTextStyle),
               ),
             ),
           ),
@@ -115,6 +117,21 @@ class _MenuContent extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MenuExtra extends StatelessWidget {
+  const _MenuExtra(this.appController, {Key? key}) : super(key: key);
+
+  final AppController appController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: FractionalOffset.bottomRight,
+      padding: const EdgeInsets.all(16.0),
+      child: const ShareButton(iconSize: 48),
     );
   }
 }
