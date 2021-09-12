@@ -1,5 +1,4 @@
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/data/models/description.model.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.dart';
 import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
@@ -10,6 +9,7 @@ import 'package:kana_plus_plus/src/domain/repositories/language.interface.reposi
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/about.arguments.dart';
 
 class SettingsController {
   SettingsController({
@@ -87,16 +87,16 @@ class SettingsController {
     quantityOfWordsRepository.setQuantityOfWords(value);
   }
 
-  List<DescriptionModel> get aboutDescriptions => [
-        DescriptionModel.title('blablable'),
-        DescriptionModel.content('informaçoes sobre mim'),
-        DescriptionModel.content('contato'),
-        DescriptionModel.content('de onde os dados vieram'),
-      ];
+  AboutArguments get aboutArguments => const AboutArguments(
+        appVersion: '1.0',
+        developer: 'Jairo Toshio Tuboi',
+        contact: 'tuboi.studios@gmail.com',
+        contactSubject: 'Contact via Kana++',
+        androidShareText: 'https://play.google.com/store/apps/details?id=br.com.kana_plus_plus',
+        androidReviewId: 'br.com.kana_plus_plus',
+        iosShareText: '',
+        iosReviewId: '',
+      );
 
-  List<DescriptionModel> get privacyPolicyDescriptions => [
-        DescriptionModel.title('citar sobre uso'),
-        DescriptionModel.content(
-            'blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla'),
-      ];
+  String get privacyPolicyUrl => 'https://tuboi-studios.github.io/kana_plus_plus_terms_of_use_and_privacy_policy';
 }

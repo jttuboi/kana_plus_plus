@@ -18,7 +18,7 @@
     "settingsQuantityOfWords": "Quantity of words",
     "settingsOthers": "Others",
     "settingsAbout": "About",
-    "settingsPrivacyPolicy": "Privacy policy",
+    "settingsPrivacyPolicy": "Privacy policy (external link)",
     "settingsSupport": "Support development of this app",
     "searchLabelInWords": "Japanese, romaji or translation",
     "trainingQuitTitle": "Do you want to finish your training?",
@@ -45,6 +45,11 @@
     "introTitleStudy": "Learn the alphabets",
     "introTitleTraining": "Practice the strokes",
     "introTitleRecommendation": "Use stylus pen",
+    "aboutShare": "Share",
+    "aboutRate": "Rate",
+    "aboutContactTitle": "Contact: ",
+    "aboutDeveloperTitle": "Developer: ",
+    "aboutAppVersionTitle": "App version: ",
     "@settingsTitle": { "description": "" },
     "@settingsBasic": { "description": "" },
     "@settingsLanguage": { "description": "" },
@@ -90,5 +95,10 @@
     "@introTitleVocabulary": { "description": "" },
     "@introTitleStudy": { "description": "" },
     "@introTitleTraining": { "description": "" },
-    "@introTitleRecommendation": { "description": "" }
+    "@introTitleRecommendation": { "description": "" },
+    "@aboutShare": { "description": "" },
+    "@aboutRate": { "description": "" },
+    "@aboutContactTitle": { "description": "" },
+    "@aboutDeveloperTitle": { "description": "" },
+    "@aboutAppVersionTitle": { "description": "" }
 }

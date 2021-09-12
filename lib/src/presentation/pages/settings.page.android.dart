@@ -5,8 +5,8 @@ import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
-import 'package:kana_plus_plus/src/presentation/pages/description.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/language_tile.dart';
@@ -20,6 +20,7 @@ import 'package:kana_plus_plus/src/presentation/state_management/language.provid
 import 'package:kana_plus_plus/src/presentation/state_management/show_hint.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage(this.settingsController, {Key? key}) : super(key: key);
@@ -95,28 +96,15 @@ class SettingsPage extends StatelessWidget {
                   ListTile(
                     title: Text(strings.settingsAbout),
                     leading: SvgPicture.asset(IconUrl.about, color: defaultTileIconColor, width: defaultTileIconSize),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DescriptionPage(
-                          title: strings.settingsAbout,
-                          descriptions: settingsController.aboutDescriptions,
-                        ),
-                      ),
-                    ),
+                    onTap: () => Navigator.pushNamed(context, Routes.about, arguments: settingsController.aboutArguments),
                   ),
                   ListTile(
                     title: Text(strings.settingsPrivacyPolicy),
                     leading: SvgPicture.asset(IconUrl.privacyPolicy, color: defaultTileIconColor, width: defaultTileIconSize),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DescriptionPage(
-                          title: strings.settingsPrivacyPolicy,
-                          descriptions: settingsController.privacyPolicyDescriptions,
-                        ),
-                      ),
-                    ),
+                    onTap: () async {
+                      final url = settingsController.privacyPolicyUrl;
+                      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+                    },
                   ),
                   // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
                   ListTile(

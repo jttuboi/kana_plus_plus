@@ -15,16 +15,20 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^0.22.0
+  in_app_review: ^2.0.3
   intl: ^0.17.0
   introduction_screen: ^2.1.0
+  launch_review: ^3.0.1
   logger: ^1.0.0
   path: ^1.8.0
   path_provider: ^2.0.2
   provider: ^5.0.0
   scroll_to_index: ^2.0.0
+  share_plus: ^2.1.4
   shared_preferences: ^2.0.6
   sqflite: ^2.0.0+4
   step_progress_indicator: ^1.0.1
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   flutter_test:

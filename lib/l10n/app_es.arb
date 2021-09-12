@@ -18,7 +18,7 @@
     "settingsQuantityOfWords": "Cantidad de palabras",
     "settingsOthers": "Otros",
     "settingsAbout": "Acerca de",
-    "settingsPrivacyPolicy": "Política de privacidad",
+    "settingsPrivacyPolicy": "Política de privacidad (Enlace externo)",
     "settingsSupport": "Admite el desarrollo de esta aplicación",
     "searchLabelInWords": "Japonés, romaji o traducción",
     "trainingQuitTitle": "¿Quieres terminar tu práctica?",
@@ -44,5 +44,10 @@
     "introTitleVocabulary": "Incrementa tu vocabulario",
     "introTitleStudy": "Aprende los alfabetos",
     "introTitleTraining": "Practica los trazos",
-    "introTitleRecommendation": "Usar lápiz óptico"
+    "introTitleRecommendation": "Usar lápiz óptico",
+    "aboutShare": "Compartir",
+    "aboutRate": "Evaluar",
+    "aboutContactTitle": "Contacto: ",
+    "aboutDeveloperTitle": "Desarrollador: ",
+    "aboutAppVersionTitle": "Versión de la aplicación: "
 }

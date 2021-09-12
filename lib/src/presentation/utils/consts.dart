@@ -103,3 +103,19 @@ final menuButtonTextStyle = TextStyle(
 const darkPurple = Color.fromRGBO(58, 39, 89, 1);
 
 final defaultLocale = JStrings.supportedLocales.first;
+
+const aboutAppVersionTitleTextStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
+
+const aboutAppVersionTextStyle = TextStyle(fontSize: 18.0);
+
+const aboutDeveloperTitleTextStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
+
+const aboutDeveloperTextStyle = TextStyle(fontSize: 20.0);
+
+const aboutContactTextStyle = TextStyle(fontSize: 18.0, color: Colors.blue, decoration: TextDecoration.underline);
+
+final aboutIconTextStyle = TextStyle(
+  fontSize: 18.0,
+  fontWeight: FontWeight.bold,
+  color: Colors.deepPurple.withOpacity(0.8),
+);

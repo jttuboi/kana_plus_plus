@@ -1,4 +1,0 @@
-enum DescriptionType {
-  title,
-  content,
-}

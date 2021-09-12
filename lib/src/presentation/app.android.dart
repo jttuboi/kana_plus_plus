@@ -18,9 +18,11 @@ import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
 import 'package:kana_plus_plus/src/domain/support/stroke_reducer.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/about.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/pre_training.arguments.dart';
+import 'package:kana_plus_plus/src/presentation/pages/about.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.dart';
@@ -139,6 +141,13 @@ class AndroidApp extends StatelessWidget {
       return MaterialPageRoute(
         builder: (context) => WordDetailPage(
           word: args.word,
+        ),
+      );
+    } else if (settings.name == Routes.about) {
+      final args = settings.arguments! as AboutArguments;
+      return MaterialPageRoute(
+        builder: (context) => AboutPage(
+          arguments: args,
         ),
       );
     }

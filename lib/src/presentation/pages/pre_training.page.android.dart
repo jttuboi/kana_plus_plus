@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/pre_training.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';

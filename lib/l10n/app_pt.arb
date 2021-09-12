@@ -18,7 +18,7 @@
     "settingsQuantityOfWords": "Quantidade de palavras",
     "settingsOthers": "Outros",
     "settingsAbout": "Sobre",
-    "settingsPrivacyPolicy": "Política de privacidade",
+    "settingsPrivacyPolicy": "Política de privacidade (link externo)",
     "settingsSupport": "Apoiar o desenvolvimento deste aplicativo",
     "searchLabelInWords": "japonês, romaji or tradução",
     "trainingQuitTitle": "Deseja terminar seu treinamento?",
@@ -44,5 +44,10 @@
     "introTitleVocabulary": "Aumente seu vocabulário",
     "introTitleStudy": "Conheça os alfabetos",
     "introTitleTraining": "Exercite os traços",
-    "introTitleRecommendation": "Utilize caneta stylus"
+    "introTitleRecommendation": "Utilize caneta stylus",
+    "aboutShare": "Compartilhar",
+    "aboutRate": "Avaliar",
+    "aboutContactTitle": "Contato: ",
+    "aboutDeveloperTitle": "Desenvolvedor: ",
+    "aboutAppVersionTitle": "Versão do app: "
 }

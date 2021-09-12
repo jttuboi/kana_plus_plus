@@ -5,7 +5,7 @@ class ImageUrl {
   static const imageTestFolder = 'lib/assets/tests/images/';
   static const imageFolder = 'lib/assets/images/';
 
-  static const empty = '${imageTestFolder}empty.svg';
+  static const empty = '${imageFolder}empty.svg';
 
   static const introWriting = '${imageFolder}menu/introduction/writing.svg';
   static const introVocabulary = '${imageFolder}menu/introduction/vocabulary.svg';

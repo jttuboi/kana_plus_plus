@@ -3,6 +3,8 @@ class IconUrl {
 
   static const iconsFolder = 'lib/assets/icons/';
 
+  static const app = '${iconsFolder}app_icon.png';
+
   static const empty = '${iconsFolder}empty.svg';
   static const showHint = '${iconsFolder}show_hint.svg';
   static const notShowHint = '${iconsFolder}not_show_hint.svg';
@@ -30,4 +32,6 @@ class IconUrl {
   static const study = '${iconsFolder}study.svg';
   static const words = '${iconsFolder}words.svg';
   static const training = '${iconsFolder}training.svg';
+  static const share = '${iconsFolder}share.svg';
+  static const rate = '${iconsFolder}rate.svg';
 }
