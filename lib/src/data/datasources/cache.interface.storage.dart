@@ -1,4 +1,4 @@
-abstract class ICacheStorage {
+abstract class IDatabaseStorage {
   Future<void> init();
 
   int getInt(String key, {int defaultValue = 0});

@@ -1,15 +1,15 @@
 import 'package:kana_plus_plus/src/data/datasources/cache.interface.storage.dart';
 
-class Cache {
+class Database {
   // singleton
-  factory Cache() => _instance;
-  Cache._internal();
-  static final Cache _instance = Cache._internal();
+  factory Database() => _instance;
+  Database._internal();
+  static final Database _instance = Database._internal();
 
-  static late ICacheStorage _storage;
+  static late IDatabaseStorage _storage;
 
-  // init cache storage. this init() is recommend to start before runApp().
-  static Future<void> init({required ICacheStorage storage}) async {
+  // init database storage. this init() is recommend to start before runApp().
+  static Future<void> init({required IDatabaseStorage storage}) async {
     _storage = storage;
     await _storage.init();
   }

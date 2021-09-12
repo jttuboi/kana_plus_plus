@@ -44,7 +44,7 @@ class AndroidApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ThemeProvider(Cache.getBool('dark_theme'))),
+        ChangeNotifierProvider(create: (context) => ThemeProvider(Database.getBool('dark_theme'))),
         ChangeNotifierProvider(create: (context) => LocaleProvider(appController)),
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {

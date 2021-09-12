@@ -6,12 +6,12 @@ import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.re
 class WritingHandRepository implements IWritingHandRepository {
   @override
   WritingHand getWritingHandSelected() {
-    final int writingHandIndex = Cache.getInt(SettingsPref.writingHand, defaultValue: WritingHand.right.index);
+    final int writingHandIndex = Database.getInt(SettingsPref.writingHand, defaultValue: WritingHand.right.index);
     return WritingHand.values[writingHandIndex];
   }
 
   @override
   void setWritingHandSelected(WritingHand value) {
-    Cache.setInt(SettingsPref.writingHand, value.index);
+    Database.setInt(SettingsPref.writingHand, value.index);
   }
 }

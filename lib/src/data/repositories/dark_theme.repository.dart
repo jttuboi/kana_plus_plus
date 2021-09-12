@@ -5,11 +5,11 @@ import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repo
 class DarkThemeRepository implements IDarkThemeRepository {
   @override
   bool isDarkTheme() {
-    return Cache.getBool(SettingsPref.darkTheme);
+    return Database.getBool(SettingsPref.darkTheme);
   }
 
   @override
   void setDarkTheme(bool value) {
-    Cache.setBool(SettingsPref.darkTheme, value);
+    Database.setBool(SettingsPref.darkTheme, value);
   }
 }

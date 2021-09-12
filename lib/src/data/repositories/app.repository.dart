@@ -6,11 +6,11 @@ class AppRepository implements IAppRepository {
   @override
   bool isFirstTime() {
     // when access the first time, the default is true
-    return Cache.getBool(SettingsPref.firstTime, defaultValue: true);
+    return Database.getBool(SettingsPref.firstTime, defaultValue: true);
   }
 
   @override
   void setFirstTime(bool isFirstTime) {
-    Cache.setBool(SettingsPref.firstTime, isFirstTime);
+    Database.setBool(SettingsPref.firstTime, isFirstTime);
   }
 }

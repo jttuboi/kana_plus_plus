@@ -1,7 +1,7 @@
 import 'package:kana_plus_plus/src/data/datasources/cache.interface.storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesCacheStorage implements ICacheStorage {
+class SharedPreferencesStorage implements IDatabaseStorage {
   late SharedPreferences _preferences;
 
   @override

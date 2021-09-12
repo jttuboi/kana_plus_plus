@@ -1,6 +1,7 @@
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 
 const databaseName = 'kana_plus_plus_database.db';
+const databaseVersion = 1;
 
 class TWords {
   TWords._();

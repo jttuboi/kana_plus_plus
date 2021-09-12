@@ -7,7 +7,7 @@ import 'package:kana_plus_plus/src/data/models/word.model.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/support/word_to_kana_converter.dart';
 
-class JsonFileStorage implements IFileStorage {
+class JsonStorage implements IFileStorage {
   final data = JsonData();
 
   @override

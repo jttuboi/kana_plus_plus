@@ -17,7 +17,6 @@ void main() {
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Cache.init(storage: SharedPreferencesCacheStorage());
-  await File.init(storage: JsonFileStorage());
-  //await Database.init(storage: SqfliteDatabaseStorage());
+  await Database.init(storage: SharedPreferencesStorage());
+  await File.init(storage: JsonStorage());
 }

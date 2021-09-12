@@ -6,11 +6,11 @@ import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repos
 class ShowHintRepository implements IShowHintRepository {
   @override
   bool isShowHint() {
-    return Cache.getBool(SettingsPref.showHint, defaultValue: Default.showHint);
+    return Database.getBool(SettingsPref.showHint, defaultValue: Default.showHint);
   }
 
   @override
   void setShowHint(bool value) {
-    Cache.setBool(SettingsPref.showHint, value);
+    Database.setBool(SettingsPref.showHint, value);
   }
 }
