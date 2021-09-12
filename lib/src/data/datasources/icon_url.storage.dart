@@ -14,7 +14,6 @@ class IconUrl {
   static const quantityOfWords = '${iconsFolder}quantity_of_words.svg';
   static const about = '${iconsFolder}about.svg';
   static const privacyPolicy = '${iconsFolder}privacy_policy.svg';
-  static const support = '${iconsFolder}support.svg';
   static const darkTheme = '${iconsFolder}dark_theme.svg';
   static const lightTheme = '${iconsFolder}light_theme.svg';
   static const writingHandLeft = '${iconsFolder}writing_hand_left.svg';

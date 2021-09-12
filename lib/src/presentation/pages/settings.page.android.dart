@@ -108,11 +108,6 @@ class SettingsPage extends StatelessWidget {
                           : throw 'Could not launch ${AppDefault.privacyPolicyUrl}';
                     },
                   ),
-                  // TODO https://developer.android.com/google/play/billing/index.html?authuser=3
-                  ListTile(
-                    title: Text(strings.settingsSupport),
-                    leading: SvgPicture.asset(IconUrl.support, color: defaultTileIconColor, width: defaultTileIconSize),
-                  ),
                 ],
               ),
             ));
