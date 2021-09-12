@@ -1,4 +1,4 @@
-package br.com.kana_plus_plus
+package com.kana_plus_plus
 
 import io.flutter.embedding.android.FlutterActivity
 

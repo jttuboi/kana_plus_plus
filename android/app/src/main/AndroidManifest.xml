@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.kana_plus_plus">
+    package="com.kana_plus_plus">
    <application
         android:label="kana_plus_plus"
         android:icon="@mipmap/launcher_icon">

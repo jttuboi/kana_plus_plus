@@ -105,7 +105,7 @@ class AboutPage extends StatelessWidget {
     final emailLaunchUri = Uri(
       scheme: 'mailto',
       path: DeveloperDefault.contact,
-      query: _encodeQueryParameters({'subject': DeveloperDefault.contactSubject}),
+      query: _encodeQueryParameters({'subject': Default.contactSubject}),
     );
     launch(emailLaunchUri.toString());
   }
