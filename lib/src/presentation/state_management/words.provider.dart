@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
+import 'package:kana_plus_plus/src/domain/entities/word.dart';
 
 class WordsProvider extends ChangeNotifier {
   WordsProvider(this._controller);

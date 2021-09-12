@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_viewer_status.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana_viewer_content.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';

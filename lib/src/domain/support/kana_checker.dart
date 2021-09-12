@@ -21,7 +21,7 @@ class KanaChecker implements IKanaChecker {
     });
   }
 
-  // TODO mudar as constantes antes de finalizar o app
+  // TODO end - mudar as constantes antes de finalizar o app
   static const powRadius = 0.0225; // radius = 0.15 = 15% de 100 pixels
   final double percentageToApprove;
 

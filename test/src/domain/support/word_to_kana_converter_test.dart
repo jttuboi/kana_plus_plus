@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/data/models/kana.model.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/entities/kana.dart';
 import 'package:kana_plus_plus/src/domain/support/word_to_kana_converter.dart';
 
 void main() {

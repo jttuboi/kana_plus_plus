@@ -3,9 +3,9 @@ import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/pages/selection_option.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/language.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/locale.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:provider/provider.dart';
 

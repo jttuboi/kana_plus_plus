@@ -6,6 +6,7 @@ import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/pre_training.arguments.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
+import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
@@ -66,7 +67,7 @@ class _PreTrainingPage extends StatelessWidget {
                   updateQuantity: provider.updateQuantity,
                 ),
                 MaterialButton(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   shape: const CircleBorder(),
                   onPressed: () => Navigator.pushNamedAndRemoveUntil(
                     context,
@@ -82,9 +83,9 @@ class _PreTrainingPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
                       IconUrl.play,
-                      color: Theme.of(context).accentIconTheme.color,
-                      width: Theme.of(context).accentIconTheme.size,
-                      height: Theme.of(context).accentIconTheme.size,
+                      color: preTrainingPlayIconThemeData.color,
+                      width: preTrainingPlayIconThemeData.size,
+                      height: preTrainingPlayIconThemeData.size,
                     ),
                   ),
                 ),

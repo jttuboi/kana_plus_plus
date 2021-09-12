@@ -13,10 +13,6 @@ final lightTheme = ThemeData(
     color: Colors.grey.shade500,
     size: 24.0,
   ),
-  accentIconTheme: IconThemeData(
-    color: Colors.grey.shade300,
-    size: 40.0,
-  ),
   scaffoldBackgroundColor: Colors.grey.shade50,
   fontFamily: defaultFontFamily,
 );
@@ -118,4 +114,9 @@ final aboutIconTextStyle = TextStyle(
   fontSize: 18.0,
   fontWeight: FontWeight.bold,
   color: Colors.deepPurple.withOpacity(0.8),
+);
+
+final preTrainingPlayIconThemeData = IconThemeData(
+  color: Colors.grey.shade300,
+  size: 40.0,
 );

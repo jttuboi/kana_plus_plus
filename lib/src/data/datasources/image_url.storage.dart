@@ -1,7 +1,7 @@
 class ImageUrl {
   ImageUrl._();
 
-  // TODO remover image test folder quando deploy e adicionar as imagens prontas na pasta certa
+  // TODO end - remover image test folder quando deploy e adicionar as imagens prontas na pasta certa
   static const imageTestFolder = 'lib/assets/tests/images/';
   static const imageFolder = 'lib/assets/images/';
 

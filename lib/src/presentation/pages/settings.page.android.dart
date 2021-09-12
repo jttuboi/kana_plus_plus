@@ -4,7 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/kana_type.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/language.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/quantity_of_words.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/show_hint.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
@@ -14,11 +19,6 @@ import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.d
 import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/sub_header_tile.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/writing_hand_tile.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/kana_type.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/language.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/show_hint.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/writing_hand.provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 

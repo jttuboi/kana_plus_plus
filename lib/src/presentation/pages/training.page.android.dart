@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
+import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/training_arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_kana.provider.dart';
 import 'package:kana_plus_plus/src/presentation/state_management/training_word.provider.dart';
+import 'package:kana_plus_plus/src/presentation/state_management/writer.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/kana_viewers.dart';
@@ -76,7 +76,7 @@ class TrainingPage extends StatelessWidget {
                   totalSteps: trainingController.quantityOfWords,
                   size: 5.0,
                   padding: 0.5,
-                  selectedColor: Theme.of(context).accentColor,
+                  selectedColor: Theme.of(context).colorScheme.secondary,
                   unselectedColor: defaultProgressBarColor,
                 );
               },
