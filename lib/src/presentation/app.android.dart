@@ -6,6 +6,7 @@ import 'package:kana_plus_plus/src/data/repositories/kana_type.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/language.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/quantity_of_words.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/show_hint.repository.dart';
+import 'package:kana_plus_plus/src/data/repositories/statistics.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/word.repository.dart';
 import 'package:kana_plus_plus/src/data/repositories/writing_hand.repository.dart';
 import 'package:kana_plus_plus/src/data/singletons/database.dart';
@@ -13,6 +14,7 @@ import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
+import 'package:kana_plus_plus/src/domain/controllers/statistics.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
@@ -126,6 +128,12 @@ class AndroidApp extends StatelessWidget {
               strokeReducer: StrokeReducer(limitPointsToReduce: 20),
               kanaChecker: kanaChecker,
               showHint: args.showHint,
+            ),
+            statisticsController: StatisticsController(
+              statisticsRepository: StatisticsRepository(),
+              showHint: args.showHint,
+              kanaType: args.kanaType,
+              quantityOfWords: args.quantityOfWords,
             ),
           );
         },

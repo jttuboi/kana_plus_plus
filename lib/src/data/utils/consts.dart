@@ -37,6 +37,16 @@ class DatabaseTag {
   static const kanaType = 'kana_type';
   static const quantityOfWords = 'quantity_of_words';
   static const firstTime = 'first_time';
+  static const showHintQuantity = 'show_hint_quantity';
+  static const notShowHintQuantity = 'not_show_hint_quantity';
+  static const onlyHiraganaQuantity = 'only_hiragana_quantity';
+  static const onlyKatakanaQuantity = 'only_katakana_quantity';
+  static const bothQuantity = 'both_quantity';
+  static const trainingQuantity = 'training_quantity';
+  static const wordCorrectQuantity = 'word_correct_quantity';
+  static const wordWrongQuantity = 'word_wrong_quantity';
+  static const kanaCorrectQuantity = 'kana_correct_quantity';
+  static const kanaWrongQuantity = 'kana_wrong_quantity';
 }
 
 class FileUrl {

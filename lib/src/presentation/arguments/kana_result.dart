@@ -4,7 +4,7 @@ import 'package:kana_plus_plus/src/domain/core/kana_viewer_status.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_content.dart';
 
 class KanaResult {
-  KanaResult({
+  const KanaResult({
     required this.id,
     required this.isCorrect,
     required this.idWrote,
