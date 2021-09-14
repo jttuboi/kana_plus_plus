@@ -29,7 +29,7 @@ abstract class IStatisticsRepository {
 
   void increaseSpecificKanaWrongQuantity(String kanaId);
 
-  void saveTrainingStats(TrainingStats trainEndModel);
+  void saveTrainingStats(TrainingStats trainingStats);
 
   int showHintQuantity();
 
@@ -43,7 +43,7 @@ abstract class IStatisticsRepository {
 
   int trainingQuantity();
 
-  List<int> wordQuantitiesOfTraining();
+  Future<double> avgWordsPerTraining();
 
   int specificWordCorrectQuantity(String wordId);
 

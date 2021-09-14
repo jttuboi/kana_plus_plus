@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/controllers/statistics.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
 import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
@@ -22,12 +21,10 @@ class TrainingPage extends StatelessWidget {
     Key? key,
     required this.trainingController,
     required this.writerController,
-    required this.statisticsController,
   }) : super(key: key);
 
   final TrainingController trainingController;
   final WriterController writerController;
-  final StatisticsController statisticsController;
   final PageController _pageController = PageController();
 
   @override
@@ -194,7 +191,7 @@ class TrainingPage extends StatelessWidget {
 
   void _goToReviewPage(BuildContext context) {
     final wordsResult = trainingController.wordsResult;
-    statisticsController.updateStatistics(wordsResult);
+    trainingController.updateStatistics(wordsResult);
 
     Navigator.pushNamedAndRemoveUntil(
       context,

@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:kana_plus_plus/src/data/singletons/database.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:kana_plus_plus/src/domain/entities/training_stats.dart';
@@ -75,8 +76,10 @@ class StatisticsRepository implements IStatisticsRepository {
   }
 
   @override
-  void saveTrainingStats(TrainingStats trainEndModel) {
-    // TODO
+  void saveTrainingStats(TrainingStats trainingStats) {
+    Hive.openLazyBox<TrainingStats>(DatabaseTag.trainingStats).then((box) {
+      box.add(trainingStats);
+    });
   }
 
   @override
@@ -110,8 +113,9 @@ class StatisticsRepository implements IStatisticsRepository {
   }
 
   @override
-  List<int> wordQuantitiesOfTraining() {
-    return []; // TODO
+  Future<double> avgWordsPerTraining() async {
+    final box = await Hive.openBox<TrainingStats>(DatabaseTag.trainingStats);
+    return box.values.map((trainingStats) => trainingStats.wordsQuantity).reduce((total, wordQuantity) => total + wordQuantity) / box.values.length;
   }
 
   @override

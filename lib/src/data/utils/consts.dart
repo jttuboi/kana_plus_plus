@@ -47,6 +47,7 @@ class DatabaseTag {
   static const wordWrongQuantity = 'word_wrong_quantity';
   static const kanaCorrectQuantity = 'kana_correct_quantity';
   static const kanaWrongQuantity = 'kana_wrong_quantity';
+  static const trainingStats = 'training_stats';
 }
 
 class FileUrl {

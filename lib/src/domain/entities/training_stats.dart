@@ -1,7 +1,11 @@
+import 'package:hive/hive.dart';
 import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word_stats.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 
+part 'training_stats.g.dart';
+
+@HiveType(typeId: 0)
 class TrainingStats {
   const TrainingStats({
     required this.showHint,
@@ -19,9 +23,13 @@ class TrainingStats {
     );
   }
 
+  @HiveField(0)
   final bool showHint;
+  @HiveField(1)
   final KanaType type;
+  @HiveField(2)
   final int wordsQuantity;
+  @HiveField(3)
   final List<WordStats> words;
 
   @override

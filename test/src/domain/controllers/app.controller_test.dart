@@ -5,10 +5,6 @@ import 'package:kana_plus_plus/src/domain/repositories/app.interface.repository.
 import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
 import 'package:mocktail/mocktail.dart';
 
-class AppRepositoryMock extends Mock implements IAppRepository {}
-
-class LanguageRepositoryMock extends Mock implements ILanguageRepository {}
-
 void main() {
   late final appRepository = AppRepositoryMock();
   late final languageRepository = LanguageRepositoryMock();
@@ -109,3 +105,7 @@ void main() {
     });
   });
 }
+
+class AppRepositoryMock extends Mock implements IAppRepository {}
+
+class LanguageRepositoryMock extends Mock implements ILanguageRepository {}

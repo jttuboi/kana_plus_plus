@@ -15,10 +15,9 @@ class KanaChecker implements IKanaChecker {
 
   @override
   Future<void> load() async {
-    return rootBundle.loadString('lib/assets/database/points.json').then((response) {
-      final jsonFile = json.decode(response) as Map<String, dynamic>;
-      data = convertToData(jsonFile);
-    });
+    final response = await rootBundle.loadString('lib/assets/database/points.json');
+    final jsonFile = json.decode(response) as Map<String, dynamic>;
+    data = convertToData(jsonFile);
   }
 
   // TODO end - mudar as constantes antes de finalizar o app

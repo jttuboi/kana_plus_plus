@@ -27,43 +27,43 @@ void main() {
 
       expect(kanas[0].id, 'み');
       expect(kanas[0].romaji, 'mi');
-      expect(kanas[0].imageUrl, '${ImageUrl.imageFolder}kanas/み.svg');
+      expect(kanas[0].imageUrl, '${ImageUrl.imageTestFolder}kanas/み.svg');
       expect(kanas[0].type, KanaType.hiragana);
       expect(kanas[0].strokesQuantity, 2);
 
       expect(kanas[1].id, 'な');
       expect(kanas[1].romaji, 'na');
-      expect(kanas[1].imageUrl, '${ImageUrl.imageFolder}kanas/な.svg');
+      expect(kanas[1].imageUrl, '${ImageUrl.imageTestFolder}kanas/な.svg');
       expect(kanas[1].type, KanaType.hiragana);
       expect(kanas[1].strokesQuantity, 4);
 
       expect(kanas[2].id, 'み');
       expect(kanas[2].romaji, 'mi');
-      expect(kanas[2].imageUrl, '${ImageUrl.imageFolder}kanas/み.svg');
+      expect(kanas[2].imageUrl, '${ImageUrl.imageTestFolder}kanas/み.svg');
       expect(kanas[2].type, KanaType.hiragana);
       expect(kanas[2].strokesQuantity, 2);
 
       expect(kanas[3].id, 'ア');
       expect(kanas[3].romaji, 'a');
-      expect(kanas[3].imageUrl, '${ImageUrl.imageFolder}kanas/ア.svg');
+      expect(kanas[3].imageUrl, '${ImageUrl.imageTestFolder}kanas/ア.svg');
       expect(kanas[3].type, KanaType.katakana);
       expect(kanas[3].strokesQuantity, 2);
 
       expect(kanas[4].id, 'フ');
       expect(kanas[4].romaji, 'fu');
-      expect(kanas[4].imageUrl, '${ImageUrl.imageFolder}kanas/フ.svg');
+      expect(kanas[4].imageUrl, '${ImageUrl.imageTestFolder}kanas/フ.svg');
       expect(kanas[4].type, KanaType.katakana);
       expect(kanas[4].strokesQuantity, 1);
 
       expect(kanas[5].id, 'リ');
       expect(kanas[5].romaji, 'ri');
-      expect(kanas[5].imageUrl, '${ImageUrl.imageFolder}kanas/リ.svg');
+      expect(kanas[5].imageUrl, '${ImageUrl.imageTestFolder}kanas/リ.svg');
       expect(kanas[5].type, KanaType.katakana);
       expect(kanas[5].strokesQuantity, 2);
 
       expect(kanas[6].id, 'カ');
       expect(kanas[6].romaji, 'ka');
-      expect(kanas[6].imageUrl, '${ImageUrl.imageFolder}kanas/カ.svg');
+      expect(kanas[6].imageUrl, '${ImageUrl.imageTestFolder}kanas/カ.svg');
       expect(kanas[6].type, KanaType.katakana);
       expect(kanas[6].strokesQuantity, 2);
     });
@@ -72,25 +72,25 @@ void main() {
 
       expect(kanas[0].id, 'ぎゅ');
       expect(kanas[0].romaji, 'gyu');
-      expect(kanas[0].imageUrl, '${ImageUrl.imageFolder}kanas/ぎゅ.svg');
+      expect(kanas[0].imageUrl, '${ImageUrl.imageTestFolder}kanas/ぎゅ.svg');
       expect(kanas[0].type, KanaType.hiragana);
       expect(kanas[0].strokesQuantity, 8);
 
       expect(kanas[1].id, 'う');
       expect(kanas[1].romaji, 'u');
-      expect(kanas[1].imageUrl, '${ImageUrl.imageFolder}kanas/う.svg');
+      expect(kanas[1].imageUrl, '${ImageUrl.imageTestFolder}kanas/う.svg');
       expect(kanas[1].type, KanaType.hiragana);
       expect(kanas[1].strokesQuantity, 2);
 
       expect(kanas[2].id, 'にゅ');
       expect(kanas[2].romaji, 'nyu');
-      expect(kanas[2].imageUrl, '${ImageUrl.imageFolder}kanas/にゅ.svg');
+      expect(kanas[2].imageUrl, '${ImageUrl.imageTestFolder}kanas/にゅ.svg');
       expect(kanas[2].type, KanaType.hiragana);
       expect(kanas[2].strokesQuantity, 5);
 
       expect(kanas[3].id, 'う');
       expect(kanas[3].romaji, 'u');
-      expect(kanas[3].imageUrl, '${ImageUrl.imageFolder}kanas/う.svg');
+      expect(kanas[3].imageUrl, '${ImageUrl.imageTestFolder}kanas/う.svg');
       expect(kanas[3].type, KanaType.hiragana);
       expect(kanas[3].strokesQuantity, 2);
     });
@@ -99,25 +99,25 @@ void main() {
 
       expect(kanas[0].id, 'や');
       expect(kanas[0].romaji, 'ya');
-      expect(kanas[0].imageUrl, '${ImageUrl.imageFolder}kanas/や.svg');
+      expect(kanas[0].imageUrl, '${ImageUrl.imageTestFolder}kanas/や.svg');
       expect(kanas[0].type, KanaType.hiragana);
       expect(kanas[0].strokesQuantity, 3);
 
       expect(kanas[1].id, 'っ');
       expect(kanas[1].romaji, 'k');
-      expect(kanas[1].imageUrl, '${ImageUrl.imageFolder}kanas/っ.svg');
+      expect(kanas[1].imageUrl, '${ImageUrl.imageTestFolder}kanas/っ.svg');
       expect(kanas[1].type, KanaType.hiragana);
       expect(kanas[1].strokesQuantity, 1);
 
       expect(kanas[2].id, 'きょ');
       expect(kanas[2].romaji, 'kyo');
-      expect(kanas[2].imageUrl, '${ImageUrl.imageFolder}kanas/きょ.svg');
+      expect(kanas[2].imageUrl, '${ImageUrl.imageTestFolder}kanas/きょ.svg');
       expect(kanas[2].type, KanaType.hiragana);
       expect(kanas[2].strokesQuantity, 6);
 
       expect(kanas[3].id, 'く');
       expect(kanas[3].romaji, 'ku');
-      expect(kanas[3].imageUrl, '${ImageUrl.imageFolder}kanas/く.svg');
+      expect(kanas[3].imageUrl, '${ImageUrl.imageTestFolder}kanas/く.svg');
       expect(kanas[3].type, KanaType.hiragana);
       expect(kanas[3].strokesQuantity, 1);
     });
@@ -126,43 +126,43 @@ void main() {
 
       expect(kanas[0].id, 'ニュ');
       expect(kanas[0].romaji, 'nyu');
-      expect(kanas[0].imageUrl, '${ImageUrl.imageFolder}kanas/ニュ.svg');
+      expect(kanas[0].imageUrl, '${ImageUrl.imageTestFolder}kanas/ニュ.svg');
       expect(kanas[0].type, KanaType.katakana);
       expect(kanas[0].strokesQuantity, 4);
 
       expect(kanas[1].id, 'ー');
       expect(kanas[1].romaji, 'u');
-      expect(kanas[1].imageUrl, '${ImageUrl.imageFolder}kanas/ー.svg');
+      expect(kanas[1].imageUrl, '${ImageUrl.imageTestFolder}kanas/ー.svg');
       expect(kanas[1].type, KanaType.katakana);
       expect(kanas[1].strokesQuantity, 1);
 
       expect(kanas[2].id, 'ジ');
       expect(kanas[2].romaji, 'ji');
-      expect(kanas[2].imageUrl, '${ImageUrl.imageFolder}kanas/ジ.svg');
+      expect(kanas[2].imageUrl, '${ImageUrl.imageTestFolder}kanas/ジ.svg');
       expect(kanas[2].type, KanaType.katakana);
       expect(kanas[2].strokesQuantity, 5);
 
       expect(kanas[3].id, 'ー');
       expect(kanas[3].romaji, 'i');
-      expect(kanas[3].imageUrl, '${ImageUrl.imageFolder}kanas/ー.svg');
+      expect(kanas[3].imageUrl, '${ImageUrl.imageTestFolder}kanas/ー.svg');
       expect(kanas[3].type, KanaType.katakana);
       expect(kanas[3].strokesQuantity, 1);
 
       expect(kanas[4].id, 'ラ');
       expect(kanas[4].romaji, 'ra');
-      expect(kanas[4].imageUrl, '${ImageUrl.imageFolder}kanas/ラ.svg');
+      expect(kanas[4].imageUrl, '${ImageUrl.imageTestFolder}kanas/ラ.svg');
       expect(kanas[4].type, KanaType.katakana);
       expect(kanas[4].strokesQuantity, 2);
 
       expect(kanas[5].id, 'ン');
       expect(kanas[5].romaji, 'n');
-      expect(kanas[5].imageUrl, '${ImageUrl.imageFolder}kanas/ン.svg');
+      expect(kanas[5].imageUrl, '${ImageUrl.imageTestFolder}kanas/ン.svg');
       expect(kanas[5].type, KanaType.katakana);
       expect(kanas[5].strokesQuantity, 2);
 
       expect(kanas[6].id, 'ド');
       expect(kanas[6].romaji, 'do');
-      expect(kanas[6].imageUrl, '${ImageUrl.imageFolder}kanas/ド.svg');
+      expect(kanas[6].imageUrl, '${ImageUrl.imageTestFolder}kanas/ド.svg');
       expect(kanas[6].type, KanaType.katakana);
       expect(kanas[6].strokesQuantity, 4);
     });

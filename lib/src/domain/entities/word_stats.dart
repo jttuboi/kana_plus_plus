@@ -1,6 +1,10 @@
+import 'package:hive/hive.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_stats.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 
+part 'word_stats.g.dart';
+
+@HiveType(typeId: 1)
 class WordStats {
   const WordStats({
     required this.id,
@@ -18,8 +22,11 @@ class WordStats {
     );
   }
 
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final bool correct;
+  @HiveField(2)
   final List<KanaStats> kanas;
 
   @override

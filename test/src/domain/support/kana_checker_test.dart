@@ -2,8 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
 
 void main() {
-  final KanaChecker kanaChecker = KanaChecker();
-  kanaChecker.load();
+  final kanaChecker = KanaChecker();
+
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    return kanaChecker.load();
+  });
+
   test('must return true when points is properly inside of data stroke', () {
     expect(kanaChecker.checkKana('ー', strokesSucceed1), isTrue);
     expect(kanaChecker.checkKana('ー', strokesSucceed2), isTrue);

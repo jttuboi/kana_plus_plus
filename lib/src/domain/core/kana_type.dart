@@ -1,7 +1,16 @@
+import 'package:hive/hive.dart';
+
+part 'kana_type.g.dart';
+
+@HiveType(typeId: 100)
 enum KanaType {
+  @HiveField(0)
   none,
+  @HiveField(1)
   hiragana,
+  @HiveField(2)
   katakana,
+  @HiveField(3)
   both,
 }
 

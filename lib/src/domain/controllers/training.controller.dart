@@ -3,8 +3,10 @@ import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/core/update_kana_situation.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_viewer_content.dart';
+import 'package:kana_plus_plus/src/domain/entities/training_stats.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/entities/word_viewer_content.dart';
+import 'package:kana_plus_plus/src/domain/repositories/statistics.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
@@ -12,14 +14,18 @@ import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 class TrainingController {
   TrainingController({
     required this.wordRepository,
+    required this.statisticsRepository,
     required this.kanaChecker,
+    required this.showHint,
     required this.kanaType,
     required this.quantityOfWords,
   });
 
   final IWordRepository wordRepository;
+  final IStatisticsRepository statisticsRepository;
   final IKanaChecker kanaChecker;
 
+  final bool showHint;
   final KanaType kanaType;
   final int quantityOfWords;
 
@@ -83,5 +89,47 @@ class TrainingController {
     wordsToTraining.clear();
     final List<Word> words = wordRepository.getWordsForTraining(kanaType, quantityOfWords);
     wordsToTraining = words.map((word) => WordViewerContent.fromWord(word)).toList();
+  }
+
+  void updateStatistics(List<WordResult> wordsResult) {
+    if (showHint) {
+      statisticsRepository.increaseShowHintQuantity();
+    } else {
+      statisticsRepository.increaseNotShowHintQuantity();
+    }
+
+    if (kanaType.isOnlyHiragana) {
+      statisticsRepository.increaseOnlyHiraganaQuantity();
+    } else if (kanaType.isOnlyKatakana) {
+      statisticsRepository.increaseOnlyKatakanaQuantity();
+    } else {
+      statisticsRepository.increaseBothQuantity();
+    }
+
+    statisticsRepository.increaseTrainingQuantity();
+
+    final trainingStats = TrainingStats.fromWordsResult(showHint, kanaType, quantityOfWords, wordsResult);
+
+    for (final wordEnd in trainingStats.words) {
+      if (wordEnd.correct) {
+        statisticsRepository.increaseWordCorrectQuantity();
+        statisticsRepository.increaseSpecificWordCorrectQuantity(wordEnd.id);
+      } else {
+        statisticsRepository.increaseWordWrongQuantity();
+        statisticsRepository.increaseSpecificWordWrongQuantity(wordEnd.id);
+      }
+
+      for (final kanaEnd in wordEnd.kanas) {
+        if (kanaEnd.correct) {
+          statisticsRepository.increaseKanaCorrectQuantity();
+          statisticsRepository.increaseSpecificKanaCorrectQuantity(kanaEnd.id);
+        } else {
+          statisticsRepository.increaseKanaWrongQuantity();
+          statisticsRepository.increaseSpecificKanaWrongQuantity(kanaEnd.id);
+        }
+      }
+    }
+
+    statisticsRepository.saveTrainingStats(trainingStats);
   }
 }
