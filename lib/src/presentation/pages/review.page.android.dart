@@ -49,15 +49,18 @@ class _ReviewPageState extends State<ReviewPage> {
         bannerUrl: BannerUrl.review,
         onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
         actions: const [SupportButton(isAppBarIcon: true)],
-        sliverContent: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72.0);
-            },
-            semanticIndexCallback: (widget, localIndex) {
-              return localIndex.isEven ? localIndex ~/ 2 : null;
-            },
-            childCount: max(0, widget.wordsResult.length * 2 - 1),
+        sliverContent: SliverPadding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72.0);
+              },
+              semanticIndexCallback: (widget, localIndex) {
+                return localIndex.isEven ? localIndex ~/ 2 : null;
+              },
+              childCount: max(0, widget.wordsResult.length * 2 - 1),
+            ),
           ),
         ),
 
