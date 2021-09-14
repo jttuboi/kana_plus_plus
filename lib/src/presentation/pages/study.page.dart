@@ -14,27 +14,27 @@ class StudyPage extends StatelessWidget {
         crossAxisCount: 4,
         children: [
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.kana),
+            onPressed: () => {},
             child: const Text('A'),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.kana),
+            onPressed: () => {},
             child: const Text('KA'),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.kana),
+            onPressed: () => {},
             child: const Text('TA'),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.kana),
+            onPressed: () => {},
             child: const Text('SA'),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.kana),
+            onPressed: () => {},
             child: const Text('MA'),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, Routes.kana),
+            onPressed: () => {},
             child: const Text('RA'),
           ),
         ],

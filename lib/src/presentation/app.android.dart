@@ -36,8 +36,7 @@ import 'package:kana_plus_plus/src/presentation/state_management/locale.provider
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/views/android/pages/kana.page.dart';
-import 'package:kana_plus_plus/src/views/android/pages/study.page.dart';
+import 'package:kana_plus_plus/src/presentation/pages/study.page.dart';
 import 'package:provider/provider.dart';
 
 class AndroidApp extends StatelessWidget {
@@ -73,7 +72,6 @@ class AndroidApp extends StatelessWidget {
   Map<String, WidgetBuilder> get _routes => {
         Routes.menu: (context) => MenuPage(appController),
         Routes.study: (context) => const StudyPage(),
-        Routes.kana: (context) => const KanaPage(),
         Routes.preTraining: (context) => PreTrainingPage(
               PreTrainingController(
                 showHintRepository: ShowHintRepository(),
