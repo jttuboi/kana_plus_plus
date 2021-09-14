@@ -11,6 +11,7 @@ import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/introduction.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/menu_background.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/share_button.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/support_button.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage(this.appController, {Key? key}) : super(key: key);
@@ -131,7 +132,14 @@ class _MenuExtra extends StatelessWidget {
     return Container(
       alignment: FractionalOffset.bottomRight,
       padding: const EdgeInsets.all(16.0),
-      child: const ShareButton(iconSize: 48),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          ShareButton(iconSize: 48),
+          SizedBox(width: 4.0),
+          SupportButton(iconSize: 48),
+        ],
+      ),
     );
   }
 }

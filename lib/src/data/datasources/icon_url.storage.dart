@@ -33,4 +33,5 @@ class IconUrl {
   static const training = '${iconsFolder}training.svg';
   static const share = '${iconsFolder}share.svg';
   static const rate = '${iconsFolder}rate.svg';
+  static const support = '${iconsFolder}support.svg';
 }

@@ -9,6 +9,7 @@ import 'package:kana_plus_plus/src/domain/core/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/share_button.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/support_button.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -86,6 +87,7 @@ class AboutPage extends StatelessWidget {
                         ],
                       ),
                       const ShareButton(iconSize: 56),
+                      const SupportButton(iconSize: 56),
                     ],
                   ),
                 ),

@@ -46,6 +46,8 @@
     "introTitleRecommendation": "Use stylus pen",
     "aboutShare": "Share",
     "aboutRate": "Rate",
+    "aboutSupport": "Support",
+    "aboutSupportMessage": "Thanks for the support.",
     "aboutContactTitle": "Contact: ",
     "aboutDeveloperTitle": "Developer: ",
     "aboutAppVersionTitle": "App version: ",
@@ -97,6 +99,8 @@
     "@introTitleRecommendation": { "description": "" },
     "@aboutShare": { "description": "" },
     "@aboutRate": { "description": "" },
+    "@aboutSupport": { "description": "" },
+    "@aboutSupportMessage": { "description": "" },
     "@aboutContactTitle": { "description": "" },
     "@aboutDeveloperTitle": { "description": "" },
     "@aboutAppVersionTitle": { "description": "" }

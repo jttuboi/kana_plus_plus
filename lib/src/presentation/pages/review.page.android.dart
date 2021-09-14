@@ -6,6 +6,7 @@ import 'package:kana_plus_plus/src/domain/controllers/review.controller.dart';
 import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/review_tile.dart';
+import 'package:kana_plus_plus/src/presentation/widgets/support_button.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({
@@ -47,6 +48,7 @@ class _ReviewPageState extends State<ReviewPage> {
         title: strings.reviewTitle,
         bannerUrl: BannerUrl.review,
         onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+        actions: const [SupportButton(isAppBarIcon: true)],
         sliverContent: SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
