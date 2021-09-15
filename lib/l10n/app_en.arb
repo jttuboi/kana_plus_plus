@@ -1,4 +1,5 @@
 {
+    "studyTitle": "STUDY",
     "settingsTitle": "Settings",
     "settingsBasic": "Basic",
     "settingsLanguage": "Language",
@@ -51,6 +52,7 @@
     "aboutContactTitle": "Contact: ",
     "aboutDeveloperTitle": "Developer: ",
     "aboutAppVersionTitle": "App version: ",
+    "@studyTitle": { "description": "" },
     "@settingsTitle": { "description": "" },
     "@settingsBasic": { "description": "" },
     "@settingsLanguage": { "description": "" },

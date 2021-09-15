@@ -10,4 +10,5 @@ class BannerUrl {
   static const language = '${bannersFolder}language.svg';
   static const writingHand = '${bannersFolder}writing_hand.svg';
   static const words = '${bannersFolder}words.svg';
+  static const study = '${bannersFolder}study.svg';
 }

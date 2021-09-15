@@ -103,6 +103,33 @@ final introductionPageDecoration = PageDecoration(
 const introductionButtonTextStyle = TextStyle(fontSize: 17.0, letterSpacing: 1.0, fontWeight: FontWeight.bold);
 final introductionButtonStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(darkPurple));
 
+const studyTextStyleText = TextStyle(fontSize: 16.0);
+const studyTitleTextStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
+
+final studyTableDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(8.0),
+  color: Colors.deepPurple,
+);
+final studyTableTitleTextStyle = TextStyle(color: studyTableTitleColor, fontSize: 18.0);
+final studyTableTitleColor = Colors.grey.shade300;
+
+final studyTableRowDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(4.0),
+  color: Colors.grey.shade50,
+);
+const studyTableRowHeight = 64.0;
+
+const studyTableContentKanaTextStyle = TextStyle(fontSize: 32, fontWeight: FontWeight.bold);
+const studyTableContentRomajiTextStyle = TextStyle(fontSize: 18.0);
+final studyTableContentButtonStyle = ButtonStyle(
+  fixedSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
+  minimumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
+  maximumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
+  backgroundColor: MaterialStateProperty.all(Colors.grey.shade50),
+  //elevation: MaterialStateProperty.all(1.0),
+  overlayColor: MaterialStateProperty.all(Colors.transparent),
+);
+
 final preTrainingPlayIconThemeData = IconThemeData(
   color: Colors.grey.shade300,
   size: 40.0,
