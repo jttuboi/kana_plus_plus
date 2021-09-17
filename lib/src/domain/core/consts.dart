@@ -2,7 +2,7 @@ class App {
   App._();
 
   static const String title = 'Kana++';
-  static const String version = '1.0.0'; // TODO end - atualizar a versão aqui
+  static const String version = '1.0.0'; // sandbox mudar a versão do app aqui. procurar como deixar automático.
 
   static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.kana_plus_plus';
   static const String appStoreUrl = '';

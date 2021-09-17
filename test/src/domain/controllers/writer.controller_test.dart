@@ -179,10 +179,6 @@ void main() {
 
 class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {}
 
-// TODO fazer esses testes
-//   List<List<Offset>> get strokesNormalized => []; // aqui deve procurar pelos strokes normalizados
-//   int get generateKanaId => 0; // aqui deve procurar pelo kana (kanaType)
-
 final threeStrokesSample = [
   const [Offset(0, 1), Offset(1, 2)],
   const [Offset(2, 1), Offset(7, 4)],

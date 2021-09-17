@@ -29,6 +29,7 @@ import 'package:kana_plus_plus/src/presentation/pages/menu.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/pre_training.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/review.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/settings.page.android.dart';
+import 'package:kana_plus_plus/src/presentation/pages/study.page.dart';
 import 'package:kana_plus_plus/src/presentation/pages/training.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/word_detail.page.android.dart';
 import 'package:kana_plus_plus/src/presentation/pages/words.page.android.dart';
@@ -36,7 +37,6 @@ import 'package:kana_plus_plus/src/presentation/state_management/locale.provider
 import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/pages/study.page.dart';
 import 'package:provider/provider.dart';
 
 class AndroidApp extends StatelessWidget {
@@ -53,7 +53,6 @@ class AndroidApp extends StatelessWidget {
         return Consumer<LocaleProvider>(builder: (context, localeProvider, child) {
           return MaterialApp(
             title: App.title,
-            debugShowCheckedModeBanner: false, // TODO end - remover antes de dar deploy
             localizationsDelegates: JStrings.localizationsDelegates,
             supportedLocales: JStrings.supportedLocales,
             themeMode: ThemeMode.light, //themeProvider.mode,

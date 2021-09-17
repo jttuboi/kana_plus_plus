@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/services.dart';
+import 'package:kana_plus_plus/src/data/utils/consts.dart';
 import 'package:logger/logger.dart';
 
 abstract class IKanaChecker {
@@ -15,12 +16,12 @@ class KanaChecker implements IKanaChecker {
 
   @override
   Future<void> load() async {
-    final response = await rootBundle.loadString('lib/assets/database/points.json');
+    final response = await rootBundle.loadString(FileUrl.points);
     final jsonFile = json.decode(response) as Map<String, dynamic>;
     data = convertToData(jsonFile);
   }
 
-  // TODO end - mudar as constantes antes de finalizar o app
+  // sandbox mudar as constantes para deixar mais fácil ou difícil.
   static const powRadius = 0.0225; // radius = 0.15 = 15% de 100 pixels
   final double percentageToApprove;
 

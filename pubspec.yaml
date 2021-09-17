@@ -51,17 +51,19 @@ flutter:
 
     - lib/assets/icons/
 
-    - lib/assets/tests/images/
-    - lib/assets/tests/images/banners/
-    - lib/assets/tests/images/kanas/
-    - lib/assets/tests/images/words/
-
     - lib/assets/images/
     - lib/assets/images/banners/
     - lib/assets/images/kanas/
     - lib/assets/images/menu/kanas/
     - lib/assets/images/menu/introduction/
     - lib/assets/images/words/
+
+    - sandbox/assets/database/
+    - sandbox/assets/images/
+    - sandbox/assets/images/banners/
+    - sandbox/assets/images/kanas/
+    - sandbox/assets/images/menu/introduction/
+    - sandbox/assets/images/words/
 
   fonts:
     - family: Permanent Marker

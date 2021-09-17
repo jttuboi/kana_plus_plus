@@ -51,8 +51,9 @@ class DatabaseTag {
 }
 
 class FileUrl {
-  static const translates = 'lib/assets/database/translates.json';
   static const kanas = 'lib/assets/database/kanas.json';
+  static const points = 'sandbox/assets/database/points.json';
+  static const translates = 'lib/assets/database/translates.json';
   static const words = 'lib/assets/database/words.json';
 }
 

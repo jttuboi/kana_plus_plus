@@ -11,18 +11,17 @@ class StudyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final studyIntroductionTitle = 'Introdução';
-    final studyIntroductionText = ' auhd uahd uahd uashd uashd uahd uahsd  ';
-    final studyHiraganaTitle = 'Hiragana';
-    final studyHiraganaText1 = 'ijvbinjibvjnivbjn ivbj nivbj nivb jnvib jnvbi njvbi njvbi v ibjnivbjnivbj nivbnjvbij nbvijnb ijb ';
-    final studyKatakanaTitle = 'Katakana';
-    final studyKatakanaText1 = 'ijvbinjibvjnivbjn ivbj nivbj nivb jnvib jnvbi njvbi njvbi vbj nivbnjvbij nbvijnb ijb ';
-
-    final studyMonographsTitle = 'Gojuon';
-    final studyDiacriticsTitle = 'Gojuon with han dakuten';
-    final studyDigraphsTitle = 'Yoon and yoon with han dakuten';
-    final studyGeminatedTitle = 'Sokuon';
-    final studyExtraDigraphsTitle = 'Yoon katkaana';
+    const studyIntroductionTitle = 'Introdução';
+    const studyIntroductionText = ' auhd uahd uahd uashd uashd uahd uahsd  ';
+    const studyHiraganaTitle = 'Hiragana';
+    const studyHiraganaText1 = 'ijvbinjibvjnivbjn ivbj nivbj nivb jnvib jnvbi njvbi njvbi v ibjnivbjnivbj nivbnjvbij nbvijnb ijb ';
+    const studyKatakanaTitle = 'Katakana';
+    const studyKatakanaText1 = 'ijvbinjibvjnivbjn ivbj nivbj nivb jnvib jnvbi njvbi njvbi vbj nivbnjvbij nbvijnb ijb ';
+    const studyMonographsTitle = 'Gojuon';
+    const studyDiacriticsTitle = 'Gojuon with han dakuten';
+    const studyDigraphsTitle = 'Yoon and yoon with han dakuten';
+    const studyGeminatedTitle = 'Sokuon';
+    const studyExtraDigraphsTitle = 'Yoon katkaana';
 
     final strings = JStrings.of(context)!;
     return FlexibleScaffold(
@@ -35,14 +34,14 @@ class StudyPage extends StatelessWidget {
           hasScrollBody: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               _StudyTitle(title: studyIntroductionTitle),
               _StudyText(text: studyIntroductionText),
               _StudyTitle(title: studyHiraganaTitle),
               _StudyText(text: studyHiraganaText1),
               StudyTable(
                 title: studyMonographsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['A', 'あ'], i: ['I', 'い'], u: ['U', 'う'], e: ['E', 'え'], o: ['O', 'お']),
                   StudyTableRow(a: ['KA', 'か'], i: ['KI', 'き'], u: ['KU', 'く'], e: ['KE', 'け'], o: ['KO', 'こ']),
                   StudyTableRow(a: ['SA', 'さ'], i: ['SHI', 'し'], u: ['SU', 'す'], e: ['SE', 'せ'], o: ['SO', 'そ']),
@@ -57,7 +56,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyDiacriticsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['GA', 'が'], i: ['GI', 'ぎ'], u: ['GU', 'ぐ'], e: ['GE', 'げ'], o: ['GO', 'ご']),
                   StudyTableRow(a: ['ZA', 'ざ'], i: ['JI', 'じ'], u: ['ZU', 'ず'], e: ['ZE', 'ぜ'], o: ['ZO', 'ぞ']),
                   StudyTableRow(a: ['DA', 'だ'], i: ['DJI', 'ぢ'], u: ['DZU', 'づ'], e: ['DE', 'で'], o: ['DO', 'ど']),
@@ -67,7 +66,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyDigraphsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['KYA', 'きゃ'], u: ['KYU', 'きゅ'], o: ['KYO', 'きょ']),
                   StudyTableRow(a: ['SHA', 'しゃ'], u: ['SHU', 'しゅ'], o: ['SHO', 'しょ']),
                   StudyTableRow(a: ['CHA', 'ちゃ'], u: ['CHU', 'ちゅ'], o: ['CHO', 'ちょ']),
@@ -84,7 +83,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyGeminatedTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['KKA', 'っか'], i: ['KKI', 'っき'], u: ['KKU', 'っく'], e: ['KKE', 'っけ'], o: ['KKO', 'っこ']),
                   StudyTableRow(a: ['SSA', 'っさ'], i: ['SSHI', 'っし'], u: ['SSU', 'っす'], e: ['SSE', 'っせ'], o: ['SSO', 'っそ']),
                   StudyTableRow(a: ['TTA', 'った'], i: ['CCHI', 'っち'], u: ['TTSU', 'っつ'], e: ['TTE', 'って'], o: ['TTO', 'っと']),
@@ -96,7 +95,7 @@ class StudyPage extends StatelessWidget {
               _StudyText(text: studyKatakanaText1),
               StudyTable(
                 title: studyMonographsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['A', 'ア'], i: ['I', 'イ'], u: ['U', 'ウ'], e: ['E', 'エ'], o: ['O', 'オ']),
                   StudyTableRow(a: ['KA', 'カ'], i: ['KI', 'キ'], u: ['KU', 'ク'], e: ['KE', 'ケ'], o: ['KO', 'コ']),
                   StudyTableRow(a: ['SA', 'サ'], i: ['SHI', 'シ'], u: ['SU', 'ス'], e: ['SE', 'セ'], o: ['SO', 'ソ']),
@@ -111,7 +110,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyDiacriticsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['GA', 'ガ'], i: ['GI', 'ギ'], u: ['GU', 'グ'], e: ['GE', 'ゲ'], o: ['GO', 'ゴ']),
                   StudyTableRow(a: ['ZA', 'ザ'], i: ['JI', 'ジ'], u: ['ZU', 'ズ'], e: ['ZE', 'ゼ'], o: ['ZO', 'ゾ']),
                   StudyTableRow(a: ['DA', 'ダ'], i: ['DJI', 'ヂ'], u: ['DZU', 'ヅ'], e: ['DE', 'デ'], o: ['DO', 'ド']),
@@ -121,7 +120,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyDigraphsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['KYA', 'キャ'], u: ['KYU', 'キュ'], o: ['KYO', 'キョ']),
                   StudyTableRow(a: ['SHA', 'シャ'], u: ['SHU', 'シュ'], o: ['SHO', 'ショ']),
                   StudyTableRow(a: ['CHA', 'チャ'], u: ['CHU', 'チュ'], o: ['CHO', 'チョ']),
@@ -138,7 +137,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyExtraDigraphsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['VYA', 'ヴャ'], u: ['VYU', 'ヴュ'], o: ['VYO', 'ヴョ']),
                   StudyTableRow(a: ['SYA', 'スャ'], u: ['SYU', 'スュ'], o: ['SYO', 'スョ']),
                   StudyTableRow(a: ['ZYA', 'ズャ'], u: ['ZYU', 'ズュ'], o: ['ZYO', 'ズョ']),
@@ -150,7 +149,7 @@ class StudyPage extends StatelessWidget {
               ),
               StudyTable(
                 title: studyExtraDigraphsTitle,
-                rows: const [
+                rows: [
                   StudyTableRow(a: ['TSU', 'ッ'], u: ['-', 'ー']),
                 ],
               ),
