@@ -9,11 +9,8 @@ analyzer:
 linter:
   rules:
     always_put_required_named_parameters_first: false
-    
     avoid_classes_with_only_static_members: false
-
     avoid_positional_boolean_parameters: false
-
     sort_constructors_first: true
-
     prefer_single_quotes: true
+    require_trailing_commas: false
