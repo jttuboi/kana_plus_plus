@@ -8,10 +8,10 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.3
   flutter:
     sdk: flutter
-  flutter_launcher_icons: ^0.9.1
+  flutter_launcher_icons: ^0.9.2
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^0.22.0
@@ -20,21 +20,21 @@ dependencies:
   intl: ^0.17.0
   introduction_screen: ^2.1.0
   launch_review: ^3.0.1
-  logger: ^1.0.0
-  path_provider: ^2.0.2
-  provider: ^5.0.0
-  scroll_to_index: ^2.0.0
+  logger: ^1.1.0
+  path_provider: ^2.0.5
+  provider: ^6.0.0
+  scroll_to_index: ^2.1.0
   share_plus: ^2.1.4
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.8
   step_progress_indicator: ^1.0.1
-  url_launcher: ^6.0.10
+  url_launcher: ^6.0.11
 
 dev_dependencies:
   build_runner: ^2.1.2
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.1
-  lint: ^1.5.3
+  lint: ^1.7.2
   mocktail: ^0.1.4
 
 flutter_icons:
@@ -79,3 +79,19 @@ flutter:
         - asset: lib/assets/fonts/pt_sans/PTSans-BoldItalic.ttf
           style: italic
           weight: 700
+    - family: M PLUS Rounded 1c
+      fonts:
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Thin.ttf
+          weight: 100
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Light.ttf
+          weight: 300
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Regular.ttf
+          weight: 400
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Medium.ttf
+          weight: 500
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Bold.ttf
+          weight: 700
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-ExtraBold.ttf
+          weight: 800
+        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Black.ttf
+          weight: 900

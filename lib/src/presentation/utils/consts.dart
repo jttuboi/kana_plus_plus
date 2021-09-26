@@ -4,6 +4,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 
 const defaultTitleFontFamily = 'Permanent Marker';
 const defaultFontFamily = 'PT Sans';
+const japaneseFontFamily = 'M PLUS Rounded 1c';
 
 final lightTheme = ThemeData(
   brightness: Brightness.light,
