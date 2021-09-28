@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:kana_plus_plus/src/data/datasources/json.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/shared_preferences.storage.dart';
@@ -34,4 +35,5 @@ Future<void> init() async {
   Hive.registerAdapter(KanaStatsAdapter());
   Hive.registerAdapter(WordStatsAdapter());
   Hive.registerAdapter(TrainingStatsAdapter());
+  await MobileAds.instance.initialize();
 }

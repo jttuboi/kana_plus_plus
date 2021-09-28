@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class App {
   App._();
 
@@ -31,6 +33,17 @@ class Default {
 
   static const String contactSubject = 'Contact via Kana++';
   static const String emailSubject = 'Learn hiragana/katakana on Kana++';
+}
+
+String get interstitialAdUnitId {
+  if (Platform.isAndroid) {
+    //return 'ca-app-pub-3940256099942544/1033173712'; // interstitial image
+    return 'ca-app-pub-3940256099942544/8691691433'; // interstitial video
+  } else if (Platform.isIOS) {
+    return 'interstitial IOS UNIT ID';
+  } else {
+    throw UnsupportedError('Unsupported platform');
+  }
 }
 
 String toLanguageText(String localeCode) {
