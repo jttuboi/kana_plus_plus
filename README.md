@@ -1,21 +1,46 @@
-# kana_plus_plus
+# Kana++
 
+## Instruções
 
+### Atualizar o ícone do app
 
-### Instruções
+Para atualizar o ícone do app é utilizado o package [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons).
 
-#### atualizar o ícone do app
-Para atualizar o ícone do app, executar no terminal:
+#### Android
+
+Primeiro precisa criar 3 pngs:
+- `lib/assets/icons/app_icon_background.png`
+- `lib/assets/icons/app_icon_foreground.png`
+- `lib/assets/icons/app_icon.png`
+
+Após isso, executar no terminal:
 ```sh
 flutter pub run flutter_launcher_icons:main
 ```
-O arquivo é `lib/assets/icons/app_icon.png`
 
-> [Flutter Laucher Icons][https://pub.dev/packages/flutter_launcher_icons]
+O package irá gerar automaticamente as imagens necessárias dentro da pasta do android.
 
-### Entendendo a arquitetura do projeto
+Mais informações em: [Android Adaptive Icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)
 
-#### presentation
+Extra: se quiser modificar o splash screen que é mostrado ao abrir o app, modificar o arquivo `android/app/src/main/res/drawable/launch_background.xml`.
+
+Mais informações em: [Splash Screen Flutter](https://flutter.dev/docs/development/ui/advanced/splash-screen)
+
+#### iOS
+
+Para atualizar o app icon para o iOS, precisa descomentar no `pubspec.yaml` a linha `ios: true`.
+
+Obs: Ler em [Note](https://pub.dev/packages/flutter_launcher_icons#mag-attributes) para ver como aplicar o design para app icon no iOS.
+
+Após isso, executar no terminal:
+```sh
+flutter pub run flutter_launcher_icons:main
+```
+
+
+## Entendendo a arquitetura do projeto
+
+### presentation
 Contém a parte visual do projeto. É o único local que deve ter acesso as bibliotecas do Flutter.
 
 ##### arguments

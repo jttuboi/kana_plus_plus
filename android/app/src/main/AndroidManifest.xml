@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kana_plus_plus">
    <application
-        android:label="kana_plus_plus"
-        android:icon="@mipmap/launcher_icon">
+        android:label="Kana++"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
