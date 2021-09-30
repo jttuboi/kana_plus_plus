@@ -13,7 +13,6 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
-    final imageSize = MediaQuery.of(context).size.width * 2 / 3;
     return IntroductionScreen(
       isTopSafeArea: true,
       globalBackgroundColor: Theme.of(context).primaryColor,
@@ -21,30 +20,30 @@ class Introduction extends StatelessWidget {
         PageViewModel(
           title: strings.introTitleWriting,
           body: strings.introWriting,
-          image: Center(child: SvgPicture.asset(ImageUrl.introWriting, width: imageSize, height: imageSize)),
+          image: Center(child: SvgPicture.asset(ImageUrl.introWriting, width: introductionImageSize, height: introductionImageSize)),
           decoration: introductionPageDecoration,
         ),
         PageViewModel(
           title: strings.introTitleVocabulary,
           body: strings.introVocabulary,
-          image: Center(child: SvgPicture.asset(ImageUrl.introVocabulary, width: imageSize, height: imageSize)),
+          image: Center(child: SvgPicture.asset(ImageUrl.introVocabulary, width: introductionImageSize, height: introductionImageSize)),
           decoration: introductionPageDecoration,
         ),
         PageViewModel(
           title: strings.introTitleStudy,
           body: strings.introStudy,
-          image: Center(child: SvgPicture.asset(ImageUrl.introStudy, width: imageSize, height: imageSize)),
+          image: Center(child: SvgPicture.asset(ImageUrl.introStudy, width: introductionImageSize, height: introductionImageSize)),
           decoration: introductionPageDecoration,
         ),
         PageViewModel(
           title: strings.introTitleTraining,
           body: strings.introTraining,
-          image: Center(child: SvgPicture.asset(ImageUrl.introTraining, width: imageSize, height: imageSize)),
+          image: Center(child: SvgPicture.asset(ImageUrl.introTraining, width: introductionImageSize, height: introductionImageSize)),
           decoration: introductionPageDecoration,
         ),
         PageViewModel(
           title: strings.introTitleRecommendation,
-          image: Center(child: SvgPicture.asset(ImageUrl.introRecommendation, width: imageSize, height: imageSize)),
+          image: Center(child: SvgPicture.asset(ImageUrl.introRecommendation, width: introductionImageSize, height: introductionImageSize)),
           bodyWidget: Column(
             children: [
               Text(strings.introRecommendation, textAlign: TextAlign.center, style: introductionPageDecoration.bodyTextStyle),

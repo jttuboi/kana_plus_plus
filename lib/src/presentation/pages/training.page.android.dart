@@ -74,55 +74,63 @@ class TrainingPage extends StatelessWidget {
                 return StepProgressIndicator(
                   currentStep: trainingController.wordIdx,
                   totalSteps: trainingController.quantityOfWords,
-                  size: 5.0,
+                  size: stepProgressIndicatorSize,
                   padding: 0.5,
                   selectedColor: Theme.of(context).colorScheme.secondary,
                   unselectedColor: defaultProgressBarColor,
                 );
               },
             ),
-            Flexible(
-              child: PageView.builder(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: trainingController.numberOfWordsToStudy,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      const Spacer(),
-                      Flexible(
-                        flex: 10,
-                        child: Consumer<TrainingWordProvider>(
-                          builder: (context, value, child) {
-                            return SvgPicture.asset(trainingController.wordImageUrl);
-                          },
-                        ),
-                      ),
-                      const Spacer(),
-                      Flexible(
-                        flex: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: KanaViewers(trainingController: trainingController, wordIdxToShow: index),
-                        ),
-                      ),
-                      const Spacer(),
-                      Flexible(
-                        flex: 12,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                          child: Consumer<WriterProvider>(
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return PageView.builder(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: trainingController.numberOfWordsToStudy,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          const Spacer(),
+                          Consumer<TrainingWordProvider>(
                             builder: (context, value, child) {
-                              return Writer(
-                                writerController: writerController,
-                                onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
-                              );
+                              return SvgPicture.asset(trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30);
                             },
                           ),
-                        ),
-                      ),
-                      const Spacer(),
-                    ],
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: KanaViewers(
+                              width: constraints.maxWidth - 16.0 * 2, // 16 * 2 is the padding size for this content
+                              height: constraints.maxHeight * 4 / 30,
+                              trainingController: trainingController,
+                              wordIdxToShow: index,
+                            ),
+                          ),
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                            child: Row(
+                              children: [
+                                const Spacer(),
+                                Consumer<WriterProvider>(
+                                  builder: (context, value, child) {
+                                    return Writer(
+                                      writerController: writerController,
+                                      width: constraints.maxWidth - 32.0 * 2, // 32 * 2 is the padding size for this content
+                                      height: constraints.maxHeight * 12 / 30,
+                                      onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
+                                    );
+                                  },
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                        ],
+                      );
+                    },
                   );
                 },
               ),

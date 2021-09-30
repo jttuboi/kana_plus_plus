@@ -32,7 +32,7 @@ class AboutPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Image.asset(IconUrl.app),
+                  child: Image.asset(IconUrl.app, width: aboutImageSize, height: aboutImageSize),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -40,7 +40,7 @@ class AboutPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(strings.aboutAppVersionTitle, style: aboutAppVersionTitleTextStyle),
-                      const Text(App.version, style: aboutAppVersionTextStyle),
+                      Text(App.version, style: aboutAppVersionTextStyle),
                     ],
                   ),
                 ),
@@ -50,7 +50,7 @@ class AboutPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(strings.aboutDeveloperTitle, style: aboutDeveloperTitleTextStyle),
-                      const Text(Developer.name, style: aboutDeveloperTextStyle),
+                      Text(Developer.name, style: aboutDeveloperTextStyle),
                     ],
                   ),
                 ),

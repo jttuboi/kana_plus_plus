@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -31,10 +32,10 @@ const darkPurple = Color.fromRGBO(58, 39, 89, 1);
 
 final defaultLocale = JStrings.supportedLocales.first;
 
-const TextStyle sliverFlexibleAppBarTextStyle = TextStyle(
+final TextStyle sliverFlexibleAppBarTextStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
-  fontSize: 40,
+  fontSize: Device.get().isTablet ? 56 : 40,
   fontFamily: defaultTitleFontFamily,
 );
 
@@ -45,20 +46,26 @@ double appBarExpandedHeight(BuildContext context) {
 const Color defaultTileIconColor = Colors.grey;
 const double defaultTileIconSize = 40;
 
-const menuTitleTextStyle = TextStyle(
+final menuTitleTextStyle = TextStyle(
   color: Colors.white,
-  fontSize: 100,
+  fontSize: Device.get().isTablet ? 160 : 100,
   fontWeight: FontWeight.w700,
   fontFamily: defaultTitleFontFamily,
 );
 
+final menuGridButtonsSpacing = Device.get().isTablet ? 32.0 : 16.0;
+final menuGridButtonsPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96.0, vertical: 16.0) : const EdgeInsets.all(16.0);
+
+final menuButtonIconSize = Device.get().isTablet ? 160.0 : 80.0;
 final menuButtonIconColor = Colors.grey.shade200;
 
 final menuButtonTextStyle = TextStyle(
   color: menuButtonIconColor,
-  fontSize: 30,
+  fontSize: Device.get().isTablet ? 50 : 30,
   fontFamily: defaultTitleFontFamily,
 );
+
+final menuExtraButtonIconSize = Device.get().isTablet ? 80.0 : 48.0;
 
 final menuBackgroundBackPaint = Paint()..color = Colors.deepPurple.shade200;
 
@@ -73,6 +80,8 @@ final menuBackgroundFrontPaint = Paint()..color = darkPurple;
 final menuBackgroundFrontBlurPaint = Paint()
   ..color = Colors.black87
   ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 10);
+
+final introductionImageSize = Device.get().isTablet ? Device.screenWidth * 1 / 2 : Device.screenWidth * 2 / 3;
 
 final introductionDotsDecorator = DotsDecorator(
   size: const Size(10, 10),
@@ -104,14 +113,18 @@ final introductionPageDecoration = PageDecoration(
 const introductionButtonTextStyle = TextStyle(fontSize: 17.0, letterSpacing: 1.0, fontWeight: FontWeight.bold);
 final introductionButtonStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(darkPurple));
 
-const studyTextStyleText = TextStyle(fontSize: 16.0);
-const studyTitleTextStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
+final studyTitleFontSize = Device.get().isTablet ? 28.0 : 18.0;
+final studyTextFontSize = Device.get().isTablet ? 24.0 : 16.0;
+final studyTableTextFontSize = Device.get().isTablet ? 24.0 : 18.0;
+
+final studyTitleTextStyle = TextStyle(fontSize: studyTitleFontSize, fontWeight: FontWeight.bold);
+final studyTextStyleText = TextStyle(fontSize: studyTextFontSize);
 
 final studyTableDecoration = BoxDecoration(
   borderRadius: BorderRadius.circular(8.0),
   color: Colors.deepPurple,
 );
-final studyTableTitleTextStyle = TextStyle(color: studyTableTitleColor, fontSize: 18.0);
+final studyTableTitleTextStyle = TextStyle(color: studyTableTitleColor, fontSize: studyTableTextFontSize);
 final studyTableTitleColor = Colors.grey.shade300;
 
 final studyTableRowDecoration = BoxDecoration(
@@ -121,7 +134,7 @@ final studyTableRowDecoration = BoxDecoration(
 const studyTableRowHeight = 64.0;
 
 const studyTableContentKanaTextStyle = TextStyle(fontSize: 32, fontWeight: FontWeight.bold);
-const studyTableContentRomajiTextStyle = TextStyle(fontSize: 18.0);
+final studyTableContentRomajiTextStyle = TextStyle(fontSize: studyTableTextFontSize);
 final studyTableContentButtonStyle = ButtonStyle(
   fixedSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
   minimumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
@@ -136,59 +149,73 @@ final preTrainingPlayIconThemeData = IconThemeData(
   size: 40.0,
 );
 
-final Color defaultProgressBarColor = Colors.grey.shade400;
+final defaultProgressBarColor = Colors.grey.shade400;
+final stepProgressIndicatorSize = Device.get().isTablet ? 6.0 : 5.0;
 
-final Color correctBorderColor = Colors.blueAccent;
-final Color wrongBorderColor = Colors.redAccent;
-final Color defaultBorderColor = Colors.grey.shade500;
+final correctBorderColor = Colors.blueAccent;
+final wrongBorderColor = Colors.redAccent;
+final defaultBorderColor = Colors.grey.shade500;
 
 final writerButtonStyle = ButtonStyle(
   backgroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
   overlayColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
-  side: MaterialStateBorderSide.resolveWith((states) => const BorderSide(color: Colors.grey)),
+  side: MaterialStateBorderSide.resolveWith((states) => BorderSide(color: Colors.grey, width: Device.get().isTablet ? 2 : 1)),
   animationDuration: const Duration(milliseconds: 50),
   enableFeedback: false,
 );
-final Color writerIconButtonColor = Colors.grey.shade700;
+final writerIconButtonColor = Colors.grey.shade700;
+final writerIconButtonSize = Device.get().isTablet ? 56.0 : 32.0;
+final writerBorderWidth = Device.get().isTablet ? 15.0 : 9.0;
+
+final kanaViewerBorderWidth = Device.get().isTablet ? 8.0 : 4.0;
+
+final romajiVieverTextStyle = TextStyle(
+  color: const Color(0xff4d4d4d),
+  fontSize: romajiViewerFontSize,
+  fontFamily: defaultFontFamily,
+  fontWeight: FontWeight.bold,
+);
+final romajiViewerFontSize = Device.get().isTablet ? 80.0 : 50.0;
 
 final allStrokesPaint = Paint()
   ..isAntiAlias = true
-  ..strokeWidth = 14.0
+  ..strokeWidth = Device.get().isTablet ? 22.0 : 14.0
   ..strokeCap = StrokeCap.round
   ..strokeJoin = StrokeJoin.round
   ..color = Colors.black;
 
 final drawingStrokePaint = Paint()
   ..isAntiAlias = true
-  ..strokeWidth = 18.0
+  ..strokeWidth = Device.get().isTablet ? 26.0 : 18.0
   ..strokeCap = StrokeCap.round
   ..strokeJoin = StrokeJoin.round
   ..color = Colors.black87;
 
 final userStrokesPaint = Paint()
   ..isAntiAlias = true
-  ..strokeWidth = 5.0
+  ..strokeWidth = Device.get().isTablet ? 9.0 : 5.0
   ..strokeCap = StrokeCap.round
   ..strokeJoin = StrokeJoin.round
   ..color = Colors.black;
 
 const reviewTileTitleStyle = TextStyle(fontWeight: FontWeight.bold);
 
-const wordDetailTitleStyle = TextStyle(fontSize: 30);
-final wordDetailContentStyle = TextStyle(fontSize: 25, color: Colors.grey.shade600);
+final wordDetailPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 36.0) : const EdgeInsets.symmetric(horizontal: 24.0);
+final wordDetailTitleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
+final wordDetailContentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
 
-const aboutAppVersionTitleTextStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
+final kanaDetailHeight = Device.get().isTablet ? 80.0 : 40.0;
+final kanaDetailSpaceBetweenKanas = Device.get().isTablet ? 6.0 : 2.0;
 
-const aboutAppVersionTextStyle = TextStyle(fontSize: 18.0);
-
-const aboutDeveloperTitleTextStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
-
-const aboutDeveloperTextStyle = TextStyle(fontSize: 20.0);
-
-const aboutContactTextStyle = TextStyle(fontSize: 18.0, color: Colors.blue, decoration: TextDecoration.underline);
-
+final aboutImageSize = Device.screenWidth * 1 / 3;
+final aboutFontSize = Device.get().isTablet ? 28.0 : 20.0;
+final aboutAppVersionTitleTextStyle = TextStyle(fontSize: aboutFontSize, fontWeight: FontWeight.bold);
+final aboutAppVersionTextStyle = TextStyle(fontSize: aboutFontSize);
+final aboutDeveloperTitleTextStyle = TextStyle(fontSize: aboutFontSize, fontWeight: FontWeight.bold);
+final aboutDeveloperTextStyle = TextStyle(fontSize: aboutFontSize);
+final aboutContactTextStyle = TextStyle(fontSize: aboutFontSize, color: Colors.blue, decoration: TextDecoration.underline);
 final aboutIconTextStyle = TextStyle(
-  fontSize: 18.0,
+  fontSize: Device.get().isTablet ? 24.0 : 18.0,
   fontWeight: FontWeight.bold,
   color: Colors.deepPurple.withOpacity(0.8),
 );

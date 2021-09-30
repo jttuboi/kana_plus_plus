@@ -5,27 +5,47 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "kana_plus_plus",
+            "name": "kana",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "kana_plus_plus (debug mode)",
+            "name": "kana debug",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug"
         },
         {
-            "name": "kana_plus_plus (release mode)",
+            "name": "kana release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
         },
         {
-            "name": "kana_plus_plus (profile mode)",
+            "name": "kana profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
+        },
+        {
+            "name": "kana android phone debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "emulator-5556"
+        },
+        {
+            "name": "kana android tablet debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "emulator-5554"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "all",
+            "configurations": ["kana android phone debug", "kana android tablet debug"],
         }
     ]
 }

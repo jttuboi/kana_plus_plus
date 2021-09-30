@@ -13,10 +13,14 @@ import 'package:provider/provider.dart';
 class Writer extends StatelessWidget {
   const Writer({
     Key? key,
+    required this.width,
+    required this.height,
     required this.writerController,
     required this.onKanaRecovered,
   }) : super(key: key);
 
+  final double width;
+  final double height;
   final WriterController writerController;
   final Function(List<List<Offset>> strokes, String kanaIdWrote) onKanaRecovered;
 
@@ -32,69 +36,87 @@ class Writer extends StatelessWidget {
   }
 
   Widget _buildRightHand() {
+    final widths = getWidths();
     return Row(
       children: [
-        const _SupportButtons(),
-        const SizedBox(width: 8.0),
-        _buildDrawer(),
+        _SupportButtons(width: widths['buttonsWidth']!, height: widths['drawerSize']!),
+        SizedBox(width: widths['space']),
+        _Drawer(drawerSize: widths['drawerSize']!, writerController: writerController, onKanaRecovered: onKanaRecovered),
       ],
     );
   }
 
   Widget _buildLeftHand() {
+    final widths = getWidths();
     return Row(
       children: [
-        _buildDrawer(),
-        const SizedBox(width: 8.0),
-        const _SupportButtons(),
+        _Drawer(drawerSize: widths['drawerSize']!, writerController: writerController, onKanaRecovered: onKanaRecovered),
+        SizedBox(width: widths['space']),
+        _SupportButtons(width: widths['buttonsWidth']!, height: widths['drawerSize']!),
       ],
     );
   }
 
-  Widget _buildDrawer() {
-    return Expanded(
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: _Drawer(writerController: writerController, onKanaRecovered: onKanaRecovered),
-      ),
-    );
+//   |-------------------w--------------------|
+//
+//        +-----+   +--------------------+     ---
+//        |     |   |                    |      |
+//        |  b  |   |                    |      |
+//        |     |   |                    |      |
+//        +-----+ s |          d         |      h
+//        |     |   |                    |      |
+//        |  b  |   |                    |      |
+//        |     |   |                    |      |
+//        +-----+   +--------------------+     ---
+//
+//        |--x--|-x-|---------4x---------|
+//                8
+  Map<String, double> getWidths() {
+    final theWidthIsGreater = width > height * 41 / 32;
+    final x = theWidthIsGreater ? height / 4 : width * 8 / 41;
+    return {'buttonsWidth': x, 'space': x / 8, 'drawerSize': 4 * x};
   }
 }
 
 class _SupportButtons extends StatelessWidget {
-  const _SupportButtons({Key? key}) : super(key: key);
+  const _SupportButtons({Key? key, required this.width, required this.height}) : super(key: key);
+
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 12.0),
-        Flexible(
-          fit: FlexFit.tight,
+        SizedBox(height: height * 2 / 55),
+        SizedBox(
+          width: width,
+          height: height * 25 / 55,
           child: Consumer<WriterProvider>(
             builder: (context, provider, child) {
               return ElevatedButton(
                 style: writerButtonStyle,
                 onPressed: provider.isDisabled ? null : () => _clearStrokes(context),
-                child: SvgPicture.asset(IconUrl.eraser, color: writerIconButtonColor, width: 32),
+                child: SvgPicture.asset(IconUrl.eraser, color: writerIconButtonColor, width: writerIconButtonSize),
               );
             },
           ),
         ),
-        const SizedBox(height: 8.0),
-        Flexible(
-          fit: FlexFit.tight,
+        SizedBox(height: height * 1 / 55),
+        SizedBox(
+          width: width,
+          height: height * 25 / 55,
           child: Consumer<WriterProvider>(
             builder: (context, provider, child) {
               return ElevatedButton(
                 style: writerButtonStyle,
                 onPressed: provider.isDisabled ? null : () => _undoStroke(context),
-                child: SvgPicture.asset(IconUrl.undo, color: writerIconButtonColor, width: 32),
+                child: SvgPicture.asset(IconUrl.undo, color: writerIconButtonColor, width: writerIconButtonSize),
               );
             },
           ),
         ),
-        const SizedBox(height: 12.0),
+        SizedBox(height: height * 2 / 55),
       ],
     );
   }
@@ -113,66 +135,62 @@ class _SupportButtons extends StatelessWidget {
 class _Drawer extends StatelessWidget {
   const _Drawer({
     Key? key,
+    required this.drawerSize,
     required this.writerController,
     required this.onKanaRecovered,
   }) : super(key: key);
 
+  final double drawerSize;
   final WriterController writerController;
   final Function(List<List<Offset>> strokes, String kanaIdWrote) onKanaRecovered;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final size = constraints.maxWidth;
+    final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
+    currentStrokeProvider.setCanvasLimit(16.0, drawerSize - 16.0);
 
-        final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-        currentStrokeProvider.setCanvasLimit(16.0, size - 16.0);
-
-        return Stack(
-          children: [
-            CustomPaint(painter: BorderPainter(borderWidth: 9.0, borderColor: defaultBorderColor), size: Size.square(size)),
-            Consumer<WriterProvider>(
-              builder: (context, provider, child) {
-                return (writerController.showHint)
-                    ? SvgPicture.asset(writerController.kanaHintImageUrl, height: size, width: size, fit: BoxFit.cover)
-                    : Container();
-              },
-            ),
-            SizedBox(
-              height: size,
-              width: size,
-              child: Consumer<AllStrokesProvider>(
-                builder: (context, provider, child) {
-                  return RepaintBoundary(
-                    child: CustomPaint(isComplex: true, painter: _AllStrokesPainter(provider.strokes)),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: size,
-              width: size,
-              child: Consumer<WriterProvider>(
-                builder: (context, writerProvider, child) {
-                  return GestureDetector(
-                    onPanStart: writerProvider.isDisabled ? null : (details) => _startStroke(details, context, size),
-                    onPanUpdate: writerProvider.isDisabled ? null : (details) => _updateStroke(details, context),
-                    onPanEnd: writerProvider.isDisabled ? null : (details) => _finishStroke(context),
-                    child: Consumer<CurrentStrokeProvider>(
-                      builder: (context, provider, child) {
-                        return RepaintBoundary(
-                          child: CustomPaint(isComplex: true, painter: _CurrentStrokePainter(provider.points)),
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        );
-      },
+    return Stack(
+      children: [
+        CustomPaint(painter: BorderPainter(borderWidth: writerBorderWidth, borderColor: defaultBorderColor), size: Size.square(drawerSize)),
+        Consumer<WriterProvider>(
+          builder: (context, provider, child) {
+            return (writerController.showHint)
+                ? SvgPicture.asset(writerController.kanaHintImageUrl, height: drawerSize, width: drawerSize, fit: BoxFit.cover)
+                : Container();
+          },
+        ),
+        SizedBox(
+          height: drawerSize,
+          width: drawerSize,
+          child: Consumer<AllStrokesProvider>(
+            builder: (context, provider, child) {
+              return RepaintBoundary(
+                child: CustomPaint(isComplex: true, painter: _AllStrokesPainter(provider.strokes)),
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: drawerSize,
+          width: drawerSize,
+          child: Consumer<WriterProvider>(
+            builder: (context, writerProvider, child) {
+              return GestureDetector(
+                onPanStart: writerProvider.isDisabled ? null : (details) => _startStroke(details, context, drawerSize),
+                onPanUpdate: writerProvider.isDisabled ? null : (details) => _updateStroke(details, context),
+                onPanEnd: writerProvider.isDisabled ? null : (details) => _finishStroke(context),
+                child: Consumer<CurrentStrokeProvider>(
+                  builder: (context, provider, child) {
+                    return RepaintBoundary(
+                      child: CustomPaint(isComplex: true, painter: _CurrentStrokePainter(provider.points)),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 

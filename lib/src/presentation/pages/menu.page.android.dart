@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
@@ -49,7 +50,7 @@ class _MenuContent extends StatelessWidget {
       child: Column(
         children: [
           Flexible(
-            flex: 3,
+            flex: Device.get().isTablet ? 1 : 3,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -60,21 +61,21 @@ class _MenuContent extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 7,
+            flex: Device.get().isTablet ? 3 : 7,
             child: GridView.count(
-              mainAxisSpacing: 16.0,
-              crossAxisSpacing: 16.0,
+              mainAxisSpacing: menuGridButtonsSpacing,
+              crossAxisSpacing: menuGridButtonsSpacing,
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(16.0),
+              padding: menuGridButtonsPadding,
               children: [
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamed(context, Routes.study),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(IconUrl.study, width: 80, height: 80, color: menuButtonIconColor),
+                      SvgPicture.asset(IconUrl.study, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
                       const SizedBox(height: 4.0),
                       FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuStudy, style: menuButtonTextStyle)),
                     ],
@@ -85,7 +86,7 @@ class _MenuContent extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(IconUrl.training, width: 80, height: 80, color: menuButtonIconColor),
+                      SvgPicture.asset(IconUrl.training, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
                       const SizedBox(height: 4.0),
                       FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuTraining, style: menuButtonTextStyle)),
                     ],
@@ -96,7 +97,7 @@ class _MenuContent extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(IconUrl.words, width: 80, height: 80, color: menuButtonIconColor),
+                      SvgPicture.asset(IconUrl.words, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
                       const SizedBox(height: 4.0),
                       FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuWords, style: menuButtonTextStyle)),
                     ],
@@ -107,7 +108,7 @@ class _MenuContent extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(IconUrl.settings, width: 80, height: 80, color: menuButtonIconColor),
+                      SvgPicture.asset(IconUrl.settings, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
                       const SizedBox(height: 4.0),
                       FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuSettings, style: menuButtonTextStyle)),
                     ],
@@ -134,10 +135,10 @@ class _MenuExtra extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
-          ShareButton(iconSize: 48),
-          SizedBox(width: 4.0),
-          SupportButton(iconSize: 48),
+        children: [
+          ShareButton(iconSize: menuExtraButtonIconSize),
+          const SizedBox(width: 4.0),
+          SupportButton(iconSize: menuExtraButtonIconSize),
         ],
       ),
     );

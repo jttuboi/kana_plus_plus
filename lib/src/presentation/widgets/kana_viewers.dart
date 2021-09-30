@@ -8,10 +8,14 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 class KanaViewers extends StatefulWidget {
   const KanaViewers({
     Key? key,
+    required this.width,
+    required this.height,
     required this.trainingController,
     required this.wordIdxToShow,
   }) : super(key: key);
 
+  final double width;
+  final double height;
   final TrainingController trainingController;
   final int wordIdxToShow;
 
@@ -55,23 +59,27 @@ class _KanaViewersState extends State<KanaViewers> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TrainingKanaProvider>(
-      builder: (context, value, child) {
-        return ListView.separated(
-          scrollDirection: Axis.horizontal,
-          controller: _autoScrollController,
-          itemCount: widget.trainingController.maxKanasOfWord(widget.wordIdxToShow),
-          itemBuilder: (context, index) {
-            return AutoScrollTag(
-              key: ValueKey(index),
-              controller: _autoScrollController,
-              index: index,
-              child: KanaViewer(widget.trainingController.kanaOfWord(widget.wordIdxToShow, index)),
-            );
-          },
-          separatorBuilder: (context, index) => const SizedBox(width: 5),
-        );
-      },
+    return SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: Consumer<TrainingKanaProvider>(
+        builder: (context, value, child) {
+          return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            controller: _autoScrollController,
+            itemCount: widget.trainingController.maxKanasOfWord(widget.wordIdxToShow),
+            itemBuilder: (context, index) {
+              return AutoScrollTag(
+                key: ValueKey(index),
+                controller: _autoScrollController,
+                index: index,
+                child: KanaViewer(widget.trainingController.kanaOfWord(widget.wordIdxToShow, index), size: widget.height),
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 5),
+          );
+        },
+      ),
     );
   }
 }

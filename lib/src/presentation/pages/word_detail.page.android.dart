@@ -30,7 +30,7 @@ class WordDetailPage extends StatelessWidget {
               child: InkWell(
                 onTap: () => Navigator.pop(context),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  padding: wordDetailPadding,
                   child: Column(
                     children: [
                       const Spacer(),

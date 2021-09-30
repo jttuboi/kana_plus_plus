@@ -8,8 +8,9 @@ import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
 
 class KanaViewer extends StatefulWidget {
-  const KanaViewer(this.content, {Key? key}) : super(key: key);
+  const KanaViewer(this.content, {Key? key, required this.size}) : super(key: key);
 
+  final double size;
   final KanaViewerContent content;
 
   @override
@@ -43,40 +44,36 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final size = Size(widget.size, widget.size);
     return Center(
       child: AspectRatio(
         aspectRatio: 1.0,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final size = Size(constraints.maxWidth, constraints.maxHeight);
-
-            return Stack(
-              children: [
-                if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
-                CustomPaint(
-                  painter: BorderPainter(
-                      borderWidth: 4.0,
-                      borderColor: (widget.content.status.isShowCorrect)
-                          ? correctBorderColor
-                          : (widget.content.status.isShowWrong)
-                              ? wrongBorderColor
-                              : defaultBorderColor),
-                  size: size,
+        child: Stack(
+          children: [
+            if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
+            CustomPaint(
+              painter: BorderPainter(
+                  borderWidth: kanaViewerBorderWidth,
+                  borderColor: (widget.content.status.isShowCorrect)
+                      ? correctBorderColor
+                      : (widget.content.status.isShowWrong)
+                          ? wrongBorderColor
+                          : defaultBorderColor),
+              size: size,
+            ),
+            if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
+              RomajiViewer(widget.content.romaji)
+            else ...[
+              SvgPicture.asset(widget.content.kanaImageUrl, width: size.width, height: size.height),
+              Center(
+                child: SizedBox(
+                  width: size.width - 8.0,
+                  height: size.height - 8.0,
+                  child: UserKanaViewer(strokes: widget.content.strokesDrew, size: size),
                 ),
-                if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
-                  RomajiViewer(widget.content.romaji)
-                else ...[
-                  SvgPicture.asset(widget.content.kanaImageUrl),
-                  Center(
-                      child: SizedBox(
-                    width: size.width - 8.0,
-                    height: size.height - 8.0,
-                    child: UserKanaViewer(strokes: widget.content.strokesDrew, size: size),
-                  )),
-                ],
-              ],
-            );
-          },
+              ),
+            ],
+          ],
         ),
       ),
     );
@@ -93,20 +90,16 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
           );
         },
       ),
-      LayoutBuilder(
-        builder: (context, constraints) {
-          return ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-              child: Container(
-                alignment: Alignment.center,
-                width: constraints.maxHeight,
-                height: constraints.maxHeight,
-                color: Colors.transparent,
-              ),
-            ),
-          );
-        },
+      ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+          child: Container(
+            alignment: Alignment.center,
+            width: widget.size,
+            height: widget.size,
+            color: Colors.transparent,
+          ),
+        ),
       ),
     ];
   }
@@ -120,10 +113,7 @@ class RomajiViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        romaji,
-        style: const TextStyle(color: Color(0xff4d4d4d), fontSize: 50),
-      ),
+      child: Text(romaji, style: romajiVieverTextStyle),
     );
   }
 }
