@@ -6,12 +6,12 @@ import 'package:kana_plus_plus/src/data/datasources/json.storage.dart';
 import 'package:kana_plus_plus/src/data/datasources/shared_preferences.storage.dart';
 import 'package:kana_plus_plus/src/data/singletons/database.dart';
 import 'package:kana_plus_plus/src/data/singletons/file.dart';
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_stats.dart';
 import 'package:kana_plus_plus/src/domain/entities/point_stats.dart';
 import 'package:kana_plus_plus/src/domain/entities/stroke_stats.dart';
 import 'package:kana_plus_plus/src/domain/entities/training_stats.dart';
 import 'package:kana_plus_plus/src/domain/entities/word_stats.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
 import 'package:kana_plus_plus/src/presentation/app.android.dart';
 import 'package:path_provider/path_provider.dart';
 

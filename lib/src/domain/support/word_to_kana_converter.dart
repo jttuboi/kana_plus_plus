@@ -1,5 +1,5 @@
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
 
 class WordToKanaConverter {
   List<Kana> convert(String wordId, Map<String, Kana> kanasJson) {

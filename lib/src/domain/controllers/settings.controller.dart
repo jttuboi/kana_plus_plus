@@ -1,6 +1,4 @@
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_type_data.dart';
 import 'package:kana_plus_plus/src/domain/entities/writing_hand_data.dart';
 import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repository.dart';
@@ -9,6 +7,8 @@ import 'package:kana_plus_plus/src/domain/repositories/language.interface.reposi
 import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/utils/writing_hand.dart';
 
 class SettingsController {
   SettingsController({

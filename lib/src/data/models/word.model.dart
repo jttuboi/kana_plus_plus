@@ -1,7 +1,7 @@
 import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
 import 'package:kana_plus_plus/src/data/utils/consts.dart';
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
 
 class WordModel extends Word {
   WordModel({

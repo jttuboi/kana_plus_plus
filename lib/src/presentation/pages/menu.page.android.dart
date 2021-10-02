@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
 import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
-import 'package:kana_plus_plus/src/domain/core/consts.dart';
+import 'package:kana_plus_plus/src/domain/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/introduction.dart';

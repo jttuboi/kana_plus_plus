@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/selection_option.arguments.dart';
+import 'package:kana_plus_plus/src/presentation/arguments/selection_option_arguments.dart';
 import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
 import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
 

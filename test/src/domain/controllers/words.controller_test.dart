@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana.dart';
 import 'package:kana_plus_plus/src/domain/entities/translate.dart';
 import 'package:kana_plus_plus/src/domain/entities/word.dart';
 import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

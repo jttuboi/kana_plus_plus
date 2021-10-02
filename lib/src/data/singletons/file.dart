@@ -1,6 +1,6 @@
 import 'package:kana_plus_plus/src/data/datasources/file.interface.storage.dart';
 import 'package:kana_plus_plus/src/data/models/word.model.dart';
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
 
 class File {
   // singleton

@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
-import 'package:kana_plus_plus/src/domain/core/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/core/writing_hand.dart';
 import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
 import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
 import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
 import 'package:kana_plus_plus/src/domain/support/stroke_reducer.dart';
+import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kana_plus_plus/src/domain/utils/writing_hand.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
