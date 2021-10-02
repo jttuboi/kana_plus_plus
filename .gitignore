@@ -1,3 +1,7 @@
+# ignore keystore.
+key.properties
+app/upload-keystore.jks
+
 # Ignore files of sandbox. It's a folder for tests.
 sandbox/
 lib/assets/tests/
