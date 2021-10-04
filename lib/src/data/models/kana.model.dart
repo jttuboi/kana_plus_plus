@@ -24,7 +24,7 @@ class KanaModel extends Kana {
     return KanaModel(
       id: json[TKanas.id] as String,
       type: toKanaType(json[TKanas.type] as String),
-      imageUrl: ImageUrl.imageTestFolder + (json[TKanas.imageUrl] as String),
+      imageUrl: ImageUrl.imageFolder + (json[TKanas.imageUrl] as String),
       romaji: json[TKanas.romaji] as String,
       strokesQuantity: json[TKanas.strokesQuantity] as int,
     );

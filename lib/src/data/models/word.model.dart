@@ -23,7 +23,7 @@ class WordModel extends Word {
       id: json[TWords.id] as String,
       romaji: json[TWords.romaji] as String,
       type: toKanaType(json[TWords.type] as String),
-      imageUrl: ImageUrl.imageTestFolder + (json[TWords.imageUrl] as String),
+      imageUrl: ImageUrl.imageFolder + (json[TWords.imageUrl] as String),
     );
   }
 }

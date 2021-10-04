@@ -1,16 +1,15 @@
 class ImageUrl {
   ImageUrl._();
 
-  static const imageTestFolder = 'sandbox/assets/images/';
   static const imageFolder = 'lib/assets/images/';
 
   static const empty = '${imageFolder}empty.svg';
 
-  static const introRecommendation = '${imageTestFolder}menu/introduction/recommendation.svg';
-  static const introStudy = '${imageTestFolder}menu/introduction/study.svg';
-  static const introTraining = '${imageTestFolder}menu/introduction/training.svg';
-  static const introVocabulary = '${imageTestFolder}menu/introduction/vocabulary.svg';
-  static const introWriting = '${imageTestFolder}menu/introduction/writing.svg';
+  static const introRecommendation = '${imageFolder}menu/introduction/recommendation.svg';
+  static const introStudy = '${imageFolder}menu/introduction/study.svg';
+  static const introTraining = '${imageFolder}menu/introduction/training.svg';
+  static const introVocabulary = '${imageFolder}menu/introduction/vocabulary.svg';
+  static const introWriting = '${imageFolder}menu/introduction/writing.svg';
 
   static final List<String> menuKanas = [
     '${imageFolder}menu/kanas/あ.svg',
