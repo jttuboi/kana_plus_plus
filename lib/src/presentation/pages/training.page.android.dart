@@ -16,7 +16,7 @@ import 'package:kana_plus_plus/src/presentation/widgets/writer.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class TrainingPage extends StatelessWidget {
+class TrainingPage extends StatefulWidget {
   TrainingPage({
     Key? key,
     required this.trainingController,
@@ -25,18 +25,24 @@ class TrainingPage extends StatelessWidget {
 
   final TrainingController trainingController;
   final WriterController writerController;
+
+  @override
+  State<TrainingPage> createState() => _TrainingPageState();
+}
+
+class _TrainingPageState extends State<TrainingPage> {
   final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => TrainingWordProvider()),
-        ChangeNotifierProvider(create: (context) => TrainingKanaProvider(trainingController)),
-        ChangeNotifierProvider(create: (context) => WriterProvider(writerController)),
+        ChangeNotifierProvider<TrainingWordProvider>(create: (context) => TrainingWordProvider()),
+        ChangeNotifierProvider<TrainingKanaProvider>(create: (context) => TrainingKanaProvider(widget.trainingController)),
+        ChangeNotifierProvider<WriterProvider>(create: (context) => WriterProvider(widget.writerController)),
       ],
       child: FutureBuilder<bool>(
-        future: trainingController.isReady,
+        future: widget.trainingController.isReady,
         builder: (context2, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return _buildLoader();
@@ -45,7 +51,7 @@ class TrainingPage extends StatelessWidget {
             return _buildError(context2);
           }
           if (snapshot.hasData && snapshot.data! == true) {
-            writerController.updateWriter(trainingController.currentKanaToWrite);
+            widget.writerController.updateWriter(widget.trainingController.currentKanaToWrite);
             return _buildData(context2);
           }
           return _buildNoData(context2);
@@ -72,8 +78,8 @@ class TrainingPage extends StatelessWidget {
             Consumer<TrainingWordProvider>(
               builder: (context, value, child) {
                 return StepProgressIndicator(
-                  currentStep: trainingController.wordIdx,
-                  totalSteps: trainingController.quantityOfWords,
+                  currentStep: widget.trainingController.wordIdx,
+                  totalSteps: widget.trainingController.quantityOfWords,
                   size: stepProgressIndicatorSize,
                   padding: 0.5,
                   selectedColor: Theme.of(context).colorScheme.secondary,
@@ -87,14 +93,14 @@ class TrainingPage extends StatelessWidget {
                   return PageView.builder(
                     controller: _pageController,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: trainingController.numberOfWordsToStudy,
+                    itemCount: widget.trainingController.numberOfWordsToStudy,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
                           const Spacer(),
                           Consumer<TrainingWordProvider>(
                             builder: (context, value, child) {
-                              return SvgPicture.asset(trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30);
+                              return SvgPicture.asset(widget.trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30);
                             },
                           ),
                           const Spacer(),
@@ -103,7 +109,7 @@ class TrainingPage extends StatelessWidget {
                             child: KanaViewers(
                               width: constraints.maxWidth - 16.0 * 2, // 16 * 2 is the padding size for this content
                               height: constraints.maxHeight * 4 / 30,
-                              trainingController: trainingController,
+                              trainingController: widget.trainingController,
                               wordIdxToShow: index,
                             ),
                           ),
@@ -116,7 +122,7 @@ class TrainingPage extends StatelessWidget {
                                 Consumer<WriterProvider>(
                                   builder: (context, value, child) {
                                     return Writer(
-                                      writerController: writerController,
+                                      writerController: widget.writerController,
                                       width: constraints.maxWidth - 32.0 * 2, // 32 * 2 is the padding size for this content
                                       height: constraints.maxHeight * 12 / 30,
                                       onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
@@ -186,7 +192,7 @@ class TrainingPage extends StatelessWidget {
   void _goToNextWord(BuildContext context) {
     _pageController
         .animateToPage(
-      trainingController.wordIdx,
+      widget.trainingController.wordIdx,
       duration: const Duration(milliseconds: 500),
       curve: Curves.linear,
     )
@@ -198,8 +204,8 @@ class TrainingPage extends StatelessWidget {
   }
 
   void _goToReviewPage(BuildContext context) {
-    final wordsResult = trainingController.wordsResult;
-    trainingController.updateStatistics(wordsResult);
+    final wordsResult = widget.trainingController.wordsResult;
+    widget.trainingController.updateStatistics(wordsResult);
 
     Navigator.pushNamedAndRemoveUntil(
       context,
@@ -211,7 +217,7 @@ class TrainingPage extends StatelessWidget {
 
   void _updateWriterData(BuildContext context) {
     final writerProvider = Provider.of<WriterProvider>(context, listen: false);
-    writerProvider.updateWriter(trainingController.currentKanaToWrite);
+    writerProvider.updateWriter(widget.trainingController.currentKanaToWrite);
   }
 
   Widget _buildLoader() {

@@ -53,6 +53,7 @@ class AndroidApp extends StatelessWidget {
         return Consumer<LocaleProvider>(builder: (context, localeProvider, child) {
           return MaterialApp(
             title: App.title,
+            debugShowCheckedModeBanner: false,
             localizationsDelegates: JStrings.localizationsDelegates,
             supportedLocales: JStrings.supportedLocales,
             themeMode: ThemeMode.light, //themeProvider.mode,

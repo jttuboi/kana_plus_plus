@@ -9,7 +9,13 @@ O uso de imagens dos objetos também foi utilizado para associar a ela e evitar 
 Como extra, o aprendiz ganha um vocabulário inicial.
 
 Para mais informações, acesse o app na Play Store.
-< colocar o link da play store aqui >
+https://play.google.com/store/apps/details?id=com.kana_plus_plus
+
+<img src="/github/Screenshot_1.png" width="270" height="570" />
+<img src="/github/Screenshot_2.png" width="270" height="570" />
+<img src="/github/Screenshot_3.png" width="270" height="570" />
+<img src="/github/Screenshot_4.png" width="270" height="570" />
+<img src="/github/Screenshot_5.png" width="270" height="570" />
 
 ## Sobre o projeto
 
