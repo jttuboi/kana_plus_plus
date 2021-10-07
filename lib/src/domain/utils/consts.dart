@@ -6,10 +6,10 @@ class App {
   static const String title = 'KWriting';
   static const String version = '1.0.0'; // mudar a versão do app aqui. procurar como deixar automático.
 
-  static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.tuboistudios.kwriting';
+  static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.kana_plus_plus';
   static const String appStoreUrl = '';
 
-  static const String androidId = 'com.tuboistudios.kwriting';
+  static const String androidId = 'com.kana_plus_plus';
   static const String iosId = '';
 
   static const String privacyPolicyUrl = 'https://tuboi-studios.github.io/kwriting_terms_of_use_and_privacy_policy';
