@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/study_table.provider.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/study_table_row.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/presentation/state_management/study_table.provider.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/study_table_row.dart';
 import 'package:provider/provider.dart';
 
 class StudyTable extends StatelessWidget {

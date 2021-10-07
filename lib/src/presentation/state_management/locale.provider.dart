@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
+import 'package:kwriting/src/domain/controllers/app.controller.dart';
 
 class LocaleProvider extends ChangeNotifier {
   LocaleProvider(this._controller);

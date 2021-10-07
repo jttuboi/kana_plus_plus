@@ -1,6 +1,6 @@
-import 'package:kana_plus_plus/src/domain/entities/word.dart';
-import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/utils/loaded_by.dart';
+import 'package:kwriting/src/domain/entities/word.dart';
+import 'package:kwriting/src/domain/repositories/word.interface.repository.dart';
+import 'package:kwriting/src/domain/utils/loaded_by.dart';
 
 class WordsController {
   WordsController({required this.wordRepository});

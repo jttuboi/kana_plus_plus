@@ -1,5 +1,5 @@
-import 'package:kana_plus_plus/src/data/models/word.model.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/data/models/word.model.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
 
 abstract class IFileStorage {
   Future<void> init();

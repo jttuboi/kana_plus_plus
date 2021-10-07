@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kana_plus_plus">
+    package="com.tuboistudios.kwriting">
    <application
-        android:label="Kana++"
+        android:label="KWriting"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

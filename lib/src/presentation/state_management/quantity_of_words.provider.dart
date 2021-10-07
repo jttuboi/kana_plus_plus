@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
+import 'package:kwriting/src/domain/controllers/settings.controller.dart';
 
 class QuantityOfWordsProvider extends ChangeNotifier {
   QuantityOfWordsProvider(this._controller);

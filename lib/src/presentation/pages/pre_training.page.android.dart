@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/controllers/pre_training.controller.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/pre_training_arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/pre_training.provider.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/kana_type_tile.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/quantity_of_words_tile.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/show_hint_tile.dart';
+import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/domain/controllers/pre_training.controller.dart';
+import 'package:kwriting/src/presentation/arguments/pre_training_arguments.dart';
+import 'package:kwriting/src/presentation/state_management/pre_training.provider.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/utils/routes.dart';
+import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
+import 'package:kwriting/src/presentation/widgets/kana_type_tile.dart';
+import 'package:kwriting/src/presentation/widgets/quantity_of_words_tile.dart';
+import 'package:kwriting/src/presentation/widgets/show_hint_tile.dart';
 import 'package:provider/provider.dart';
 
 class PreTrainingPage extends StatelessWidget {

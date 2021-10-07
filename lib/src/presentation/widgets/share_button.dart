@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/domain/utils/consts.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareButton extends StatelessWidget {

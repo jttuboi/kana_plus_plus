@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/domain/repositories/app.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/domain/repositories/app.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/language.interface.repository.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class AppController {
   AppController({required this.appRepository, required this.languageRepository});

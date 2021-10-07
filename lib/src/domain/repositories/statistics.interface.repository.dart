@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/domain/entities/training_stats.dart';
+import 'package:kwriting/src/domain/entities/training_stats.dart';
 
 abstract class IStatisticsRepository {
   void increaseShowHintQuantity();

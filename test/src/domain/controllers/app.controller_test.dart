@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
-import 'package:kana_plus_plus/src/domain/repositories/app.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
+import 'package:kwriting/src/domain/controllers/app.controller.dart';
+import 'package:kwriting/src/domain/repositories/app.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/language.interface.repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

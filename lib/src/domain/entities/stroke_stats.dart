@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:hive/hive.dart';
-import 'package:kana_plus_plus/src/domain/entities/point_stats.dart';
+import 'package:kwriting/src/domain/entities/point_stats.dart';
 
 part 'stroke_stats.g.dart';
 

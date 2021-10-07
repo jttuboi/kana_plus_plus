@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/review_kana_content.dart';
+import 'package:kwriting/src/presentation/arguments/word_result.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/review_kana_content.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile({

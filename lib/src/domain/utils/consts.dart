@@ -3,16 +3,16 @@ import 'dart:io';
 class App {
   App._();
 
-  static const String title = 'Kana++';
+  static const String title = 'KWriting';
   static const String version = '1.0.0'; // mudar a versão do app aqui. procurar como deixar automático.
 
-  static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.kana_plus_plus';
+  static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.tuboistudios.kwriting';
   static const String appStoreUrl = '';
 
-  static const String androidId = 'com.kana_plus_plus';
+  static const String androidId = 'com.tuboistudios.kwriting';
   static const String iosId = '';
 
-  static const String privacyPolicyUrl = 'https://tuboi-studios.github.io/kana_plus_plus_terms_of_use_and_privacy_policy';
+  static const String privacyPolicyUrl = 'https://tuboi-studios.github.io/kwriting_terms_of_use_and_privacy_policy';
 }
 
 class Developer {
@@ -31,8 +31,8 @@ class Default {
   static const bool showHint = true;
   static const bool firstTime = true;
 
-  static const String contactSubject = 'Contact via Kana++';
-  static const String emailSubject = 'Learn hiragana/katakana on Kana++';
+  static const String contactSubject = 'Contact via KWriting';
+  static const String emailSubject = 'Learn hiragana/katakana on KWriting';
 }
 
 String get interstitialAdUnitId {

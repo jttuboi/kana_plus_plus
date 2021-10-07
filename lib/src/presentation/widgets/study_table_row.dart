@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/study_table_content.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/study_table_content.dart';
 
 class StudyTableRow extends StatelessWidget {
   const StudyTableRow({Key? key, this.a, this.i, this.u, this.e, this.o}) : super(key: key);

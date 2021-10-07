@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/kana_detail.dart';
+import 'package:kwriting/src/domain/entities/kana.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/kana_detail.dart';
 
 class KanasDetails extends StatelessWidget {
   const KanasDetails({Key? key, required this.kanas}) : super(key: key);

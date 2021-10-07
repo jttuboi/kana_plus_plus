@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/controllers/words.controller.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/words.arguments.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/words.provider.dart';
-import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/word_item.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/words_search_delegate.dart';
+import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/domain/controllers/words.controller.dart';
+import 'package:kwriting/src/presentation/arguments/words.arguments.dart';
+import 'package:kwriting/src/presentation/state_management/words.provider.dart';
+import 'package:kwriting/src/presentation/utils/routes.dart';
+import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
+import 'package:kwriting/src/presentation/widgets/word_item.dart';
+import 'package:kwriting/src/presentation/widgets/words_search_delegate.dart';
 import 'package:provider/provider.dart';
 
 class WordsPage extends StatelessWidget {

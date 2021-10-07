@@ -1,4 +1,4 @@
-package com.kana_plus_plus
+package com.tuboistudios.kwriting
 
 import io.flutter.embedding.android.FlutterActivity
 

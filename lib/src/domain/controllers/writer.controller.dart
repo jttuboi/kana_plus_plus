@@ -1,9 +1,9 @@
 import 'dart:ui';
-import 'package:kana_plus_plus/src/domain/entities/kana_to_writer.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/support/kana_checker.dart';
-import 'package:kana_plus_plus/src/domain/support/stroke_reducer.dart';
-import 'package:kana_plus_plus/src/domain/utils/writing_hand.dart';
+import 'package:kwriting/src/domain/entities/kana_to_writer.dart';
+import 'package:kwriting/src/domain/repositories/writing_hand.interface.repository.dart';
+import 'package:kwriting/src/domain/support/kana_checker.dart';
+import 'package:kwriting/src/domain/support/stroke_reducer.dart';
+import 'package:kwriting/src/domain/utils/writing_hand.dart';
 
 class WriterController {
   WriterController({

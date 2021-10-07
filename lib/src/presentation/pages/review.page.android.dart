@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/controllers/review.controller.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/review_tile.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/support_button.dart';
+import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
+import 'package:kwriting/src/domain/controllers/review.controller.dart';
+import 'package:kwriting/src/presentation/arguments/word_result.dart';
+import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
+import 'package:kwriting/src/presentation/widgets/review_tile.dart';
+import 'package:kwriting/src/presentation/widgets/support_button.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({

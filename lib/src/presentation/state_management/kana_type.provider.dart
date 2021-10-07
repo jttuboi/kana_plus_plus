@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/domain/controllers/settings.controller.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/selection_option_arguments.dart';
+import 'package:kwriting/src/domain/controllers/settings.controller.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/presentation/arguments/selection_option_arguments.dart';
 
 class KanaTypeProvider extends ChangeNotifier {
   KanaTypeProvider(this._controller);

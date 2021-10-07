@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
-import 'package:kana_plus_plus/src/domain/controllers/writer.controller.dart';
+import 'package:kwriting/src/domain/controllers/writer.controller.dart';
 
 class AllStrokesProvider extends ChangeNotifier {
   AllStrokesProvider(this._controller);

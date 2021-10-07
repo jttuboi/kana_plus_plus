@@ -1,10 +1,10 @@
-import 'package:kana_plus_plus/src/data/singletons/database.dart';
-import 'package:kana_plus_plus/src/data/singletons/file.dart';
-import 'package:kana_plus_plus/src/data/utils/consts.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.dart';
-import 'package:kana_plus_plus/src/domain/repositories/word.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/utils/consts.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/data/singletons/database.dart';
+import 'package:kwriting/src/data/singletons/file.dart';
+import 'package:kwriting/src/data/utils/consts.dart';
+import 'package:kwriting/src/domain/entities/word.dart';
+import 'package:kwriting/src/domain/repositories/word.interface.repository.dart';
+import 'package:kwriting/src/domain/utils/consts.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
 
 class WordRepository implements IWordRepository {
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/dark_theme.provider.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/theme.provider.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/state_management/dark_theme.provider.dart';
+import 'package:kwriting/src/presentation/state_management/theme.provider.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:provider/provider.dart';
 
 class DarkThemeTile extends StatelessWidget {

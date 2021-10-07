@@ -1,5 +1,5 @@
-import 'package:kana_plus_plus/src/domain/entities/word_viewer_content.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
+import 'package:kwriting/src/domain/entities/word_viewer_content.dart';
+import 'package:kwriting/src/presentation/arguments/kana_result.dart';
 
 class WordResult {
   const WordResult({

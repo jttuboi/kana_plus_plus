@@ -1,5 +1,5 @@
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
 
 class KanaTypeData {
   const KanaTypeData({required this.type, required this.iconUrl});

@@ -1,10 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/kana_result.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/border_painter.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/user_kana_viewer.dart';
+import 'package:kwriting/src/presentation/arguments/kana_result.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/border_painter.dart';
+import 'package:kwriting/src/presentation/widgets/user_kana_viewer.dart';
 
 class ReviewKanaContent extends StatelessWidget {
   const ReviewKanaContent({

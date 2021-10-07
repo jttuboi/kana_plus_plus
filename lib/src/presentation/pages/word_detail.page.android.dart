@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/domain/entities/word.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/kana_details.dart';
+import 'package:kwriting/src/domain/entities/word.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/kana_details.dart';
 
 class WordDetailPage extends StatelessWidget {
   const WordDetailPage({Key? key, required this.word}) : super(key: key);

@@ -1,14 +1,14 @@
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/entities/kana_type_data.dart';
-import 'package:kana_plus_plus/src/domain/entities/writing_hand_data.dart';
-import 'package:kana_plus_plus/src/domain/repositories/dark_theme.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/language.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/quantity_of_words.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/show_hint.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
-import 'package:kana_plus_plus/src/domain/utils/writing_hand.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/domain/entities/kana_type_data.dart';
+import 'package:kwriting/src/domain/entities/writing_hand_data.dart';
+import 'package:kwriting/src/domain/repositories/dark_theme.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/language.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/quantity_of_words.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/show_hint.interface.repository.dart';
+import 'package:kwriting/src/domain/repositories/writing_hand.interface.repository.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/domain/utils/writing_hand.dart';
 
 class SettingsController {
   SettingsController({

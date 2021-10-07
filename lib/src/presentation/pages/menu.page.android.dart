@@ -4,15 +4,15 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_plus_plus/src/data/datasources/icon_url.storage.dart';
-import 'package:kana_plus_plus/src/domain/controllers/app.controller.dart';
-import 'package:kana_plus_plus/src/domain/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/utils/routes.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/introduction.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/menu_background.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/share_button.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/support_button.dart';
+import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
+import 'package:kwriting/src/domain/controllers/app.controller.dart';
+import 'package:kwriting/src/domain/utils/consts.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/utils/routes.dart';
+import 'package:kwriting/src/presentation/widgets/introduction.dart';
+import 'package:kwriting/src/presentation/widgets/menu_background.dart';
+import 'package:kwriting/src/presentation/widgets/share_button.dart';
+import 'package:kwriting/src/presentation/widgets/support_button.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage(this.appController, {Key? key}) : super(key: key);

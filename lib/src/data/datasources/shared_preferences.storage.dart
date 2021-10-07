@@ -1,4 +1,4 @@
-import 'package:kana_plus_plus/src/data/datasources/database.interface.storage.dart';
+import 'package:kwriting/src/data/datasources/database.interface.storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesStorage implements IDatabaseStorage {

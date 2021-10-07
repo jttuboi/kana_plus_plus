@@ -1,6 +1,6 @@
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
 
-const databaseName = 'kana_plus_plus_database.db';
+const databaseName = 'kwriting_database.db';
 const databaseVersion = 1;
 
 class TWords {

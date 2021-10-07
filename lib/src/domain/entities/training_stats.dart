@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:kana_plus_plus/src/domain/entities/word_stats.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
-import 'package:kana_plus_plus/src/presentation/arguments/word_result.dart';
+import 'package:kwriting/src/domain/entities/word_stats.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/presentation/arguments/word_result.dart';
 
 part 'training_stats.g.dart';
 

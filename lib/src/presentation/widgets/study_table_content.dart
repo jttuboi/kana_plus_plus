@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/study_table.provider.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/state_management/study_table.provider.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:provider/provider.dart';
 
 class StudyTableContent extends StatefulWidget {

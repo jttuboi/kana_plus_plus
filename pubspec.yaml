@@ -1,5 +1,5 @@
-name: kana_plus_plus
-description: An app which gives the oportunity to training hiragana and katakana using writing and avoiding the mother language to learn new words.
+name: kwriting
+description: An app which gives the oportunity to training hiragana and katakana writing words and showing images as references.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
@@ -25,13 +25,13 @@ dependencies:
   path_provider: ^2.0.5
   provider: ^6.0.0
   scroll_to_index: ^2.1.0
-  share_plus: ^2.1.4
+  share_plus: ^3.0.2
   shared_preferences: ^2.0.8
   step_progress_indicator: ^1.0.1
   url_launcher: ^6.0.11
 
 dev_dependencies:
-  build_runner: ^2.1.2
+  build_runner: ^2.1.4
   flutter_launcher_icons: ^0.9.2
   flutter_test:
     sdk: flutter

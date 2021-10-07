@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class UserKanaViewer extends StatelessWidget {
   const UserKanaViewer({

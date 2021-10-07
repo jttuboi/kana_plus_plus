@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:kana_plus_plus/src/data/datasources/image_url.storage.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/data/datasources/image_url.storage.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class Introduction extends StatelessWidget {
   const Introduction({Key? key, required this.onFinished}) : super(key: key);

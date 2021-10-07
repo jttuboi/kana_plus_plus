@@ -1,7 +1,7 @@
-import 'package:kana_plus_plus/src/data/singletons/database.dart';
-import 'package:kana_plus_plus/src/data/utils/consts.dart';
-import 'package:kana_plus_plus/src/domain/repositories/kana_type.interface.repository.dart';
-import 'package:kana_plus_plus/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/data/singletons/database.dart';
+import 'package:kwriting/src/data/utils/consts.dart';
+import 'package:kwriting/src/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kwriting/src/domain/utils/kana_type.dart';
 
 class KanaTypeRepository implements IKanaTypeRepository {
   @override

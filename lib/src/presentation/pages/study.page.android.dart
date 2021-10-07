@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kana_plus_plus/src/data/datasources/banner_url.storage.dart';
-import 'package:kana_plus_plus/src/presentation/utils/consts.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/flexible_scaffold.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/study_table.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/study_table_row.dart';
+import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
+import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
+import 'package:kwriting/src/presentation/widgets/study_table.dart';
+import 'package:kwriting/src/presentation/widgets/study_table_row.dart';
 
 class StudyPage extends StatelessWidget {
   const StudyPage({Key? key}) : super(key: key);

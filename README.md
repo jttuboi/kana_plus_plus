@@ -1,4 +1,4 @@
-# Kana++
+# KWriting
 
 ## Sobre o app
 
@@ -9,7 +9,7 @@ O uso de imagens dos objetos também foi utilizado para associar a ela e evitar 
 Como extra, o aprendiz ganha um vocabulário inicial.
 
 Para mais informações, acesse o app na Play Store.
-https://play.google.com/store/apps/details?id=com.kana_plus_plus
+https://play.google.com/store/apps/details?id=com.tuboistudios.kwriting
 
 <img src="/github/Screenshot_1.png" width="270" height="570" />
 <img src="/github/Screenshot_2.png" width="270" height="570" />
@@ -143,9 +143,9 @@ flutter pub run flutter_launcher_icons:main
 
 ##### Licença copiado do termos de uso
 
-The software is opensource. Its code is shared at https://github.com/jttuboi/kana_plus_plus. All content specifically available in the repository can be used under the MIT License.
+The software is opensource. Its code is shared at https://github.com/jttuboi/kwriting. All content specifically available in the repository can be used under the MIT License.
 
-The images used as the images of the words and the images of the hiraganas and katakanas are my property. They are not allowed to be used, modified or shared. That's why it's not even shared in the project at https://github.com/jttuboi/kana_plus_plus.
+The images used as the images of the words and the images of the hiraganas and katakanas are my property. They are not allowed to be used, modified or shared. That's why it's not even shared in the project at https://github.com/jttuboi/kwriting.
 
 The image strokes of the hiragana and katakana syllables were taken from [KanjiVG](http://kanjivg.tagaini.net/) and these images are on [Creative Commons Attribution-Share Alike 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license.
 
@@ -153,12 +153,12 @@ The syllable points were taken from the SVG images of [KanjiVG](http://kanjivg.t
 
 The overview information is taken from Wikipedia [Hiragana en](https://en.wikipedia.org/wiki/Hiragana), [Hiragana pt](https://pt.wikipedia.org/wiki/Hiragana) [Katakana en](https://en.wikipedia.org/wiki/Katakana), [Katakana pt](https://pt.wikipedia.org/wiki/Katakana).
 
-The licenses for the fonts used are mentioned within the project and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/lib/assets/fonts.
+The licenses for the fonts used are mentioned within the project and can be seen at https://github.com/jttuboi/kwriting/tree/master/lib/assets/fonts.
 
-The icons were taken from [Google fonts](https://fonts.google.com/icons) and those non-existent icons were created by me and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/lib/assets/icons.
+The icons were taken from [Google fonts](https://fonts.google.com/icons) and those non-existent icons were created by me and can be seen at https://github.com/jttuboi/kwriting/tree/master/lib/assets/icons.
 
 The word data were mostly collected through [Jisho](https://jisho.org/).
 
 ##### termos de uso e política de privacidade do app
 
-https://tuboi-studios.github.io/kana_plus_plus_terms_of_use_and_privacy_policy/
+https://tuboi-studios.github.io/kwriting_terms_of_use_and_privacy_policy/

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kana_plus_plus/src/domain/controllers/training.controller.dart';
-import 'package:kana_plus_plus/src/presentation/state_management/training_kana.provider.dart';
-import 'package:kana_plus_plus/src/presentation/widgets/kana_viewer.dart';
+import 'package:kwriting/src/domain/controllers/training.controller.dart';
+import 'package:kwriting/src/presentation/state_management/training_kana.provider.dart';
+import 'package:kwriting/src/presentation/widgets/kana_viewer.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
