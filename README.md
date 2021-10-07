@@ -2,9 +2,9 @@
 
 ## Sobre o app
 
-O app tem a função de ensinar iniciantes a aprender os alfabetos Hiragana e Katakana através da escrita. Para isso foi utilizado uma técnica em que utiliza as palavras (em geral de objetos) para aprender a escrever em Japonês.
+O app tem a função de ensinar iniciantes a aprender os alfabetos Hiragana e Katakana através da escrita. Para isso foi utilizado uma técnica em que utiliza as palavras (em geral, nomes de coisas) para aprender a escrever em Japonês.
 
-O uso de imagens dos objetos também foi utilizado para associar a ela e evitar que o aprendiz associe a palavra em Japonês com o significado na sua língua materna, em outras palavras, evitar a tradução e focar na associação visual.
+O uso de imagens das coisas também foi utilizado para associar o que o usuário está escrevendo em Japonês diretamente a representação visual, assim evitando associar diretamente a palavra traduzida. Por isso palavras como adjetivos, ações, verbos não são utilizados, pois são mais difíceis de representar visualmente por uma imagem estática.
 
 Como extra, o aprendiz ganha um vocabulário inicial.
 
@@ -17,16 +17,19 @@ https://play.google.com/store/apps/details?id=com.kana_plus_plus
 <img src="/github/Screenshot_4.png" width="270" height="570" />
 <img src="/github/Screenshot_5.png" width="270" height="570" />
 
+### Troca de nome
+
+O projeto originalmente chamava Kana++, mas devido à política para desenvolvedor da Play Store, caracteres especiais repetidos não são aceitos. Sendo assim, o app se chama KWriting. <i>Sem momento criatividade ao criar esse nome =(.</i>
+
 ## Sobre o projeto
 
-Este app foi construído com intuito de aplicar as técnicas aprendidas sobre Flutter e também sobre arquitetura. Além disso o aplicativo foi enviado para Play Store com intuito de aprender todo processo desde a criação da ideia até o envio do app na Play Store.
+Este app foi construído com intuito de aplicar as técnicas aprendidas sobre Flutter e também sobre arquitetura de software. Além disso o aplicativo foi enviado para Play Store com intuito de aprender todo processo desde a criação da ideia até o envio do app na Play Store.
 
-O projeto foi construído com Flutter 2.5 e Dart 2.14.0 com foco em Android (não foi implementado para iOS, mas está pré preparado para incluir códigos para fazer deploy para iOS).
+O projeto foi construído com Flutter 2.5.2 e Dart 2.14.3 com foco em Android (não foi implementado para iOS, mas está pré-preparado para incluir códigos para fazer deploy para iOS).
 
-Para construção do app, foi utilizado o VSCode, Inkscape e python (manipulação automática dos dados do .svg para geração de pontos).
+Para construção do app, foi utilizado o VSCode, Inkscape (imagens) e python (manipulação automática dos dados do .svg para geração de pontos).
 
-Caso queira seguir as próximas etapas do projeto, acesse o Trello.
-https://trello.com/b/EVoHrCbF
+Caso queira seguir as próximas etapas do projeto, acesse o Trello: https://trello.com/b/EVoHrCbF
 
 ## Entendendo a arquitetura do projeto
 
@@ -98,6 +101,12 @@ Faça o git clone ou baixe o projeto.
 
 Após pegar o projeto, entre na pasta do projeto pelo terminal e digite `flutter pub get` para pegar os pacotes e atualizar o projeto.
 
+Não esqueça de mudar o conteúdo `android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"` no arquivo `android/app/src/main/AndroidManifest.xml`.
+Senão mudar, o projeto não irá fazer o deploy no celular/emulador.
+Esse valor é o app ID gerado no site do adMob. Para mais informações, entre em:
+https://flutter.dev/ads
+https://pub.dev/packages/google_mobile_ads
+
 Em seguida utilize o comando `flutter build apk` para gerar o apk.
 
 Recomendo utilizar o VSCode ou Android Studio para executar o projeto. Com algum deles fica mais fácil criar os emuladores de Android ou ter acesso ao DevTools para melhor debug.
@@ -143,9 +152,9 @@ flutter pub run flutter_launcher_icons:main
 
 ##### Licença copiado do termos de uso
 
-The software is opensource. Its code is shared at https://github.com/jttuboi/kwriting. All content specifically available in the repository can be used under the MIT License.
+The software is open source. Its code is shared at https://github.com/jttuboi/kana_plus_plus. All content specifically available in the repository can be used under the MIT License.
 
-The images used as the images of the words and the images of the hiraganas and katakanas are my property. They are not allowed to be used, modified or shared. That's why it's not even shared in the project at https://github.com/jttuboi/kwriting.
+The images used as the images of the words and the images of the hiraganas and katakanas are my property. They are not allowed to be used, modified or shared in other projects without my permission. That's why it's not even shared in the project.
 
 The image strokes of the hiragana and katakana syllables were taken from [KanjiVG](http://kanjivg.tagaini.net/) and these images are on [Creative Commons Attribution-Share Alike 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license.
 
@@ -153,11 +162,11 @@ The syllable points were taken from the SVG images of [KanjiVG](http://kanjivg.t
 
 The overview information is taken from Wikipedia [Hiragana en](https://en.wikipedia.org/wiki/Hiragana), [Hiragana pt](https://pt.wikipedia.org/wiki/Hiragana) [Katakana en](https://en.wikipedia.org/wiki/Katakana), [Katakana pt](https://pt.wikipedia.org/wiki/Katakana).
 
-The licenses for the fonts used are mentioned within the project and can be seen at https://github.com/jttuboi/kwriting/tree/master/lib/assets/fonts.
+The licenses for the fonts used are mentioned within the project and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/lib/assets/fonts.
 
-The icons were taken from [Google fonts](https://fonts.google.com/icons) and those non-existent icons were created by me and can be seen at https://github.com/jttuboi/kwriting/tree/master/lib/assets/icons.
+The icons were taken from [Google fonts](https://fonts.google.com/icons) and those non-existent icons were created by me and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/lib/assets/icons.
 
-The word data were mostly collected through [Jisho](https://jisho.org/).
+The word data information were mostly collected through [Jisho](https://jisho.org/).
 
 ##### termos de uso e política de privacidade do app
 
