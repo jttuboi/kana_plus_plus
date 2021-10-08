@@ -11,10 +11,12 @@ class SupportButton extends StatefulWidget {
   const SupportButton({
     Key? key,
     this.iconSize = 24.0,
+    this.titleSize = 18.0,
     this.isAppBarIcon = false,
   }) : super(key: key);
 
   final double iconSize;
+  final double titleSize;
   final bool isAppBarIcon;
 
   @override
@@ -66,7 +68,7 @@ class _SupportButtonState extends State<SupportButton> {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              Text(strings.aboutSupport, style: aboutIconTextStyle),
+              Text(strings.aboutSupport, style: aboutIconTextStyle.copyWith(fontSize: widget.titleSize)),
             ],
           );
   }

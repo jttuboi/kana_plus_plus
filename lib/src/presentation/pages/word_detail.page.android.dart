@@ -38,7 +38,11 @@ class WordDetailPage extends StatelessWidget {
                         flex: 6,
                         child: Hero(
                           tag: word.imageUrl,
-                          child: SvgPicture.asset(word.imageUrl),
+                          child: SvgPicture.asset(
+                            word.imageUrl,
+                            width: MediaQuery.of(context).size.width * 4 / 5,
+                            height: MediaQuery.of(context).size.width * 4 / 5,
+                          ),
                         ),
                       ),
                       const Spacer(),

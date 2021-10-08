@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrainingPage extends StatefulWidget {
-  TrainingPage({
+  const TrainingPage({
     Key? key,
     required this.trainingController,
     required this.writerController,

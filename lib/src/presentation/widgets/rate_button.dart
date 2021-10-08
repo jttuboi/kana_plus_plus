@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:launch_review/launch_review.dart';
 
-class ShareButton extends StatelessWidget {
-  const ShareButton({
+class RateButton extends StatelessWidget {
+  const RateButton({
     Key? key,
     this.iconSize = 24.0,
     this.titleSize = 18.0,
@@ -24,22 +24,25 @@ class ShareButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          onPressed: () => _onSharePressed(context),
+          onPressed: _onRatePressed,
           iconSize: iconSize,
-          icon: SvgPicture.asset(IconUrl.share, width: iconSize, height: iconSize, color: Theme.of(context).colorScheme.secondary),
+          icon: SvgPicture.asset(
+            IconUrl.rate,
+            width: iconSize,
+            height: iconSize,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
-        Text(strings.aboutShare, style: aboutIconTextStyle.copyWith(fontSize: titleSize)),
+        Text(strings.aboutRate, style: aboutIconTextStyle.copyWith(fontSize: titleSize)),
       ],
     );
   }
 
-  Future<void> _onSharePressed(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    final sharePositionOrigin = box!.localToGlobal(Offset.zero) & box.size;
+  Future<void> _onRatePressed() async {
     if (Platform.isIOS) {
-      await Share.share(App.appStoreUrl, subject: App.appStoreUrl, sharePositionOrigin: sharePositionOrigin);
+      await LaunchReview.launch(iOSAppId: App.iosId);
     } else if (Platform.isAndroid) {
-      await Share.share(App.playStoreUrl, subject: Default.emailSubject, sharePositionOrigin: sharePositionOrigin);
+      await LaunchReview.launch(androidAppId: App.androidId);
     } else {
       // if web or desktop, it doesn't support yet.
     }

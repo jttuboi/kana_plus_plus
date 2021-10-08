@@ -1,4 +1,6 @@
 class Routes {
+  Routes._();
+
   static const String menu = '/';
   static const String study = '/study';
   static const String preTraining = '/pre_training';

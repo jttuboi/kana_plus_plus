@@ -30,10 +30,9 @@ class _MenuPageState extends State<MenuPage> {
         ? Introduction(onFinished: () => setState(() => widget.appController.finishFirstTime()))
         : Scaffold(
             body: Stack(
-              children: [
-                const MenuBackground(),
-                _MenuExtra(widget.appController),
-                const _MenuContent(),
+              children: const [
+                MenuBackground(),
+                _MenuContent(),
               ],
             ),
           );
@@ -50,10 +49,10 @@ class _MenuContent extends StatelessWidget {
       child: Column(
         children: [
           Flexible(
-            flex: Device.get().isTablet ? 1 : 3,
+            flex: Device.get().isTablet ? 2 : 3,
             child: Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: menuPadding,
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(App.title.toUpperCase(), textAlign: TextAlign.center, style: menuTitleTextStyle),
@@ -61,60 +60,44 @@ class _MenuContent extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: Device.get().isTablet ? 3 : 7,
-            child: GridView.count(
-              mainAxisSpacing: menuGridButtonsSpacing,
-              crossAxisSpacing: menuGridButtonsSpacing,
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: menuGridButtonsPadding,
-              children: [
-                ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, Routes.study),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(IconUrl.study, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
-                      const SizedBox(height: 4.0),
-                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuStudy, style: menuButtonTextStyle)),
-                    ],
+            flex: Device.get().isTablet ? 4 : 6,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Padding(
+                  padding: menuPadding,
+                  child: SizedBox(
+                    height: constraints.maxHeight,
+                    width: constraints.maxHeight,
+                    child: GridView.count(
+                      mainAxisSpacing: menuGridButtonsSpacing,
+                      crossAxisSpacing: menuGridButtonsSpacing,
+                      crossAxisCount: 2,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        _MenuButton(route: Routes.study, iconUrl: IconUrl.study, title: strings.menuStudy),
+                        _MenuButton(route: Routes.preTraining, iconUrl: IconUrl.training, title: strings.menuTraining),
+                        _MenuButton(route: Routes.words, iconUrl: IconUrl.words, title: strings.menuWords),
+                        _MenuButton(route: Routes.settings, iconUrl: IconUrl.settings, title: strings.menuSettings),
+                      ],
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, Routes.preTraining),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(IconUrl.training, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
-                      const SizedBox(height: 4.0),
-                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuTraining, style: menuButtonTextStyle)),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, Routes.words),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(IconUrl.words, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
-                      const SizedBox(height: 4.0),
-                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuWords, style: menuButtonTextStyle)),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, Routes.settings),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(IconUrl.settings, width: menuButtonIconSize, height: menuButtonIconSize, color: menuButtonIconColor),
-                      const SizedBox(height: 4.0),
-                      FittedBox(fit: BoxFit.fitWidth, child: Text(strings.menuSettings, style: menuButtonTextStyle)),
-                    ],
-                  ),
-                ),
-              ],
+                );
+              },
+            ),
+          ),
+          Flexible(
+            flex: Device.get().isTablet ? 1 : 2,
+            child: Container(
+              alignment: FractionalOffset.bottomRight,
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ShareButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
+                  const SizedBox(width: 4.0),
+                  SupportButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
+                ],
+              ),
             ),
           ),
         ],
@@ -123,23 +106,36 @@ class _MenuContent extends StatelessWidget {
   }
 }
 
-class _MenuExtra extends StatelessWidget {
-  const _MenuExtra(this.appController, {Key? key}) : super(key: key);
+class _MenuButton extends StatelessWidget {
+  const _MenuButton({
+    required this.route,
+    required this.iconUrl,
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
-  final AppController appController;
+  final String route;
+  final String iconUrl;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: FractionalOffset.bottomRight,
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ShareButton(iconSize: menuExtraButtonIconSize),
-          const SizedBox(width: 4.0),
-          SupportButton(iconSize: menuExtraButtonIconSize),
-        ],
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: () => Navigator.pushNamed(context, route),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              iconUrl,
+              width: menuButtonIconSize,
+              height: menuButtonIconSize,
+              color: menuButtonIconColor,
+            ),
+            const SizedBox(height: 4.0),
+            FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: menuButtonTextStyle)),
+          ],
+        ),
       ),
     );
   }

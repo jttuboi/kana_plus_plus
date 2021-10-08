@@ -1,16 +1,15 @@
-import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
+import 'package:kwriting/src/presentation/widgets/rate_button.dart';
 import 'package:kwriting/src/presentation/widgets/share_button.dart';
 import 'package:kwriting/src/presentation/widgets/support_button.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
@@ -32,7 +31,10 @@ class AboutPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Image.asset(IconUrl.app, width: aboutImageSize, height: aboutImageSize),
+                  child: ClipRRect(
+                    borderRadius: Device.get().isTablet ? BorderRadius.circular(60.0) : BorderRadius.circular(30.0),
+                    child: Image.asset(IconUrl.app, width: aboutImageSize, height: aboutImageSize),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -75,19 +77,9 @@ class AboutPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: _onRatePressed,
-                            iconSize: 56,
-                            icon: SvgPicture.asset(IconUrl.rate, width: 56, height: 56, color: Theme.of(context).colorScheme.secondary),
-                          ),
-                          Text(strings.aboutRate, style: aboutIconTextStyle),
-                        ],
-                      ),
-                      const ShareButton(iconSize: 56),
-                      const SupportButton(iconSize: 56),
+                      RateButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
+                      ShareButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
+                      SupportButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
                     ],
                   ),
                 ),
@@ -110,15 +102,5 @@ class AboutPage extends StatelessWidget {
       query: _encodeQueryParameters({'subject': Default.contactSubject}),
     );
     launch(emailLaunchUri.toString());
-  }
-
-  Future<void> _onRatePressed() async {
-    if (Platform.isIOS) {
-      await LaunchReview.launch(iOSAppId: App.iosId);
-    } else if (Platform.isAndroid) {
-      await LaunchReview.launch(androidAppId: App.androidId);
-    } else {
-      // if web or desktop, it doesn't support yet.
-    }
   }
 }

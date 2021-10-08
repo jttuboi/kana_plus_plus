@@ -54,18 +54,19 @@ final menuTitleTextStyle = TextStyle(
 );
 
 final menuGridButtonsSpacing = Device.get().isTablet ? 32.0 : 16.0;
-final menuGridButtonsPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96.0, vertical: 16.0) : const EdgeInsets.all(16.0);
+final menuPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96.0) : const EdgeInsets.symmetric(horizontal: 24.0);
 
-final menuButtonIconSize = Device.get().isTablet ? 160.0 : 80.0;
+final menuButtonIconSize = Device.get().isTablet ? 140.0 : 70.0;
 final menuButtonIconColor = Colors.grey.shade200;
 
 final menuButtonTextStyle = TextStyle(
   color: menuButtonIconColor,
-  fontSize: Device.get().isTablet ? 50 : 30,
+  fontSize: Device.get().isTablet ? 50 : 28,
   fontFamily: defaultTitleFontFamily,
 );
 
 final menuExtraButtonIconSize = Device.get().isTablet ? 80.0 : 48.0;
+final menuExtraButtonTitleSize = Device.get().isTablet ? 26.0 : 16.0;
 
 final menuBackgroundBackPaint = Paint()..color = Colors.deepPurple.shade200;
 
@@ -95,14 +96,14 @@ final introductionDotsDecorator = DotsDecorator(
 
 final introductionPageDecoration = PageDecoration(
   titleTextStyle: TextStyle(
-    fontSize: 28,
+    fontSize: Device.get().isTablet ? 40.0 : 28.0,
     fontWeight: FontWeight.bold,
     fontFamily: defaultTitleFontFamily,
     color: Colors.grey.shade200,
     letterSpacing: 2.0,
   ),
   bodyTextStyle: TextStyle(
-    fontSize: 20,
+    fontSize: Device.get().isTablet ? 32.0 : 20.0,
     fontWeight: FontWeight.bold,
     color: Colors.grey.shade200,
   ),
@@ -110,8 +111,15 @@ final introductionPageDecoration = PageDecoration(
   imagePadding: const EdgeInsets.all(24),
 );
 
-const introductionButtonTextStyle = TextStyle(fontSize: 17.0, letterSpacing: 1.0, fontWeight: FontWeight.bold);
-final introductionButtonStyle = ButtonStyle(backgroundColor: MaterialStateProperty.all(darkPurple));
+final introductionButtonTextStyle = TextStyle(
+  fontSize: Device.get().isTablet ? 29.0 : 17.0,
+  letterSpacing: 1.0,
+  fontWeight: FontWeight.bold,
+);
+final introductionButtonStyle = ButtonStyle(
+  padding: Device.get().isTablet ? MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 16.0, horizontal: 26.0)) : null,
+  backgroundColor: MaterialStateProperty.all(darkPurple),
+);
 
 final studyTitleFontSize = Device.get().isTablet ? 28.0 : 18.0;
 final studyTextFontSize = Device.get().isTablet ? 24.0 : 16.0;
@@ -140,7 +148,6 @@ final studyTableContentButtonStyle = ButtonStyle(
   minimumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
   maximumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
   backgroundColor: MaterialStateProperty.all(Colors.grey.shade50),
-  //elevation: MaterialStateProperty.all(1.0),
   overlayColor: MaterialStateProperty.all(Colors.transparent),
 );
 
@@ -167,7 +174,7 @@ final writerIconButtonColor = Colors.grey.shade700;
 final writerIconButtonSize = Device.get().isTablet ? 56.0 : 32.0;
 final writerBorderWidth = Device.get().isTablet ? 15.0 : 9.0;
 
-final kanaViewersViewpoertFraction = Device.get().isTablet ? 0.2 :0.255;
+final kanaViewersViewpoertFraction = Device.get().isTablet ? 0.2 : 0.255;
 final kanaViewerBorderWidth = Device.get().isTablet ? 8.0 : 4.0;
 
 final romajiVieverTextStyle = TextStyle(
@@ -214,9 +221,10 @@ final aboutAppVersionTitleTextStyle = TextStyle(fontSize: aboutFontSize, fontWei
 final aboutAppVersionTextStyle = TextStyle(fontSize: aboutFontSize);
 final aboutDeveloperTitleTextStyle = TextStyle(fontSize: aboutFontSize, fontWeight: FontWeight.bold);
 final aboutDeveloperTextStyle = TextStyle(fontSize: aboutFontSize);
+final aboutIconSize = Device.get().isTablet ? 84.0 : 56.0;
+final aboutTitleSize = Device.get().isTablet ? 28.0 : 18.0;
 final aboutContactTextStyle = TextStyle(fontSize: aboutFontSize, color: Colors.blue, decoration: TextDecoration.underline);
 final aboutIconTextStyle = TextStyle(
-  fontSize: Device.get().isTablet ? 24.0 : 18.0,
   fontWeight: FontWeight.bold,
   color: Colors.deepPurple.withOpacity(0.8),
 );

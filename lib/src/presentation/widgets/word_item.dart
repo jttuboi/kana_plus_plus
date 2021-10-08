@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
@@ -38,20 +37,6 @@ class WordItem extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Stack(
                 children: [
-                  // FittedBox(
-                  //   fit: BoxFit.fitWidth,
-                  //   child: Text(
-                  //     word,
-                  //     style: TextStyle(
-                  //       fontSize: 37,
-                  //       fontWeight: FontWeight.bold,
-                  //       foreground: Paint()
-                  //         ..style = PaintingStyle.stroke
-                  //         ..strokeWidth = 8
-                  //         ..color = Colors.white.withOpacity(0.5),
-                  //     ),
-                  //   ),
-                  // ),
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
