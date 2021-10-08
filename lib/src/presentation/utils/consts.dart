@@ -167,6 +167,7 @@ final writerIconButtonColor = Colors.grey.shade700;
 final writerIconButtonSize = Device.get().isTablet ? 56.0 : 32.0;
 final writerBorderWidth = Device.get().isTablet ? 15.0 : 9.0;
 
+final kanaViewersViewpoertFraction = Device.get().isTablet ? 0.2 :0.255;
 final kanaViewerBorderWidth = Device.get().isTablet ? 8.0 : 4.0;
 
 final romajiVieverTextStyle = TextStyle(
