@@ -139,7 +139,7 @@ final studyTableRowDecoration = BoxDecoration(
   borderRadius: BorderRadius.circular(4.0),
   color: Colors.grey.shade50,
 );
-const studyTableRowHeight = 64.0;
+const studyTableRowHeight = 56.0;
 
 const studyTableContentKanaTextStyle = TextStyle(fontSize: 32, fontWeight: FontWeight.bold);
 final studyTableContentRomajiTextStyle = TextStyle(fontSize: studyTableTextFontSize);

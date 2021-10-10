@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/presentation/state_management/study_table.provider.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/study_table_row.dart';
@@ -23,12 +21,12 @@ class StudyTable extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 4.0, right: 4.0),
+                padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0, right: 4.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(title, style: studyTableTitleTextStyle),
-                    IconButton(onPressed: () => _onShowAllPressed(context2), icon: SvgPicture.asset(IconUrl.showAll, color: studyTableTitleColor)),
+                    //IconButton(onPressed: () => _onShowAllPressed(context2), icon: SvgPicture.asset(IconUrl.showAll, color: studyTableTitleColor)),
                   ],
                 ),
               ),
@@ -51,7 +49,7 @@ class StudyTable extends StatelessWidget {
     return list;
   }
 
-  void _onShowAllPressed(BuildContext context) {
-    Provider.of<StudyTableProvider>(context, listen: false).showKana();
-  }
+  // void _onShowAllPressed(BuildContext context) {
+  //   Provider.of<StudyTableProvider>(context, listen: false).showKana();
+  // }
 }

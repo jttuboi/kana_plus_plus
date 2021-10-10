@@ -26,8 +26,8 @@ class _StudyTableContentState extends State<StudyTableContent> {
           child: FittedBox(
             fit: BoxFit.fill,
             child: Text(
-              provider.showAllKana || showKana ? widget.kana : widget.romaji,
-              style: provider.showAllKana || showKana ? studyTableContentKanaTextStyle : studyTableContentRomajiTextStyle,
+              showKana ? widget.kana : widget.romaji,
+              style: showKana ? studyTableContentKanaTextStyle : studyTableContentRomajiTextStyle,
             ),
           ),
         );
@@ -36,10 +36,8 @@ class _StudyTableContentState extends State<StudyTableContent> {
   }
 
   void _onContentPressed() {
-    if (!showKana) {
-      setState(() {
-        showKana = true;
-      });
-    }
+    setState(() {
+      showKana = !showKana;
+    });
   }
 }
