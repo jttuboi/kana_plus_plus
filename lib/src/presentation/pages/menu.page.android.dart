@@ -120,22 +120,20 @@ class _MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ElevatedButton(
-        onPressed: () => Navigator.pushNamed(context, route),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              iconUrl,
-              width: menuButtonIconSize,
-              height: menuButtonIconSize,
-              color: menuButtonIconColor,
-            ),
-            const SizedBox(height: 4.0),
-            FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: menuButtonTextStyle)),
-          ],
-        ),
+    return ElevatedButton(
+      onPressed: () => Navigator.pushNamed(context, route),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            iconUrl,
+            width: menuButtonIconSize,
+            height: menuButtonIconSize,
+            color: menuButtonIconColor,
+          ),
+          const SizedBox(height: 4.0),
+          FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: menuButtonTextStyle)),
+        ],
       ),
     );
   }
