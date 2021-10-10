@@ -42,6 +42,8 @@ class TrainingController {
 
   String get wordImageUrl => wordsToTraining[wordIdx].imageUrl;
 
+  String get wordTranslate => wordsToTraining[wordIdx].translate;
+
   int get numberOfWordsToStudy => wordsToTraining.length;
 
   KanaToWrite get currentKanaToWrite => KanaToWrite(

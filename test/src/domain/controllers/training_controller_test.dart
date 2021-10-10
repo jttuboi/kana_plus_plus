@@ -82,6 +82,23 @@ void main() {
     controller.wordIdx = wordIdxToCheck3;
     expect(controller.wordImageUrl, controller.wordsToTraining[wordIdxToCheck3].imageUrl);
   });
+
+  test('must return current word translate', () {
+    final controller = trainingControllerForWordTest();
+    controller.wordsToTraining = wordsContent;
+
+    const wordIdxToCheck1 = 0;
+    controller.wordIdx = wordIdxToCheck1;
+    expect(controller.wordTranslate, controller.wordsToTraining[wordIdxToCheck1].translate);
+
+    const wordIdxToCheck2 = 1;
+    controller.wordIdx = wordIdxToCheck2;
+    expect(controller.wordTranslate, controller.wordsToTraining[wordIdxToCheck2].translate);
+
+    const wordIdxToCheck3 = 2;
+    controller.wordIdx = wordIdxToCheck3;
+    expect(controller.wordTranslate, controller.wordsToTraining[wordIdxToCheck3].translate);
+  });
   test('must return the max strokes from current kana of current word', () {
     final controller = trainingControllerForWordTest();
     controller.wordsToTraining = wordsContent;
@@ -199,7 +216,7 @@ void main() {
     test('must change to next kana in the same word', () {
       final controller = trainingControllerForWordTest();
       controller.wordsToTraining = [
-        WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
+        WordViewerContent(id: 'あめ', imageUrl: 'rain.png', translate: 'chuva', kanas: [
           KanaViewerContent(
             id: 'あ',
             status: KanaViewerStatus.showSelected,
@@ -264,7 +281,7 @@ void main() {
       ];
 
       controller.wordsToTraining = [
-        WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
+        WordViewerContent(id: 'あめ', imageUrl: 'rain.png', translate: 'chuva', kanas: [
           KanaViewerContent(
             id: 'あ',
             status: KanaViewerStatus.showWrong,
@@ -415,7 +432,7 @@ void main() {
     // avoid data misreading problems, data not yet studied will be filled with
     // empty data.
     controller.wordsToTraining = [
-      WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
+      WordViewerContent(id: 'あめ', imageUrl: 'rain.png', translate: 'chuva', kanas: [
         KanaViewerContent(
           id: 'あ',
           // if showSelected or showInitial, is considered isCorrect = false
@@ -586,7 +603,7 @@ class StatisticsRepositoryMock extends Mock implements IStatisticsRepository {}
 class TrainingStatsFake extends Fake implements TrainingStats {}
 
 final List<WordViewerContent> wordsContent = [
-  WordViewerContent(id: 'あめ', imageUrl: 'rain.png', kanas: [
+  WordViewerContent(id: 'あめ', imageUrl: 'rain.png', translate: 'chuva', kanas: [
     KanaViewerContent(
         id: 'あ',
         status: KanaViewerStatus.showCorrect,
@@ -613,7 +630,7 @@ final List<WordViewerContent> wordsContent = [
           [Offset(5, 5)],
         ]),
   ]),
-  WordViewerContent(id: 'けしゴム', imageUrl: 'eraser.png', kanas: [
+  WordViewerContent(id: 'けしゴム', imageUrl: 'eraser.png', translate: 'borracha', kanas: [
     KanaViewerContent(
         id: 'け',
         status: KanaViewerStatus.showWrong,
@@ -663,7 +680,7 @@ final List<WordViewerContent> wordsContent = [
           [Offset(5, 5)],
         ]),
   ]),
-  WordViewerContent(id: 'サラダ', imageUrl: 'salad.png', kanas: [
+  WordViewerContent(id: 'サラダ', imageUrl: 'salad.png', translate: 'salada', kanas: [
     KanaViewerContent(
         id: 'サ',
         status: KanaViewerStatus.showCorrect,

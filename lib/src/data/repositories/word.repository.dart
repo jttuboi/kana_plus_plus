@@ -41,13 +41,27 @@ class WordRepository implements IWordRepository {
 
   @override
   List<Word> getWordsForTraining(KanaType kanaType, int quantityOfWords) {
+    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
+
     if (kanaType.isBoth) {
       final allWords = File.getWords();
       allWords.shuffle();
-      return allWords.sublist(0, quantityOfWords);
+
+      final words = allWords.sublist(0, quantityOfWords);
+      for (final word in words) {
+        word.setLanguageCode(languageCode);
+      }
+
+      return words;
     }
     final wordsByKanaType = File.getWordsByKanaType(kanaType);
     wordsByKanaType.shuffle();
-    return wordsByKanaType.sublist(0, quantityOfWords);
+
+    final words = wordsByKanaType.sublist(0, quantityOfWords);
+    for (final word in words) {
+      word.setLanguageCode(languageCode);
+    }
+
+    return words;
   }
 }

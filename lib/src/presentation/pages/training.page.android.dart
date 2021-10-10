@@ -100,7 +100,17 @@ class _TrainingPageState extends State<TrainingPage> {
                           const Spacer(),
                           Consumer<TrainingWordProvider>(
                             builder: (context, value, child) {
-                              return SvgPicture.asset(widget.trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30);
+                              return GestureDetector(
+                                onTap: () => {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(widget.trainingController.wordTranslate),
+                                      duration: const Duration(seconds: 1),
+                                    ),
+                                  ),
+                                },
+                                child: SvgPicture.asset(widget.trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30),
+                              );
                             },
                           ),
                           const Spacer(),
