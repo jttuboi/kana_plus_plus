@@ -10,6 +10,7 @@ import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kwriting/src/presentation/widgets/rate_button.dart';
 import 'package:kwriting/src/presentation/widgets/share_button.dart';
 import 'package:kwriting/src/presentation/widgets/support_button.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
@@ -26,65 +27,73 @@ class AboutPage extends StatelessWidget {
       sliverContent: SliverPadding(
         padding: const EdgeInsets.all(16.0),
         sliver: SliverFillRemaining(
-          child: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: ClipRRect(
-                    borderRadius: Device.get().isTablet ? BorderRadius.circular(60.0) : BorderRadius.circular(30.0),
-                    child: Image.asset(IconUrl.app, width: aboutImageSize, height: aboutImageSize),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(strings.aboutAppVersionTitle, style: aboutAppVersionTitleTextStyle),
-                      Text(App.version, style: aboutAppVersionTextStyle),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(strings.aboutDeveloperTitle, style: aboutDeveloperTitleTextStyle),
-                      Text(Developer.name, style: aboutDeveloperTextStyle),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(strings.aboutContactTitle, style: aboutDeveloperTitleTextStyle),
-                      RichText(
-                        text: TextSpan(
-                          style: aboutContactTextStyle,
-                          text: Developer.contact,
-                          recognizer: TapGestureRecognizer()..onTap = _onContactTap,
-                        ),
+          child: FutureBuilder<String>(
+            future: getVersionInfo,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              }
+              return Center(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: ClipRRect(
+                        borderRadius: Device.get().isTablet ? BorderRadius.circular(60.0) : BorderRadius.circular(30.0),
+                        child: Image.asset(IconUrl.app, width: aboutImageSize, height: aboutImageSize),
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(strings.aboutAppVersionTitle, style: aboutAppVersionTitleTextStyle),
+                          Text(snapshot.data!, style: aboutAppVersionTextStyle),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(strings.aboutDeveloperTitle, style: aboutDeveloperTitleTextStyle),
+                          Text(Developer.name, style: aboutDeveloperTextStyle),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(strings.aboutContactTitle, style: aboutDeveloperTitleTextStyle),
+                          RichText(
+                            text: TextSpan(
+                              style: aboutContactTextStyle,
+                              text: Developer.contact,
+                              recognizer: TapGestureRecognizer()..onTap = _onContactTap,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          RateButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
+                          ShareButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
+                          SupportButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      RateButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
-                      ShareButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
-                      SupportButton(iconSize: aboutIconSize, titleSize: aboutTitleSize),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),
@@ -102,5 +111,10 @@ class AboutPage extends StatelessWidget {
       query: _encodeQueryParameters({'subject': Default.contactSubject}),
     );
     launch(emailLaunchUri.toString());
+  }
+
+  Future<String> get getVersionInfo async {
+    final info = await PackageInfo.fromPlatform();
+    return info.version;
   }
 }
