@@ -120,9 +120,9 @@ Para atualizar o ícone do app é utilizado o package [flutter_launcher_icons](h
 #### Android
 
 Primeiro precisa criar 3 pngs:
-- `lib/assets/icons/app_icon_background.png`
-- `lib/assets/icons/app_icon_foreground.png`
-- `lib/assets/icons/app_icon.png`
+- `assets/icons/app_icon_background.png`
+- `assets/icons/app_icon_foreground.png`
+- `assets/icons/app_icon.png`
 
 Após isso, executar no terminal:
 ```sh
@@ -162,9 +162,9 @@ The syllable points were taken from the SVG images of [KanjiVG](http://kanjivg.t
 
 The overview information is taken from Wikipedia [Hiragana en](https://en.wikipedia.org/wiki/Hiragana), [Hiragana pt](https://pt.wikipedia.org/wiki/Hiragana) [Katakana en](https://en.wikipedia.org/wiki/Katakana), [Katakana pt](https://pt.wikipedia.org/wiki/Katakana).
 
-The licenses for the fonts used are mentioned within the project and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/lib/assets/fonts.
+The licenses for the fonts used are mentioned within the project and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/assets/fonts.
 
-The icons were taken from [Google fonts](https://fonts.google.com/icons) and those non-existent icons were created by me and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/lib/assets/icons.
+The icons were taken from [Google fonts](https://fonts.google.com/icons) and those non-existent icons were created by me and can be seen at https://github.com/jttuboi/kana_plus_plus/tree/master/assets/icons.
 
 The word data information were mostly collected through [Jisho](https://jisho.org/).
 

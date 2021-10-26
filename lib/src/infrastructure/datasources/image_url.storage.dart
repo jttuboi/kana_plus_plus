@@ -1,7 +1,7 @@
 class ImageUrl {
   ImageUrl._();
 
-  static const imageFolder = 'lib/assets/images/';
+  static const imageFolder = 'assets/images/';
 
   static const empty = '${imageFolder}empty.svg';
 

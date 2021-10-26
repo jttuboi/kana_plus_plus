@@ -51,10 +51,10 @@ class DatabaseTag {
 }
 
 class FileUrl {
-  static const kanas = 'lib/assets/database/kanas.json';
-  static const points = 'lib/assets/database/points.json';
-  static const translates = 'lib/assets/database/translates.json';
-  static const words = 'lib/assets/database/words.json';
+  static const kanas = 'assets/database/kanas.json';
+  static const points = 'assets/database/points.json';
+  static const translates = 'assets/database/translates.json';
+  static const words = 'assets/database/words.json';
 }
 
 KanaType toKanaType(String data) {

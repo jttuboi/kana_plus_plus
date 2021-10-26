@@ -1,7 +1,7 @@
 class BannerUrl {
   BannerUrl._();
 
-  static const bannersFolder = 'lib/assets/images/banners/';
+  static const bannersFolder = 'assets/images/banners/';
 
   static const kanaType = '${bannersFolder}kana_type.svg';
   static const language = '${bannersFolder}language.svg';

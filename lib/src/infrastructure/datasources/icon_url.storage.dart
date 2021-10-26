@@ -1,7 +1,7 @@
 class IconUrl {
   IconUrl._();
 
-  static const iconsFolder = 'lib/assets/icons/';
+  static const iconsFolder = 'assets/icons/';
 
   static const app = '${iconsFolder}app_icon.png';
 

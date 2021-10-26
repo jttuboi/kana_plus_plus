@@ -43,53 +43,53 @@ dev_dependencies:
 flutter_icons:
   android: true
   #ios: true
-  image_path: "lib/assets/icons/app_icon.png"
-  adaptive_icon_background: "lib/assets/icons/app_icon_background.png"
-  adaptive_icon_foreground: "lib/assets/icons/app_icon_foreground.png"
+  image_path: "assets/icons/app_icon.png"
+  adaptive_icon_background: "assets/icons/app_icon_background.png"
+  adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
 
 flutter:
   uses-material-design: true
   generate: true
   
   assets:
-    - lib/assets/database/
+    - assets/database/
 
-    - lib/assets/icons/
+    - assets/icons/
 
-    - lib/assets/images/
-    - lib/assets/images/banners/
-    - lib/assets/images/kanas/
-    - lib/assets/images/menu/kanas/
-    - lib/assets/images/menu/introduction/
-    - lib/assets/images/words/
+    - assets/images/
+    - assets/images/banners/
+    - assets/images/kanas/
+    - assets/images/menu/kanas/
+    - assets/images/menu/introduction/
+    - assets/images/words/
 
   fonts:
     - family: Permanent Marker
       fonts:
-        - asset: lib/assets/fonts/permanent_marker/PermanentMarker-Regular.ttf
+        - asset: assets/fonts/permanent_marker/PermanentMarker-Regular.ttf
     - family: PT Sans
       fonts:
-        - asset: lib/assets/fonts/pt_sans/PTSans-Regular.ttf
-        - asset: lib/assets/fonts/pt_sans/PTSans-Bold.ttf
+        - asset: assets/fonts/pt_sans/PTSans-Regular.ttf
+        - asset: assets/fonts/pt_sans/PTSans-Bold.ttf
           weight: 700
-        - asset: lib/assets/fonts/pt_sans/PTSans-Italic.ttf
+        - asset: assets/fonts/pt_sans/PTSans-Italic.ttf
           style: italic
-        - asset: lib/assets/fonts/pt_sans/PTSans-BoldItalic.ttf
+        - asset: assets/fonts/pt_sans/PTSans-BoldItalic.ttf
           style: italic
           weight: 700
     - family: M PLUS Rounded 1c
       fonts:
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Thin.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Thin.ttf
           weight: 100
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Light.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Light.ttf
           weight: 300
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Regular.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Regular.ttf
           weight: 400
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Medium.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Medium.ttf
           weight: 500
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Bold.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Bold.ttf
           weight: 700
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-ExtraBold.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-ExtraBold.ttf
           weight: 800
-        - asset: lib/assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Black.ttf
+        - asset: assets/fonts/m_plus_rounded_1c/MPLUSRounded1c-Black.ttf
           weight: 900

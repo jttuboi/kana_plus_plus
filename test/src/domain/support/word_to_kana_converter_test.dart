@@ -13,7 +13,7 @@ void main() {
 
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
-    return rootBundle.loadString('lib/assets/database/kanas.json').then((response) {
+    return rootBundle.loadString('assets/database/kanas.json').then((response) {
       final jsonFile = json.decode(response) as List<dynamic>;
       for (final jsonData in jsonFile) {
         final model = KanaModel.fromJson(jsonData as Map<String, dynamic>);
