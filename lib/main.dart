@@ -12,14 +12,12 @@ import 'package:kwriting/src/infrastructure/datasources/json.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/shared_preferences.storage.dart';
 import 'package:kwriting/src/infrastructure/singletons/database.dart';
 import 'package:kwriting/src/infrastructure/singletons/file.dart';
-import 'package:kwriting/src/presentation/app.android.dart';
+import 'package:kwriting/src/presentation/app.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
-  // init services before app start
   init().whenComplete(() {
     runApp(AndroidApp());
-    //Platform.isIOS ? runApp(const IosApp()) : runApp(AndroidApp());
   });
 }
 
