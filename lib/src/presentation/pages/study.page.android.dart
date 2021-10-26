@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
+import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kwriting/src/presentation/widgets/study_table.dart';

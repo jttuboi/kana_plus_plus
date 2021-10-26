@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/domain/controllers/training.controller.dart';
 import 'package:kwriting/src/domain/controllers/writer.controller.dart';
 import 'package:kwriting/src/domain/utils/update_kana_situation.dart';
+import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/presentation/arguments/training_arguments.dart';
 import 'package:kwriting/src/presentation/state_management/training_kana.provider.dart';
 import 'package:kwriting/src/presentation/state_management/training_word.provider.dart';

@@ -1,5 +1,5 @@
-import 'package:kwriting/src/data/utils/consts.dart';
 import 'package:kwriting/src/domain/entities/translate.dart';
+import 'package:kwriting/src/infrastructure/utils/consts.dart';
 
 class TranslateModel extends Translate {
   TranslateModel({

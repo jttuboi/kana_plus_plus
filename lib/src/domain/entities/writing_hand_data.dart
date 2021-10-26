@@ -1,5 +1,5 @@
-import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/domain/utils/writing_hand.dart';
+import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
 
 class WritingHandData {
   const WritingHandData({

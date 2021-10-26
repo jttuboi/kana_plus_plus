@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:kwriting/src/data/singletons/database.dart';
-import 'package:kwriting/src/data/utils/consts.dart';
 import 'package:kwriting/src/domain/entities/training_stats.dart';
 import 'package:kwriting/src/domain/repositories/statistics.interface.repository.dart';
+import 'package:kwriting/src/infrastructure/singletons/database.dart';
+import 'package:kwriting/src/infrastructure/utils/consts.dart';
 
 class StatisticsRepository implements IStatisticsRepository {
   @override

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/services.dart';
-import 'package:kwriting/src/data/utils/consts.dart';
+import 'package:kwriting/src/infrastructure/utils/consts.dart';
 import 'package:logger/logger.dart';
 
 abstract class IKanaChecker {

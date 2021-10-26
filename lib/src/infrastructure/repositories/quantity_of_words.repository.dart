@@ -1,7 +1,7 @@
-import 'package:kwriting/src/data/singletons/database.dart';
-import 'package:kwriting/src/data/utils/consts.dart';
 import 'package:kwriting/src/domain/repositories/quantity_of_words.interface.repository.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
+import 'package:kwriting/src/infrastructure/singletons/database.dart';
+import 'package:kwriting/src/infrastructure/utils/consts.dart';
 
 class QuantityOfWordsRepository implements IQuantityOfWordsRepository {
   @override

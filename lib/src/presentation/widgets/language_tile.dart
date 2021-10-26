@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kwriting/src/data/datasources/banner_url.storage.dart';
-import 'package:kwriting/src/data/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
+import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
+import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/presentation/pages/selection_option.page.android.dart';
 import 'package:kwriting/src/presentation/state_management/language.provider.dart';
 import 'package:kwriting/src/presentation/state_management/locale.provider.dart';

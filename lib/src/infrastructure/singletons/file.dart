@@ -1,6 +1,6 @@
-import 'package:kwriting/src/data/datasources/file.interface.storage.dart';
-import 'package:kwriting/src/data/models/word.model.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
+import 'package:kwriting/src/infrastructure/datasources/file.interface.storage.dart';
+import 'package:kwriting/src/infrastructure/models/word.model.dart';
 
 class File {
   // singleton

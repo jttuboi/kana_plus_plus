@@ -1,7 +1,7 @@
-import 'package:kwriting/src/data/singletons/database.dart';
-import 'package:kwriting/src/data/utils/consts.dart';
 import 'package:kwriting/src/domain/repositories/writing_hand.interface.repository.dart';
 import 'package:kwriting/src/domain/utils/writing_hand.dart';
+import 'package:kwriting/src/infrastructure/singletons/database.dart';
+import 'package:kwriting/src/infrastructure/utils/consts.dart';
 
 class WritingHandRepository implements IWritingHandRepository {
   @override

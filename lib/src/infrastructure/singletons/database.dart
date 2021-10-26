@@ -1,4 +1,4 @@
-import 'package:kwriting/src/data/datasources/database.interface.storage.dart';
+import 'package:kwriting/src/infrastructure/datasources/database.interface.storage.dart';
 
 class Database {
   // singleton
