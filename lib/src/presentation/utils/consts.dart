@@ -13,11 +13,11 @@ final lightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.transparent,
     shadowColor: Colors.transparent,
-    elevation: 0.0,
+    elevation: 0,
   ),
   primaryIconTheme: IconThemeData(
     color: Colors.grey.shade500,
-    size: 24.0,
+    size: 24,
   ),
   scaffoldBackgroundColor: Colors.grey.shade50,
   fontFamily: defaultFontFamily,
@@ -54,7 +54,7 @@ final menuTitleTextStyle = TextStyle(
 );
 
 final menuGridButtonsSpacing = Device.get().isTablet ? 32.0 : 16.0;
-final menuPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96.0) : const EdgeInsets.symmetric(horizontal: 24.0);
+final menuPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96) : const EdgeInsets.symmetric(horizontal: 24);
 
 final menuButtonIconSize = Device.get().isTablet ? 140.0 : 70.0;
 final menuButtonIconColor = Colors.grey.shade200;
@@ -90,7 +90,7 @@ final introductionDotsDecorator = DotsDecorator(
   activeSize: const Size(20, 10),
   activeColor: Colors.grey.shade200,
   activeShape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10.0),
+    borderRadius: BorderRadius.circular(10),
   ),
 );
 
@@ -100,24 +100,24 @@ final introductionPageDecoration = PageDecoration(
     fontWeight: FontWeight.bold,
     fontFamily: defaultTitleFontFamily,
     color: Colors.grey.shade200,
-    letterSpacing: 2.0,
+    letterSpacing: 2,
   ),
   bodyTextStyle: TextStyle(
     fontSize: Device.get().isTablet ? 32.0 : 20.0,
     fontWeight: FontWeight.bold,
     color: Colors.grey.shade200,
   ),
-  descriptionPadding: const EdgeInsets.all(16.0).copyWith(bottom: 0.0),
+  descriptionPadding: const EdgeInsets.all(16).copyWith(bottom: 0),
   imagePadding: const EdgeInsets.all(24),
 );
 
 final introductionButtonTextStyle = TextStyle(
   fontSize: Device.get().isTablet ? 29.0 : 17.0,
-  letterSpacing: 1.0,
+  letterSpacing: 1,
   fontWeight: FontWeight.bold,
 );
 final introductionButtonStyle = ButtonStyle(
-  padding: Device.get().isTablet ? MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 16.0, horizontal: 26.0)) : null,
+  padding: Device.get().isTablet ? MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 16, horizontal: 26)) : null,
   backgroundColor: MaterialStateProperty.all(darkPurple),
 );
 
@@ -129,14 +129,14 @@ final studyTitleTextStyle = TextStyle(fontSize: studyTitleFontSize, fontWeight: 
 final studyTextStyleText = TextStyle(fontSize: studyTextFontSize);
 
 final studyTableDecoration = BoxDecoration(
-  borderRadius: BorderRadius.circular(8.0),
+  borderRadius: BorderRadius.circular(8),
   color: Colors.deepPurple,
 );
 final studyTableTitleTextStyle = TextStyle(color: studyTableTitleColor, fontSize: studyTableTextFontSize);
 final studyTableTitleColor = Colors.grey.shade300;
 
 final studyTableRowDecoration = BoxDecoration(
-  borderRadius: BorderRadius.circular(4.0),
+  borderRadius: BorderRadius.circular(4),
   color: Colors.grey.shade50,
 );
 const studyTableRowHeight = 56.0;
@@ -144,16 +144,16 @@ const studyTableRowHeight = 56.0;
 const studyTableContentKanaTextStyle = TextStyle(fontSize: 32, fontWeight: FontWeight.bold);
 final studyTableContentRomajiTextStyle = TextStyle(fontSize: studyTableTextFontSize);
 final studyTableContentButtonStyle = ButtonStyle(
-  fixedSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
-  minimumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
-  maximumSize: MaterialStateProperty.all(const Size(64.0, 64.0)),
+  fixedSize: MaterialStateProperty.all(const Size(64, 64)),
+  minimumSize: MaterialStateProperty.all(const Size(64, 64)),
+  maximumSize: MaterialStateProperty.all(const Size(64, 64)),
   backgroundColor: MaterialStateProperty.all(Colors.grey.shade50),
   overlayColor: MaterialStateProperty.all(Colors.transparent),
 );
 
 final preTrainingPlayIconThemeData = IconThemeData(
   color: Colors.grey.shade300,
-  size: 40.0,
+  size: 40,
 );
 
 final defaultProgressBarColor = Colors.grey.shade400;
@@ -208,7 +208,7 @@ final userStrokesPaint = Paint()
 
 const reviewTileTitleStyle = TextStyle(fontWeight: FontWeight.bold);
 
-final wordDetailPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 36.0) : const EdgeInsets.symmetric(horizontal: 24.0);
+final wordDetailPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 36) : const EdgeInsets.symmetric(horizontal: 24);
 final wordDetailTitleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
 final wordDetailContentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
 

@@ -5,7 +5,7 @@ import 'package:kwriting/src/presentation/widgets/study_table_row.dart';
 import 'package:provider/provider.dart';
 
 class StudyTable extends StatelessWidget {
-  const StudyTable({Key? key, required this.title, required this.rows}) : super(key: key);
+  const StudyTable({required this.title, required this.rows, Key? key}) : super(key: key);
 
   final String title;
   final List<StudyTableRow> rows;
@@ -17,11 +17,11 @@ class StudyTable extends StatelessWidget {
       builder: (context2, child) {
         return Container(
           decoration: studyTableDecoration,
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          margin: const EdgeInsets.symmetric(vertical: 8),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0, right: 4.0),
+                padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -31,7 +31,7 @@ class StudyTable extends StatelessWidget {
                 ),
               ),
               ..._buildStudyRowsWithSpace(),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 8),
             ],
           ),
         );
@@ -40,11 +40,11 @@ class StudyTable extends StatelessWidget {
   }
 
   List<Widget> _buildStudyRowsWithSpace() {
-    final list = <Widget>[];
-    list.add(rows[0]);
-    for (int i = 1; i < rows.length; i++) {
-      list.add(const SizedBox(height: 4.0));
-      list.add(rows[i]);
+    final list = <Widget>[rows[0]];
+    for (var i = 1; i < rows.length; i++) {
+      list
+        ..add(const SizedBox(height: 4))
+        ..add(rows[i]);
     }
     return list;
   }

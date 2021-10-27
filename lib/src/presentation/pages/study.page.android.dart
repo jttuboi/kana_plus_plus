@@ -180,28 +180,28 @@ class StudyPage extends StatelessWidget {
 }
 
 class _StudyTitle extends StatelessWidget {
-  const _StudyTitle({Key? key, required this.title}) : super(key: key);
+  const _StudyTitle({required this.title, Key? key}) : super(key: key);
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Text(title, style: studyTitleTextStyle),
     );
   }
 }
 
 class _StudyText extends StatelessWidget {
-  const _StudyText({Key? key, required this.text}) : super(key: key);
+  const _StudyText({required this.text, Key? key}) : super(key: key);
 
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
+      padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
       child: Text(text, style: studyTextStyleText, textAlign: TextAlign.justify),
     );
   }

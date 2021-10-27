@@ -26,16 +26,16 @@ class SharedPreferencesStorage implements IDatabaseStorage {
 
   @override
   Future<void> setInt(String key, int value) async {
-    _preferences.setInt(key, value);
+    await _preferences.setInt(key, value);
   }
 
   @override
   Future<void> setBool(String key, bool value) async {
-    _preferences.setBool(key, value);
+    await _preferences.setBool(key, value);
   }
 
   @override
   Future<void> setString(String key, String value) async {
-    _preferences.setString(key, value);
+    await _preferences.setString(key, value);
   }
 }

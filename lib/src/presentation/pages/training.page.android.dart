@@ -18,9 +18,9 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrainingPage extends StatefulWidget {
   const TrainingPage({
-    Key? key,
     required this.trainingController,
     required this.writerController,
+    Key? key,
   }) : super(key: key);
 
   final TrainingController trainingController;
@@ -115,7 +115,7 @@ class _TrainingPageState extends State<TrainingPage> {
                           ),
                           const Spacer(),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: KanaViewers(
                               width: constraints.maxWidth - 16.0 * 2, // 16 * 2 is the padding size for this content
                               height: constraints.maxHeight * 4 / 30,
@@ -125,7 +125,7 @@ class _TrainingPageState extends State<TrainingPage> {
                           ),
                           const Spacer(),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 32),
                             child: Row(
                               children: [
                                 const Spacer(),
@@ -207,8 +207,7 @@ class _TrainingPageState extends State<TrainingPage> {
       curve: Curves.linear,
     )
         .then((value) {
-      final wordProvider = Provider.of<TrainingWordProvider>(context, listen: false);
-      wordProvider.updateState();
+      Provider.of<TrainingWordProvider>(context, listen: false).updateState();
       _updateWriterData(context);
     });
   }
@@ -226,8 +225,7 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _updateWriterData(BuildContext context) {
-    final writerProvider = Provider.of<WriterProvider>(context, listen: false);
-    writerProvider.updateWriter(widget.trainingController.currentKanaToWrite);
+    Provider.of<WriterProvider>(context, listen: false).updateWriter(widget.trainingController.currentKanaToWrite);
   }
 
   Widget _buildLoader() {

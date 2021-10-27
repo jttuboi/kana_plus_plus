@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kana_checker/kana_checker.dart';
-import 'package:provider/provider.dart';
-import 'package:stroke_reducer/stroke_reducer.dart';
 import 'package:kwriting/src/domain/controllers/app.controller.dart';
 import 'package:kwriting/src/domain/controllers/pre_training.controller.dart';
 import 'package:kwriting/src/domain/controllers/review.controller.dart';
@@ -38,8 +36,12 @@ import 'package:kwriting/src/presentation/state_management/locale.provider.dart'
 import 'package:kwriting/src/presentation/state_management/theme.provider.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
+import 'package:provider/provider.dart';
+import 'package:stroke_reducer/stroke_reducer.dart';
 
 class AndroidApp extends StatelessWidget {
+  AndroidApp({Key? key}) : super(key: key);
+
   final appController = AppController(appRepository: AppRepository(), languageRepository: LanguageRepository());
 
   @override

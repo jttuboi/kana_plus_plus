@@ -6,7 +6,7 @@ import 'package:kwriting/src/infrastructure/datasources/image_url.storage.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class Introduction extends StatelessWidget {
-  const Introduction({Key? key, required this.onFinished}) : super(key: key);
+  const Introduction({required this.onFinished, Key? key}) : super(key: key);
 
   final VoidCallback onFinished;
 
@@ -47,7 +47,7 @@ class Introduction extends StatelessWidget {
           bodyWidget: Column(
             children: [
               Text(strings.introRecommendation, textAlign: TextAlign.center, style: introductionPageDecoration.bodyTextStyle),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: onFinished,
                 style: introductionButtonStyle,

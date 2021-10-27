@@ -6,7 +6,7 @@ import 'package:kwriting/src/infrastructure/utils/consts.dart';
 class KanaTypeRepository implements IKanaTypeRepository {
   @override
   KanaType getKanaType() {
-    final int kanaIndex = Database.getInt(DatabaseTag.kanaType, defaultValue: KanaType.both.index);
+    final kanaIndex = Database.getInt(DatabaseTag.kanaType, defaultValue: KanaType.both.index);
     return KanaType.values[kanaIndex];
   }
 

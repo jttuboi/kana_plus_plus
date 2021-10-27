@@ -49,9 +49,8 @@ class WordsSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestions = (query.trim().isEmpty)
-        ? words.getRange(0, 4).map((word) => word).toList()
-        : words.where((word) => _hasQuery(word)).map((word) => word).toList();
+    final suggestions =
+        (query.trim().isEmpty) ? words.getRange(0, 4).map((word) => word).toList() : words.where(_hasQuery).map((word) => word).toList();
     return _buildSuggestions(suggestions);
   }
 

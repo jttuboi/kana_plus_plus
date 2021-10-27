@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_lambdas
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kwriting/src/domain/controllers/words.controller.dart';
 import 'package:kwriting/src/domain/entities/kana.dart';
@@ -13,7 +15,7 @@ void main() {
 
   group('show word detail', () {
     test('must return a full word to show in word detail', () {
-      const String wordId = 'ねこ';
+      const wordId = 'ねこ';
       when(() => wordRepository.getWord(wordId)).thenAnswer((_) => wordSample0);
 
       final wordResult = controller.wordDetail(wordId);

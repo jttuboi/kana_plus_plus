@@ -3,7 +3,6 @@ import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/src/domain/entities/kana_to_writer.dart';
 import 'package:kwriting/src/domain/entities/kana_viewer_content.dart';
 import 'package:kwriting/src/domain/entities/training_stats.dart';
-import 'package:kwriting/src/domain/entities/word.dart';
 import 'package:kwriting/src/domain/entities/word_viewer_content.dart';
 import 'package:kwriting/src/domain/repositories/statistics.interface.repository.dart';
 import 'package:kwriting/src/domain/repositories/word.interface.repository.dart';
@@ -63,7 +62,7 @@ class TrainingController {
 
     // change to next kanaContent
     kanaIdx++;
-    UpdateKanaSituation situation = UpdateKanaSituation.changeKana;
+    var situation = UpdateKanaSituation.changeKana;
 
     // if not the last kanaContent, update kanaContent to status next
     if (kanaIdx < wordsToTraining[wordIdx].kanas.length) {
@@ -89,7 +88,7 @@ class TrainingController {
 
   void _fillWordsToTraining() {
     wordsToTraining.clear();
-    final List<Word> words = wordRepository.getWordsForTraining(kanaType, quantityOfWords);
+    final words = wordRepository.getWordsForTraining(kanaType, quantityOfWords);
     wordsToTraining = words.map((word) => WordViewerContent.fromWord(word)).toList();
   }
 
@@ -114,20 +113,24 @@ class TrainingController {
 
     for (final wordEnd in trainingStats.words) {
       if (wordEnd.correct) {
-        statisticsRepository.increaseWordCorrectQuantity();
-        statisticsRepository.increaseSpecificWordCorrectQuantity(wordEnd.id);
+        statisticsRepository
+          ..increaseWordCorrectQuantity()
+          ..increaseSpecificWordCorrectQuantity(wordEnd.id);
       } else {
-        statisticsRepository.increaseWordWrongQuantity();
-        statisticsRepository.increaseSpecificWordWrongQuantity(wordEnd.id);
+        statisticsRepository
+          ..increaseWordWrongQuantity()
+          ..increaseSpecificWordWrongQuantity(wordEnd.id);
       }
 
       for (final kanaEnd in wordEnd.kanas) {
         if (kanaEnd.correct) {
-          statisticsRepository.increaseKanaCorrectQuantity();
-          statisticsRepository.increaseSpecificKanaCorrectQuantity(kanaEnd.id);
+          statisticsRepository
+            ..increaseKanaCorrectQuantity()
+            ..increaseSpecificKanaCorrectQuantity(kanaEnd.id);
         } else {
-          statisticsRepository.increaseKanaWrongQuantity();
-          statisticsRepository.increaseSpecificKanaWrongQuantity(kanaEnd.id);
+          statisticsRepository
+            ..increaseKanaWrongQuantity()
+            ..increaseSpecificKanaWrongQuantity(kanaEnd.id);
         }
       }
     }

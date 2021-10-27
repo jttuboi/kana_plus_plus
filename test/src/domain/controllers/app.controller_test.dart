@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_lambdas
+
 import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kwriting/src/domain/controllers/app.controller.dart';

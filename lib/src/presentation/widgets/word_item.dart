@@ -5,10 +5,10 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class WordItem extends StatelessWidget {
   const WordItem({
-    Key? key,
     required this.word,
     required this.imageUrl,
     required this.onTap,
+    Key? key,
   }) : super(key: key);
 
   final String word;
@@ -24,7 +24,7 @@ class WordItem extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               alignment: Alignment.topCenter,
               child: Hero(
                 tag: imageUrl,
@@ -33,7 +33,7 @@ class WordItem extends StatelessWidget {
             ),
             Container(),
             Container(
-              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               alignment: Alignment.bottomCenter,
               child: Stack(
                 children: [

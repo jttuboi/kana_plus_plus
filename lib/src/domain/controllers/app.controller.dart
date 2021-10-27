@@ -17,7 +17,7 @@ class AppController {
   }
 
   Locale get locale {
-    return JStrings.supportedLocales.firstWhere((Locale locale) {
+    return JStrings.supportedLocales.firstWhere((locale) {
       return locale.languageCode == languageRepository.getLanguageSelected();
     }, orElse: () {
       return defaultLocale;
@@ -28,7 +28,7 @@ class AppController {
     if (deviceLocale == null) {
       languageRepository.setLanguageSelected(defaultLocale.languageCode);
     } else if (isFirstTime) {
-      final localeFound = JStrings.supportedLocales.firstWhere((Locale locale) {
+      final localeFound = JStrings.supportedLocales.firstWhere((locale) {
         return locale.languageCode == deviceLocale.languageCode;
       }, orElse: () {
         return defaultLocale;

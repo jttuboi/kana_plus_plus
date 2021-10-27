@@ -26,12 +26,13 @@ Future<void> init() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Database.init(storage: SharedPreferencesStorage());
   await File.init(storage: JsonStorage());
-  Hive.init((await getApplicationDocumentsDirectory()).path);
-  Hive.registerAdapter(KanaTypeAdapter());
-  Hive.registerAdapter(PointStatsAdapter());
-  Hive.registerAdapter(StrokeStatsAdapter());
-  Hive.registerAdapter(KanaStatsAdapter());
-  Hive.registerAdapter(WordStatsAdapter());
-  Hive.registerAdapter(TrainingStatsAdapter());
+  Hive
+    ..init((await getApplicationDocumentsDirectory()).path)
+    ..registerAdapter(KanaTypeAdapter())
+    ..registerAdapter(PointStatsAdapter())
+    ..registerAdapter(StrokeStatsAdapter())
+    ..registerAdapter(KanaStatsAdapter())
+    ..registerAdapter(WordStatsAdapter())
+    ..registerAdapter(TrainingStatsAdapter());
   await MobileAds.instance.initialize();
 }

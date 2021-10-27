@@ -15,7 +15,7 @@ class StudyTableRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: studyTableRowDecoration,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       height: studyTableRowHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

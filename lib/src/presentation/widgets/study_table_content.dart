@@ -4,7 +4,7 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:provider/provider.dart';
 
 class StudyTableContent extends StatefulWidget {
-  const StudyTableContent({Key? key, required this.romaji, required this.kana}) : super(key: key);
+  const StudyTableContent({required this.romaji, required this.kana, Key? key}) : super(key: key);
 
   final String romaji;
   final String kana;

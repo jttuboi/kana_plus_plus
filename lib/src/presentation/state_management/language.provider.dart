@@ -11,7 +11,7 @@ class LanguageProvider extends ChangeNotifier {
   String get languageSelected => _controller.languageSelected;
 
   List<SelectionOptionArguments> options(String Function(String localeCode) languageText) {
-    return JStrings.supportedLocales.map((Locale locale) {
+    return JStrings.supportedLocales.map((locale) {
       return SelectionOptionArguments(
         key: locale.languageCode,
         label: languageText(locale.languageCode),

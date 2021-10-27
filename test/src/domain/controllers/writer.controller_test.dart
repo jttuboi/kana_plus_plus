@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_int_literals, cascade_invocations
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/src/domain/controllers/writer.controller.dart';

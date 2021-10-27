@@ -9,8 +9,8 @@ class CurrentStrokeProvider extends ChangeNotifier {
 
   List<Offset> points = [];
   bool _canAdd = true;
-  double _minCanvasLimit = 0.0;
-  double _maxCanvasLimit = 0.0;
+  double _minCanvasLimit = 0;
+  double _maxCanvasLimit = 0;
 
   void setCanvasLimit(double minCanvasLimit, double maxCanvasLimit) {
     _controller.setCanvasLimit(minCanvasLimit, maxCanvasLimit);

@@ -5,13 +5,13 @@ import 'package:kwriting/src/infrastructure/datasources/image_url.storage.dart';
 
 class FallingKanaAnimation extends StatefulWidget {
   const FallingKanaAnimation({
-    Key? key,
     required this.initialPosition,
     required this.endYPosition,
     required this.kanaSize,
     required this.durationInMilliseconds,
+    Key? key,
     this.kanaColor = Colors.black,
-  })  : assert(durationInMilliseconds >= 2000),
+  })  : assert(durationInMilliseconds >= 2000, 'durationInMilliseconds must be >= 2000'),
         super(key: key);
 
   final Offset initialPosition;
@@ -62,7 +62,7 @@ class _FallingKanaAnimationState extends State<FallingKanaAnimation> with Ticker
           controller.forward();
         }
       });
-    opacityAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+    opacityAnimation = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
       parent: controller,
       curve: Curves.easeInExpo,
     ));

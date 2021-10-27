@@ -251,7 +251,7 @@ void main() {
 
 void expectKR(List<Kana> kanas, {required List<KE> kanasE}) {
   expect(kanas.length == kanasE.length, isTrue);
-  for (int i = 0; i < kanasE.length; i++) {
+  for (var i = 0; i < kanasE.length; i++) {
     expect(kanas[i].id, kanasE[i].id);
     expect(kanas[i].romaji, kanasE[i].romaji);
   }

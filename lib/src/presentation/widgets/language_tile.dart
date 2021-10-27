@@ -32,12 +32,9 @@ class LanguageTile extends StatelessWidget {
                 title: strings.settingsSelectLanguage,
                 bannerUrl: BannerUrl.language,
                 selectedOptionKey: provider.languageSelected,
-                options: provider.options((localeCode) {
-                  return toLanguageText(localeCode);
-                }),
+                options: provider.options(toLanguageText),
                 onSelected: (selectedKey) {
-                  final String key = selectedKey as String;
-                  provider.updateLanguageSelected(key);
+                  provider.updateLanguageSelected(selectedKey as String);
                   Provider.of<LocaleProvider>(context, listen: false).updateLocale();
                 },
               ),

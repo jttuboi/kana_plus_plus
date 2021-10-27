@@ -29,7 +29,7 @@ class WordsPage extends StatelessWidget {
 }
 
 class _WordsPage extends StatelessWidget {
-  const _WordsPage({Key? key, required this.wordsController}) : super(key: key);
+  const _WordsPage({required this.wordsController, Key? key}) : super(key: key);
 
   final WordsController wordsController;
 
@@ -49,7 +49,7 @@ class _WordsPage extends StatelessWidget {
       sliverContent: Consumer<WordsProvider>(
         builder: (context, provider, child) {
           return SliverPadding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -65,8 +65,8 @@ class _WordsPage extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 9 / 10,
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
               ),
             ),
           );

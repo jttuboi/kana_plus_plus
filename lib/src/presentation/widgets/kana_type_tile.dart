@@ -9,11 +9,11 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class KanaTypeTile extends StatelessWidget {
   const KanaTypeTile({
-    Key? key,
     required this.kanaType,
     required this.iconUrl,
     required this.options,
     required this.updateKanaType,
+    Key? key,
   }) : super(key: key);
 
   final KanaType kanaType;
@@ -51,9 +51,15 @@ class KanaTypeTile extends StatelessWidget {
 
   String _getText(BuildContext context, KanaType type) {
     final strings = JStrings.of(context)!;
-    if (type.isOnlyHiragana) return strings.settingsOnlyHiragana;
-    if (type.isOnlyKatakana) return strings.settingsOnlyKatakana;
-    if (type.isBoth) return strings.settingsOnlyHiraganaKatakana;
+    if (type.isOnlyHiragana) {
+      return strings.settingsOnlyHiragana;
+    }
+    if (type.isOnlyKatakana) {
+      return strings.settingsOnlyKatakana;
+    }
+    if (type.isBoth) {
+      return strings.settingsOnlyHiraganaKatakana;
+    }
     return '';
   }
 }

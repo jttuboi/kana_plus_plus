@@ -5,13 +5,13 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class FlexibleScaffold extends StatefulWidget {
   const FlexibleScaffold({
-    Key? key,
-    this.isFlexible = true,
     required this.title,
     required this.bannerUrl,
     required this.onBackButtonPressed,
+    this.isFlexible = true,
     this.actions,
     this.sliverContent,
+    Key? key,
   }) : super(key: key);
 
   final bool isFlexible;
@@ -28,7 +28,7 @@ class FlexibleScaffold extends StatefulWidget {
 class _FlexibleScaffoldState extends State<FlexibleScaffold> {
   late ScrollController _scrollController;
   Color _shadowColor = Colors.black;
-  double _elevation = 4.0;
+  double _elevation = 4;
 
   @override
   void initState() {
@@ -84,7 +84,7 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
     return FlexibleSpaceBar(
       centerTitle: true,
       title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: FittedBox(fit: BoxFit.fitWidth, child: Text(widget.title, style: sliverFlexibleAppBarTextStyle)),
       ),
       background: Container(
@@ -107,7 +107,7 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
           title: isCollapsed
               ? null
               : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: FittedBox(fit: BoxFit.fitWidth, child: Text(widget.title, style: sliverFlexibleAppBarTextStyle)),
                 ),
           background: Container(

@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 
 class KanaViewers extends StatelessWidget {
   KanaViewers({
-    Key? key,
     required this.width,
     required this.height,
     required this.trainingController,
     required this.wordIdxToShow,
+    Key? key,
   }) : super(key: key);
 
   final double width;
@@ -36,7 +36,7 @@ class KanaViewers extends StatelessWidget {
             options: CarouselOptions(
               height: height,
               viewportFraction: kanaViewersViewpoertFraction,
-              aspectRatio: 1.0,
+              aspectRatio: 1,
               enableInfiniteScroll: false,
             ),
             carouselController: _carouselController,

@@ -31,7 +31,10 @@ class PreTrainingPage extends StatelessWidget {
 }
 
 class _PreTrainingPage extends StatelessWidget {
-  const _PreTrainingPage({Key? key, required this.preTrainingController}) : super(key: key);
+  const _PreTrainingPage({
+    required this.preTrainingController,
+    Key? key,
+  }) : super(key: key);
 
   final PreTrainingController preTrainingController;
 
@@ -50,7 +53,7 @@ class _PreTrainingPage extends StatelessWidget {
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 8),
                 ShowHintTile(
                   showHint: preTrainingController.showHint,
                   iconUrl: preTrainingController.showHintIconUrl,
@@ -80,7 +83,7 @@ class _PreTrainingPage extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: SvgPicture.asset(
                       IconUrl.play,
                       color: preTrainingPlayIconThemeData.color,

@@ -7,9 +7,9 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class QuantityOfWordsTile extends StatelessWidget {
   const QuantityOfWordsTile({
-    Key? key,
     required this.quantity,
     required this.updateQuantity,
+    Key? key,
   }) : super(key: key);
 
   final int quantity;
@@ -50,15 +50,15 @@ class _CustomTrackShape extends RoundedRectSliderTrackShape {
   @override
   Rect getPreferredRect({
     required RenderBox parentBox,
-    Offset offset = Offset.zero,
     required SliderThemeData sliderTheme,
+    Offset offset = Offset.zero,
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    final double trackHeight = sliderTheme.trackHeight!;
-    final double trackLeft = offset.dx + 6;
-    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
-    final double trackWidth = parentBox.size.width - 22;
+    final trackHeight = sliderTheme.trackHeight!;
+    final trackLeft = offset.dx + 6;
+    final trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final trackWidth = parentBox.size.width - 22;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }

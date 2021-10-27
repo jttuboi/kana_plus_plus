@@ -6,7 +6,7 @@ import 'package:kwriting/src/infrastructure/utils/consts.dart';
 class WritingHandRepository implements IWritingHandRepository {
   @override
   WritingHand getWritingHandSelected() {
-    final int writingHandIndex = Database.getInt(DatabaseTag.writingHand, defaultValue: WritingHand.right.index);
+    final writingHandIndex = Database.getInt(DatabaseTag.writingHand, defaultValue: WritingHand.right.index);
     return WritingHand.values[writingHandIndex];
   }
 

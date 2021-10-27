@@ -11,9 +11,9 @@ class SubHeaderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48.0,
+      height: 48,
       alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Text(title, style: Theme.of(context).textTheme.subtitle2),
     );
   }

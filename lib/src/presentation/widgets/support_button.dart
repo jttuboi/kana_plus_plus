@@ -44,7 +44,7 @@ class _SupportButtonState extends State<SupportButton> {
     final strings = JStrings.of(context)!;
     return widget.isAppBarIcon
         ? Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(4),
             child: IconButton(
               onPressed: _onSupportPressed,
               icon: SvgPicture.asset(
@@ -89,12 +89,12 @@ class _SupportButtonState extends State<SupportButton> {
 
   InterstitialAdLoadCallback get _adLoadCallback {
     return InterstitialAdLoadCallback(
-      onAdLoaded: (InterstitialAd ad) {
+      onAdLoaded: (ad) {
         _ad = ad;
         _ad.fullScreenContentCallback = _fullScreenContentCallback;
         setState(() => _isAdLoaded = true);
       },
-      onAdFailedToLoad: (LoadAdError error) {
+      onAdFailedToLoad: (error) {
         Logger().e('onAdFailedToLoad: $error');
         setState(() => _isAdLoaded = false);
       },
@@ -103,13 +103,13 @@ class _SupportButtonState extends State<SupportButton> {
 
   FullScreenContentCallback<InterstitialAd> get _fullScreenContentCallback {
     return FullScreenContentCallback(
-      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+      onAdDismissedFullScreenContent: (ad) {
         setState(() => _isAdLoaded = false);
         ad.dispose();
         _loadAd();
         _showGratefulMessage();
       },
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+      onAdFailedToShowFullScreenContent: (ad, error) {
         Logger().e('$ad onAdFailedToShowFullScreenContent: $error');
         setState(() => _isAdLoaded = false);
         ad.dispose();

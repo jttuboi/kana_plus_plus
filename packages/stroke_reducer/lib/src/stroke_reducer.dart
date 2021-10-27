@@ -12,12 +12,12 @@ class StrokeReducer {
     }
 
     // it's using ramer douglas peucker algorithm to reduce polyline with different limitDistance
-    List<Point<double>> newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 0.5);
+    var newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 0.5);
     if (newStroke.length > _minPointsQuantity) {
-      newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 1.0);
+      newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 1);
     }
     if (newStroke.length > _minPointsQuantity) {
-      newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 2.0);
+      newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 2);
     }
     return newStroke;
   }
@@ -27,9 +27,9 @@ class StrokeReducer {
     final length = points.length;
     final markers = List.filled(length, false);
 
-    int firstIndex = 0;
-    int lastIndex = length - 1;
-    int index = -1;
+    var firstIndex = 0;
+    var lastIndex = length - 1;
+    var index = -1;
 
     final firstStack = Queue<int>();
     final lastStack = Queue<int>();
@@ -40,8 +40,8 @@ class StrokeReducer {
 
     while (lastIndex != -1) {
       // procura pelo segmento que contém a máxima distancia perpendicular
-      double maxDistance = 0;
-      for (int i = firstIndex + 1; i < lastIndex; i++) {
+      var maxDistance = 0.0;
+      for (var i = firstIndex + 1; i < lastIndex; i++) {
         final squareSegmentDistance = _getSquareSegmentDistance(points[i], points[firstIndex], points[lastIndex]);
         if (squareSegmentDistance > maxDistance) {
           index = i;
@@ -68,7 +68,7 @@ class StrokeReducer {
     }
 
     // se não foi marcado, o ponto que permanecerá na lista final intocado
-    for (int i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       if (markers[i]) {
         newPoints.add(points[i]);
       }
@@ -77,11 +77,11 @@ class StrokeReducer {
   }
 
   double _getSquareSegmentDistance(Point<double> point, Point<double> firstPoint, Point<double> lastPoint) {
-    double x = firstPoint.x;
-    double y = firstPoint.y;
+    var x = firstPoint.x;
+    var y = firstPoint.y;
 
-    double dx = lastPoint.x - x;
-    double dy = lastPoint.y - y;
+    var dx = lastPoint.x - x;
+    var dy = lastPoint.y - y;
 
     if (dx != 0 || dy != 0) {
       final t = ((point.x - x) * dx + (point.y - y) * dy) / (dx * dx + dy * dy);

@@ -25,7 +25,7 @@ class AboutPage extends StatelessWidget {
       isFlexible: false,
       onBackButtonPressed: () => Navigator.pop(context),
       sliverContent: SliverPadding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         sliver: SliverFillRemaining(
           child: FutureBuilder<String>(
             future: getVersionInfo,
@@ -37,14 +37,14 @@ class AboutPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: ClipRRect(
-                        borderRadius: Device.get().isTablet ? BorderRadius.circular(60.0) : BorderRadius.circular(30.0),
+                        borderRadius: Device.get().isTablet ? BorderRadius.circular(60) : BorderRadius.circular(30),
                         child: Image.asset(IconUrl.app, width: aboutImageSize, height: aboutImageSize),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -54,7 +54,7 @@ class AboutPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -64,7 +64,7 @@ class AboutPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -80,7 +80,7 @@ class AboutPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32.0),
+                      padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -110,7 +110,7 @@ class AboutPage extends StatelessWidget {
       path: Developer.contact,
       query: _encodeQueryParameters({'subject': Default.contactSubject}),
     );
-    launch(emailLaunchUri.toString());
+    await launch(emailLaunchUri.toString());
   }
 
   Future<String> get getVersionInfo async {

@@ -34,8 +34,7 @@ class WordRepository implements IWordRepository {
   @override
   Word getWord(String id) {
     final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
-    final word = File.getWord(id);
-    word.setLanguageCode(languageCode);
+    final word = File.getWord(id)..setLanguageCode(languageCode);
     return word;
   }
 
@@ -44,8 +43,7 @@ class WordRepository implements IWordRepository {
     final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
 
     if (kanaType.isBoth) {
-      final allWords = File.getWords();
-      allWords.shuffle();
+      final allWords = File.getWords()..shuffle();
 
       final words = allWords.sublist(0, quantityOfWords);
       for (final word in words) {
@@ -54,8 +52,7 @@ class WordRepository implements IWordRepository {
 
       return words;
     }
-    final wordsByKanaType = File.getWordsByKanaType(kanaType);
-    wordsByKanaType.shuffle();
+    final wordsByKanaType = File.getWordsByKanaType(kanaType)..shuffle();
 
     final words = wordsByKanaType.sublist(0, quantityOfWords);
     for (final word in words) {

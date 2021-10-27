@@ -9,11 +9,11 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class WritingHandTile extends StatelessWidget {
   const WritingHandTile({
-    Key? key,
     required this.writingHand,
     required this.iconUrl,
     required this.options,
     required this.updateWritingHand,
+    Key? key,
   }) : super(key: key);
 
   final WritingHand writingHand;
@@ -52,8 +52,12 @@ class WritingHandTile extends StatelessWidget {
 
   String _getText(BuildContext context, WritingHand key) {
     final strings = JStrings.of(context)!;
-    if (key.isLeft) return strings.settingsWritingHandLeft;
-    if (key.isRight) return strings.settingsWritingHandRight;
+    if (key.isLeft) {
+      return strings.settingsWritingHandLeft;
+    }
+    if (key.isRight) {
+      return strings.settingsWritingHandRight;
+    }
     return '';
   }
 }

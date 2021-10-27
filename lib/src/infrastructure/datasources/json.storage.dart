@@ -39,8 +39,9 @@ class JsonStorage implements IFileStorage {
     final converter = WordToKanaConverter();
 
     data.words.forEach((wordId, wordModel) {
-      wordModel.setTranslate(data.translates[wordId]!);
-      wordModel.kanas = converter.convert(wordId, data.kanas);
+      wordModel
+        ..setTranslate(data.translates[wordId]!)
+        ..kanas = converter.convert(wordId, data.kanas);
     });
   }
 

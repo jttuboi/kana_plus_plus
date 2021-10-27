@@ -6,7 +6,7 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/kana_details.dart';
 
 class WordDetailPage extends StatelessWidget {
-  const WordDetailPage({Key? key, required this.word}) : super(key: key);
+  const WordDetailPage({required this.word, Key? key}) : super(key: key);
 
   final Word word;
 
@@ -52,11 +52,11 @@ class WordDetailPage extends StatelessWidget {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 16.0, bottom: 32.0),
+                              padding: const EdgeInsets.only(top: 16, bottom: 32),
                               child: KanasDetails(kanas: word.kanas),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -66,7 +66,7 @@ class WordDetailPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [

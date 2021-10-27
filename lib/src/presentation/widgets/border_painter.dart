@@ -21,8 +21,8 @@ class BorderPainter extends CustomPainter {
 
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(0.0, 0.0, size.width, size.height),
-        const Radius.circular(1.0),
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        const Radius.circular(1),
       ),
       paintBackground,
     );
@@ -37,7 +37,7 @@ class BorderPainter extends CustomPainter {
           size.width - paintBorder.strokeWidth,
           size.height - paintBorder.strokeWidth,
         ),
-        const Radius.circular(1.0),
+        const Radius.circular(1),
       ),
       paintBorder,
     );

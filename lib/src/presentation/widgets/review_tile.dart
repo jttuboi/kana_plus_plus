@@ -6,30 +6,27 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/review_kana_content.dart';
 
 class ReviewTile extends StatelessWidget {
-  const ReviewTile({
-    Key? key,
-    required this.wordResult,
-  }) : super(key: key);
+  const ReviewTile({required this.wordResult, Key? key}) : super(key: key);
 
   final WordResult wordResult;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: SvgPicture.asset(wordResult.imageUrl, width: 40.0),
+      leading: SvgPicture.asset(wordResult.imageUrl, width: 40),
       title: Text(wordResult.id, style: reviewTileTitleStyle),
       subtitle: Container(
         alignment: Alignment.centerLeft,
-        constraints: const BoxConstraints.expand(width: 200.0, height: 40.0),
+        constraints: const BoxConstraints.expand(width: 200, height: 40),
         child: ListView.separated(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.only(top: 4.0),
+          padding: const EdgeInsets.only(top: 4),
           itemCount: wordResult.kanas.length,
           itemBuilder: (context, index) {
             return ReviewKanaContent(kanaResult: wordResult.kanas[index]);
           },
-          separatorBuilder: (context, index) => const SizedBox(width: 4.0),
+          separatorBuilder: (context, index) => const SizedBox(width: 4),
         ),
       ),
     );

@@ -6,12 +6,12 @@ import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
 
 class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage({
-    Key? key,
     required this.title,
     required this.bannerUrl,
     required this.selectedOptionKey,
     required this.options,
     required this.onSelected,
+    Key? key,
   }) : super(key: key);
 
   final String title;
@@ -43,11 +43,11 @@ class SelectionOptionPage extends StatelessWidget {
               return RadioListTile(
                 title: Text(option.label),
                 value: index,
-                groupValue: options.indexWhere((SelectionOptionArguments pOption) {
+                groupValue: options.indexWhere((pOption) {
                   return pOption.key == selectedOptionKey;
                 }),
-                onChanged: (int? value) {
-                  onSelected(options[value!].key);
+                onChanged: (value) {
+                  onSelected(options[value! as int].key);
                   Navigator.pop(context);
                 },
                 secondary:

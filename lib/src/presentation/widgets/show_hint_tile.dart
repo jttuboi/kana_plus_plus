@@ -5,10 +5,10 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class ShowHintTile extends StatelessWidget {
   const ShowHintTile({
-    Key? key,
     required this.showHint,
     required this.iconUrl,
     required this.updateShowHint,
+    Key? key,
   }) : super(key: key);
 
   final bool showHint;

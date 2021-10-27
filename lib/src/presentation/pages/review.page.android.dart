@@ -11,9 +11,9 @@ import 'package:kwriting/src/presentation/widgets/support_button.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({
-    Key? key,
     required this.reviewController,
     required this.wordsResult,
+    Key? key,
   }) : super(key: key);
 
   final ReviewController reviewController;
@@ -51,11 +51,11 @@ class _ReviewPageState extends State<ReviewPage> {
         onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
         actions: const [SupportButton(isAppBarIcon: true)],
         sliverContent: SliverPadding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72.0);
+                return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72);
               },
               semanticIndexCallback: (widget, localIndex) {
                 return localIndex.isEven ? localIndex ~/ 2 : null;

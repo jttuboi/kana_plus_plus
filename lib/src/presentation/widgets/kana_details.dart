@@ -4,7 +4,7 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/kana_detail.dart';
 
 class KanasDetails extends StatelessWidget {
-  const KanasDetails({Key? key, required this.kanas}) : super(key: key);
+  const KanasDetails({required this.kanas, Key? key}) : super(key: key);
 
   final List<Kana> kanas;
 

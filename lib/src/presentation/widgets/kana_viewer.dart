@@ -8,7 +8,7 @@ import 'package:kwriting/src/presentation/widgets/border_painter.dart';
 import 'package:kwriting/src/presentation/widgets/user_kana_viewer.dart';
 
 class KanaViewer extends StatefulWidget {
-  const KanaViewer(this.content, {Key? key, required this.size}) : super(key: key);
+  const KanaViewer(this.content, {required this.size, Key? key}) : super(key: key);
 
   final double size;
   final KanaViewerContent content;
@@ -31,8 +31,9 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
     if (widget.content.status.isShowSelected) {
       _controller.repeat(reverse: true);
     } else if (_controller.isAnimating) {
-      _controller.stop();
-      _controller.reset();
+      _controller
+        ..stop()
+        ..reset();
     }
   }
 
@@ -47,7 +48,7 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
     final size = Size(widget.size, widget.size);
     return Center(
       child: AspectRatio(
-        aspectRatio: 1.0,
+        aspectRatio: 1,
         child: Stack(
           children: [
             if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),

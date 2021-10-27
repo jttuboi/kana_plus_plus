@@ -4,7 +4,7 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/border_painter.dart';
 
 class KanaDetail extends StatelessWidget {
-  const KanaDetail({Key? key, required this.imageUrl, required this.size}) : super(key: key);
+  const KanaDetail({required this.imageUrl, required this.size, Key? key}) : super(key: key);
 
   final String imageUrl;
   final double size;
@@ -16,7 +16,7 @@ class KanaDetail extends StatelessWidget {
       width: size,
       child: Stack(
         children: [
-          CustomPaint(painter: BorderPainter(borderWidth: 2.0, borderColor: defaultBorderColor), size: Size(size, size)),
+          CustomPaint(painter: BorderPainter(borderWidth: 2, borderColor: defaultBorderColor), size: Size(size, size)),
           SvgPicture.asset(imageUrl, width: size, height: size)
         ],
       ),

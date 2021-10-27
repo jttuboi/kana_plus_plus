@@ -13,11 +13,11 @@ import 'package:provider/provider.dart';
 
 class Writer extends StatelessWidget {
   const Writer({
-    Key? key,
     required this.width,
     required this.height,
     required this.writerController,
     required this.onKanaRecovered,
+    Key? key,
   }) : super(key: key);
 
   final double width;
@@ -80,7 +80,11 @@ class Writer extends StatelessWidget {
 }
 
 class _SupportButtons extends StatelessWidget {
-  const _SupportButtons({Key? key, required this.width, required this.height}) : super(key: key);
+  const _SupportButtons({
+    required this.width,
+    required this.height,
+    Key? key,
+  }) : super(key: key);
 
   final double width;
   final double height;
@@ -123,22 +127,20 @@ class _SupportButtons extends StatelessWidget {
   }
 
   void _clearStrokes(BuildContext context) {
-    final allStrokesProvider = Provider.of<AllStrokesProvider>(context, listen: false);
-    allStrokesProvider.clearStrokes();
+    Provider.of<AllStrokesProvider>(context, listen: false).clearStrokes();
   }
 
   void _undoStroke(BuildContext context) {
-    final allStrokesProvider = Provider.of<AllStrokesProvider>(context, listen: false);
-    allStrokesProvider.undoTheLastStroke();
+    Provider.of<AllStrokesProvider>(context, listen: false).undoTheLastStroke();
   }
 }
 
 class _Drawer extends StatelessWidget {
   const _Drawer({
-    Key? key,
     required this.drawerSize,
     required this.writerController,
     required this.onKanaRecovered,
+    Key? key,
   }) : super(key: key);
 
   final double drawerSize;
@@ -147,8 +149,7 @@ class _Drawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-    currentStrokeProvider.setCanvasLimit(16.0, drawerSize - 16.0);
+    Provider.of<CurrentStrokeProvider>(context, listen: false).setCanvasLimit(16, drawerSize - 16.0);
 
     return Stack(
       children: [
@@ -196,19 +197,16 @@ class _Drawer extends StatelessWidget {
   }
 
   void _startStroke(DragStartDetails details, BuildContext context, double size) {
-    final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-    currentStrokeProvider.addPoint(details.localPosition);
+    Provider.of<CurrentStrokeProvider>(context, listen: false).addPoint(details.localPosition);
   }
 
   void _updateStroke(DragUpdateDetails details, BuildContext context) {
-    final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-    currentStrokeProvider.addPoint(details.localPosition);
+    Provider.of<CurrentStrokeProvider>(context, listen: false).addPoint(details.localPosition);
   }
 
   void _finishStroke(BuildContext context) {
     final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-    final allStrokesProvider = Provider.of<AllStrokesProvider>(context, listen: false);
-    allStrokesProvider.addStroke(currentStrokeProvider.points);
+    Provider.of<AllStrokesProvider>(context, listen: false).addStroke(currentStrokeProvider.points);
     currentStrokeProvider.resetPoints();
     if (writerController.isTheLastStroke) {
       onKanaRecovered(writerController.normalizedStrokes, writerController.kanaWrote);

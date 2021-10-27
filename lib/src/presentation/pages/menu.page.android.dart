@@ -90,12 +90,12 @@ class _MenuContent extends StatelessWidget {
             flex: Device.get().isTablet ? 1 : 2,
             child: Container(
               alignment: FractionalOffset.bottomRight,
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ShareButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
-                  const SizedBox(width: 4.0),
+                  const SizedBox(width: 4),
                   SupportButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
                 ],
               ),
@@ -132,7 +132,7 @@ class _MenuButton extends StatelessWidget {
             height: menuButtonIconSize,
             color: menuButtonIconColor,
           ),
-          const SizedBox(height: 4.0),
+          const SizedBox(height: 4),
           FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: menuButtonTextStyle)),
         ],
       ),

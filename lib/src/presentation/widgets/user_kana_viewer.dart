@@ -5,10 +5,10 @@ import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class UserKanaViewer extends StatelessWidget {
   const UserKanaViewer({
-    Key? key,
     required this.strokes,
     required this.size,
     this.strokeWidth = 5.0,
+    Key? key,
   }) : super(key: key);
 
   final List<List<Offset>> strokes;

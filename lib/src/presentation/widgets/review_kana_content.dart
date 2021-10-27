@@ -7,27 +7,24 @@ import 'package:kwriting/src/presentation/widgets/border_painter.dart';
 import 'package:kwriting/src/presentation/widgets/user_kana_viewer.dart';
 
 class ReviewKanaContent extends StatelessWidget {
-  const ReviewKanaContent({
-    Key? key,
-    required this.kanaResult,
-  }) : super(key: key);
+  const ReviewKanaContent({required this.kanaResult, Key? key}) : super(key: key);
 
   final KanaResult kanaResult;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 32.0,
+      width: 32,
       child: Stack(
         children: [
           CustomPaint(
-            painter: BorderPainter(borderWidth: 1.0, borderColor: (kanaResult.isCorrect) ? correctBorderColor : wrongBorderColor),
-            size: const Size(32.0, 32.0),
+            painter: BorderPainter(borderWidth: 1, borderColor: (kanaResult.isCorrect) ? correctBorderColor : wrongBorderColor),
+            size: const Size(32, 32),
           ),
           UserKanaViewer(
             strokes: kanaResult.strokesDrew,
-            size: const Size(32.0, 32.0),
-            strokeWidth: 2.0,
+            size: const Size(32, 32),
+            strokeWidth: 2,
           ),
         ],
       ),

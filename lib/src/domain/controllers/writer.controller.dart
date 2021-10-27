@@ -23,8 +23,8 @@ class WriterController {
   List<List<Offset>> strokes = [];
   late KanaToWrite kanaToWrite;
 
-  double _startCanvasLimit = 0.0;
-  double _endCanvasLimit = 100.0;
+  double _startCanvasLimit = 0;
+  double _endCanvasLimit = 100;
 
   bool get isWritingHandRight => writingHandRepository.getWritingHandSelected().isRight;
 
