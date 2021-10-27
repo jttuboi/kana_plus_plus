@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
+import 'package:kana_checker/kana_checker.dart';
+import 'package:provider/provider.dart';
+import 'package:stroke_reducer/stroke_reducer.dart';
 import 'package:kwriting/src/domain/controllers/app.controller.dart';
 import 'package:kwriting/src/domain/controllers/pre_training.controller.dart';
 import 'package:kwriting/src/domain/controllers/review.controller.dart';
@@ -7,8 +10,6 @@ import 'package:kwriting/src/domain/controllers/settings.controller.dart';
 import 'package:kwriting/src/domain/controllers/training.controller.dart';
 import 'package:kwriting/src/domain/controllers/words.controller.dart';
 import 'package:kwriting/src/domain/controllers/writer.controller.dart';
-import 'package:kwriting/src/domain/support/kana_checker.dart';
-import 'package:kwriting/src/domain/support/stroke_reducer.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/repositories/app.repository.dart';
 import 'package:kwriting/src/infrastructure/repositories/dark_theme.repository.dart';
@@ -37,7 +38,6 @@ import 'package:kwriting/src/presentation/state_management/locale.provider.dart'
 import 'package:kwriting/src/presentation/state_management/theme.provider.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
-import 'package:provider/provider.dart';
 
 class AndroidApp extends StatelessWidget {
   final appController = AppController(appRepository: AppRepository(), languageRepository: LanguageRepository());
@@ -125,7 +125,7 @@ class AndroidApp extends StatelessWidget {
             ),
             writerController: WriterController(
               writingHandRepository: WritingHandRepository(),
-              strokeReducer: StrokeReducer(limitPointsToReduce: 20),
+              strokeReducer: StrokeReducer(minPointsQuantity: 20),
               kanaChecker: kanaChecker,
               showHint: args.showHint,
             ),

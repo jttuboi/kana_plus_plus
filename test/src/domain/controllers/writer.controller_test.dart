@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/src/domain/controllers/writer.controller.dart';
 import 'package:kwriting/src/domain/entities/kana_to_writer.dart';
 import 'package:kwriting/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kwriting/src/domain/support/kana_checker.dart';
-import 'package:kwriting/src/domain/support/stroke_reducer.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
 import 'package:kwriting/src/domain/utils/writing_hand.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:stroke_reducer/stroke_reducer.dart';
 
 void main() {
   late IWritingHandRepository writingHandRepository;
   late WriterController controller;
-  final strokeReducer = StrokeReducer(limitPointsToReduce: 20);
+  final strokeReducer = StrokeReducer(minPointsQuantity: 20);
   final kanaChecker = KanaChecker();
 
   setUpAll(() {

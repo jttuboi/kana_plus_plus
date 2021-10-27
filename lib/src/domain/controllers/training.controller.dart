@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/src/domain/entities/kana_to_writer.dart';
 import 'package:kwriting/src/domain/entities/kana_viewer_content.dart';
 import 'package:kwriting/src/domain/entities/training_stats.dart';
@@ -6,7 +7,6 @@ import 'package:kwriting/src/domain/entities/word.dart';
 import 'package:kwriting/src/domain/entities/word_viewer_content.dart';
 import 'package:kwriting/src/domain/repositories/statistics.interface.repository.dart';
 import 'package:kwriting/src/domain/repositories/word.interface.repository.dart';
-import 'package:kwriting/src/domain/support/kana_checker.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
 import 'package:kwriting/src/domain/utils/update_kana_situation.dart';
 import 'package:kwriting/src/presentation/arguments/word_result.dart';
@@ -23,7 +23,7 @@ class TrainingController {
 
   final IWordRepository wordRepository;
   final IStatisticsRepository statisticsRepository;
-  final IKanaChecker kanaChecker;
+  final KanaChecker kanaChecker;
 
   final bool showHint;
   final KanaType kanaType;
@@ -35,7 +35,7 @@ class TrainingController {
   List<WordViewerContent> wordsToTraining = [];
 
   Future<bool> get isReady async {
-    await kanaChecker.load();
+    await kanaChecker.preloadData();
     _fillWordsToTraining();
     return true;
   }

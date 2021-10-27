@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/src/domain/controllers/training.controller.dart';
 import 'package:kwriting/src/domain/entities/kana_viewer_content.dart';
 import 'package:kwriting/src/domain/entities/training_stats.dart';
 import 'package:kwriting/src/domain/entities/word_viewer_content.dart';
 import 'package:kwriting/src/domain/repositories/statistics.interface.repository.dart';
 import 'package:kwriting/src/domain/repositories/word.interface.repository.dart';
-import 'package:kwriting/src/domain/support/kana_checker.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
 import 'package:kwriting/src/domain/utils/kana_viewer_status.dart';
 import 'package:kwriting/src/domain/utils/update_kana_situation.dart';

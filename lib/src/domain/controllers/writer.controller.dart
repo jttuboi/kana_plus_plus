@@ -1,9 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
+import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/src/domain/entities/kana_to_writer.dart';
 import 'package:kwriting/src/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kwriting/src/domain/support/kana_checker.dart';
-import 'package:kwriting/src/domain/support/stroke_reducer.dart';
 import 'package:kwriting/src/domain/utils/writing_hand.dart';
+import 'package:stroke_reducer/stroke_reducer.dart';
 
 class WriterController {
   WriterController({
@@ -15,7 +16,7 @@ class WriterController {
 
   final IWritingHandRepository writingHandRepository;
   final StrokeReducer strokeReducer;
-  final IKanaChecker kanaChecker;
+  final KanaChecker kanaChecker;
 
   final bool showHint;
 
@@ -43,7 +44,11 @@ class WriterController {
 
   void addStroke(List<Offset> stroke) {
     if (stroke.length > 3) {
-      strokes.add(strokeReducer.reduce(stroke));
+      // TODO evitar esse tipo de conversão, verificar se tem como evitar o Offset e utilizar o Point<double>
+      strokes.add(strokeReducer
+          .reduce(stroke.map((offset) => Point<double>(offset.dx, offset.dy)).toList())
+          .map((point) => Offset(point.x, point.y))
+          .toList());
     }
   }
 
@@ -59,7 +64,9 @@ class WriterController {
 
   String get kanaWrote {
     //print('kanaWrote -> kanaToWrite = $kanaToWrite');
-    final isOk = kanaChecker.checkKana(kanaToWrite.id, normalizedStrokes);
+    // TODO evitar esse tipo de conversão, verificar se tem como evitar o Offset e utilizar o Point<double>
+    final isOk = kanaChecker.checkKana(
+        kanaToWrite.id, normalizedStrokes.map((list) => list.map((offset) => Point<double>(offset.dx, offset.dy)).toList()).toList());
     return isOk ? kanaToWrite.id : '';
   }
 

@@ -1,29 +1,29 @@
 import 'dart:collection';
-import 'dart:ui';
+import 'dart:math';
 
 class StrokeReducer {
-  StrokeReducer({required this.limitPointsToReduce});
+  StrokeReducer({required int minPointsQuantity}) : _minPointsQuantity = minPointsQuantity;
 
-  final int limitPointsToReduce;
+  final int _minPointsQuantity;
 
-  List<Offset> reduce(List<Offset> stroke) {
-    if (stroke.length <= limitPointsToReduce) {
+  List<Point<double>> reduce(List<Point<double>> stroke) {
+    if (stroke.length <= _minPointsQuantity) {
       return stroke;
     }
 
     // it's using ramer douglas peucker algorithm to reduce polyline with different limitDistance
-    List<Offset> newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 0.5);
-    if (newStroke.length > limitPointsToReduce) {
+    List<Point<double>> newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 0.5);
+    if (newStroke.length > _minPointsQuantity) {
       newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 1.0);
     }
-    if (newStroke.length > limitPointsToReduce) {
+    if (newStroke.length > _minPointsQuantity) {
       newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 2.0);
     }
     return newStroke;
   }
 
   // https://gist.github.com/Snegovikufa/6490663
-  List<Offset> _reducerPolylineRamerDouglasPeuckerStack(List<Offset> points, double limitDistance) {
+  List<Point<double>> _reducerPolylineRamerDouglasPeuckerStack(List<Point<double>> points, double limitDistance) {
     final length = points.length;
     final markers = List.filled(length, false);
 
@@ -33,7 +33,7 @@ class StrokeReducer {
 
     final firstStack = Queue<int>();
     final lastStack = Queue<int>();
-    final newPoints = <Offset>[];
+    final newPoints = <Point<double>>[];
 
     // marca posições do primeiro e último
     markers[firstIndex] = markers[lastIndex] = true;
@@ -76,27 +76,27 @@ class StrokeReducer {
     return newPoints;
   }
 
-  double _getSquareSegmentDistance(Offset point, Offset firstPoint, Offset lastPoint) {
-    double x = firstPoint.dx;
-    double y = firstPoint.dy;
+  double _getSquareSegmentDistance(Point<double> point, Point<double> firstPoint, Point<double> lastPoint) {
+    double x = firstPoint.x;
+    double y = firstPoint.y;
 
-    double dx = lastPoint.dx - x;
-    double dy = lastPoint.dy - y;
+    double dx = lastPoint.x - x;
+    double dy = lastPoint.y - y;
 
     if (dx != 0 || dy != 0) {
-      final t = ((point.dx - x) * dx + (point.dy - y) * dy) / (dx * dx + dy * dy);
+      final t = ((point.x - x) * dx + (point.y - y) * dy) / (dx * dx + dy * dy);
 
       if (t > 1) {
-        x = lastPoint.dx;
-        y = lastPoint.dy;
+        x = lastPoint.x;
+        y = lastPoint.y;
       } else if (t > 0) {
         x += dx * t;
         y += dy * t;
       }
     }
 
-    dx = point.dx - x;
-    dy = point.dy - y;
+    dx = point.x - x;
+    dy = point.y - y;
 
     return dx * dx + dy * dy;
   }
