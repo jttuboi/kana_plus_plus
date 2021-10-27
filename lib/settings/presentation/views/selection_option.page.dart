@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kwriting/core/consts.dart';
 import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
 import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage({

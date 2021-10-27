@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/training/presentation/widgets/border_painter.dart';
 
 class KanaDetail extends StatelessWidget {
@@ -16,7 +16,7 @@ class KanaDetail extends StatelessWidget {
       width: size,
       child: Stack(
         children: [
-          CustomPaint(painter: BorderPainter(borderWidth: 2, borderColor: defaultBorderColor), size: Size(size, size)),
+          CustomPaint(painter: BorderPainter(borderWidth: 2, borderColor: Colors.grey.shade500), size: Size(size, size)),
           SvgPicture.asset(imageUrl, width: size, height: size)
         ],
       ),

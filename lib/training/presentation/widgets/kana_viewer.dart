@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/domain/utils/kana_viewer_status.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/training/domain/entities/kana_viewer_content.dart';
 import 'package:kwriting/training/presentation/widgets/border_painter.dart';
 import 'package:kwriting/training/presentation/widgets/user_kana_viewer.dart';
@@ -55,12 +55,12 @@ class _KanaViewerState extends State<KanaViewer> with SingleTickerProviderStateM
             if (widget.content.status.isShowSelected) ..._buildRomajiEffect(),
             CustomPaint(
               painter: BorderPainter(
-                  borderWidth: kanaViewerBorderWidth,
+                  borderWidth: Device.get().isTablet ? 8.0 : 4.0,
                   borderColor: (widget.content.status.isShowCorrect)
-                      ? correctBorderColor
+                      ? Colors.blueAccent
                       : (widget.content.status.isShowWrong)
-                          ? wrongBorderColor
-                          : defaultBorderColor),
+                          ? Colors.redAccent
+                          : Colors.grey.shade500),
               size: size,
             ),
             if (widget.content.status.isShowSelected || widget.content.status.isShowInitial)
@@ -115,7 +115,15 @@ class RomajiViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(romaji, style: romajiVieverTextStyle),
+      child: Text(
+        romaji,
+        style: TextStyle(
+          color: const Color(0xff4d4d4d),
+          fontSize: Device.get().isTablet ? 80.0 : 50.0,
+          fontFamily: 'PT Sans',
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

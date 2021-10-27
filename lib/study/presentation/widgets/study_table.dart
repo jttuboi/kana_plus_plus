@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/study/presentation/notifiers/study_table.change_notifier.dart';
 import 'package:kwriting/study/presentation/widgets/study_table_row.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class StudyTable extends StatelessWidget {
       create: (context) => StudyTableProvider(),
       builder: (context2, child) {
         return Container(
-          decoration: studyTableDecoration,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.deepPurple),
           margin: const EdgeInsets.symmetric(vertical: 8),
           child: Column(
             children: [
@@ -25,7 +25,7 @@ class StudyTable extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(title, style: studyTableTitleTextStyle),
+                    Text(title, style: TextStyle(color: Colors.grey.shade300, fontSize: Device.get().isTablet ? 24.0 : 18.0)),
                     //IconButton(onPressed: () => _onShowAllPressed(context2), icon: SvgPicture.asset(IconUrl.showAll, color: studyTableTitleColor)),
                   ],
                 ),

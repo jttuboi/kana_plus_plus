@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/study/presentation/widgets/study_table.dart';
 import 'package:kwriting/study/presentation/widgets/study_table_row.dart';
 
@@ -188,7 +188,7 @@ class _StudyTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Text(title, style: studyTitleTextStyle),
+      child: Text(title, style: TextStyle(fontSize: Device.get().isTablet ? 28.0 : 18.0, fontWeight: FontWeight.bold)),
     );
   }
 }
@@ -202,7 +202,7 @@ class _StudyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
-      child: Text(text, style: studyTextStyleText, textAlign: TextAlign.justify),
+      child: Text(text, style: TextStyle(fontSize: Device.get().isTablet ? 24.0 : 16.0), textAlign: TextAlign.justify),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class WordItem extends StatelessWidget {
   const WordItem({
@@ -10,6 +9,8 @@ class WordItem extends StatelessWidget {
     required this.onTap,
     Key? key,
   }) : super(key: key);
+
+  static const japaneseFontFamily = 'M PLUS Rounded 1c';
 
   final String word;
   final String imageUrl;

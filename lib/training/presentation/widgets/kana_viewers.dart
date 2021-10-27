@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/training/domain/use_cases/training.controller.dart';
 import 'package:kwriting/training/presentation/notifiers/training_kana.change_notifier.dart';
 import 'package:kwriting/training/presentation/widgets/kana_viewer.dart';
@@ -35,7 +35,7 @@ class KanaViewers extends StatelessWidget {
           return CarouselSlider.builder(
             options: CarouselOptions(
               height: height,
-              viewportFraction: kanaViewersViewpoertFraction,
+              viewportFraction: Device.get().isTablet ? 0.2 : 0.255,
               aspectRatio: 1,
               enableInfiniteScroll: false,
             ),

@@ -9,12 +9,16 @@ import 'package:kwriting/settings/presentation/widgets/support_button.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
-  const AboutPage({Key? key}) : super(key: key);
+  AboutPage({Key? key}) : super(key: key);
+
+  final aboutImageSize = Device.screenWidth * 1 / 3;
+  final aboutFontSize = Device.get().isTablet ? 28.0 : 20.0;
+  final aboutIconSize = Device.get().isTablet ? 84.0 : 56.0;
+  final aboutTitleSize = Device.get().isTablet ? 28.0 : 18.0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +52,8 @@ class AboutPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(strings.aboutAppVersionTitle, style: aboutAppVersionTitleTextStyle),
-                          Text(snapshot.data!, style: aboutAppVersionTextStyle),
+                          Text(strings.aboutAppVersionTitle, style: TextStyle(fontSize: aboutFontSize, fontWeight: FontWeight.bold)),
+                          Text(snapshot.data!, style: TextStyle(fontSize: aboutFontSize)),
                         ],
                       ),
                     ),
@@ -58,8 +62,8 @@ class AboutPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(strings.aboutDeveloperTitle, style: aboutDeveloperTitleTextStyle),
-                          Text(Developer.name, style: aboutDeveloperTextStyle),
+                          Text(strings.aboutDeveloperTitle, style: TextStyle(fontSize: aboutFontSize, fontWeight: FontWeight.bold)),
+                          Text(Developer.name, style: TextStyle(fontSize: aboutFontSize)),
                         ],
                       ),
                     ),
@@ -68,10 +72,10 @@ class AboutPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(strings.aboutContactTitle, style: aboutDeveloperTitleTextStyle),
+                          Text(strings.aboutContactTitle, style: TextStyle(fontSize: aboutFontSize, fontWeight: FontWeight.bold)),
                           RichText(
                             text: TextSpan(
-                              style: aboutContactTextStyle,
+                              style: TextStyle(fontSize: aboutFontSize, color: Colors.blue, decoration: TextDecoration.underline),
                               text: Developer.contact,
                               recognizer: TapGestureRecognizer()..onTap = _onContactTap,
                             ),

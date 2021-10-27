@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class UserKanaViewer extends StatelessWidget {
   const UserKanaViewer({
@@ -42,7 +41,16 @@ class _UserKanaPainter extends CustomPainter {
           pointNormalized.dy * size.height,
         );
       }).toList();
-      canvas.drawPoints(PointMode.polygon, points, userStrokesPaint..strokeWidth = strokeWidth);
+      canvas.drawPoints(
+        PointMode.polygon,
+        points,
+        Paint()
+          ..isAntiAlias = true
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round
+          ..color = Colors.black
+          ..strokeWidth = strokeWidth,
+      );
     }
   }
 

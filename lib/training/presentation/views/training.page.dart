@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/domain/utils/update_kana_situation.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
 import 'package:kwriting/training/domain/use_cases/training.controller.dart';
 import 'package:kwriting/training/domain/use_cases/writer.controller.dart';
@@ -80,10 +80,10 @@ class _TrainingPageState extends State<TrainingPage> {
                 return StepProgressIndicator(
                   currentStep: widget.trainingController.wordIdx,
                   totalSteps: widget.trainingController.quantityOfWords,
-                  size: stepProgressIndicatorSize,
+                  size: Device.get().isTablet ? 6.0 : 5.0,
                   padding: 0.5,
                   selectedColor: Theme.of(context).colorScheme.secondary,
-                  unselectedColor: defaultProgressBarColor,
+                  unselectedColor: Colors.grey.shade400,
                 );
               },
             ),

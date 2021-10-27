@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:launch_review/launch_review.dart';
 
 class RateButton extends StatelessWidget {
@@ -34,7 +33,14 @@ class RateButton extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
         ),
-        Text(strings.aboutRate, style: aboutIconTextStyle.copyWith(fontSize: titleSize)),
+        Text(
+          strings.aboutRate,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.withOpacity(0.8),
+            fontSize: titleSize,
+          ),
+        ),
       ],
     );
   }

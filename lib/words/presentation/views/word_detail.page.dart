@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:kwriting/core/consts.dart';
 import 'package:kwriting/training/domain/entities/word.dart';
 import 'package:kwriting/words/presentation/widgets/kana_details.dart';
 
 class WordDetailPage extends StatelessWidget {
-  const WordDetailPage({required this.word, Key? key}) : super(key: key);
+  WordDetailPage({required this.word, Key? key}) : super(key: key);
+
+  final wordDetailTitleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
+  final wordDetailContentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
 
   final Word word;
 
@@ -30,7 +34,7 @@ class WordDetailPage extends StatelessWidget {
               child: InkWell(
                 onTap: () => Navigator.pop(context),
                 child: Padding(
-                  padding: wordDetailPadding,
+                  padding: Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 36) : const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
                       const Spacer(),

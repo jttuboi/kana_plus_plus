@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:kwriting/src/infrastructure/datasources/image_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class Introduction extends StatelessWidget {
-  const Introduction({required this.onFinished, Key? key}) : super(key: key);
+  Introduction({required this.onFinished, Key? key}) : super(key: key);
+
+  final introductionImageSize = Device.get().isTablet ? Device.screenWidth * 1 / 2 : Device.screenWidth * 2 / 3;
+  final introductionPageDecoration = PageDecoration(
+    titleTextStyle: TextStyle(
+      fontSize: Device.get().isTablet ? 40.0 : 28.0,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Permanent Marker',
+      color: Colors.grey.shade200,
+      letterSpacing: 2,
+    ),
+    bodyTextStyle: TextStyle(
+      fontSize: Device.get().isTablet ? 32.0 : 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.grey.shade200,
+    ),
+    descriptionPadding: const EdgeInsets.all(16).copyWith(bottom: 0),
+    imagePadding: const EdgeInsets.all(24),
+  );
 
   final VoidCallback onFinished;
 
@@ -50,8 +68,18 @@ class Introduction extends StatelessWidget {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: onFinished,
-                style: introductionButtonStyle,
-                child: Text(strings.introLetsStarted, style: introductionButtonTextStyle),
+                style: ButtonStyle(
+                  padding: Device.get().isTablet ? MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 16, horizontal: 26)) : null,
+                  backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(58, 39, 89, 1)),
+                ),
+                child: Text(
+                  strings.introLetsStarted,
+                  style: TextStyle(
+                    fontSize: Device.get().isTablet ? 29.0 : 17.0,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               )
             ],
           ),
@@ -62,7 +90,15 @@ class Introduction extends StatelessWidget {
       showNextButton: false,
       curve: Curves.fastLinearToSlowEaseIn,
       dotsFlex: 3,
-      dotsDecorator: introductionDotsDecorator,
+      dotsDecorator: DotsDecorator(
+        size: const Size(10, 10),
+        color: Colors.grey.shade400,
+        activeSize: const Size(20, 10),
+        activeColor: Colors.grey.shade200,
+        activeShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
     );
   }
 }

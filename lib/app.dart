@@ -18,7 +18,6 @@ import 'package:kwriting/settings/presentation/views/settings.page.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/singletons/database.dart';
 import 'package:kwriting/src/infrastructure/utils/consts.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
 import 'package:kwriting/study/presentation/views/study.page.dart';
 import 'package:kwriting/training/domain/use_cases/pre_training.controller.dart';
@@ -61,8 +60,14 @@ class AndroidApp extends StatelessWidget {
             themeMode: ThemeMode.light, //themeProvider.mode,
             locale: _locale(localeProvider),
             localeResolutionCallback: _localeResolutionCallback,
-            theme: lightTheme,
-            //darkTheme: darkTheme,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              primarySwatch: Colors.deepPurple,
+              appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent, shadowColor: Colors.transparent, elevation: 0),
+              primaryIconTheme: IconThemeData(color: Colors.grey.shade500, size: 24),
+              scaffoldBackgroundColor: Colors.grey.shade50,
+              fontFamily: 'PT Sans',
+            ),
             routes: _routes,
             onGenerateRoute: _onGenerateRoute,
           );
@@ -96,7 +101,7 @@ class AndroidApp extends StatelessWidget {
                 quantityOfWordsRepository: QuantityOfWordsRepository(),
               ),
             ),
-        Routes.about: (context) => const AboutPage(),
+        Routes.about: (context) => AboutPage(),
       };
 
   Locale? _locale(LocaleProvider localeProvider) {

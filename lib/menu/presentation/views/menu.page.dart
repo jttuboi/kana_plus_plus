@@ -12,7 +12,6 @@ import 'package:kwriting/settings/presentation/widgets/share_button.dart';
 import 'package:kwriting/settings/presentation/widgets/support_button.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
 
 class MenuPage extends StatefulWidget {
@@ -31,8 +30,8 @@ class _MenuPageState extends State<MenuPage> {
         ? Introduction(onFinished: () => setState(() => widget.appController.finishFirstTime()))
         : Scaffold(
             body: Stack(
-              children: const [
-                MenuBackground(),
+              children: [
+                const MenuBackground(),
                 _MenuContent(),
               ],
             ),
@@ -41,7 +40,12 @@ class _MenuPageState extends State<MenuPage> {
 }
 
 class _MenuContent extends StatelessWidget {
-  const _MenuContent({Key? key}) : super(key: key);
+  _MenuContent({Key? key}) : super(key: key);
+
+  final menuExtraButtonIconSize = Device.get().isTablet ? 80.0 : 48.0;
+  final menuExtraButtonTitleSize = Device.get().isTablet ? 26.0 : 16.0;
+  final menuGridButtonsSpacing = Device.get().isTablet ? 32.0 : 16.0;
+  final menuPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96) : const EdgeInsets.symmetric(horizontal: 24);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +60,16 @@ class _MenuContent extends StatelessWidget {
               padding: menuPadding,
               child: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Text(App.title.toUpperCase(), textAlign: TextAlign.center, style: menuTitleTextStyle),
+                child: Text(
+                  App.title.toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Device.get().isTablet ? 160 : 100,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Permanent Marker',
+                  ),
+                ),
               ),
             ),
           ),
@@ -128,12 +141,22 @@ class _MenuButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             iconUrl,
-            width: menuButtonIconSize,
-            height: menuButtonIconSize,
-            color: menuButtonIconColor,
+            width: Device.get().isTablet ? 140.0 : 70.0,
+            height: Device.get().isTablet ? 140.0 : 70.0,
+            color: Colors.grey.shade200,
           ),
           const SizedBox(height: 4),
-          FittedBox(fit: BoxFit.fitWidth, child: Text(title, style: menuButtonTextStyle)),
+          FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              title,
+              style: TextStyle(
+                color: Colors.grey.shade200,
+                fontSize: Device.get().isTablet ? 50 : 28,
+                fontFamily: 'Permanent Marker',
+              ),
+            ),
+          ),
         ],
       ),
     );

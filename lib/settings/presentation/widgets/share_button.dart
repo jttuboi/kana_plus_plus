@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareButton extends StatelessWidget {
@@ -29,7 +28,14 @@ class ShareButton extends StatelessWidget {
           iconSize: iconSize,
           icon: SvgPicture.asset(IconUrl.share, width: iconSize, height: iconSize, color: Theme.of(context).colorScheme.secondary),
         ),
-        Text(strings.aboutShare, style: aboutIconTextStyle.copyWith(fontSize: titleSize)),
+        Text(
+          strings.aboutShare,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.withOpacity(0.8),
+            fontSize: titleSize,
+          ),
+        ),
       ],
     );
   }

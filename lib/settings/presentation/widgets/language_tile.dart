@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kwriting/core/consts.dart';
 import 'package:kwriting/menu/presentation/notifiers/locale.change_notifier.dart';
 import 'package:kwriting/settings/presentation/notifiers/language.change_notifier.dart';
 import 'package:kwriting/settings/presentation/views/selection_option.page.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:provider/provider.dart';
 
 class LanguageTile extends StatelessWidget {

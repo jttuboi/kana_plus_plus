@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:logger/logger.dart';
 
 class SupportButton extends StatefulWidget {
@@ -68,7 +67,14 @@ class _SupportButtonState extends State<SupportButton> {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              Text(strings.aboutSupport, style: aboutIconTextStyle.copyWith(fontSize: widget.titleSize)),
+              Text(
+                strings.aboutSupport,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple.withOpacity(0.8),
+                  fontSize: widget.titleSize,
+                ),
+              ),
             ],
           );
   }

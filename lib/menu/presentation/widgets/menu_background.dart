@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kwriting/menu/presentation/widgets/falling_kana_animation.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class MenuBackground extends StatefulWidget {
   const MenuBackground({Key? key}) : super(key: key);
@@ -141,7 +140,7 @@ class _Layer0Painter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(
       Rect.fromLTRB(0, 0, size.width, size.height),
-      menuBackgroundBackPaint,
+      Paint()..color = Colors.deepPurple.shade200,
     );
   }
 
@@ -162,7 +161,7 @@ class _Layer1Painter extends CustomPainter {
           ..quadraticBezierTo(0 + 50, size.height / 2 + 50, size.width, size.height / 2 + 20)
           ..lineTo(size.width, 0)
           ..close(),
-        menuBackgroundMiddlePaint,
+        Paint()..color = Colors.deepPurple.shade400,
       )
       ..drawPath(
         Path()
@@ -171,7 +170,9 @@ class _Layer1Painter extends CustomPainter {
           ..quadraticBezierTo(0 + 50, size.height / 2 + 50, size.width, size.height / 2 + 20)
           ..lineTo(size.width, 0)
           ..close(),
-        menuBackgroundMiddleBlurPaint,
+        Paint()
+          ..color = Colors.black87
+          ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 10),
       );
   }
 
@@ -190,14 +191,16 @@ class _Layer2Painter extends CustomPainter {
           ..lineTo(0, size.height / 2 - 20)
           ..quadraticBezierTo(size.width - 50, size.height / 2 - 50, size.width - 20, 0)
           ..close(),
-        menuBackgroundFrontPaint,
+        Paint()..color = const Color.fromRGBO(58, 39, 89, 1),
       )
       ..drawPath(
         Path()
           ..lineTo(0, size.height / 2 - 20)
           ..quadraticBezierTo(size.width - 50, size.height / 2 - 50, size.width - 20, 0)
           ..close(),
-        menuBackgroundFrontBlurPaint,
+        Paint()
+          ..color = Colors.black87
+          ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 10),
       );
   }
 

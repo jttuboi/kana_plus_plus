@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/training/domain/use_cases/writer.controller.dart';
 import 'package:kwriting/training/presentation/notifiers/all_stroke.change_notifier.dart';
 import 'package:kwriting/training/presentation/notifiers/current_stroke.change_notifier.dart';
@@ -80,11 +80,17 @@ class Writer extends StatelessWidget {
 }
 
 class _SupportButtons extends StatelessWidget {
-  const _SupportButtons({
-    required this.width,
-    required this.height,
-    Key? key,
-  }) : super(key: key);
+  _SupportButtons({required this.width, required this.height, Key? key}) : super(key: key);
+
+  final writerButtonStyle = ButtonStyle(
+    backgroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
+    overlayColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+    side: MaterialStateBorderSide.resolveWith((states) => BorderSide(color: Colors.grey, width: Device.get().isTablet ? 2 : 1)),
+    animationDuration: const Duration(milliseconds: 50),
+    enableFeedback: false,
+  );
+  final writerIconButtonSize = Device.get().isTablet ? 56.0 : 32.0;
+  final writerIconButtonColor = Colors.grey.shade700;
 
   final double width;
   final double height;
@@ -153,7 +159,10 @@ class _Drawer extends StatelessWidget {
 
     return Stack(
       children: [
-        CustomPaint(painter: BorderPainter(borderWidth: writerBorderWidth, borderColor: defaultBorderColor), size: Size.square(drawerSize)),
+        CustomPaint(
+          painter: BorderPainter(borderWidth: Device.get().isTablet ? 15.0 : 9.0, borderColor: Colors.grey.shade500),
+          size: Size.square(drawerSize),
+        ),
         Consumer<WriterProvider>(
           builder: (context, provider, child) {
             return (writerController.showHint)
@@ -222,7 +231,16 @@ class _AllStrokesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final points in strokes) {
-      canvas.drawPoints(PointMode.polygon, points, allStrokesPaint);
+      canvas.drawPoints(
+        PointMode.polygon,
+        points,
+        Paint()
+          ..isAntiAlias = true
+          ..strokeWidth = Device.get().isTablet ? 22.0 : 14.0
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round
+          ..color = Colors.black,
+      );
     }
   }
 
@@ -237,7 +255,16 @@ class _CurrentStrokePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawPoints(PointMode.polygon, points, drawingStrokePaint);
+    canvas.drawPoints(
+      PointMode.polygon,
+      points,
+      Paint()
+        ..isAntiAlias = true
+        ..strokeWidth = Device.get().isTablet ? 26.0 : 18.0
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round
+        ..color = Colors.black87,
+    );
   }
 
   @override

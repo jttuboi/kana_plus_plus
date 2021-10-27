@@ -1,17 +1,19 @@
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/training/domain/entities/kana.dart';
 import 'package:kwriting/words/presentation/widgets/kana_detail.dart';
 
 class KanasDetails extends StatelessWidget {
-  const KanasDetails({required this.kanas, Key? key}) : super(key: key);
+  KanasDetails({required this.kanas, Key? key}) : super(key: key);
+
+  final kanaDetailSpaceBetweenKanas = Device.get().isTablet ? 6.0 : 2.0;
 
   final List<Kana> kanas;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: kanaDetailHeight,
+      height: Device.get().isTablet ? 80.0 : 40.0,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final kanaWidth = (constraints.maxWidth - kanaDetailSpaceBetweenKanas * (kanas.length - 1)) / kanas.length;

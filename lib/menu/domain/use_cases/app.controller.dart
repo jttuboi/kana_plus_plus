@@ -2,10 +2,11 @@ import 'dart:ui';
 import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:kwriting/menu/domain/repositories/app.interface.repository.dart';
 import 'package:kwriting/settings/domain/repositories/language.interface.repository.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class AppController {
   AppController({required this.appRepository, required this.languageRepository});
+
+  final defaultLocale = JStrings.supportedLocales.first;
 
   final IAppRepository appRepository;
   final ILanguageRepository languageRepository;

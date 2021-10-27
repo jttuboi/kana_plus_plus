@@ -7,7 +7,6 @@ import 'package:kwriting/settings/presentation/widgets/quantity_of_words_tile.da
 import 'package:kwriting/settings/presentation/widgets/show_hint_tile.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
 import 'package:kwriting/training/domain/use_cases/pre_training.controller.dart';
 import 'package:kwriting/training/presentation/arguments/pre_training_arguments.dart';
@@ -31,10 +30,15 @@ class PreTrainingPage extends StatelessWidget {
 }
 
 class _PreTrainingPage extends StatelessWidget {
-  const _PreTrainingPage({
+  _PreTrainingPage({
     required this.preTrainingController,
     Key? key,
   }) : super(key: key);
+
+  final preTrainingPlayIconThemeData = IconThemeData(
+    color: Colors.grey.shade300,
+    size: 40,
+  );
 
   final PreTrainingController preTrainingController;
 

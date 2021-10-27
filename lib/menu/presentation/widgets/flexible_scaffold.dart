@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kwriting/core/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class FlexibleScaffold extends StatefulWidget {
   const FlexibleScaffold({
@@ -85,7 +86,18 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: FittedBox(fit: BoxFit.fitWidth, child: Text(widget.title, style: sliverFlexibleAppBarTextStyle)),
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            widget.title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: Device.get().isTablet ? 56 : 40,
+              fontFamily: 'Permanent Marker',
+            ),
+          ),
+        ),
       ),
       background: Container(
         color: Theme.of(context).primaryColor,
@@ -108,7 +120,18 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
               ? null
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: FittedBox(fit: BoxFit.fitWidth, child: Text(widget.title, style: sliverFlexibleAppBarTextStyle)),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      widget.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: Device.get().isTablet ? 56 : 40,
+                        fontFamily: 'Permanent Marker',
+                      ),
+                    ),
+                  ),
                 ),
           background: Container(
             color: Theme.of(context).primaryColor,

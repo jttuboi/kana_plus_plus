@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/study/presentation/widgets/study_table_content.dart';
 
 class StudyTableRow extends StatelessWidget {
@@ -14,9 +14,9 @@ class StudyTableRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: studyTableRowDecoration,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Colors.grey.shade50),
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      height: studyTableRowHeight,
+      height: 56,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
