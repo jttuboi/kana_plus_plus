@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 
 class PointsData {
-  static const _fileUrl = 'assets/points.json';
+  static const _fileUrl = 'packages/kana_checker/assets/points.json';
 
   Future<Map<String, List<List<Point<double>>>>> preloadData() async {
     final response = await rootBundle.loadString(_fileUrl);
