@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/src/domain/utils/writing_hand.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/presentation/arguments/selection_option_arguments.dart';
-import 'package:kwriting/src/presentation/pages/selection_option.page.android.dart';
+import 'package:kwriting/src/presentation/pages/selection_option.page.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 
 class WritingHandTile extends StatelessWidget {

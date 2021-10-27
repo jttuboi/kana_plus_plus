@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kwriting/src/domain/utils/consts.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/pages/selection_option.page.android.dart';
-import 'package:kwriting/src/presentation/state_management/language.provider.dart';
-import 'package:kwriting/src/presentation/state_management/locale.provider.dart';
+import 'package:kwriting/src/presentation/pages/selection_option.page.dart';
+import 'package:kwriting/src/presentation/state_management/language.change_notifier.dart';
+import 'package:kwriting/src/presentation/state_management/locale.change_notifier.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:provider/provider.dart';
 

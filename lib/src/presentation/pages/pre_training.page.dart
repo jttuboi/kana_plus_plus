@@ -5,7 +5,7 @@ import 'package:kwriting/src/domain/controllers/pre_training.controller.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/presentation/arguments/pre_training_arguments.dart';
-import 'package:kwriting/src/presentation/state_management/pre_training.provider.dart';
+import 'package:kwriting/src/presentation/state_management/pre_training.change_notifier.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
 import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';

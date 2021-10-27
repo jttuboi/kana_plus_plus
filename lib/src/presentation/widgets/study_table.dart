@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/src/presentation/state_management/study_table.provider.dart';
+import 'package:kwriting/src/presentation/state_management/study_table.change_notifier.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/study_table_row.dart';
 import 'package:provider/provider.dart';

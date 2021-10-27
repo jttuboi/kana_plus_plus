@@ -5,7 +5,7 @@ import 'package:kwriting/src/domain/controllers/words.controller.dart';
 import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
 import 'package:kwriting/src/presentation/arguments/words.arguments.dart';
-import 'package:kwriting/src/presentation/state_management/words.provider.dart';
+import 'package:kwriting/src/presentation/state_management/words.change_notifier.dart';
 import 'package:kwriting/src/presentation/utils/routes.dart';
 import 'package:kwriting/src/presentation/widgets/flexible_scaffold.dart';
 import 'package:kwriting/src/presentation/widgets/word_item.dart';

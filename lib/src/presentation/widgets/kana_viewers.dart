@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:kwriting/src/domain/controllers/training.controller.dart';
-import 'package:kwriting/src/presentation/state_management/training_kana.provider.dart';
+import 'package:kwriting/src/presentation/state_management/training_kana.change_notifier.dart';
 import 'package:kwriting/src/presentation/utils/consts.dart';
 import 'package:kwriting/src/presentation/widgets/kana_viewer.dart';
 import 'package:provider/provider.dart';
