@@ -1,8 +1,8 @@
 // ignore_for_file: unnecessary_lambdas
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/src/domain/controllers/statistics.controller.dart';
-import 'package:kwriting/src/domain/repositories/statistics.interface.repository.dart';
+import 'package:kwriting/training/domain/repositories/statistics.interface.repository.dart';
+import 'package:kwriting/training/domain/use_cases/statistics.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

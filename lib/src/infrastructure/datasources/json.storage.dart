@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:kwriting/src/domain/support/word_to_kana_converter.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
 import 'package:kwriting/src/infrastructure/datasources/file.interface.storage.dart';
-import 'package:kwriting/src/infrastructure/models/kana.model.dart';
-import 'package:kwriting/src/infrastructure/models/translate.model.dart';
-import 'package:kwriting/src/infrastructure/models/word.model.dart';
 import 'package:kwriting/src/infrastructure/utils/consts.dart';
+import 'package:kwriting/training/infrastructure/models/kana.model.dart';
+import 'package:kwriting/training/infrastructure/models/translate.model.dart';
+import 'package:kwriting/training/infrastructure/models/word.model.dart';
 
 class JsonStorage implements IFileStorage {
   final data = JsonData();

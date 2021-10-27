@@ -1,10 +1,11 @@
 // ignore_for_file: unnecessary_lambdas
 
 import 'dart:ui';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/src/domain/controllers/app.controller.dart';
-import 'package:kwriting/src/domain/repositories/app.interface.repository.dart';
-import 'package:kwriting/src/domain/repositories/language.interface.repository.dart';
+import 'package:kwriting/menu/domain/repositories/app.interface.repository.dart';
+import 'package:kwriting/menu/domain/use_cases/app.controller.dart';
+import 'package:kwriting/settings/domain/repositories/language.interface.repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

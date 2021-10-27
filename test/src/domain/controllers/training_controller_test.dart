@@ -3,17 +3,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_checker/kana_checker.dart';
-import 'package:kwriting/src/domain/controllers/training.controller.dart';
-import 'package:kwriting/src/domain/entities/kana_viewer_content.dart';
-import 'package:kwriting/src/domain/entities/training_stats.dart';
-import 'package:kwriting/src/domain/entities/word_viewer_content.dart';
-import 'package:kwriting/src/domain/repositories/statistics.interface.repository.dart';
-import 'package:kwriting/src/domain/repositories/word.interface.repository.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
 import 'package:kwriting/src/domain/utils/kana_viewer_status.dart';
 import 'package:kwriting/src/domain/utils/update_kana_situation.dart';
-import 'package:kwriting/src/presentation/arguments/kana_result.dart';
-import 'package:kwriting/src/presentation/arguments/word_result.dart';
+import 'package:kwriting/training/domain/entities/kana_viewer_content.dart';
+import 'package:kwriting/training/domain/entities/training_stats.dart';
+import 'package:kwriting/training/domain/entities/word_viewer_content.dart';
+import 'package:kwriting/training/domain/repositories/statistics.interface.repository.dart';
+import 'package:kwriting/training/domain/repositories/word.interface.repository.dart';
+import 'package:kwriting/training/domain/use_cases/training.controller.dart';
+import 'package:kwriting/training/presentation/arguments/kana_result.dart';
+import 'package:kwriting/training/presentation/arguments/word_result.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

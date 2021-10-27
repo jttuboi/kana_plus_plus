@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/src/domain/controllers/pre_training.controller.dart';
-import 'package:kwriting/src/domain/repositories/kana_type.interface.repository.dart';
-import 'package:kwriting/src/domain/repositories/quantity_of_words.interface.repository.dart';
-import 'package:kwriting/src/domain/repositories/show_hint.interface.repository.dart';
+import 'package:kwriting/settings/domain/repositories/kana_type.interface.repository.dart';
+import 'package:kwriting/settings/domain/repositories/quantity_of_words.interface.repository.dart';
+import 'package:kwriting/settings/domain/repositories/show_hint.interface.repository.dart';
 import 'package:kwriting/src/domain/utils/kana_type.dart';
 import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
+import 'package:kwriting/training/domain/use_cases/pre_training.controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
