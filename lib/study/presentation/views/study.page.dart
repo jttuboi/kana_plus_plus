@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/study/study.dart';
 
@@ -26,12 +25,12 @@ class StudyPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _StudyTitle(title: strings.studyIntroductionTitle),
-              _StudyText(text: strings.studyIntroductionText),
-              _StudyTitle(title: strings.studyAlphabetTitle),
-              _StudyText(text: strings.studyAlphabetText),
-              _StudyTitle(title: strings.studyHiraganaTitle),
-              _StudyText(text: strings.studyHiraganaText1),
+              StudyTitle(title: strings.studyIntroductionTitle),
+              StudyText(text: strings.studyIntroductionText),
+              StudyTitle(title: strings.studyAlphabetTitle),
+              StudyText(text: strings.studyAlphabetText),
+              StudyTitle(title: strings.studyHiraganaTitle),
+              StudyText(text: strings.studyHiraganaText1),
               StudyTable(
                 title: strings.studyMonographsTitle,
                 rows: const [
@@ -47,7 +46,7 @@ class StudyPage extends StatelessWidget {
                   StudyTableRow(a: ['WA', 'わ'], i: [' ', ' '], u: ['N', '	ん'], e: [' ', ' '], o: ['WO', 'を']),
                 ],
               ),
-              _StudyText(text: strings.studyHiraganaText2),
+              StudyText(text: strings.studyHiraganaText2),
               StudyTable(
                 title: strings.studyDiacriticsTitle,
                 rows: const [
@@ -58,7 +57,7 @@ class StudyPage extends StatelessWidget {
                   StudyTableRow(a: ['PA', 'ぱ'], i: ['PI', 'ぴ'], u: ['PU', 'ぷ'], e: ['PE', 'ぺ'], o: ['PO', 'ぽ']),
                 ],
               ),
-              _StudyText(text: strings.studyHiraganaText3),
+              StudyText(text: strings.studyHiraganaText3),
               StudyTable(
                 title: strings.studyDigraphsTitle,
                 rows: const [
@@ -76,15 +75,15 @@ class StudyPage extends StatelessWidget {
                   StudyTableRow(a: ['PYA', 'ぴゃ'], u: ['PYU', 'ぴゅ'], o: ['PYO', 'ぴょ']),
                 ],
               ),
-              _StudyText(text: strings.studyHiraganaText4),
+              StudyText(text: strings.studyHiraganaText4),
               StudyTable(
                 title: strings.studyGeminatedTitle,
                 rows: const [
                   StudyTableRow(a: ['TSU', 'っ']),
                 ],
               ),
-              _StudyTitle(title: strings.studyKatakanaTitle),
-              _StudyText(text: strings.studyKatakanaText1),
+              StudyTitle(title: strings.studyKatakanaTitle),
+              StudyText(text: strings.studyKatakanaText1),
               StudyTable(
                 title: strings.studyMonographsTitle,
                 rows: const [
@@ -100,7 +99,7 @@ class StudyPage extends StatelessWidget {
                   StudyTableRow(a: ['WA', 'ワ'], i: [' ', ' '], u: ['N', 'ン'], e: [' ', ' '], o: ['WO', 'ヲ']),
                 ],
               ),
-              _StudyText(text: strings.studyKatakanaText2),
+              StudyText(text: strings.studyKatakanaText2),
               StudyTable(
                 title: strings.studyDiacriticsTitle,
                 rows: const [
@@ -111,7 +110,7 @@ class StudyPage extends StatelessWidget {
                   StudyTableRow(a: ['PA', 'パ'], i: ['PI', 'ピ'], u: ['PU', 'プ'], e: ['PE', 'ペ'], o: ['PO', 'ポ']),
                 ],
               ),
-              _StudyText(text: strings.studyKatakanaText3),
+              StudyText(text: strings.studyKatakanaText3),
               StudyTable(
                 title: strings.studyDigraphsTitle,
                 rows: const [
@@ -136,21 +135,21 @@ class StudyPage extends StatelessWidget {
                   StudyTableRow(a: ['WYA', 'ウャ'], u: ['WYU', 'ウュ'], o: ['WYO', 'ウョ']),
                 ],
               ),
-              _StudyText(text: strings.studyKatakanaText4),
+              StudyText(text: strings.studyKatakanaText4),
               StudyTable(
                 title: strings.studyGeminatedTitle,
                 rows: const [
                   StudyTableRow(a: ['TSU', 'ッ']),
                 ],
               ),
-              _StudyText(text: strings.studyKatakanaText5),
+              StudyText(text: strings.studyKatakanaText5),
               StudyTable(
                 title: strings.studyLongVowelsTitle,
                 rows: const [
                   StudyTableRow(a: ['-', 'ー']),
                 ],
               ),
-              _StudyText(text: strings.studyKatakanaText6),
+              StudyText(text: strings.studyKatakanaText6),
               StudyTable(
                 title: strings.studyExtraSyllabesTitle,
                 rows: const [
@@ -178,34 +177,6 @@ class StudyPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _StudyTitle extends StatelessWidget {
-  const _StudyTitle({required this.title, Key? key}) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Text(title, style: TextStyle(fontSize: Device.get().isTablet ? 28.0 : 18.0, fontWeight: FontWeight.bold)),
-    );
-  }
-}
-
-class _StudyText extends StatelessWidget {
-  const _StudyText({required this.text, Key? key}) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
-      child: Text(text, style: TextStyle(fontSize: Device.get().isTablet ? 24.0 : 16.0), textAlign: TextAlign.justify),
     );
   }
 }

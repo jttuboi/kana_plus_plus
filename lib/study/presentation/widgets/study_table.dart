@@ -1,48 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/study/study.dart';
-import 'package:provider/provider.dart';
 
 class StudyTable extends StatelessWidget {
-  const StudyTable({required this.title, required this.rows, Key? key}) : super(key: key);
+  const StudyTable({required String title, required List<StudyTableRow> rows, Key? key})
+      : _title = title,
+        _rows = rows,
+        super(key: key);
 
-  final String title;
-  final List<StudyTableRow> rows;
+  final String _title;
+  final List<StudyTableRow> _rows;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => StudyTableChangeNotifier(),
-      builder: (context2, child) {
-        return Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.deepPurple),
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(title, style: TextStyle(color: Colors.grey.shade300, fontSize: Device.get().isTablet ? 24.0 : 18.0)),
-                  ],
-                ),
-              ),
-              ..._buildStudyRowsWithSpace(),
-              const SizedBox(height: 8),
-            ],
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.deepPurple),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(_title, style: TextStyle(color: Colors.grey.shade300, fontSize: Device.get().isTablet ? 24.0 : 18.0)),
+              ],
+            ),
           ),
-        );
-      },
+          ..._buildStudyRowsWithSpace(),
+          const SizedBox(height: 8),
+        ],
+      ),
     );
   }
 
   List<Widget> _buildStudyRowsWithSpace() {
-    final list = <Widget>[rows[0]];
-    for (var i = 1; i < rows.length; i++) {
+    final list = <Widget>[_rows[0]];
+    for (var i = 1; i < _rows.length; i++) {
       list
         ..add(const SizedBox(height: 4))
-        ..add(rows[i]);
+        ..add(_rows[i]);
     }
     return list;
   }

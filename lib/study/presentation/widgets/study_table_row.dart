@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:kwriting/study/study.dart';
 
 class StudyTableRow extends StatelessWidget {
-  const StudyTableRow({Key? key, this.a, this.i, this.u, this.e, this.o}) : super(key: key);
+  const StudyTableRow({List<String>? a, List<String>? i, List<String>? u, List<String>? e, List<String>? o, Key? key})
+      : _a = a,
+        _i = i,
+        _u = u,
+        _e = e,
+        _o = o,
+        super(key: key);
 
-  final List<String>? a;
-  final List<String>? i;
-  final List<String>? u;
-  final List<String>? e;
-  final List<String>? o;
+  final List<String>? _a;
+  final List<String>? _i;
+  final List<String>? _u;
+  final List<String>? _e;
+  final List<String>? _o;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +25,11 @@ class StudyTableRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          if (a != null) StudyTableContent(romaji: a![0], kana: a![1]),
-          if (i != null) StudyTableContent(romaji: i![0], kana: i![1]),
-          if (u != null) StudyTableContent(romaji: u![0], kana: u![1]),
-          if (e != null) StudyTableContent(romaji: e![0], kana: e![1]),
-          if (o != null) StudyTableContent(romaji: o![0], kana: o![1]),
+          if (_a != null) StudyTableContent(romaji: _a![0], kana: _a![1]),
+          if (_i != null) StudyTableContent(romaji: _i![0], kana: _i![1]),
+          if (_u != null) StudyTableContent(romaji: _u![0], kana: _u![1]),
+          if (_e != null) StudyTableContent(romaji: _e![0], kana: _e![1]),
+          if (_o != null) StudyTableContent(romaji: _o![0], kana: _o![1]),
         ],
       ),
     );
