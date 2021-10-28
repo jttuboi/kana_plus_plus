@@ -5,11 +5,11 @@ import 'package:kwriting/src/infra/singletons/database.dart';
 class LanguageRepository implements ILanguageRepository {
   @override
   String getLanguageSelected() {
-    return Database.getString(DatabaseTag.language, defaultValue: Default.locale);
+    return Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
   }
 
   @override
   void setLanguageSelected(String value) {
-    Database.setString(DatabaseTag.language, value);
+    Database.storage.setString(DatabaseTag.language, value);
   }
 }

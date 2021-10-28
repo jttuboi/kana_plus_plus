@@ -20,8 +20,8 @@ void main() {
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Database.init(storage: SharedPreferencesStorage());
-  await File.init(storage: JsonStorage());
+  await Database.init(SharedPreferencesStorage());
+  await File.init(JsonStorage());
   Hive
     ..init((await getApplicationDocumentsDirectory()).path)
     ..registerAdapter(KanaTypeAdapter())

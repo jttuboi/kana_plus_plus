@@ -5,12 +5,12 @@ import 'package:kwriting/src/infra/singletons/database.dart';
 class WritingHandRepository implements IWritingHandRepository {
   @override
   WritingHand getWritingHandSelected() {
-    final writingHandIndex = Database.getInt(DatabaseTag.writingHand, defaultValue: WritingHand.right.index);
+    final writingHandIndex = Database.storage.getInt(DatabaseTag.writingHand, defaultValue: WritingHand.right.index);
     return WritingHand.values[writingHandIndex];
   }
 
   @override
   void setWritingHandSelected(WritingHand value) {
-    Database.setInt(DatabaseTag.writingHand, value.index);
+    Database.storage.setInt(DatabaseTag.writingHand, value.index);
   }
 }

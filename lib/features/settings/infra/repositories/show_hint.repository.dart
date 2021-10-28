@@ -5,11 +5,11 @@ import 'package:kwriting/src/infra/singletons/database.dart';
 class ShowHintRepository implements IShowHintRepository {
   @override
   bool isShowHint() {
-    return Database.getBool(DatabaseTag.showHint, defaultValue: Default.showHint);
+    return Database.storage.getBool(DatabaseTag.showHint, defaultValue: Default.showHint);
   }
 
   @override
   void setShowHint(bool value) {
-    Database.setBool(DatabaseTag.showHint, value);
+    Database.storage.setBool(DatabaseTag.showHint, value);
   }
 }

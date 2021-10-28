@@ -1,5 +1,3 @@
-import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/src/infra/datasources/file.interface.storage.dart';
 
 class File {
@@ -8,31 +6,11 @@ class File {
   File._internal();
   static final File _instance = File._internal();
 
-  static late IFileStorage _storage;
+  static late IFileStorage storage;
 
   // init cache storage. this init() is recommend to start before runApp().
-  static Future<void> init({required IFileStorage storage}) async {
-    _storage = storage;
-    await _storage.init();
-  }
-
-  static List<WordModel> getWords() {
-    return _storage.getWords();
-  }
-
-  static List<WordModel> getWordsById(String id) {
-    return _storage.getWordsById(id);
-  }
-
-  static List<WordModel> getWordsByQuery(String query, String languageCode) {
-    return _storage.getWordsByQuery(query, languageCode);
-  }
-
-  static WordModel getWord(String id) {
-    return _storage.getWord(id);
-  }
-
-  static List<WordModel> getWordsByKanaType(KanaType kanaType) {
-    return _storage.getWordsByKanaType(kanaType);
+  static Future<void> init(IFileStorage pStorage) async {
+    storage = pStorage;
+    await storage.init();
   }
 }

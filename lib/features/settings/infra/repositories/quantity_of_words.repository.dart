@@ -5,11 +5,11 @@ import 'package:kwriting/src/infra/singletons/database.dart';
 class QuantityOfWordsRepository implements IQuantityOfWordsRepository {
   @override
   int getQuantityOfWords() {
-    return Database.getInt(DatabaseTag.quantityOfWords, defaultValue: Default.minimumTrainingCards);
+    return Database.storage.getInt(DatabaseTag.quantityOfWords, defaultValue: Default.minimumTrainingCards);
   }
 
   @override
   void setQuantityOfWords(int value) {
-    Database.setInt(DatabaseTag.quantityOfWords, value);
+    Database.storage.setInt(DatabaseTag.quantityOfWords, value);
   }
 }

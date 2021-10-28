@@ -6,8 +6,8 @@ import 'package:kwriting/src/infra/singletons/file.dart';
 class WordRepository implements IWordRepository {
   @override
   List<Word> getWords() {
-    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
-    return File.getWords().map((wordModel) {
+    final languageCode = Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
+    return File.storage.getWords().map((wordModel) {
       wordModel.setLanguageCode(languageCode);
       return wordModel;
     }).toList();
@@ -15,8 +15,8 @@ class WordRepository implements IWordRepository {
 
   @override
   List<Word> getWordsById(String id) {
-    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
-    return File.getWordsById(id).map((wordModel) {
+    final languageCode = Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
+    return File.storage.getWordsById(id).map((wordModel) {
       wordModel.setLanguageCode(languageCode);
       return wordModel;
     }).toList();
@@ -24,23 +24,23 @@ class WordRepository implements IWordRepository {
 
   @override
   List<Word> getWordsByQuery(String query) {
-    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
-    return File.getWordsByQuery(query, languageCode);
+    final languageCode = Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
+    return File.storage.getWordsByQuery(query, languageCode);
   }
 
   @override
   Word getWord(String id) {
-    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
-    final word = File.getWord(id)..setLanguageCode(languageCode);
+    final languageCode = Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
+    final word = File.storage.getWord(id)..setLanguageCode(languageCode);
     return word;
   }
 
   @override
   List<Word> getWordsForTraining(KanaType kanaType, int quantityOfWords) {
-    final languageCode = Database.getString(DatabaseTag.language, defaultValue: Default.locale);
+    final languageCode = Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
 
     if (kanaType.isBoth) {
-      final allWords = File.getWords()..shuffle();
+      final allWords = File.storage.getWords()..shuffle();
 
       final words = allWords.sublist(0, quantityOfWords);
       for (final word in words) {
@@ -49,7 +49,7 @@ class WordRepository implements IWordRepository {
 
       return words;
     }
-    final wordsByKanaType = File.getWordsByKanaType(kanaType)..shuffle();
+    final wordsByKanaType = File.storage.getWordsByKanaType(kanaType)..shuffle();
 
     final words = wordsByKanaType.sublist(0, quantityOfWords);
     for (final word in words) {
