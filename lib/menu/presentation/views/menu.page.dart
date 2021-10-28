@@ -120,7 +120,6 @@ class _MenuContent extends StatelessWidget {
                               languageRepository: LanguageRepository(),
                               writingHandRepository: WritingHandRepository(),
                               showHintRepository: ShowHintRepository(),
-                              darkThemeRepository: DarkThemeRepository(),
                               kanaTypeRepository: KanaTypeRepository(),
                               quantityOfWordsRepository: QuantityOfWordsRepository(),
                             ),

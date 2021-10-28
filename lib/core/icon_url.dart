@@ -9,14 +9,12 @@ class IconUrl {
   static const back = '${iconsFolder}back.svg';
   static const both = '${iconsFolder}both.svg';
   static const clear = '${iconsFolder}clear.svg';
-  static const darkTheme = '${iconsFolder}dark_theme.svg';
   static const empty = '${iconsFolder}empty.svg';
   static const eraser = '${iconsFolder}eraser.svg';
   static const error = '${iconsFolder}error.svg';
   static const hiragana = '${iconsFolder}hiragana.svg';
   static const katakana = '${iconsFolder}katakana.svg';
   static const language = '${iconsFolder}language.svg';
-  static const lightTheme = '${iconsFolder}light_theme.svg';
   static const notShowHint = '${iconsFolder}not_show_hint.svg';
   static const play = '${iconsFolder}play.svg';
   static const privacyPolicy = '${iconsFolder}privacy_policy.svg';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/menu/menu.dart';
 import 'package:kwriting/settings/settings.dart';
-import 'package:kwriting/src/infrastructure/singletons/database.dart';
 import 'package:kwriting/study/study.dart';
 import 'package:kwriting/training/training.dart';
 import 'package:kwriting/words/words.dart';
@@ -15,26 +14,21 @@ class AndroidApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ThemeChangeNotifier(Database.getBool(DatabaseTag.darkTheme))),
-        ChangeNotifierProvider(create: (context) => LocaleChangeNotifier(appController)),
-      ],
-      child: Consumer<ThemeChangeNotifier>(builder: (context, themeChangeNotifier, child) {
-        return Consumer<LocaleChangeNotifier>(builder: (context, localeChangeNotifier, child) {
-          return MaterialApp(
-            title: App.title,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: JStrings.localizationsDelegates,
-            supportedLocales: JStrings.supportedLocales,
-            themeMode: ThemeMode.light, //themeProvider.mode,
-            theme: themeData,
-            locale: _locale(localeChangeNotifier),
-            localeResolutionCallback: _localeResolutionCallback,
-            home: MenuPage(appController),
-            onGenerateRoute: _onGenerateRoute,
-          );
-        });
+    return ChangeNotifierProvider(
+      create: (context) => LocaleChangeNotifier(appController),
+      child: Consumer<LocaleChangeNotifier>(builder: (context, localeChangeNotifier, child) {
+        return MaterialApp(
+          title: App.title,
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: JStrings.localizationsDelegates,
+          supportedLocales: JStrings.supportedLocales,
+          themeMode: ThemeMode.light,
+          theme: themeData,
+          locale: _locale(localeChangeNotifier),
+          localeResolutionCallback: _localeResolutionCallback,
+          home: MenuPage(appController),
+          onGenerateRoute: _onGenerateRoute,
+        );
       }),
     );
   }

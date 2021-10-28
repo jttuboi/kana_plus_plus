@@ -97,7 +97,6 @@ class DatabaseTag {
   DatabaseTag._();
   static const language = 'language';
   static const writingHand = 'writing_hand';
-  static const darkTheme = 'dark_theme';
   static const showHint = 'show_hint';
   static const kanaType = 'kana_type';
   static const quantityOfWords = 'quantity_of_words';

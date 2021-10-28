@@ -6,7 +6,6 @@ class SettingsController {
   SettingsController({
     required this.languageRepository,
     required this.writingHandRepository,
-    required this.darkThemeRepository,
     required this.showHintRepository,
     required this.kanaTypeRepository,
     required this.quantityOfWordsRepository,
@@ -14,7 +13,6 @@ class SettingsController {
 
   final ILanguageRepository languageRepository;
   final IWritingHandRepository writingHandRepository;
-  final IDarkThemeRepository darkThemeRepository;
   final IShowHintRepository showHintRepository;
   final IKanaTypeRepository kanaTypeRepository;
   final IQuantityOfWordsRepository quantityOfWordsRepository;
@@ -24,14 +22,6 @@ class SettingsController {
   void updateLanguageSelected(String value) {
     languageRepository.setLanguageSelected(value);
   }
-
-  bool get darkThemeSelected => darkThemeRepository.isDarkTheme();
-
-  void updateDarkThemeSelected(bool value) {
-    darkThemeRepository.setDarkTheme(value);
-  }
-
-  String get darkThemeIconUrl => (darkThemeRepository.isDarkTheme()) ? IconUrl.darkTheme : IconUrl.lightTheme;
 
   WritingHand get writingHandSelected => writingHandRepository.getWritingHandSelected();
 

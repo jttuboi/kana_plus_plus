@@ -8,14 +8,12 @@ import 'package:mocktail/mocktail.dart';
 void main() {
   final languageRepository = LanguageRepositoryMock();
   final writingHandRepository = WritingHandRepositoryMock();
-  final darkThemeRepository = DarkThemeRepositoryMock();
   final showHintRepository = ShowHintRepositoryMock();
   final kanaTypeRepository = KanaTypeRepositoryMock();
   final quantityOfWordsRepository = QuantityOfWordsRepositoryMock();
   final controller = SettingsController(
     languageRepository: languageRepository,
     writingHandRepository: writingHandRepository,
-    darkThemeRepository: darkThemeRepository,
     showHintRepository: showHintRepository,
     kanaTypeRepository: kanaTypeRepository,
     quantityOfWordsRepository: quantityOfWordsRepository,
@@ -35,35 +33,6 @@ void main() {
       verify(() => languageRepository.setLanguageSelected('en')).called(1);
     });
   });
-  group('dark theme', () {
-    test('must return the locale code from repository', () {
-      when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => false);
-
-      final result = controller.darkThemeSelected;
-
-      verify(() => darkThemeRepository.isDarkTheme()).called(1);
-      expect(result, false);
-    });
-    test('must send the dark theme situation to repository', () {
-      controller.updateDarkThemeSelected(true);
-
-      verify(() => darkThemeRepository.setDarkTheme(true)).called(1);
-    });
-    test('must return the dark theme icon url', () {
-      when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => true);
-
-      final result = controller.darkThemeIconUrl;
-
-      expect(result, IconUrl.darkTheme);
-    });
-    test('must return the light theme icon url', () {
-      when(() => darkThemeRepository.isDarkTheme()).thenAnswer((_) => false);
-
-      final result = controller.darkThemeIconUrl;
-
-      expect(result, IconUrl.lightTheme);
-    });
-  });
   group('writing hand', () {
     test('must return the writing hand from repository', () {
       when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
@@ -73,7 +42,7 @@ void main() {
       verify(() => writingHandRepository.getWritingHandSelected()).called(1);
       expect(result, WritingHand.left);
     });
-    test('must send the dark theme situation to repository', () {
+    test('must send the writing hand to repository', () {
       controller.updateWritingHandSelected(WritingHand.right);
 
       verify(() => writingHandRepository.setWritingHandSelected(WritingHand.right)).called(1);
@@ -198,8 +167,6 @@ void main() {
 class LanguageRepositoryMock extends Mock implements ILanguageRepository {}
 
 class WritingHandRepositoryMock extends Mock implements IWritingHandRepository {}
-
-class DarkThemeRepositoryMock extends Mock implements IDarkThemeRepository {}
 
 class ShowHintRepositoryMock extends Mock implements IShowHintRepository {}
 

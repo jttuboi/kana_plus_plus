@@ -24,7 +24,6 @@ class SettingsPage extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LanguageChangeNotifier(_settingsController)),
         ChangeNotifierProvider(create: (context) => WritingHandChangeNotifier(_settingsController)),
-        ChangeNotifierProvider(create: (context) => DarkThemeChangeNotifier(_settingsController)),
         ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(_settingsController)),
         ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(_settingsController)),
         ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(_settingsController)),
@@ -41,7 +40,6 @@ class SettingsPage extends StatelessWidget {
               children: [
                 SubHeaderTile(strings.settingsBasic),
                 const LanguageTile(),
-                //const DarkThemeTile(),
                 Consumer<WritingHandChangeNotifier>(
                   builder: (context, changeNotifier, child) {
                     return WritingHandTile(
