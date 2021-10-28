@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-class TrainingWordProvider extends ChangeNotifier {
-  TrainingWordProvider();
+class TrainingWordChangeNotifier extends ChangeNotifier {
+  TrainingWordChangeNotifier();
 
   void updateState() {
     notifyListeners();

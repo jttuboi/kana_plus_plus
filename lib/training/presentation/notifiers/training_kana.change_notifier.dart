@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:kwriting/training/training.dart';
 
-class TrainingKanaProvider extends ChangeNotifier {
-  TrainingKanaProvider(this._controller);
+class TrainingKanaChangeNotifier extends ChangeNotifier {
+  TrainingKanaChangeNotifier(this._controller);
 
   final TrainingController _controller;
 

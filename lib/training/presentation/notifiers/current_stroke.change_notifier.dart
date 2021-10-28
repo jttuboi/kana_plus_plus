@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:kwriting/training/training.dart';
 
-class CurrentStrokeProvider extends ChangeNotifier {
-  CurrentStrokeProvider(this._controller);
+class CurrentStrokeChangeNotifier extends ChangeNotifier {
+  CurrentStrokeChangeNotifier(this._controller);
 
   final WriterController _controller;
 

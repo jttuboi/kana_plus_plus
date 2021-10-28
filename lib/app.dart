@@ -17,11 +17,11 @@ class AndroidApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ThemeProvider(Database.getBool(DatabaseTag.darkTheme))),
-        ChangeNotifierProvider(create: (context) => LocaleProvider(appController)),
+        ChangeNotifierProvider(create: (context) => ThemeChangeNotifier(Database.getBool(DatabaseTag.darkTheme))),
+        ChangeNotifierProvider(create: (context) => LocaleChangeNotifier(appController)),
       ],
-      child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
-        return Consumer<LocaleProvider>(builder: (context, localeProvider, child) {
+      child: Consumer<ThemeChangeNotifier>(builder: (context, themeChangeNotifier, child) {
+        return Consumer<LocaleChangeNotifier>(builder: (context, localeChangeNotifier, child) {
           return MaterialApp(
             title: App.title,
             debugShowCheckedModeBanner: false,
@@ -29,7 +29,7 @@ class AndroidApp extends StatelessWidget {
             supportedLocales: JStrings.supportedLocales,
             themeMode: ThemeMode.light, //themeProvider.mode,
             theme: themeData,
-            locale: _locale(localeProvider),
+            locale: _locale(localeChangeNotifier),
             localeResolutionCallback: _localeResolutionCallback,
             home: MenuPage(appController),
             onGenerateRoute: _onGenerateRoute,
@@ -48,8 +48,8 @@ class AndroidApp extends StatelessWidget {
         fontFamily: 'PT Sans',
       );
 
-  Locale? _locale(LocaleProvider localeProvider) {
-    return (appController.isFirstTime) ? null : localeProvider.locale;
+  Locale? _locale(LocaleChangeNotifier changeNotifier) {
+    return (appController.isFirstTime) ? null : changeNotifier.locale;
   }
 
   Locale? _localeResolutionCallback(Locale? locale, Iterable<Locale>? supportedLocales) {

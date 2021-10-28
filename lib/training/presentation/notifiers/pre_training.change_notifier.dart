@@ -3,8 +3,8 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/settings/settings.dart';
 import 'package:kwriting/training/training.dart';
 
-class PreTrainingProvider extends ChangeNotifier {
-  PreTrainingProvider(this._controller);
+class PreTrainingChangeNotifier extends ChangeNotifier {
+  PreTrainingChangeNotifier(this._controller);
 
   final PreTrainingController _controller;
 

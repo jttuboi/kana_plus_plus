@@ -25,8 +25,8 @@ class Writer extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AllStrokesProvider(writerController)),
-        ChangeNotifierProvider(create: (context) => CurrentStrokeProvider(writerController)),
+        ChangeNotifierProvider(create: (context) => AllStrokesChangeNotifier(writerController)),
+        ChangeNotifierProvider(create: (context) => CurrentStrokeChangeNotifier(writerController)),
       ],
       child: writerController.isWritingHandRight ? _buildRightHand() : _buildLeftHand(),
     );
@@ -99,11 +99,11 @@ class _SupportButtons extends StatelessWidget {
         SizedBox(
           width: width,
           height: height * 25 / 55,
-          child: Consumer<WriterProvider>(
-            builder: (context, provider, child) {
+          child: Consumer<WriterChangeNotifier>(
+            builder: (context, changeNotifier, child) {
               return ElevatedButton(
                 style: writerButtonStyle,
-                onPressed: provider.isDisabled ? null : () => _clearStrokes(context),
+                onPressed: changeNotifier.isDisabled ? null : () => _clearStrokes(context),
                 child: SvgPicture.asset(IconUrl.eraser, color: writerIconButtonColor, width: writerIconButtonSize),
               );
             },
@@ -113,11 +113,11 @@ class _SupportButtons extends StatelessWidget {
         SizedBox(
           width: width,
           height: height * 25 / 55,
-          child: Consumer<WriterProvider>(
-            builder: (context, provider, child) {
+          child: Consumer<WriterChangeNotifier>(
+            builder: (context, changeNotifier, child) {
               return ElevatedButton(
                 style: writerButtonStyle,
-                onPressed: provider.isDisabled ? null : () => _undoStroke(context),
+                onPressed: changeNotifier.isDisabled ? null : () => _undoStroke(context),
                 child: SvgPicture.asset(IconUrl.undo, color: writerIconButtonColor, width: writerIconButtonSize),
               );
             },
@@ -129,11 +129,11 @@ class _SupportButtons extends StatelessWidget {
   }
 
   void _clearStrokes(BuildContext context) {
-    Provider.of<AllStrokesProvider>(context, listen: false).clearStrokes();
+    Provider.of<AllStrokesChangeNotifier>(context, listen: false).clearStrokes();
   }
 
   void _undoStroke(BuildContext context) {
-    Provider.of<AllStrokesProvider>(context, listen: false).undoTheLastStroke();
+    Provider.of<AllStrokesChangeNotifier>(context, listen: false).undoTheLastStroke();
   }
 }
 
@@ -151,7 +151,7 @@ class _Drawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<CurrentStrokeProvider>(context, listen: false).setCanvasLimit(16, drawerSize - 16.0);
+    Provider.of<CurrentStrokeChangeNotifier>(context, listen: false).setCanvasLimit(16, drawerSize - 16.0);
 
     return Stack(
       children: [
@@ -159,8 +159,8 @@ class _Drawer extends StatelessWidget {
           painter: BorderPainter(borderWidth: Device.get().isTablet ? 15.0 : 9.0, borderColor: Colors.grey.shade500),
           size: Size.square(drawerSize),
         ),
-        Consumer<WriterProvider>(
-          builder: (context, provider, child) {
+        Consumer<WriterChangeNotifier>(
+          builder: (context, changeNotifier, child) {
             return (writerController.showHint)
                 ? SvgPicture.asset(writerController.kanaHintImageUrl, height: drawerSize, width: drawerSize, fit: BoxFit.cover)
                 : Container();
@@ -169,10 +169,10 @@ class _Drawer extends StatelessWidget {
         SizedBox(
           height: drawerSize,
           width: drawerSize,
-          child: Consumer<AllStrokesProvider>(
-            builder: (context, provider, child) {
+          child: Consumer<AllStrokesChangeNotifier>(
+            builder: (context, changeNotifier, child) {
               return RepaintBoundary(
-                child: CustomPaint(isComplex: true, painter: _AllStrokesPainter(provider.strokes)),
+                child: CustomPaint(isComplex: true, painter: _AllStrokesPainter(changeNotifier.strokes)),
               );
             },
           ),
@@ -180,16 +180,16 @@ class _Drawer extends StatelessWidget {
         SizedBox(
           height: drawerSize,
           width: drawerSize,
-          child: Consumer<WriterProvider>(
-            builder: (context, writerProvider, child) {
+          child: Consumer<WriterChangeNotifier>(
+            builder: (context, writerChangeNotifier, child) {
               return GestureDetector(
-                onPanStart: writerProvider.isDisabled ? null : (details) => _startStroke(details, context, drawerSize),
-                onPanUpdate: writerProvider.isDisabled ? null : (details) => _updateStroke(details, context),
-                onPanEnd: writerProvider.isDisabled ? null : (details) => _finishStroke(context),
-                child: Consumer<CurrentStrokeProvider>(
-                  builder: (context, provider, child) {
+                onPanStart: writerChangeNotifier.isDisabled ? null : (details) => _startStroke(details, context, drawerSize),
+                onPanUpdate: writerChangeNotifier.isDisabled ? null : (details) => _updateStroke(details, context),
+                onPanEnd: writerChangeNotifier.isDisabled ? null : (details) => _finishStroke(context),
+                child: Consumer<CurrentStrokeChangeNotifier>(
+                  builder: (context, changeNotifier, child) {
                     return RepaintBoundary(
-                      child: CustomPaint(isComplex: true, painter: _CurrentStrokePainter(provider.points)),
+                      child: CustomPaint(isComplex: true, painter: _CurrentStrokePainter(changeNotifier.points)),
                     );
                   },
                 ),
@@ -202,17 +202,17 @@ class _Drawer extends StatelessWidget {
   }
 
   void _startStroke(DragStartDetails details, BuildContext context, double size) {
-    Provider.of<CurrentStrokeProvider>(context, listen: false).addPoint(details.localPosition);
+    Provider.of<CurrentStrokeChangeNotifier>(context, listen: false).addPoint(details.localPosition);
   }
 
   void _updateStroke(DragUpdateDetails details, BuildContext context) {
-    Provider.of<CurrentStrokeProvider>(context, listen: false).addPoint(details.localPosition);
+    Provider.of<CurrentStrokeChangeNotifier>(context, listen: false).addPoint(details.localPosition);
   }
 
   void _finishStroke(BuildContext context) {
-    final currentStrokeProvider = Provider.of<CurrentStrokeProvider>(context, listen: false);
-    Provider.of<AllStrokesProvider>(context, listen: false).addStroke(currentStrokeProvider.points);
-    currentStrokeProvider.resetPoints();
+    final currentStrokeChangeNotifier = Provider.of<CurrentStrokeChangeNotifier>(context, listen: false);
+    Provider.of<AllStrokesChangeNotifier>(context, listen: false).addStroke(currentStrokeChangeNotifier.points);
+    currentStrokeChangeNotifier.resetPoints();
     if (writerController.isTheLastStroke) {
       onKanaRecovered(writerController.normalizedStrokes, writerController.kanaWrote);
     }

@@ -31,9 +31,9 @@ class _TrainingPageState extends State<TrainingPage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<TrainingWordProvider>(create: (context) => TrainingWordProvider()),
-        ChangeNotifierProvider<TrainingKanaProvider>(create: (context) => TrainingKanaProvider(widget._trainingController)),
-        ChangeNotifierProvider<WriterProvider>(create: (context) => WriterProvider(widget._writerController)),
+        ChangeNotifierProvider<TrainingWordChangeNotifier>(create: (context) => TrainingWordChangeNotifier()),
+        ChangeNotifierProvider<TrainingKanaChangeNotifier>(create: (context) => TrainingKanaChangeNotifier(widget._trainingController)),
+        ChangeNotifierProvider<WriterChangeNotifier>(create: (context) => WriterChangeNotifier(widget._writerController)),
       ],
       child: FutureBuilder<bool>(
         future: widget._trainingController.isReady,
@@ -69,7 +69,7 @@ class _TrainingPageState extends State<TrainingPage> {
         ),
         body: Column(
           children: [
-            Consumer<TrainingWordProvider>(
+            Consumer<TrainingWordChangeNotifier>(
               builder: (context, value, child) {
                 return StepProgressIndicator(
                   currentStep: widget._trainingController.wordIdx,
@@ -92,7 +92,7 @@ class _TrainingPageState extends State<TrainingPage> {
                       return Column(
                         children: [
                           const Spacer(),
-                          Consumer<TrainingWordProvider>(
+                          Consumer<TrainingWordChangeNotifier>(
                             builder: (context, value, child) {
                               return GestureDetector(
                                 onTap: () => {
@@ -123,7 +123,7 @@ class _TrainingPageState extends State<TrainingPage> {
                             child: Row(
                               children: [
                                 const Spacer(),
-                                Consumer<WriterProvider>(
+                                Consumer<WriterChangeNotifier>(
                                   builder: (context, value, child) {
                                     return Writer(
                                       writerController: widget._writerController,
@@ -173,10 +173,10 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _onKanaRecovered(List<List<Offset>> pointsFiltered, String kanaId, BuildContext context) {
-    final kanaProvider = Provider.of<TrainingKanaProvider>(context, listen: false);
-    final writerProvider = Provider.of<WriterProvider>(context, listen: false);
-    final situation = kanaProvider.updateKana(pointsFiltered, kanaId);
-    writerProvider.disable();
+    final kanaChangeNotifier = Provider.of<TrainingKanaChangeNotifier>(context, listen: false);
+    final writerChangeNotifier = Provider.of<WriterChangeNotifier>(context, listen: false);
+    final situation = kanaChangeNotifier.updateKana(pointsFiltered, kanaId);
+    writerChangeNotifier.disable();
     Future.delayed(const Duration(milliseconds: 800)).then((value) {
       if (situation.isChangeKana) {
         _goToNextKana(context);
@@ -185,7 +185,7 @@ class _TrainingPageState extends State<TrainingPage> {
       } else if (situation.isChangeTheLastWord) {
         _goToReviewPage(context);
       }
-      writerProvider.enable();
+      writerChangeNotifier.enable();
     });
   }
 
@@ -201,7 +201,7 @@ class _TrainingPageState extends State<TrainingPage> {
       curve: Curves.linear,
     )
         .then((value) {
-      Provider.of<TrainingWordProvider>(context, listen: false).updateState();
+      Provider.of<TrainingWordChangeNotifier>(context, listen: false).updateState();
       _updateWriterData(context);
     });
   }
@@ -222,7 +222,7 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _updateWriterData(BuildContext context) {
-    Provider.of<WriterProvider>(context, listen: false).updateWriter(widget._trainingController.currentKanaToWrite);
+    Provider.of<WriterChangeNotifier>(context, listen: false).updateWriter(widget._trainingController.currentKanaToWrite);
   }
 
   Widget _buildLoader() {

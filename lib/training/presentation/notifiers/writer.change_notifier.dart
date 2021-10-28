@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:kwriting/training/training.dart';
 
-class WriterProvider extends ChangeNotifier {
-  WriterProvider(this._controller);
+class WriterChangeNotifier extends ChangeNotifier {
+  WriterChangeNotifier(this._controller);
 
   final WriterController _controller;
 

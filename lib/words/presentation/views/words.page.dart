@@ -20,7 +20,7 @@ class WordsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => WordsProvider(_wordsController)),
+        ChangeNotifierProvider(create: (context) => WordsChangeNotifier(_wordsController)),
       ],
       builder: (context, child) => _WordsPage(wordsController: _wordsController),
     );
@@ -45,21 +45,21 @@ class _WordsPage extends StatelessWidget {
           onPressed: () => _onPressedSearchButton(context),
         ),
       ],
-      sliverContent: Consumer<WordsProvider>(
-        builder: (context, provider, child) {
+      sliverContent: Consumer<WordsChangeNotifier>(
+        builder: (context, changeNotifier, child) {
           return SliverPadding(
             padding: const EdgeInsets.all(8),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  final word = provider.wordsToShow[index];
+                  final word = changeNotifier.wordsToShow[index];
                   return WordItem(
                     word: word.id,
                     imageUrl: word.imageUrl,
                     onTap: () => _onTapWordItem(context, word.id),
                   );
                 },
-                childCount: provider.wordsToShow.length,
+                childCount: changeNotifier.wordsToShow.length,
               ),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
@@ -83,7 +83,7 @@ class _WordsPage extends StatelessWidget {
         searchFieldLabel: strings.searchLabelInWords,
       ),
     ).then((queryResult) {
-      Provider.of<WordsProvider>(context, listen: false).fetchWords(queryResult);
+      Provider.of<WordsChangeNotifier>(context, listen: false).fetchWords(queryResult);
     });
   }
 

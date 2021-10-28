@@ -22,12 +22,12 @@ class SettingsPage extends StatelessWidget {
     final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => LanguageProvider(_settingsController)),
-        ChangeNotifierProvider(create: (context) => WritingHandProvider(_settingsController)),
-        ChangeNotifierProvider(create: (context) => DarkThemeProvider(_settingsController)),
-        ChangeNotifierProvider(create: (context) => ShowHintProvider(_settingsController)),
-        ChangeNotifierProvider(create: (context) => KanaTypeProvider(_settingsController)),
-        ChangeNotifierProvider(create: (context) => QuantityOfWordsProvider(_settingsController)),
+        ChangeNotifierProvider(create: (context) => LanguageChangeNotifier(_settingsController)),
+        ChangeNotifierProvider(create: (context) => WritingHandChangeNotifier(_settingsController)),
+        ChangeNotifierProvider(create: (context) => DarkThemeChangeNotifier(_settingsController)),
+        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(_settingsController)),
+        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(_settingsController)),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(_settingsController)),
       ],
       builder: (context, child) {
         return FlexibleScaffold(
@@ -42,42 +42,42 @@ class SettingsPage extends StatelessWidget {
                 SubHeaderTile(strings.settingsBasic),
                 const LanguageTile(),
                 //const DarkThemeTile(),
-                Consumer<WritingHandProvider>(
-                  builder: (context, provider, child) {
+                Consumer<WritingHandChangeNotifier>(
+                  builder: (context, changeNotifier, child) {
                     return WritingHandTile(
-                      writingHand: provider.writingHand,
-                      iconUrl: provider.iconUrl,
-                      options: provider.options,
-                      updateWritingHand: provider.updateWritingHand,
+                      writingHand: changeNotifier.writingHand,
+                      iconUrl: changeNotifier.iconUrl,
+                      options: changeNotifier.options,
+                      updateWritingHand: changeNotifier.updateWritingHand,
                     );
                   },
                 ),
                 const Divider(),
                 SubHeaderTile(strings.settingsDefaultTrainingSetting),
-                Consumer<ShowHintProvider>(
-                  builder: (context, provider, child) {
+                Consumer<ShowHintChangeNotifier>(
+                  builder: (context, changeNotifier, child) {
                     return ShowHintTile(
-                      showHint: provider.showHint,
-                      iconUrl: provider.iconUrl,
-                      updateShowHint: provider.updateShowHint,
+                      showHint: changeNotifier.showHint,
+                      iconUrl: changeNotifier.iconUrl,
+                      updateShowHint: changeNotifier.updateShowHint,
                     );
                   },
                 ),
-                Consumer<KanaTypeProvider>(
-                  builder: (context, provider, child) {
+                Consumer<KanaTypeChangeNotifier>(
+                  builder: (context, changeNotifier, child) {
                     return KanaTypeTile(
-                      kanaType: provider.kanaType,
-                      iconUrl: provider.iconUrl,
-                      options: provider.options,
-                      updateKanaType: provider.updateKanaType,
+                      kanaType: changeNotifier.kanaType,
+                      iconUrl: changeNotifier.iconUrl,
+                      options: changeNotifier.options,
+                      updateKanaType: changeNotifier.updateKanaType,
                     );
                   },
                 ),
-                Consumer<QuantityOfWordsProvider>(
-                  builder: (context, provider, child) {
+                Consumer<QuantityOfWordsChangeNotifier>(
+                  builder: (context, changeNotifier, child) {
                     return QuantityOfWordsTile(
-                      quantity: provider.quantity,
-                      updateQuantity: provider.updateQuantity,
+                      quantity: changeNotifier.quantity,
+                      updateQuantity: changeNotifier.updateQuantity,
                     );
                   },
                 ),

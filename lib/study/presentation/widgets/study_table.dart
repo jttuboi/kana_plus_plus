@@ -12,7 +12,7 @@ class StudyTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => StudyTableProvider(),
+      create: (context) => StudyTableChangeNotifier(),
       builder: (context2, child) {
         return Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.deepPurple),
@@ -25,7 +25,6 @@ class StudyTable extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(title, style: TextStyle(color: Colors.grey.shade300, fontSize: Device.get().isTablet ? 24.0 : 18.0)),
-                    //IconButton(onPressed: () => _onShowAllPressed(context2), icon: SvgPicture.asset(IconUrl.showAll, color: studyTableTitleColor)),
                   ],
                 ),
               ),
@@ -47,8 +46,4 @@ class StudyTable extends StatelessWidget {
     }
     return list;
   }
-
-  // void _onShowAllPressed(BuildContext context) {
-  //   Provider.of<StudyTableProvider>(context, listen: false).showKana();
-  // }
 }

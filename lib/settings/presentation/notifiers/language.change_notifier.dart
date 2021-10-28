@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/settings/settings.dart';
 
-class LanguageProvider extends ChangeNotifier {
-  LanguageProvider(this._controller);
+class LanguageChangeNotifier extends ChangeNotifier {
+  LanguageChangeNotifier(this._controller);
 
   final SettingsController _controller;
 

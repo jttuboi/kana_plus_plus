@@ -23,7 +23,7 @@ class PreTrainingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => PreTrainingProvider(_preTrainingController)),
+        ChangeNotifierProvider(create: (context) => PreTrainingChangeNotifier(_preTrainingController)),
       ],
       builder: (context, child) => _PreTrainingPage(preTrainingController: _preTrainingController),
     );
@@ -52,8 +52,8 @@ class _PreTrainingPage extends StatelessWidget {
       bannerUrl: BannerUrl.preTraining,
       onBackButtonPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
       sliverContent: SliverFillRemaining(
-        child: Consumer<PreTrainingProvider>(
-          builder: (context, provider, child) {
+        child: Consumer<PreTrainingChangeNotifier>(
+          builder: (context, changeNotifier, child) {
             return ListView(
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
@@ -62,17 +62,17 @@ class _PreTrainingPage extends StatelessWidget {
                 ShowHintTile(
                   showHint: preTrainingController.showHint,
                   iconUrl: preTrainingController.showHintIconUrl,
-                  updateShowHint: provider.updateShowHint,
+                  updateShowHint: changeNotifier.updateShowHint,
                 ),
                 KanaTypeTile(
                   kanaType: preTrainingController.kanaType,
                   iconUrl: preTrainingController.kanaTypeIconUrl,
-                  options: provider.getKanaTypeOptions,
-                  updateKanaType: provider.updateKanaType,
+                  options: changeNotifier.getKanaTypeOptions,
+                  updateKanaType: changeNotifier.updateKanaType,
                 ),
                 QuantityOfWordsTile(
                   quantity: preTrainingController.quantityOfWords,
-                  updateQuantity: provider.updateQuantity,
+                  updateQuantity: changeNotifier.updateQuantity,
                 ),
                 MaterialButton(
                   color: Theme.of(context).colorScheme.secondary,

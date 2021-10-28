@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:kwriting/training/training.dart';
 
-class AllStrokesProvider extends ChangeNotifier {
-  AllStrokesProvider(this._controller);
+class AllStrokesChangeNotifier extends ChangeNotifier {
+  AllStrokesChangeNotifier(this._controller);
 
   final WriterController _controller;
 

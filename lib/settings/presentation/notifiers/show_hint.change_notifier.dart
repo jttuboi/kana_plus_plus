@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:kwriting/settings/settings.dart';
 
-class ShowHintProvider extends ChangeNotifier {
-  ShowHintProvider(this._controller);
+class ShowHintChangeNotifier extends ChangeNotifier {
+  ShowHintChangeNotifier(this._controller);
 
   final SettingsController _controller;
 

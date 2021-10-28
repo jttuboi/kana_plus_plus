@@ -11,11 +11,11 @@ class LanguageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
-    return Consumer<LanguageProvider>(
-      builder: (context, provider, child) {
+    return Consumer<LanguageChangeNotifier>(
+      builder: (context, changeNotifier, child) {
         return ListTile(
           title: Text(strings.settingsLanguage),
-          subtitle: Text(toLanguageText(provider.languageSelected)),
+          subtitle: Text(toLanguageText(changeNotifier.languageSelected)),
           leading: SizedBox(
             height: double.infinity,
             child: SvgPicture.asset(IconUrl.language, color: defaultTileIconColor, width: defaultTileIconSize),
@@ -26,11 +26,11 @@ class LanguageTile extends StatelessWidget {
             arguments: {
               SelectionOptionPage.argTitle: strings.settingsSelectLanguage,
               SelectionOptionPage.argBannerUrl: BannerUrl.language,
-              SelectionOptionPage.argSelectedOptionKey: provider.languageSelected,
-              SelectionOptionPage.argOptions: provider.options(toLanguageText),
+              SelectionOptionPage.argSelectedOptionKey: changeNotifier.languageSelected,
+              SelectionOptionPage.argOptions: changeNotifier.options(toLanguageText),
               SelectionOptionPage.argOnSelected: (selectedKey) {
-                provider.updateLanguageSelected(selectedKey as String);
-                Provider.of<LocaleProvider>(context, listen: false).updateLocale();
+                changeNotifier.updateLanguageSelected(selectedKey as String);
+                Provider.of<LocaleChangeNotifier>(context, listen: false).updateLocale();
               },
             },
           ),

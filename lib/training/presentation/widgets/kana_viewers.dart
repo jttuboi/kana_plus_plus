@@ -25,7 +25,7 @@ class KanaViewers extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: Consumer<TrainingKanaProvider>(
+      child: Consumer<TrainingKanaChangeNotifier>(
         builder: (context, value, child) {
           if (_carouselController.ready && trainingController.kanaIdx != 0) {
             _carouselController.jumpToPage(trainingController.kanaIdx);

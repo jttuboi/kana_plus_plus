@@ -18,8 +18,8 @@ class _StudyTableContentState extends State<StudyTableContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<StudyTableProvider>(
-      builder: (context, provider, child) {
+    return Consumer<StudyTableChangeNotifier>(
+      builder: (context, changeNotifier, child) {
         return TextButton(
           onPressed: _onContentPressed,
           style: ButtonStyle(

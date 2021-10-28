@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:kwriting/settings/settings.dart';
 
-class QuantityOfWordsProvider extends ChangeNotifier {
-  QuantityOfWordsProvider(this._controller);
+class QuantityOfWordsChangeNotifier extends ChangeNotifier {
+  QuantityOfWordsChangeNotifier(this._controller);
 
   final SettingsController _controller;
 

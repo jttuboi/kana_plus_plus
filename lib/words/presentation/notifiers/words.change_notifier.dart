@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:kwriting/training/training.dart';
 import 'package:kwriting/words/words.dart';
 
-class WordsProvider extends ChangeNotifier {
-  WordsProvider(this._controller);
+class WordsChangeNotifier extends ChangeNotifier {
+  WordsChangeNotifier(this._controller);
 
   final WordsController _controller;
 

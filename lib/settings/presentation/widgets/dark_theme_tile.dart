@@ -9,24 +9,24 @@ class DarkThemeTile extends StatelessWidget {
   const DarkThemeTile({Key? key}) : super(key: key);
 
   void _updateThemeOnApp(BuildContext context, bool isDarkTheme) {
-    Provider.of<ThemeProvider>(context, listen: false).updateThemeMode(isDarkTheme);
+    Provider.of<ThemeChangeNotifier>(context, listen: false).updateThemeMode(isDarkTheme);
   }
 
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
-    return Consumer<DarkThemeProvider>(
-      builder: (context, provider, child) {
+    return Consumer<DarkThemeChangeNotifier>(
+      builder: (context, changeNotifier, child) {
         return SwitchListTile(
           title: Text(strings.settingsDarkTheme),
-          value: provider.darkTheme,
+          value: changeNotifier.darkTheme,
           onChanged: (value) {
-            provider.updateDarkTheme(value);
+            changeNotifier.updateDarkTheme(value);
             _updateThemeOnApp(context, value);
           },
           secondary: SizedBox(
             height: double.infinity,
-            child: SvgPicture.asset(provider.iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
+            child: SvgPicture.asset(changeNotifier.iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
           ),
         );
       },

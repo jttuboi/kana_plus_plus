@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/settings/settings.dart';
 
-class KanaTypeProvider extends ChangeNotifier {
-  KanaTypeProvider(this._controller);
+class KanaTypeChangeNotifier extends ChangeNotifier {
+  KanaTypeChangeNotifier(this._controller);
 
   final SettingsController _controller;
 

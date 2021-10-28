@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/settings/settings.dart';
 
-class WritingHandProvider extends ChangeNotifier {
-  WritingHandProvider(this._controller);
+class WritingHandChangeNotifier extends ChangeNotifier {
+  WritingHandChangeNotifier(this._controller);
 
   final SettingsController _controller;
 
