@@ -3,8 +3,8 @@
 import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/menu/menu.dart';
-import 'package:kwriting/settings/settings.dart';
+import 'package:kwriting/features/menu/menu.dart';
+import 'package:kwriting/features/settings/settings.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

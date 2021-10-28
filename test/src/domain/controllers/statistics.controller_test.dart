@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_lambdas
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/training/training.dart';
+import 'package:kwriting/features/training/training.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

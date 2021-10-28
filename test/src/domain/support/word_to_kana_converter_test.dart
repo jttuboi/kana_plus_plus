@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kwriting/core/core.dart';
+import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/src/domain/support/word_to_kana_converter.dart';
-import 'package:kwriting/training/training.dart';
 
 void main() {
   final converter = WordToKanaConverter();

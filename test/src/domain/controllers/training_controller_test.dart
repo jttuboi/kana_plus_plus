@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/training/training.dart';
+import 'package:kwriting/features/training/training.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

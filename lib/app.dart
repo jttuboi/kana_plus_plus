@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/menu/menu.dart';
-import 'package:kwriting/settings/settings.dart';
-import 'package:kwriting/study/study.dart';
-import 'package:kwriting/training/training.dart';
-import 'package:kwriting/words/words.dart';
+import 'package:kwriting/features/menu/menu.dart';
+import 'package:kwriting/features/settings/settings.dart';
+import 'package:kwriting/features/study/study.dart';
+import 'package:kwriting/features/training/training.dart';
+import 'package:kwriting/features/words/words.dart';
 import 'package:provider/provider.dart';
 
 class AndroidApp extends StatelessWidget {
