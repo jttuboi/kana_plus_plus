@@ -1,4 +1,4 @@
-import 'package:kwriting/src/domain/utils/kana_type.dart';
+import 'package:kwriting/core/core.dart';
 import 'package:kwriting/src/infrastructure/datasources/file.interface.storage.dart';
 import 'package:kwriting/training/infrastructure/models/word.model.dart';
 

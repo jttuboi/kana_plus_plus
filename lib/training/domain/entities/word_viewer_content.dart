@@ -1,5 +1,4 @@
-import 'package:kwriting/training/domain/entities/kana_viewer_content.dart';
-import 'package:kwriting/training/domain/entities/word.dart';
+import 'package:kwriting/training/training.dart';
 
 class WordViewerContent {
   WordViewerContent({

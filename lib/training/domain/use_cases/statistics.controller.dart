@@ -1,4 +1,4 @@
-import 'package:kwriting/training/domain/repositories/statistics.interface.repository.dart';
+import 'package:kwriting/training/training.dart';
 
 class StatisticsController {
   StatisticsController({

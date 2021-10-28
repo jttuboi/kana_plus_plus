@@ -1,10 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:kwriting/training/presentation/arguments/kana_result.dart';
-import 'package:kwriting/training/presentation/widgets/border_painter.dart';
-import 'package:kwriting/training/presentation/widgets/user_kana_viewer.dart';
+import 'package:kwriting/training/training.dart';
 
 class ReviewKanaContent extends StatelessWidget {
   const ReviewKanaContent({required this.kanaResult, Key? key}) : super(key: key);

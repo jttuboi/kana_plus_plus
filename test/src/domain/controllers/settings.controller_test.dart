@@ -1,16 +1,8 @@
 // ignore_for_file: unnecessary_lambdas
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/settings/domain/repositories/dark_theme.interface.repository.dart';
-import 'package:kwriting/settings/domain/repositories/kana_type.interface.repository.dart';
-import 'package:kwriting/settings/domain/repositories/language.interface.repository.dart';
-import 'package:kwriting/settings/domain/repositories/quantity_of_words.interface.repository.dart';
-import 'package:kwriting/settings/domain/repositories/show_hint.interface.repository.dart';
-import 'package:kwriting/settings/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kwriting/settings/domain/use_cases/settings.controller.dart';
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/src/domain/utils/writing_hand.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

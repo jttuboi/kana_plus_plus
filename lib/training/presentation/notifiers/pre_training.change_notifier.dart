@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/training/domain/use_cases/pre_training.controller.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
+import 'package:kwriting/training/training.dart';
 
 class PreTrainingProvider extends ChangeNotifier {
   PreTrainingProvider(this._controller);
@@ -14,9 +13,9 @@ class PreTrainingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<SelectionOptionArguments> getKanaTypeOptions(String Function(KanaType kanaType) kanaTypeText) {
+  List<SelectionOptionItem> getKanaTypeOptions(String Function(KanaType kanaType) kanaTypeText) {
     return _controller.kanaTypeData.map((model) {
-      return SelectionOptionArguments(
+      return SelectionOptionItem(
         key: model.type,
         label: kanaTypeText(model.type),
         iconUrl: model.iconUrl,

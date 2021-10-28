@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
-import 'package:kwriting/settings/presentation/widgets/kana_type_tile.dart';
-import 'package:kwriting/settings/presentation/widgets/quantity_of_words_tile.dart';
-import 'package:kwriting/settings/presentation/widgets/show_hint_tile.dart';
-import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/routes.dart';
-import 'package:kwriting/training/domain/use_cases/pre_training.controller.dart';
-import 'package:kwriting/training/presentation/arguments/pre_training_arguments.dart';
-import 'package:kwriting/training/presentation/notifiers/pre_training.change_notifier.dart';
+import 'package:kana_checker/kana_checker.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
+import 'package:kwriting/training/training.dart';
 import 'package:provider/provider.dart';
+import 'package:stroke_reducer/stroke_reducer.dart';
 
 class PreTrainingPage extends StatelessWidget {
-  const PreTrainingPage(this.preTrainingController, {Key? key}) : super(key: key);
+  const PreTrainingPage._(this._preTrainingController, {Key? key}) : super(key: key);
 
-  final PreTrainingController preTrainingController;
+  static const routeName = '/pre_training';
+  static const argPreTrainingController = 'argPreTrainingController';
+
+  static Route route(PreTrainingController preTrainingController) {
+    return MaterialPageRoute(builder: (context) => PreTrainingPage._(preTrainingController));
+  }
+
+  final PreTrainingController _preTrainingController;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => PreTrainingProvider(preTrainingController)),
+        ChangeNotifierProvider(create: (context) => PreTrainingProvider(_preTrainingController)),
       ],
-      builder: (context, child) => _PreTrainingPage(preTrainingController: preTrainingController),
+      builder: (context, child) => _PreTrainingPage(preTrainingController: _preTrainingController),
     );
   }
 }
@@ -76,16 +77,30 @@ class _PreTrainingPage extends StatelessWidget {
                 MaterialButton(
                   color: Theme.of(context).colorScheme.secondary,
                   shape: const CircleBorder(),
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    Routes.training,
-                    ModalRoute.withName(Routes.menu),
-                    arguments: PreTrainingArguments(
-                      showHint: preTrainingController.showHint,
-                      kanaType: preTrainingController.kanaType,
-                      quantityOfWords: preTrainingController.quantityOfWords,
-                    ),
-                  ),
+                  onPressed: () {
+                    final kanaChecker = KanaChecker();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      TrainingPage.routeName,
+                      (route) => route.isFirst,
+                      arguments: {
+                        TrainingPage.argTrainingController: TrainingController(
+                          wordRepository: WordRepository(),
+                          statisticsRepository: StatisticsRepository(),
+                          kanaChecker: kanaChecker,
+                          showHint: preTrainingController.showHint,
+                          kanaType: preTrainingController.kanaType,
+                          quantityOfWords: preTrainingController.quantityOfWords,
+                        ),
+                        TrainingPage.argWriterController: WriterController(
+                          writingHandRepository: WritingHandRepository(),
+                          strokeReducer: StrokeReducer(minPointsQuantity: 20),
+                          kanaChecker: kanaChecker,
+                          showHint: preTrainingController.showHint,
+                        ),
+                      },
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: SvgPicture.asset(

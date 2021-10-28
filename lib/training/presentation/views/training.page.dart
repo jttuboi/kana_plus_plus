@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/domain/utils/update_kana_situation.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/routes.dart';
-import 'package:kwriting/training/domain/use_cases/training.controller.dart';
-import 'package:kwriting/training/domain/use_cases/writer.controller.dart';
-import 'package:kwriting/training/presentation/arguments/training_arguments.dart';
-import 'package:kwriting/training/presentation/notifiers/training_kana.change_notifier.dart';
-import 'package:kwriting/training/presentation/notifiers/training_word.change_notifier.dart';
-import 'package:kwriting/training/presentation/notifiers/writer.change_notifier.dart';
-import 'package:kwriting/training/presentation/widgets/kana_viewers.dart';
-import 'package:kwriting/training/presentation/widgets/writer.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/training/training.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrainingPage extends StatefulWidget {
-  const TrainingPage({
-    required this.trainingController,
-    required this.writerController,
-    Key? key,
-  }) : super(key: key);
+  const TrainingPage(this._trainingController, this._writerController, {Key? key}) : super(key: key);
 
-  final TrainingController trainingController;
-  final WriterController writerController;
+  static const routeName = '/training';
+  static const argTrainingController = 'argTrainingController';
+  static const argWriterController = 'argWriterController';
+
+  static Route route(TrainingController trainingController, WriterController writerController) {
+    return MaterialPageRoute(builder: (context) => TrainingPage(trainingController, writerController));
+  }
+
+  final TrainingController _trainingController;
+  final WriterController _writerController;
 
   @override
   State<TrainingPage> createState() => _TrainingPageState();
@@ -38,11 +32,11 @@ class _TrainingPageState extends State<TrainingPage> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<TrainingWordProvider>(create: (context) => TrainingWordProvider()),
-        ChangeNotifierProvider<TrainingKanaProvider>(create: (context) => TrainingKanaProvider(widget.trainingController)),
-        ChangeNotifierProvider<WriterProvider>(create: (context) => WriterProvider(widget.writerController)),
+        ChangeNotifierProvider<TrainingKanaProvider>(create: (context) => TrainingKanaProvider(widget._trainingController)),
+        ChangeNotifierProvider<WriterProvider>(create: (context) => WriterProvider(widget._writerController)),
       ],
       child: FutureBuilder<bool>(
-        future: widget.trainingController.isReady,
+        future: widget._trainingController.isReady,
         builder: (context2, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return _buildLoader();
@@ -51,7 +45,7 @@ class _TrainingPageState extends State<TrainingPage> {
             return _buildError(context2);
           }
           if (snapshot.hasData && snapshot.data! == true) {
-            widget.writerController.updateWriter(widget.trainingController.currentKanaToWrite);
+            widget._writerController.updateWriter(widget._trainingController.currentKanaToWrite);
             return _buildData(context2);
           }
           return _buildNoData(context2);
@@ -78,8 +72,8 @@ class _TrainingPageState extends State<TrainingPage> {
             Consumer<TrainingWordProvider>(
               builder: (context, value, child) {
                 return StepProgressIndicator(
-                  currentStep: widget.trainingController.wordIdx,
-                  totalSteps: widget.trainingController.quantityOfWords,
+                  currentStep: widget._trainingController.wordIdx,
+                  totalSteps: widget._trainingController.quantityOfWords,
                   size: Device.get().isTablet ? 6.0 : 5.0,
                   padding: 0.5,
                   selectedColor: Theme.of(context).colorScheme.secondary,
@@ -93,7 +87,7 @@ class _TrainingPageState extends State<TrainingPage> {
                   return PageView.builder(
                     controller: _pageController,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.trainingController.numberOfWordsToStudy,
+                    itemCount: widget._trainingController.numberOfWordsToStudy,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
@@ -104,12 +98,12 @@ class _TrainingPageState extends State<TrainingPage> {
                                 onTap: () => {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(widget.trainingController.wordTranslate),
+                                      content: Text(widget._trainingController.wordTranslate),
                                       duration: const Duration(seconds: 1),
                                     ),
                                   ),
                                 },
-                                child: SvgPicture.asset(widget.trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30),
+                                child: SvgPicture.asset(widget._trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30),
                               );
                             },
                           ),
@@ -119,7 +113,7 @@ class _TrainingPageState extends State<TrainingPage> {
                             child: KanaViewers(
                               width: constraints.maxWidth - 16.0 * 2, // 16 * 2 is the padding size for this content
                               height: constraints.maxHeight * 4 / 30,
-                              trainingController: widget.trainingController,
+                              trainingController: widget._trainingController,
                               wordIdxToShow: index,
                             ),
                           ),
@@ -132,7 +126,7 @@ class _TrainingPageState extends State<TrainingPage> {
                                 Consumer<WriterProvider>(
                                   builder: (context, value, child) {
                                     return Writer(
-                                      writerController: widget.writerController,
+                                      writerController: widget._writerController,
                                       width: constraints.maxWidth - 32.0 * 2, // 32 * 2 is the padding size for this content
                                       height: constraints.maxHeight * 12 / 30,
                                       onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
@@ -166,11 +160,11 @@ class _TrainingPageState extends State<TrainingPage> {
         content: Text(strings.trainingQuitContent),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: () => Navigator.pop(context, false),
             child: Text(strings.trainingQuitAnswerNo),
           ),
           TextButton(
-            onPressed: () => Navigator.popUntil(context, ModalRoute.withName(Routes.menu)),
+            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
             child: Text(strings.trainingQuitAnswerYes),
           ),
         ],
@@ -202,7 +196,7 @@ class _TrainingPageState extends State<TrainingPage> {
   void _goToNextWord(BuildContext context) {
     _pageController
         .animateToPage(
-      widget.trainingController.wordIdx,
+      widget._trainingController.wordIdx,
       duration: const Duration(milliseconds: 500),
       curve: Curves.linear,
     )
@@ -213,19 +207,22 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void _goToReviewPage(BuildContext context) {
-    final wordsResult = widget.trainingController.wordsResult;
-    widget.trainingController.updateStatistics(wordsResult);
+    final wordsResult = widget._trainingController.wordsResult;
+    widget._trainingController.updateStatistics(wordsResult);
 
     Navigator.pushNamedAndRemoveUntil(
       context,
-      Routes.review,
-      ModalRoute.withName(Routes.menu),
-      arguments: TrainingArguments(wordsResult: wordsResult),
+      ReviewPage.routeName,
+      (route) => route.isFirst,
+      arguments: {
+        ReviewPage.argReviewController: ReviewController(statisticsRepository: StatisticsRepository()),
+        ReviewPage.argWordsResult: wordsResult,
+      },
     );
   }
 
   void _updateWriterData(BuildContext context) {
-    Provider.of<WriterProvider>(context, listen: false).updateWriter(widget.trainingController.currentKanaToWrite);
+    Provider.of<WriterProvider>(context, listen: false).updateWriter(widget._trainingController.currentKanaToWrite);
   }
 
   Widget _buildLoader() {

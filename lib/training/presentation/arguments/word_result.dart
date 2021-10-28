@@ -1,5 +1,4 @@
-import 'package:kwriting/training/domain/entities/word_viewer_content.dart';
-import 'package:kwriting/training/presentation/arguments/kana_result.dart';
+import 'package:kwriting/training/training.dart';
 
 class WordResult {
   const WordResult({

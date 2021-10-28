@@ -3,12 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/training/domain/use_cases/writer.controller.dart';
-import 'package:kwriting/training/presentation/notifiers/all_stroke.change_notifier.dart';
-import 'package:kwriting/training/presentation/notifiers/current_stroke.change_notifier.dart';
-import 'package:kwriting/training/presentation/notifiers/writer.change_notifier.dart';
-import 'package:kwriting/training/presentation/widgets/border_painter.dart';
+import 'package:kwriting/core/icon_url.dart';
+import 'package:kwriting/training/training.dart';
 import 'package:provider/provider.dart';
 
 class Writer extends StatelessWidget {

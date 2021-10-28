@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:kwriting/training/domain/entities/word.dart';
-import 'package:kwriting/words/domain/use_cases/words.controller.dart';
+import 'package:kwriting/training/training.dart';
+import 'package:kwriting/words/words.dart';
 
 class WordsProvider extends ChangeNotifier {
   WordsProvider(this._controller);

@@ -1,12 +1,9 @@
 // ignore_for_file: unnecessary_lambdas
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/training/domain/entities/kana.dart';
-import 'package:kwriting/training/domain/entities/translate.dart';
-import 'package:kwriting/training/domain/entities/word.dart';
-import 'package:kwriting/training/domain/repositories/word.interface.repository.dart';
-import 'package:kwriting/words/domain/use_cases/words.controller.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/training/training.dart';
+import 'package:kwriting/words/words.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

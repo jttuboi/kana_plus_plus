@@ -1,23 +1,23 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
-import 'package:kwriting/settings/presentation/widgets/support_button.dart';
-import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
-import 'package:kwriting/training/domain/use_cases/review.controller.dart';
-import 'package:kwriting/training/presentation/arguments/word_result.dart';
-import 'package:kwriting/training/presentation/widgets/review_tile.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
+import 'package:kwriting/training/training.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({
-    required this.reviewController,
-    required this.wordsResult,
-    Key? key,
-  }) : super(key: key);
+  const ReviewPage._(this._reviewController, this._wordsResult, {Key? key}) : super(key: key);
 
-  final ReviewController reviewController;
-  final List<WordResult> wordsResult;
+  static const routeName = '/review';
+  static const argReviewController = 'argReviewController';
+  static const argWordsResult = 'argWordsResult';
+
+  static Route route(ReviewController reviewController, {List<WordResult>? wordsResult}) {
+    return MaterialPageRoute(builder: (context) => ReviewPage._(reviewController, wordsResult ?? const []));
+  }
+
+  final ReviewController _reviewController;
+  final List<WordResult> _wordsResult;
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
@@ -55,26 +55,15 @@ class _ReviewPageState extends State<ReviewPage> {
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72);
+                return index.isEven ? ReviewTile(wordResult: widget._wordsResult[index ~/ 2]) : const Divider(indent: 72);
               },
               semanticIndexCallback: (widget, localIndex) {
                 return localIndex.isEven ? localIndex ~/ 2 : null;
               },
-              childCount: max(0, widget.wordsResult.length * 2 - 1),
+              childCount: max(0, widget._wordsResult.length * 2 - 1),
             ),
           ),
         ),
-
-        // SliverFillRemaining(
-        //   child: ListView.separated(
-        //     padding: EdgeInsets.zero,
-        //     physics: const NeverScrollableScrollPhysics(),
-        //     itemCount: wordsResult.length,
-        //     itemBuilder: (context, index) => ReviewTile(wordResult: wordsResult[index]),
-        //     separatorBuilder: (context, index) => const Divider(thickness: 1.0, indent: 16.0, endIndent: 16.0),
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }

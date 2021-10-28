@@ -1,7 +1,8 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/infrastructure/datasources/image_url.storage.dart';
+import 'package:kwriting/core/core.dart';
 
 class FallingKanaAnimation extends StatefulWidget {
   const FallingKanaAnimation({

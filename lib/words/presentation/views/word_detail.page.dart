@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
-import 'package:kwriting/training/domain/entities/word.dart';
-import 'package:kwriting/words/presentation/widgets/kana_details.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/training/training.dart';
+import 'package:kwriting/words/words.dart';
 
 class WordDetailPage extends StatelessWidget {
-  WordDetailPage({required this.word, Key? key}) : super(key: key);
+  WordDetailPage._(this._word, {Key? key}) : super(key: key);
 
-  final wordDetailTitleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
-  final wordDetailContentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
+  static const routeName = '/word_detail';
+  static const argWord = 'argWord';
 
-  final Word word;
+  static Route route({Word? word}) {
+    return MaterialPageRoute(builder: (context) => WordDetailPage._(word ?? Word.empty()));
+  }
+
+  final _titleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
+  final _contentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
+
+  final Word _word;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +47,9 @@ class WordDetailPage extends StatelessWidget {
                       Flexible(
                         flex: 6,
                         child: Hero(
-                          tag: word.imageUrl,
+                          tag: _word.imageUrl,
                           child: SvgPicture.asset(
-                            word.imageUrl,
+                            _word.imageUrl,
                             width: MediaQuery.of(context).size.width * 4 / 5,
                             height: MediaQuery.of(context).size.width * 4 / 5,
                           ),
@@ -57,15 +63,15 @@ class WordDetailPage extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 16, bottom: 32),
-                              child: KanasDetails(kanas: word.kanas),
+                              child: KanasDetails(kanas: _word.kanas),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(strings.wordDetailRomaji, style: wordDetailTitleStyle),
-                                  Text(word.romaji, style: wordDetailContentStyle),
+                                  Text(strings.wordDetailRomaji, style: _titleStyle),
+                                  Text(_word.romaji, style: _contentStyle),
                                 ],
                               ),
                             ),
@@ -74,8 +80,8 @@ class WordDetailPage extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(strings.wordDetailTranslate, style: wordDetailTitleStyle),
-                                  Text(word.translate, style: wordDetailContentStyle),
+                                  Text(strings.wordDetailTranslate, style: _titleStyle),
+                                  Text(_word.translate, style: _contentStyle),
                                 ],
                               ),
                             ),

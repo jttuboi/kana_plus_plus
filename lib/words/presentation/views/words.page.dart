@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
-import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/routes.dart';
-import 'package:kwriting/training/presentation/arguments/words.arguments.dart';
-import 'package:kwriting/words/domain/use_cases/words.controller.dart';
-import 'package:kwriting/words/presentation/notifiers/words.change_notifier.dart';
-import 'package:kwriting/words/presentation/widgets/word_item.dart';
-import 'package:kwriting/words/presentation/widgets/words_search_delegate.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/words/words.dart';
 import 'package:provider/provider.dart';
 
 class WordsPage extends StatelessWidget {
-  const WordsPage(this.wordsController, {Key? key}) : super(key: key);
+  const WordsPage._(this._wordsController, {Key? key}) : super(key: key);
 
-  final WordsController wordsController;
+  static const routeName = '/words';
+  static const argWordsController = 'argWordsController';
+
+  static Route route(WordsController wordsController) {
+    return MaterialPageRoute(builder: (context) => WordsPage._(wordsController));
+  }
+
+  final WordsController _wordsController;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => WordsProvider(wordsController)),
+        ChangeNotifierProvider(create: (context) => WordsProvider(_wordsController)),
       ],
-      builder: (context, child) => _WordsPage(wordsController: wordsController),
+      builder: (context, child) => _WordsPage(wordsController: _wordsController),
     );
   }
 }
@@ -89,6 +88,12 @@ class _WordsPage extends StatelessWidget {
   }
 
   void _onTapWordItem(BuildContext context, String id) {
-    Navigator.pushNamed(context, Routes.word, arguments: WordsArguments(word: wordsController.wordDetail(id)));
+    Navigator.pushNamed(
+      context,
+      WordDetailPage.routeName,
+      arguments: {
+        WordDetailPage.argWord: wordsController.wordDetail(id),
+      },
+    );
   }
 }

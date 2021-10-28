@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
+import 'package:kwriting/core/core.dart';
 
 class FlexibleScaffold extends StatefulWidget {
   const FlexibleScaffold({

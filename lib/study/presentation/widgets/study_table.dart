@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:kwriting/study/presentation/notifiers/study_table.change_notifier.dart';
-import 'package:kwriting/study/presentation/widgets/study_table_row.dart';
+import 'package:kwriting/study/study.dart';
 import 'package:provider/provider.dart';
 
 class StudyTable extends StatelessWidget {

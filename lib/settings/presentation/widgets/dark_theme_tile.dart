@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
-import 'package:kwriting/menu/presentation/notifiers/theme.change_notifier.dart';
-import 'package:kwriting/settings/presentation/notifiers/dark_theme.change_notifier.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/menu/menu.dart';
+import 'package:kwriting/settings/settings.dart';
 import 'package:provider/provider.dart';
 
 class DarkThemeTile extends StatelessWidget {

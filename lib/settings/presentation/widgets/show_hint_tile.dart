@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
+import 'package:kwriting/core/core.dart';
 
 class ShowHintTile extends StatelessWidget {
   const ShowHintTile({

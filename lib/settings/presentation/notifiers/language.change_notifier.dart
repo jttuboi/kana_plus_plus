@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kwriting/settings/domain/use_cases/settings.controller.dart';
-import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 
 class LanguageProvider extends ChangeNotifier {
   LanguageProvider(this._controller);
@@ -10,9 +9,9 @@ class LanguageProvider extends ChangeNotifier {
 
   String get languageSelected => _controller.languageSelected;
 
-  List<SelectionOptionArguments> options(String Function(String localeCode) languageText) {
+  List<SelectionOptionItem> options(String Function(String localeCode) languageText) {
     return JStrings.supportedLocales.map((locale) {
-      return SelectionOptionArguments(
+      return SelectionOptionItem(
         key: locale.languageCode,
         label: languageText(locale.languageCode),
       );

@@ -1,6 +1,6 @@
-import 'package:kwriting/settings/domain/repositories/dark_theme.interface.repository.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 import 'package:kwriting/src/infrastructure/singletons/database.dart';
-import 'package:kwriting/src/infrastructure/utils/consts.dart';
 
 class DarkThemeRepository implements IDarkThemeRepository {
   @override

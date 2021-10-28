@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/settings/domain/use_cases/settings.controller.dart';
-import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
-import 'package:kwriting/src/domain/utils/writing_hand.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 
 class WritingHandProvider extends ChangeNotifier {
   WritingHandProvider(this._controller);
@@ -12,9 +11,9 @@ class WritingHandProvider extends ChangeNotifier {
 
   String get iconUrl => _controller.writingHandIconUrl;
 
-  List<SelectionOptionArguments> options(String Function(WritingHand writingHand) writingHandText) {
+  List<SelectionOptionItem> options(String Function(WritingHand writingHand) writingHandText) {
     return _controller.getWritingHandData.map((model) {
-      return SelectionOptionArguments(
+      return SelectionOptionItem(
         key: model.writingHand,
         label: writingHandText(model.writingHand),
         iconUrl: model.iconUrl,

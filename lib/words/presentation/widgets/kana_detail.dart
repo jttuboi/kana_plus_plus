@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/training/presentation/widgets/border_painter.dart';
+import 'package:kwriting/training/training.dart';
 
 class KanaDetail extends StatelessWidget {
   const KanaDetail({required this.imageUrl, required this.size, Key? key}) : super(key: key);

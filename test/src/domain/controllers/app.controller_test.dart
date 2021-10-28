@@ -3,9 +3,8 @@
 import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/menu/domain/repositories/app.interface.repository.dart';
-import 'package:kwriting/menu/domain/use_cases/app.controller.dart';
-import 'package:kwriting/settings/domain/repositories/language.interface.repository.dart';
+import 'package:kwriting/menu/menu.dart';
+import 'package:kwriting/settings/settings.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {

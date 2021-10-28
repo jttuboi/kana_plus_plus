@@ -2,9 +2,9 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:kana_checker/kana_checker.dart';
-import 'package:kwriting/settings/domain/repositories/writing_hand.interface.repository.dart';
-import 'package:kwriting/src/domain/utils/writing_hand.dart';
-import 'package:kwriting/training/domain/entities/kana_to_writer.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
+import 'package:kwriting/training/training.dart';
 import 'package:stroke_reducer/stroke_reducer.dart';
 
 class WriterController {

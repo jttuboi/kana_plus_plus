@@ -3,10 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/src/domain/utils/kana_viewer_status.dart';
-import 'package:kwriting/training/domain/entities/kana_viewer_content.dart';
-import 'package:kwriting/training/presentation/widgets/border_painter.dart';
-import 'package:kwriting/training/presentation/widgets/user_kana_viewer.dart';
+import 'package:kwriting/training/training.dart';
 
 class KanaViewer extends StatefulWidget {
   const KanaViewer(this.content, {required this.size, Key? key}) : super(key: key);

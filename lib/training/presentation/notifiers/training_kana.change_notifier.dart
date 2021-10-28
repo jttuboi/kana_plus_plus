@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/src/domain/utils/update_kana_situation.dart';
-import 'package:kwriting/training/domain/use_cases/training.controller.dart' show TrainingController;
+import 'package:kwriting/training/training.dart';
 
 class TrainingKanaProvider extends ChangeNotifier {
   TrainingKanaProvider(this._controller);

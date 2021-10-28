@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kwriting/core/core.dart';
 import 'package:kwriting/src/domain/support/word_to_kana_converter.dart';
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/src/infrastructure/datasources/image_url.storage.dart';
-import 'package:kwriting/training/domain/entities/kana.dart';
-import 'package:kwriting/training/infrastructure/models/kana.model.dart';
+import 'package:kwriting/training/training.dart';
 
 void main() {
   final converter = WordToKanaConverter();

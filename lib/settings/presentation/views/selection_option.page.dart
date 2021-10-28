@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
-import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
-import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 
 class SelectionOptionPage extends StatelessWidget {
-  const SelectionOptionPage({
+  const SelectionOptionPage._({
     required this.title,
     required this.bannerUrl,
     required this.selectedOptionKey,
@@ -14,10 +13,28 @@ class SelectionOptionPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const routeName = '/selection_option';
+  static const argTitle = 'argTitle';
+  static const argBannerUrl = 'argBannerUrl';
+  static const argSelectedOptionKey = 'argSelectedOptionKey';
+  static const argOptions = 'argOptions';
+  static const argOnSelected = 'argOnSelected';
+
+  static Route route({String? title, String? bannerUrl, dynamic selectedKey, List<SelectionOptionItem>? options, Function(dynamic)? onSelected}) {
+    return MaterialPageRoute(
+        builder: (context) => SelectionOptionPage._(
+              title: title ?? '',
+              bannerUrl: bannerUrl ?? ImageUrl.empty,
+              selectedOptionKey: selectedKey ?? '',
+              options: options ?? [],
+              onSelected: onSelected ?? (selectedKey) {},
+            ));
+  }
+
   final String title;
   final String bannerUrl;
   final dynamic selectedOptionKey;
-  final List<SelectionOptionArguments> options;
+  final List<SelectionOptionItem> options;
   final Function(dynamic) onSelected;
 
   @override

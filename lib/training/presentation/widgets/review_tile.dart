@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/training/presentation/arguments/word_result.dart';
-import 'package:kwriting/training/presentation/widgets/review_kana_content.dart';
+import 'package:kwriting/training/training.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile({required this.wordResult, Key? key}) : super(key: key);

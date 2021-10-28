@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
-import 'package:kwriting/menu/presentation/widgets/flexible_scaffold.dart';
-import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
-import 'package:kwriting/study/presentation/widgets/study_table.dart';
-import 'package:kwriting/study/presentation/widgets/study_table_row.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/study/study.dart';
 
 class StudyPage extends StatelessWidget {
-  const StudyPage({Key? key}) : super(key: key);
+  const StudyPage._({Key? key}) : super(key: key);
+
+  static const routeName = '/study';
+
+  static Route route() {
+    return MaterialPageRoute(builder: (context) => const StudyPage._());
+  }
 
   @override
   Widget build(BuildContext context) {

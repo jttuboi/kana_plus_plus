@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:kwriting/training/domain/entities/kana_stats.dart';
-import 'package:kwriting/training/presentation/arguments/word_result.dart';
+import 'package:kwriting/training/training.dart';
 
 part 'word_stats.g.dart';
 

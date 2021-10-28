@@ -1,7 +1,5 @@
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/src/infrastructure/datasources/image_url.storage.dart';
-import 'package:kwriting/src/infrastructure/utils/consts.dart';
-import 'package:kwriting/training/domain/entities/word.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/training/training.dart';
 
 class WordModel extends Word {
   WordModel({

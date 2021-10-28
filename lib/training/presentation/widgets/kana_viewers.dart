@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:kwriting/training/domain/use_cases/training.controller.dart';
-import 'package:kwriting/training/presentation/notifiers/training_kana.change_notifier.dart';
-import 'package:kwriting/training/presentation/widgets/kana_viewer.dart';
+import 'package:kwriting/training/training.dart';
 import 'package:provider/provider.dart';
 
 class KanaViewers extends StatelessWidget {

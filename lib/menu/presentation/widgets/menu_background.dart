@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/menu/presentation/widgets/falling_kana_animation.dart';
+import 'package:kwriting/menu/menu.dart';
 
 class MenuBackground extends StatefulWidget {
   const MenuBackground({Key? key}) : super(key: key);

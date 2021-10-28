@@ -1,18 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/menu/domain/use_cases/app.controller.dart';
-import 'package:kwriting/menu/presentation/widgets/introduction.dart';
-import 'package:kwriting/menu/presentation/widgets/menu_background.dart';
-import 'package:kwriting/settings/presentation/widgets/share_button.dart';
-import 'package:kwriting/settings/presentation/widgets/support_button.dart';
-import 'package:kwriting/src/domain/utils/consts.dart';
-import 'package:kwriting/src/infrastructure/datasources/icon_url.storage.dart';
-import 'package:kwriting/src/presentation/utils/routes.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/menu/menu.dart';
+import 'package:kwriting/settings/settings.dart';
+import 'package:kwriting/study/study.dart';
+import 'package:kwriting/training/training.dart';
+import 'package:kwriting/words/words.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage(this.appController, {Key? key}) : super(key: key);
@@ -88,10 +84,48 @@ class _MenuContent extends StatelessWidget {
                       crossAxisCount: 2,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _MenuButton(route: Routes.study, iconUrl: IconUrl.study, title: strings.menuStudy),
-                        _MenuButton(route: Routes.preTraining, iconUrl: IconUrl.training, title: strings.menuTraining),
-                        _MenuButton(route: Routes.words, iconUrl: IconUrl.words, title: strings.menuWords),
-                        _MenuButton(route: Routes.settings, iconUrl: IconUrl.settings, title: strings.menuSettings),
+                        _MenuButton(
+                          title: strings.menuStudy,
+                          iconUrl: IconUrl.study,
+                          routeName: StudyPage.routeName,
+                        ),
+                        _MenuButton(
+                          title: strings.menuTraining,
+                          iconUrl: IconUrl.training,
+                          routeName: PreTrainingPage.routeName,
+                          arguments: {
+                            PreTrainingPage.argPreTrainingController: PreTrainingController(
+                              showHintRepository: ShowHintRepository(),
+                              kanaTypeRepository: KanaTypeRepository(),
+                              quantityOfWordsRepository: QuantityOfWordsRepository(),
+                            ),
+                          },
+                        ),
+                        _MenuButton(
+                          title: strings.menuWords,
+                          iconUrl: IconUrl.words,
+                          routeName: WordsPage.routeName,
+                          arguments: {
+                            WordsPage.argWordsController: WordsController(
+                              wordRepository: WordRepository(),
+                            ),
+                          },
+                        ),
+                        _MenuButton(
+                          title: strings.menuSettings,
+                          iconUrl: IconUrl.settings,
+                          routeName: SettingsPage.routeName,
+                          arguments: {
+                            SettingsPage.argSettingsController: SettingsController(
+                              languageRepository: LanguageRepository(),
+                              writingHandRepository: WritingHandRepository(),
+                              showHintRepository: ShowHintRepository(),
+                              darkThemeRepository: DarkThemeRepository(),
+                              kanaTypeRepository: KanaTypeRepository(),
+                              quantityOfWordsRepository: QuantityOfWordsRepository(),
+                            ),
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -122,20 +156,24 @@ class _MenuContent extends StatelessWidget {
 
 class _MenuButton extends StatelessWidget {
   const _MenuButton({
-    required this.route,
-    required this.iconUrl,
     required this.title,
+    required this.iconUrl,
+    required this.routeName,
+    this.arguments,
     Key? key,
   }) : super(key: key);
 
-  final String route;
-  final String iconUrl;
   final String title;
+  final String iconUrl;
+  final String routeName;
+  final Object? arguments;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => Navigator.pushNamed(context, route),
+      onPressed: () {
+        Navigator.pushNamed(context, routeName, arguments: arguments);
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

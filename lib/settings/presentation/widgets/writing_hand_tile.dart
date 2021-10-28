@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
-import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
-import 'package:kwriting/settings/presentation/views/selection_option.page.dart';
-import 'package:kwriting/src/domain/utils/writing_hand.dart';
-import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 
 class WritingHandTile extends StatelessWidget {
   const WritingHandTile({
@@ -18,7 +14,7 @@ class WritingHandTile extends StatelessWidget {
 
   final WritingHand writingHand;
   final String iconUrl;
-  final List<SelectionOptionArguments> Function(String Function(WritingHand writingHand) writingHandText) options;
+  final List<SelectionOptionItem> Function(String Function(WritingHand writingHand) writingHandText) options;
   final Function(WritingHand writingHand) updateWritingHand;
 
   @override
@@ -31,21 +27,20 @@ class WritingHandTile extends StatelessWidget {
         height: double.infinity,
         child: SvgPicture.asset(iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
       ),
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context2) => SelectionOptionPage(
-            title: strings.settingsSelectWritingHand,
-            bannerUrl: BannerUrl.writingHand,
-            selectedOptionKey: writingHand,
-            options: options((pWritingHand) {
-              return _getText(context, pWritingHand);
-            }),
-            onSelected: (selectedKey) {
-              updateWritingHand(selectedKey as WritingHand);
-            },
-          ),
-        ),
+        SelectionOptionPage.routeName,
+        arguments: {
+          SelectionOptionPage.argTitle: strings.settingsSelectWritingHand,
+          SelectionOptionPage.argBannerUrl: BannerUrl.writingHand,
+          SelectionOptionPage.argSelectedOptionKey: writingHand,
+          SelectionOptionPage.argOptions: options((pWritingHand) {
+            return _getText(context, pWritingHand);
+          }),
+          SelectionOptionPage.argOnSelected: (selectedKey) {
+            updateWritingHand(selectedKey as WritingHand);
+          },
+        },
       ),
     );
   }

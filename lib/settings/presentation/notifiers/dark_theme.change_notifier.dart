@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:kwriting/settings/domain/use_cases/settings.controller.dart';
+import 'package:kwriting/settings/settings.dart';
 
 class DarkThemeProvider extends ChangeNotifier {
   DarkThemeProvider(this._controller);

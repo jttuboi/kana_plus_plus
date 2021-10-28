@@ -1,5 +1,5 @@
-class SelectionOptionArguments {
-  const SelectionOptionArguments({
+class SelectionOptionItem {
+  const SelectionOptionItem({
     required this.key,
     required this.label,
     this.iconUrl = '',

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:kwriting/src/domain/utils/kana_viewer_status.dart';
-import 'package:kwriting/training/domain/entities/kana_viewer_content.dart';
+import 'package:kwriting/training/domain/entities/kana_viewer_status.dart';
+import 'package:kwriting/training/training.dart';
 
 class KanaResult {
   const KanaResult({

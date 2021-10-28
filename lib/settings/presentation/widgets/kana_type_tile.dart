@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/j_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/consts.dart';
-import 'package:kwriting/settings/presentation/arguments/selection_option_arguments.dart';
-import 'package:kwriting/settings/presentation/views/selection_option.page.dart';
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/src/infrastructure/datasources/banner_url.storage.dart';
+import 'package:kwriting/core/core.dart';
+import 'package:kwriting/settings/settings.dart';
 
 class KanaTypeTile extends StatelessWidget {
   const KanaTypeTile({
@@ -18,7 +14,7 @@ class KanaTypeTile extends StatelessWidget {
 
   final KanaType kanaType;
   final String iconUrl;
-  final List<SelectionOptionArguments> Function(String Function(KanaType kanaType) kanaTypeText) options;
+  final List<SelectionOptionItem> Function(String Function(KanaType kanaType) kanaTypeText) options;
   final Function(KanaType kanaType) updateKanaType;
 
   @override
@@ -31,20 +27,20 @@ class KanaTypeTile extends StatelessWidget {
         height: double.infinity,
         child: SvgPicture.asset(iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
       ),
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context2) => SelectionOptionPage(
-              title: strings.settingsSelectKanaType,
-              bannerUrl: BannerUrl.kanaType,
-              selectedOptionKey: kanaType,
-              options: options((pKanaType) {
-                return _getText(context, pKanaType);
-              }),
-              onSelected: (selectedKey) {
-                updateKanaType(selectedKey as KanaType);
-              }),
-        ),
+        SelectionOptionPage.routeName,
+        arguments: {
+          SelectionOptionPage.argTitle: strings.settingsSelectKanaType,
+          SelectionOptionPage.argBannerUrl: BannerUrl.kanaType,
+          SelectionOptionPage.argSelectedOptionKey: kanaType,
+          SelectionOptionPage.argOptions: options((pKanaType) {
+            return _getText(context, pKanaType);
+          }),
+          SelectionOptionPage.argOnSelected: (selectedKey) {
+            updateKanaType(selectedKey as KanaType);
+          },
+        },
       ),
     );
   }

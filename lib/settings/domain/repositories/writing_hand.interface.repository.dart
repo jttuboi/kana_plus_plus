@@ -1,4 +1,4 @@
-import 'package:kwriting/src/domain/utils/writing_hand.dart';
+import 'package:kwriting/core/core.dart';
 
 abstract class IWritingHandRepository {
   WritingHand getWritingHandSelected();
