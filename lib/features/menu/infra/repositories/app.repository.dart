@@ -1,6 +1,5 @@
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/menu/menu.dart';
-import 'package:kwriting/src/infra/singletons/database.dart';
 
 class AppRepository implements IAppRepository {
   @override

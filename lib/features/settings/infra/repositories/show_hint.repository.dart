@@ -1,6 +1,5 @@
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
-import 'package:kwriting/src/infra/singletons/database.dart';
 
 class ShowHintRepository implements IShowHintRepository {
   @override

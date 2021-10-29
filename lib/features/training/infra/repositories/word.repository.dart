@@ -1,7 +1,5 @@
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
-import 'package:kwriting/src/infra/singletons/database.dart';
-import 'package:kwriting/src/infra/singletons/file.dart';
 
 class WordRepository implements IWordRepository {
   @override
