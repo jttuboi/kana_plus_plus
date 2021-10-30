@@ -93,6 +93,11 @@ class TTranslates {
   static const spanish = 'es';
 }
 
+class BoxTag {
+  BoxTag._();
+  static const settings = 'settings';
+}
+
 class DatabaseTag {
   DatabaseTag._();
   static const language = 'language';
@@ -125,8 +130,6 @@ KanaType toKanaType(String data) {
     return KanaType.hiragana;
   } else if (data == 'k') {
     return KanaType.katakana;
-  } else if (data == 'b') {
-    return KanaType.both;
   }
-  return KanaType.none;
+  return KanaType.both;
 }

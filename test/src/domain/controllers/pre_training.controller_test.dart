@@ -15,10 +15,10 @@ void main() {
     quantityOfWordsRepository = QuantityOfWordsRepositoryMock();
   });
 
-  PreTrainingController _startController({bool showHint = false, KanaType kanaType = KanaType.none, int quantityOfWords = 0}) {
+  PreTrainingController _startController({bool showHint = false, KanaType kanaType = KanaType.both, int quantityOfWords = 0}) {
     when(() => showHintRepository.isShowHint()).thenAnswer((_) => showHint);
-    when(() => kanaTypeRepository.getKanaType()).thenAnswer((_) => kanaType);
-    when(() => quantityOfWordsRepository.getQuantityOfWords()).thenAnswer((_) => quantityOfWords);
+    when(() => kanaTypeRepository.getKanaType2()).thenAnswer((_) => kanaType);
+    when(() => quantityOfWordsRepository.getQuantityOfWords2()).thenAnswer((_) => quantityOfWords);
     return PreTrainingController(
       showHintRepository: showHintRepository,
       kanaTypeRepository: kanaTypeRepository,
@@ -58,7 +58,7 @@ void main() {
 
       final result = controller.kanaType;
 
-      verify(() => kanaTypeRepository.getKanaType()).called(1);
+      verify(() => kanaTypeRepository.getKanaType2()).called(1);
       expect(result, KanaType.hiragana);
     });
     test('must return the kana type hiragana icon url', () {
@@ -76,7 +76,7 @@ void main() {
       expect(result, IconUrl.katakana);
     });
     test('must return the kana type both icon url', () {
-      final controller = _startController(kanaType: KanaType.both);
+      final controller = _startController();
 
       final result = controller.kanaTypeIconUrl;
 
@@ -88,11 +88,11 @@ void main() {
       final result = controller.kanaTypeData;
 
       expect(result.length, 3);
-      expect(result[0].type, KanaType.hiragana);
+      expect(result[0].kanaType, KanaType.hiragana);
       expect(result[0].iconUrl, IconUrl.hiragana);
-      expect(result[1].type, KanaType.katakana);
+      expect(result[1].kanaType, KanaType.katakana);
       expect(result[1].iconUrl, IconUrl.katakana);
-      expect(result[2].type, KanaType.both);
+      expect(result[2].kanaType, KanaType.both);
       expect(result[2].iconUrl, IconUrl.both);
     });
   });
@@ -102,7 +102,7 @@ void main() {
 
       final result = controller.quantityOfWords;
 
-      verify(() => quantityOfWordsRepository.getQuantityOfWords()).called(1);
+      verify(() => quantityOfWordsRepository.getQuantityOfWords2()).called(1);
       expect(result, 7);
     });
   });

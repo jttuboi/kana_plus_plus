@@ -1,17 +1,30 @@
 import 'package:flutter/foundation.dart';
+import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class ShowHintChangeNotifier extends ChangeNotifier {
-  ShowHintChangeNotifier(this._controller);
+  ShowHintChangeNotifier(IShowHintRepository showHintRepository) {
+    _getShowHint = GetShowHint(showHintRepository);
+    _updateShowHint = UpdateShowHint(showHintRepository);
 
-  final SettingsController _controller;
+    _getShowHint(NoParams()).then((showHint) {
+      data = ShowHintData(showHint: showHint, iconUrl: _findIconUrl(showHint));
+      notifyListeners();
+    });
+  }
 
-  bool get showHint => _controller.showHintSelected;
+  late final GetShowHint _getShowHint;
+  late final UpdateShowHint _updateShowHint;
 
-  String get iconUrl => _controller.showHintIconUrl;
+  ShowHintData data = ShowHintData.empty;
 
-  void updateShowHint(bool pIsShowHint) {
-    _controller.updateShowHintSelected(pIsShowHint);
+  void updateShowHint(bool showHint) {
+    data = ShowHintData(showHint: showHint, iconUrl: _findIconUrl(showHint));
+    _updateShowHint(ShowHintParams(showHint));
     notifyListeners();
+  }
+
+  String _findIconUrl(bool showHint) {
+    return showHint ? IconUrl.showHint : IconUrl.notShowHint;
   }
 }

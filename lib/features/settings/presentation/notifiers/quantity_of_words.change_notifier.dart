@@ -1,15 +1,26 @@
 import 'package:flutter/foundation.dart';
+import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class QuantityOfWordsChangeNotifier extends ChangeNotifier {
-  QuantityOfWordsChangeNotifier(this._controller);
+  QuantityOfWordsChangeNotifier(IQuantityOfWordsRepository quantityOfWordsRepository) {
+    _getQuantityOfWords = GetQuantityOfWords(quantityOfWordsRepository);
+    _updateQuantityOfWords = UpdateQuantityOfWords(quantityOfWordsRepository);
 
-  final SettingsController _controller;
+    _getQuantityOfWords(NoParams()).then((quantityOfWords) {
+      quantity = quantityOfWords;
+      notifyListeners();
+    });
+  }
 
-  int get quantity => _controller.quantityOfWords;
+  late final GetQuantityOfWords _getQuantityOfWords;
+  late final UpdateQuantityOfWords _updateQuantityOfWords;
 
-  void updateQuantity(double value) {
-    _controller.updateQuantityOfWords(value.toInt());
+  int quantity = Default.minimumTrainingCards;
+
+  void updateQuantity(int quantityOfWords) {
+    quantity = quantityOfWords;
+    _updateQuantityOfWords(QuantityOfWordsParams(quantityOfWords));
     notifyListeners();
   }
 }

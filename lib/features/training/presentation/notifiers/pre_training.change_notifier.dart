@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/settings/settings.dart';
 import 'package:kwriting/features/training/training.dart';
 
 class PreTrainingChangeNotifier extends ChangeNotifier {
@@ -16,8 +15,8 @@ class PreTrainingChangeNotifier extends ChangeNotifier {
   List<SelectionOptionItem> getKanaTypeOptions(String Function(KanaType kanaType) kanaTypeText) {
     return _controller.kanaTypeData.map((model) {
       return SelectionOptionItem(
-        key: model.type,
-        label: kanaTypeText(model.type),
+        key: model.kanaType,
+        label: kanaTypeText(model.kanaType),
         iconUrl: model.iconUrl,
       );
     }).toList();

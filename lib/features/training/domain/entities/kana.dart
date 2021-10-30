@@ -11,7 +11,7 @@ class Kana {
 
   const Kana.empty()
       : id = '',
-        type = KanaType.none,
+        type = KanaType.both,
         imageUrl = ImageUrl.empty,
         romaji = '',
         strokesQuantity = 0;

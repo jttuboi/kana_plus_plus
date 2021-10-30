@@ -1,6 +1,5 @@
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
-import 'package:kwriting/features/training/training.dart';
 
 class PreTrainingController {
   PreTrainingController({
@@ -9,8 +8,8 @@ class PreTrainingController {
     required this.quantityOfWordsRepository,
   }) {
     showHint = showHintRepository.isShowHint();
-    kanaType = kanaTypeRepository.getKanaType();
-    quantityOfWords = quantityOfWordsRepository.getQuantityOfWords();
+    kanaType = kanaTypeRepository.getKanaType2();
+    quantityOfWords = quantityOfWordsRepository.getQuantityOfWords2();
   }
 
   final IShowHintRepository showHintRepository;
@@ -24,10 +23,10 @@ class PreTrainingController {
   String get showHintIconUrl => showHint ? IconUrl.showHint : IconUrl.notShowHint;
 
   List<KanaTypeData> get kanaTypeData => [
-        const KanaTypeData(type: KanaType.hiragana, iconUrl: IconUrl.hiragana),
-        const KanaTypeData(type: KanaType.katakana, iconUrl: IconUrl.katakana),
-        const KanaTypeData(type: KanaType.both, iconUrl: IconUrl.both),
+        const KanaTypeData(kanaType: KanaType.hiragana, iconUrl: IconUrl.hiragana),
+        const KanaTypeData(kanaType: KanaType.katakana, iconUrl: IconUrl.katakana),
+        const KanaTypeData(kanaType: KanaType.both, iconUrl: IconUrl.both),
       ];
 
-  String get kanaTypeIconUrl => kanaTypeData.where((kanaTypeItem) => kanaTypeItem.type.equal(kanaType)).first.iconUrl;
+  String get kanaTypeIconUrl => kanaTypeData.where((kanaTypeItem) => kanaTypeItem.kanaType.equal(kanaType)).first.iconUrl;
 }

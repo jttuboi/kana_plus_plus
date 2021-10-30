@@ -6,7 +6,7 @@ class WordModel extends Word {
     required String id,
     required String imageUrl,
     String romaji = '',
-    KanaType type = KanaType.none,
+    KanaType type = KanaType.both,
   }) : super(
           id: id,
           romaji: romaji,

@@ -6,14 +6,14 @@ class Word {
     required this.id,
     required this.imageUrl,
     this.romaji = '',
-    this.type = KanaType.none,
+    this.type = KanaType.both,
   });
 
   Word.empty()
       : id = '',
         imageUrl = ImageUrl.empty,
         romaji = '',
-        type = KanaType.none,
+        type = KanaType.both,
         _translate2 = const Translate.empty(),
         kanas = const [];
 

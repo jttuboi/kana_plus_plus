@@ -1,7 +1,6 @@
 export 'domain/entities/kana.dart';
 export 'domain/entities/kana_stats.dart';
 export 'domain/entities/kana_to_writer.dart';
-export 'domain/entities/kana_type_data.dart';
 export 'domain/entities/kana_viewer_content.dart';
 export 'domain/entities/kana_viewer_status.dart';
 export 'domain/entities/loaded_by.dart';
@@ -13,7 +12,6 @@ export 'domain/entities/update_kana_situation.dart';
 export 'domain/entities/word.dart';
 export 'domain/entities/word_stats.dart';
 export 'domain/entities/word_viewer_content.dart';
-export 'domain/entities/writing_hand_data.dart';
 export 'domain/repositories/statistics.interface.repository.dart';
 export 'domain/repositories/word.interface.repository.dart';
 export 'domain/use_cases/pre_training.controller.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/settings/settings.dart';
 
 class SelectionOptionPage extends StatelessWidget {
   const SelectionOptionPage._({
@@ -21,14 +20,15 @@ class SelectionOptionPage extends StatelessWidget {
   static const argOnSelected = 'argOnSelected';
 
   static Route route({String? title, String? bannerUrl, dynamic selectedKey, List<SelectionOptionItem>? options, Function(dynamic)? onSelected}) {
-    return MaterialPageRoute(
-        builder: (context) => SelectionOptionPage._(
-              title: title ?? '',
-              bannerUrl: bannerUrl ?? ImageUrl.empty,
-              selectedOptionKey: selectedKey ?? '',
-              options: options ?? [],
-              onSelected: onSelected ?? (selectedKey) {},
-            ));
+    return MaterialPageRoute(builder: (context) {
+      return SelectionOptionPage._(
+        title: title ?? '',
+        bannerUrl: bannerUrl ?? ImageUrl.empty,
+        selectedOptionKey: selectedKey ?? '',
+        options: options ?? const [],
+        onSelected: onSelected ?? (selectedKey) {},
+      );
+    });
   }
 
   final String title;
@@ -67,8 +67,7 @@ class SelectionOptionPage extends StatelessWidget {
                   onSelected(options[value! as int].key);
                   Navigator.pop(context);
                 },
-                secondary:
-                    (option.iconUrl.isEmpty) ? null : SvgPicture.asset(option.iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
+                secondary: option.iconUrl.isEmpty ? null : SvgPicture.asset(option.iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
                 controlAffinity: ListTileControlAffinity.trailing,
               );
             },

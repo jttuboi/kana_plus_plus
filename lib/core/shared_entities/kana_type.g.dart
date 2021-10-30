@@ -14,22 +14,20 @@ class KanaTypeAdapter extends TypeAdapter<KanaType> {
   KanaType read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return KanaType.none;
+        return KanaType.both;
       case 1:
         return KanaType.hiragana;
       case 2:
         return KanaType.katakana;
-      case 3:
-        return KanaType.both;
       default:
-        return KanaType.none;
+        return KanaType.both;
     }
   }
 
   @override
   void write(BinaryWriter writer, KanaType obj) {
     switch (obj) {
-      case KanaType.none:
+      case KanaType.both:
         writer.writeByte(0);
         break;
       case KanaType.hiragana:
@@ -37,9 +35,6 @@ class KanaTypeAdapter extends TypeAdapter<KanaType> {
         break;
       case KanaType.katakana:
         writer.writeByte(2);
-        break;
-      case KanaType.both:
-        writer.writeByte(3);
         break;
     }
   }

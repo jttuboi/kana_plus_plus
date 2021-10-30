@@ -3,26 +3,34 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class KanaTypeChangeNotifier extends ChangeNotifier {
-  KanaTypeChangeNotifier(this._controller);
+  KanaTypeChangeNotifier(IKanaTypeRepository kanaTypeRepository) {
+    _getKanaType = GetKanaType(kanaTypeRepository);
+    _updateKanaType = UpdateKanaType(kanaTypeRepository);
 
-  final SettingsController _controller;
-
-  KanaType get kanaType => _controller.kanaTypeSelected;
-
-  String get iconUrl => _controller.kanaTypeIconUrl;
-
-  List<SelectionOptionItem> options(String Function(KanaType kanaType) kanaTypeText) {
-    return _controller.kanaTypeData.map((model) {
-      return SelectionOptionItem(
-        key: model.type,
-        label: kanaTypeText(model.type),
-        iconUrl: model.iconUrl,
-      );
-    }).toList();
+    _getKanaType(NoParams()).then((kanaType) {
+      data = KanaTypeData(kanaType: kanaType, iconUrl: _findIconUrl(kanaType));
+      notifyListeners();
+    });
   }
 
-  void updateKanaType(KanaType pSelectedKey) {
-    _controller.updateKanaTypeSelected(pSelectedKey);
+  late final GetKanaType _getKanaType;
+  late final UpdateKanaType _updateKanaType;
+
+  KanaTypeData data = KanaTypeData.empty;
+
+  List<KanaTypeData> get kanaTypesData => [
+        const KanaTypeData(kanaType: KanaType.hiragana, iconUrl: IconUrl.hiragana),
+        const KanaTypeData(kanaType: KanaType.katakana, iconUrl: IconUrl.katakana),
+        const KanaTypeData(kanaType: KanaType.both, iconUrl: IconUrl.both),
+      ];
+
+  void updateKanaType(KanaType kanaType) {
+    data = KanaTypeData(kanaType: kanaType, iconUrl: _findIconUrl(kanaType));
+    _updateKanaType(KanaTypeParams(kanaType));
     notifyListeners();
+  }
+
+  String _findIconUrl(KanaType kanaType) {
+    return kanaTypesData.firstWhere((data) => data.kanaType.equal(kanaType)).iconUrl;
   }
 }

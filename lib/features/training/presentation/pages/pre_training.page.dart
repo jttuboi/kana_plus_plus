@@ -59,21 +59,21 @@ class _PreTrainingPage extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 const SizedBox(height: 8),
-                ShowHintTile(
-                  showHint: preTrainingController.showHint,
-                  iconUrl: preTrainingController.showHintIconUrl,
-                  updateShowHint: changeNotifier.updateShowHint,
-                ),
-                KanaTypeTile(
-                  kanaType: preTrainingController.kanaType,
-                  iconUrl: preTrainingController.kanaTypeIconUrl,
-                  options: changeNotifier.getKanaTypeOptions,
-                  updateKanaType: changeNotifier.updateKanaType,
-                ),
-                QuantityOfWordsTile(
-                  quantity: preTrainingController.quantityOfWords,
-                  updateQuantity: changeNotifier.updateQuantity,
-                ),
+                // ShowHintTile(
+                //   showHint: preTrainingController.showHint,
+                //   iconUrl: preTrainingController.showHintIconUrl,
+                //   updateShowHint: changeNotifier.updateShowHint,
+                // ),
+                // KanaTypeTile(
+                //   kanaType: preTrainingController.kanaType,
+                //   iconUrl: preTrainingController.kanaTypeIconUrl,
+                //   options: changeNotifier.getKanaTypeOptions,
+                //   updateKanaType: changeNotifier.updateKanaType,
+                // ),
+                // QuantityOfWordsTile(
+                //   quantity: preTrainingController.quantityOfWords,
+                //   updateQuantity: changeNotifier.updateQuantity,
+                // ),
                 MaterialButton(
                   color: Theme.of(context).colorScheme.secondary,
                   shape: const CircleBorder(),

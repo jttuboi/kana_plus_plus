@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
+import 'package:kwriting/features/settings/settings.dart';
+import 'package:provider/provider.dart';
 
 class ShowHintTile extends StatelessWidget {
-  const ShowHintTile({
-    required this.showHint,
-    required this.iconUrl,
-    required this.updateShowHint,
-    Key? key,
-  }) : super(key: key);
-
-  final bool showHint;
-  final String iconUrl;
-  final Function(bool isShowHint) updateShowHint;
+  const ShowHintTile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
-    return SwitchListTile(
-      title: Text(strings.settingsShowHint),
-      value: showHint,
-      onChanged: updateShowHint,
-      secondary: SvgPicture.asset(iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
+
+    return Consumer<ShowHintChangeNotifier>(
+      builder: (context, changeNotifier, child) {
+        return SwitchListTile(
+          title: Text(strings.settingsShowHint),
+          value: changeNotifier.data.showHint,
+          onChanged: changeNotifier.updateShowHint,
+          secondary: SvgPicture.asset(changeNotifier.data.iconUrl, color: defaultTileIconColor, width: defaultTileIconSize),
+        );
+      },
     );
   }
 }

@@ -70,7 +70,7 @@ class AndroidApp extends StatelessWidget {
       case WordDetailPage.routeName:
         return WordDetailPage.route(word: args[WordDetailPage.argWord]);
       case SettingsPage.routeName:
-        return SettingsPage.route(args[SettingsPage.argSettingsController]);
+        return SettingsPage.route();
       case AboutPage.routeName:
         return AboutPage.route();
       case SelectionOptionPage.routeName:

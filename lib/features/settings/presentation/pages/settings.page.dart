@@ -6,27 +6,24 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage._(this._settingsController, {Key? key}) : super(key: key);
+  const SettingsPage._({Key? key}) : super(key: key);
 
   static const routeName = '/settings';
-  static const argSettingsController = 'argSettingsController';
 
-  static Route route(SettingsController settingsController) {
-    return MaterialPageRoute(builder: (context) => SettingsPage._(settingsController));
+  static Route route() {
+    return MaterialPageRoute(builder: (context) => const SettingsPage._());
   }
-
-  final SettingsController _settingsController;
 
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => LanguageChangeNotifier(_settingsController)),
-        ChangeNotifierProvider(create: (context) => WritingHandChangeNotifier(_settingsController)),
-        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(_settingsController)),
-        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(_settingsController)),
-        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(_settingsController)),
+        ChangeNotifierProvider(create: (context) => LanguageChangeNotifier(LanguageRepository())),
+        ChangeNotifierProvider(create: (context) => WritingHandChangeNotifier(WritingHandRepository())),
+        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository())),
+        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository())),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository())),
       ],
       builder: (context, child) {
         return FlexibleScaffold(
@@ -40,45 +37,12 @@ class SettingsPage extends StatelessWidget {
               children: [
                 SubHeaderTile(strings.settingsBasic),
                 const LanguageTile(),
-                Consumer<WritingHandChangeNotifier>(
-                  builder: (context, changeNotifier, child) {
-                    return WritingHandTile(
-                      writingHand: changeNotifier.writingHand,
-                      iconUrl: changeNotifier.iconUrl,
-                      options: changeNotifier.options,
-                      updateWritingHand: changeNotifier.updateWritingHand,
-                    );
-                  },
-                ),
+                const WritingHandTile(),
                 const Divider(),
                 SubHeaderTile(strings.settingsDefaultTrainingSetting),
-                Consumer<ShowHintChangeNotifier>(
-                  builder: (context, changeNotifier, child) {
-                    return ShowHintTile(
-                      showHint: changeNotifier.showHint,
-                      iconUrl: changeNotifier.iconUrl,
-                      updateShowHint: changeNotifier.updateShowHint,
-                    );
-                  },
-                ),
-                Consumer<KanaTypeChangeNotifier>(
-                  builder: (context, changeNotifier, child) {
-                    return KanaTypeTile(
-                      kanaType: changeNotifier.kanaType,
-                      iconUrl: changeNotifier.iconUrl,
-                      options: changeNotifier.options,
-                      updateKanaType: changeNotifier.updateKanaType,
-                    );
-                  },
-                ),
-                Consumer<QuantityOfWordsChangeNotifier>(
-                  builder: (context, changeNotifier, child) {
-                    return QuantityOfWordsTile(
-                      quantity: changeNotifier.quantity,
-                      updateQuantity: changeNotifier.updateQuantity,
-                    );
-                  },
-                ),
+                const ShowHintTile(),
+                const KanaTypeTile(),
+                const QuantityOfWordsTile(),
                 const Divider(),
                 SubHeaderTile(strings.settingsOthers),
                 ListTile(

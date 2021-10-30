@@ -10,7 +10,7 @@ class KanaToWrite {
 
   const KanaToWrite.empty()
       : id = '',
-        type = KanaType.none,
+        type = KanaType.both,
         hintImageUrl = ImageUrl.empty,
         maxStrokes = 0;
 

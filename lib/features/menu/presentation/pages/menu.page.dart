@@ -115,15 +115,6 @@ class _MenuContent extends StatelessWidget {
                           title: strings.menuSettings,
                           iconUrl: IconUrl.settings,
                           routeName: SettingsPage.routeName,
-                          arguments: {
-                            SettingsPage.argSettingsController: SettingsController(
-                              languageRepository: LanguageRepository(),
-                              writingHandRepository: WritingHandRepository(),
-                              showHintRepository: ShowHintRepository(),
-                              kanaTypeRepository: KanaTypeRepository(),
-                              quantityOfWordsRepository: QuantityOfWordsRepository(),
-                            ),
-                          },
                         ),
                       ],
                     ),

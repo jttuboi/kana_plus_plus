@@ -3,23 +3,24 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class LanguageChangeNotifier extends ChangeNotifier {
-  LanguageChangeNotifier(this._controller);
+  LanguageChangeNotifier(ILanguageRepository languageRepository) {
+    _getLanguage = GetLanguage(languageRepository);
+    _updateLanguage = UpdateLanguage(languageRepository);
 
-  final SettingsController _controller;
-
-  String get languageSelected => _controller.languageSelected;
-
-  List<SelectionOptionItem> options(String Function(String localeCode) languageText) {
-    return JStrings.supportedLocales.map((locale) {
-      return SelectionOptionItem(
-        key: locale.languageCode,
-        label: languageText(locale.languageCode),
-      );
-    }).toList();
+    _getLanguage(NoParams()).then((pLocaleCode) {
+      localeCode = pLocaleCode;
+      notifyListeners();
+    });
   }
 
-  void updateLanguageSelected(String pSelectedKey) {
-    _controller.updateLanguageSelected(pSelectedKey);
+  late final GetLanguage _getLanguage;
+  late final UpdateLanguage _updateLanguage;
+
+  String localeCode = Default.locale;
+
+  void updateLanguage(String pLocaleCode) {
+    localeCode = pLocaleCode;
+    _updateLanguage(LanguageParams(pLocaleCode));
     notifyListeners();
   }
 }
