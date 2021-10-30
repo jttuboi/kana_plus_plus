@@ -3,7 +3,7 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class QuantityOfWordsChangeNotifier extends ChangeNotifier {
-  QuantityOfWordsChangeNotifier(IQuantityOfWordsRepository quantityOfWordsRepository) {
+  QuantityOfWordsChangeNotifier(IQuantityOfWordsRepository quantityOfWordsRepository, {this.mustPersist = true}) {
     _getQuantityOfWords = GetQuantityOfWords(quantityOfWordsRepository);
     _updateQuantityOfWords = UpdateQuantityOfWords(quantityOfWordsRepository);
 
@@ -13,6 +13,7 @@ class QuantityOfWordsChangeNotifier extends ChangeNotifier {
     });
   }
 
+  final bool mustPersist;
   late final GetQuantityOfWords _getQuantityOfWords;
   late final UpdateQuantityOfWords _updateQuantityOfWords;
 
@@ -20,7 +21,9 @@ class QuantityOfWordsChangeNotifier extends ChangeNotifier {
 
   void updateQuantity(int quantityOfWords) {
     quantity = quantityOfWords;
-    _updateQuantityOfWords(QuantityOfWordsParams(quantityOfWords));
+    if (mustPersist) {
+      _updateQuantityOfWords(QuantityOfWordsParams(quantityOfWords));
+    }
     notifyListeners();
   }
 }

@@ -23,6 +23,7 @@ Future<void> init() async {
   Hive
     ..init((await getApplicationDocumentsDirectory()).path)
     ..registerAdapter(KanaTypeAdapter())
+    ..registerAdapter(WritingHandAdapter())
     ..registerAdapter(PointStatsAdapter())
     ..registerAdapter(StrokeStatsAdapter())
     ..registerAdapter(KanaStatsAdapter())

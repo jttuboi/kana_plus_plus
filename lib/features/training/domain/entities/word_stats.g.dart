@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../training/domain/entities/word_stats.dart';
+part of 'word_stats.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -39,5 +39,9 @@ class WordStatsAdapter extends TypeAdapter<WordStats> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is WordStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WordStatsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

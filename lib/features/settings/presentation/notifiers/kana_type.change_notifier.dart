@@ -3,7 +3,7 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class KanaTypeChangeNotifier extends ChangeNotifier {
-  KanaTypeChangeNotifier(IKanaTypeRepository kanaTypeRepository) {
+  KanaTypeChangeNotifier(IKanaTypeRepository kanaTypeRepository, {this.mustPersist = true}) {
     _getKanaType = GetKanaType(kanaTypeRepository);
     _updateKanaType = UpdateKanaType(kanaTypeRepository);
 
@@ -13,6 +13,7 @@ class KanaTypeChangeNotifier extends ChangeNotifier {
     });
   }
 
+  final bool mustPersist;
   late final GetKanaType _getKanaType;
   late final UpdateKanaType _updateKanaType;
 
@@ -26,7 +27,9 @@ class KanaTypeChangeNotifier extends ChangeNotifier {
 
   void updateKanaType(KanaType kanaType) {
     data = KanaTypeData(kanaType: kanaType, iconUrl: _findIconUrl(kanaType));
-    _updateKanaType(KanaTypeParams(kanaType));
+    if (mustPersist) {
+      _updateKanaType(KanaTypeParams(kanaType));
+    }
     notifyListeners();
   }
 

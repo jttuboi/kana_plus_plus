@@ -1,40 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kana_type.dart';
+part of 'writing_hand.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class KanaTypeAdapter extends TypeAdapter<KanaType> {
+class WritingHandAdapter extends TypeAdapter<WritingHand> {
   @override
-  final int typeId = 100;
+  final int typeId = 101;
 
   @override
-  KanaType read(BinaryReader reader) {
+  WritingHand read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return KanaType.both;
+        return WritingHand.left;
       case 1:
-        return KanaType.hiragana;
-      case 2:
-        return KanaType.katakana;
+        return WritingHand.right;
       default:
-        return KanaType.both;
+        return WritingHand.left;
     }
   }
 
   @override
-  void write(BinaryWriter writer, KanaType obj) {
+  void write(BinaryWriter writer, WritingHand obj) {
     switch (obj) {
-      case KanaType.both:
+      case WritingHand.left:
         writer.writeByte(0);
         break;
-      case KanaType.hiragana:
+      case WritingHand.right:
         writer.writeByte(1);
-        break;
-      case KanaType.katakana:
-        writer.writeByte(2);
         break;
     }
   }
@@ -45,7 +40,7 @@ class KanaTypeAdapter extends TypeAdapter<KanaType> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KanaTypeAdapter &&
+      other is WritingHandAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

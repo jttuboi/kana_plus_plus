@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../training/domain/entities/point_stats.dart';
+part of 'point_stats.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -37,5 +37,8 @@ class PointStatsAdapter extends TypeAdapter<PointStats> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is PointStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      identical(this, other) ||
+      other is PointStatsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

@@ -3,7 +3,7 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 class ShowHintChangeNotifier extends ChangeNotifier {
-  ShowHintChangeNotifier(IShowHintRepository showHintRepository) {
+  ShowHintChangeNotifier(IShowHintRepository showHintRepository, {this.mustPersist = true}) {
     _getShowHint = GetShowHint(showHintRepository);
     _updateShowHint = UpdateShowHint(showHintRepository);
 
@@ -13,6 +13,7 @@ class ShowHintChangeNotifier extends ChangeNotifier {
     });
   }
 
+  final bool mustPersist;
   late final GetShowHint _getShowHint;
   late final UpdateShowHint _updateShowHint;
 
@@ -20,7 +21,9 @@ class ShowHintChangeNotifier extends ChangeNotifier {
 
   void updateShowHint(bool showHint) {
     data = ShowHintData(showHint: showHint, iconUrl: _findIconUrl(showHint));
-    _updateShowHint(ShowHintParams(showHint));
+    if (mustPersist) {
+      _updateShowHint(ShowHintParams(showHint));
+    }
     notifyListeners();
   }
 

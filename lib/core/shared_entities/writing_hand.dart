@@ -1,5 +1,12 @@
+import 'package:hive/hive.dart';
+
+part 'writing_hand.g.dart';
+
+@HiveType(typeId: 101)
 enum WritingHand {
+  @HiveField(0)
   left,
+  @HiveField(1)
   right,
 }
 

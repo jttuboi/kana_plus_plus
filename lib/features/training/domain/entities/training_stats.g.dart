@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../training/domain/entities/training_stats.dart';
+part of 'training_stats.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -43,5 +43,8 @@ class TrainingStatsAdapter extends TypeAdapter<TrainingStats> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is TrainingStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      identical(this, other) ||
+      other is TrainingStatsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

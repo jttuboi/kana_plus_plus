@@ -60,7 +60,7 @@ class AndroidApp extends StatelessWidget {
       case StudyPage.routeName:
         return StudyPage.route();
       case PreTrainingPage.routeName:
-        return PreTrainingPage.route(args[PreTrainingPage.argPreTrainingController]);
+        return PreTrainingPage.route();
       case TrainingPage.routeName:
         return TrainingPage.route(args[TrainingPage.argTrainingController], args[TrainingPage.argWriterController]);
       case ReviewPage.routeName:

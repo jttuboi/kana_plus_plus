@@ -93,13 +93,6 @@ class _MenuContent extends StatelessWidget {
                           title: strings.menuTraining,
                           iconUrl: IconUrl.training,
                           routeName: PreTrainingPage.routeName,
-                          arguments: {
-                            PreTrainingPage.argPreTrainingController: PreTrainingController(
-                              showHintRepository: ShowHintRepository(),
-                              kanaTypeRepository: KanaTypeRepository(),
-                              quantityOfWordsRepository: QuantityOfWordsRepository(),
-                            ),
-                          },
                         ),
                         _MenuButton(
                           title: strings.menuWords,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../training/domain/entities/stroke_stats.dart';
+part of 'stroke_stats.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -34,5 +34,8 @@ class StrokeStatsAdapter extends TypeAdapter<StrokeStats> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is StrokeStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      identical(this, other) ||
+      other is StrokeStatsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../training/domain/entities/kana_stats.dart';
+part of 'kana_stats.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -42,5 +42,9 @@ class KanaStatsAdapter extends TypeAdapter<KanaStats> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is KanaStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is KanaStatsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
