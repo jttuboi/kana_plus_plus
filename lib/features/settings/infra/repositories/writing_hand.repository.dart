@@ -10,17 +10,6 @@ class WritingHandRepository implements IWritingHandRepository {
   }
 
   @override
-  WritingHand getWritingHandSelected() {
-    final writingHandIndex = Database.storage.getInt(DatabaseTag.writingHand, defaultValue: WritingHand.right.index);
-    return WritingHand.values[writingHandIndex];
-  }
-
-  @override
-  void setWritingHandSelected(WritingHand value) {
-    Database.storage.setInt(DatabaseTag.writingHand, value.index);
-  }
-
-  @override
   Future<WritingHand> getWritingHand() async {
     await load();
     return _box.get(DatabaseTag.writingHand, defaultValue: WritingHand.right);

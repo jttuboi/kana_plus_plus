@@ -10,16 +10,6 @@ class QuantityOfWordsRepository implements IQuantityOfWordsRepository {
   }
 
   @override
-  int getQuantityOfWords2() {
-    return Database.storage.getInt(DatabaseTag.quantityOfWords, defaultValue: Default.minimumTrainingCards);
-  }
-
-  @override
-  void setQuantityOfWords(int value) {
-    Database.storage.setInt(DatabaseTag.quantityOfWords, value);
-  }
-
-  @override
   Future<int> getQuantityOfWords() async {
     await load();
     return _box.get(DatabaseTag.quantityOfWords, defaultValue: Default.minimumTrainingCards);

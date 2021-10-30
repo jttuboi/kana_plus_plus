@@ -21,14 +21,16 @@ class LanguageTile extends StatelessWidget {
             context,
             SelectionOptionPage.routeName,
             arguments: {
-              SelectionOptionPage.argTitle: strings.settingsSelectLanguage,
-              SelectionOptionPage.argBannerUrl: BannerUrl.language,
-              SelectionOptionPage.argSelectedOptionKey: changeNotifier.localeCode,
-              SelectionOptionPage.argOptions: _options,
-              SelectionOptionPage.argOnSelected: (selectedKey) {
-                changeNotifier.updateLanguage(selectedKey as String);
-                context.read<LocaleChangeNotifier>().updateLocale();
-              },
+              SelectionOptionPage.argSelectionOptionArgs: SelectionOptionArgs(
+                title: strings.settingsSelectLanguage,
+                bannerUrl: BannerUrl.language,
+                selectedOptionKey: changeNotifier.localeCode,
+                options: _options,
+                onSelected: (selectedKey) {
+                  changeNotifier.updateLanguage(selectedKey as String);
+                  context.read<LocaleChangeNotifier>().updateLocale();
+                },
+              ),
             },
           ),
         );

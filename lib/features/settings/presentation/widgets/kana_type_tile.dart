@@ -20,13 +20,13 @@ class KanaTypeTile extends StatelessWidget {
             context,
             SelectionOptionPage.routeName,
             arguments: {
-              SelectionOptionPage.argTitle: strings.settingsSelectKanaType,
-              SelectionOptionPage.argBannerUrl: BannerUrl.kanaType,
-              SelectionOptionPage.argSelectedOptionKey: changeNotifier.data.kanaType,
-              SelectionOptionPage.argOptions: _options(context, changeNotifier.kanaTypesData),
-              SelectionOptionPage.argOnSelected: (selectedKey) {
-                changeNotifier.updateKanaType(selectedKey as KanaType);
-              },
+              SelectionOptionPage.argSelectionOptionArgs: SelectionOptionArgs(
+                title: strings.settingsSelectKanaType,
+                bannerUrl: BannerUrl.kanaType,
+                selectedOptionKey: changeNotifier.data.kanaType,
+                options: _options(context, changeNotifier.kanaTypesData),
+                onSelected: (selectedKey) => changeNotifier.updateKanaType(selectedKey as KanaType),
+              ),
             },
           ),
         );

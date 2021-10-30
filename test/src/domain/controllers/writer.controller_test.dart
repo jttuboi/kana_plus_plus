@@ -155,14 +155,14 @@ void main() {
       expect(controller.strokes, isEmpty);
     });
   });
-  test('must return the writing hand from repository', () {
-    when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
+  // test('must return the writing hand from repository', () {
+  //   when(() => writingHandRepository.getWritingHandSelected()).thenAnswer((_) => WritingHand.left);
 
-    final result = controller.isWritingHandRight;
+  //   final result = controller.isWritingHandRight;
 
-    verify(() => writingHandRepository.getWritingHandSelected()).called(1);
-    expect(result, false);
-  });
+  //   verify(() => writingHandRepository.getWritingHandSelected()).called(1);
+  //   expect(result, false);
+  // });
   group('normalized strokes', () {
     test('must return strokes normalized', () {
       controller.strokes = [shiStrokeResult, noStrokeResult];

@@ -20,7 +20,8 @@ class AppController {
 
   Locale get locale {
     return JStrings.supportedLocales.firstWhere((locale) {
-      return locale.languageCode == languageRepository.getLanguageSelected();
+      //return locale.languageCode == languageRepository.getLanguageSelected();// TODO tem q arrumar aqui
+      return false;
     }, orElse: () {
       return defaultLocale;
     });
@@ -28,14 +29,14 @@ class AppController {
 
   void setDeviceLocale(Locale? deviceLocale) {
     if (deviceLocale == null) {
-      languageRepository.setLanguageSelected(defaultLocale.languageCode);
+      //languageRepository.setLanguageSelected(defaultLocale.languageCode);// TODO tem q arrumar aqui
     } else if (isFirstTime) {
       final localeFound = JStrings.supportedLocales.firstWhere((locale) {
         return locale.languageCode == deviceLocale.languageCode;
       }, orElse: () {
         return defaultLocale;
       });
-      languageRepository.setLanguageSelected(localeFound.languageCode);
+      //languageRepository.setLanguageSelected(localeFound.languageCode);// TODO tem q arrumar aqui
     }
 
     // if it is not the first time, do nothing because the language is already saved on the app

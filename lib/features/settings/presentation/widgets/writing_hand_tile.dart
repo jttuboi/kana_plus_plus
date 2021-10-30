@@ -20,13 +20,13 @@ class WritingHandTile extends StatelessWidget {
             context,
             SelectionOptionPage.routeName,
             arguments: {
-              SelectionOptionPage.argTitle: strings.settingsSelectWritingHand,
-              SelectionOptionPage.argBannerUrl: BannerUrl.writingHand,
-              SelectionOptionPage.argSelectedOptionKey: changeNotifier.data.writingHand,
-              SelectionOptionPage.argOptions: _options(context, changeNotifier.writingHandsData),
-              SelectionOptionPage.argOnSelected: (selectedKey) {
-                changeNotifier.updateWritingHand(selectedKey as WritingHand);
-              },
+              SelectionOptionPage.argSelectionOptionArgs: SelectionOptionArgs(
+                title: strings.settingsSelectWritingHand,
+                bannerUrl: BannerUrl.writingHand,
+                selectedOptionKey: changeNotifier.data.writingHand,
+                options: _options(context, changeNotifier.writingHandsData),
+                onSelected: (selectedKey) => changeNotifier.updateWritingHand(selectedKey as WritingHand),
+              ),
             },
           ),
         );

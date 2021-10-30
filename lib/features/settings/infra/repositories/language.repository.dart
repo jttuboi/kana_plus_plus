@@ -10,16 +10,6 @@ class LanguageRepository implements ILanguageRepository {
   }
 
   @override
-  String getLanguageSelected() {
-    return Database.storage.getString(DatabaseTag.language, defaultValue: Default.locale);
-  }
-
-  @override
-  void setLanguageSelected(String value) {
-    Database.storage.setString(DatabaseTag.language, value);
-  }
-
-  @override
   Future<String> getLanguage() async {
     await load();
     return _box.get(DatabaseTag.language, defaultValue: Default.locale);

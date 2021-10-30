@@ -13,13 +13,18 @@ class WriterController {
     required this.strokeReducer,
     required this.kanaChecker,
     required this.showHint,
-  });
+  }) {
+    writingHandRepository.getWritingHand().then((value) {
+      writingHand = value;
+    });
+  }
 
   final IWritingHandRepository writingHandRepository;
   final StrokeReducer strokeReducer;
   final KanaChecker kanaChecker;
 
   final bool showHint;
+  WritingHand writingHand = WritingHand.right;
 
   List<List<Offset>> strokes = [];
   late KanaToWrite kanaToWrite;
@@ -27,7 +32,7 @@ class WriterController {
   double _startCanvasLimit = 0;
   double _endCanvasLimit = 100;
 
-  bool get isWritingHandRight => writingHandRepository.getWritingHandSelected().isRight;
+  bool get isWritingHandRight => writingHand.isRight;
 
   String get kanaHintImageUrl => kanaToWrite.hintImageUrl;
 

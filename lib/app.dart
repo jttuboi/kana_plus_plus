@@ -74,13 +74,7 @@ class AndroidApp extends StatelessWidget {
       case AboutPage.routeName:
         return AboutPage.route();
       case SelectionOptionPage.routeName:
-        return SelectionOptionPage.route(
-          title: args[SelectionOptionPage.argTitle],
-          bannerUrl: args[SelectionOptionPage.argBannerUrl],
-          selectedKey: args[SelectionOptionPage.argSelectedOptionKey],
-          options: args[SelectionOptionPage.argOptions],
-          onSelected: args[SelectionOptionPage.argOnSelected],
-        );
+        return SelectionOptionPage.route(args[SelectionOptionPage.argSelectionOptionArgs]);
     }
   }
 }

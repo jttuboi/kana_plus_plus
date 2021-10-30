@@ -10,17 +10,6 @@ class KanaTypeRepository implements IKanaTypeRepository {
   }
 
   @override
-  KanaType getKanaType2() {
-    final kanaIndex = Database.storage.getInt(DatabaseTag.kanaType, defaultValue: KanaType.both.index);
-    return KanaType.values[kanaIndex];
-  }
-
-  @override
-  void setKanaType(KanaType value) {
-    Database.storage.setInt(DatabaseTag.kanaType, value.index);
-  }
-
-  @override
   Future<KanaType> getKanaType() async {
     await load();
     return _box.get(DatabaseTag.kanaType, defaultValue: KanaType.both);

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SubHeaderTile extends StatelessWidget {
-  const SubHeaderTile(
-    this.title, {
-    Key? key,
-  }) : super(key: key);
+  const SubHeaderTile(this.title, {Key? key}) : super(key: key);
 
   final String title;
 

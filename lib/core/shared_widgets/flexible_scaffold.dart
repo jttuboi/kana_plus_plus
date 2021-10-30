@@ -14,10 +14,10 @@ class FlexibleScaffold extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  final bool isFlexible;
   final String title;
   final String bannerUrl;
   final VoidCallback onBackButtonPressed;
+  final bool isFlexible;
   final List<Widget>? actions;
   final Widget? sliverContent;
 

@@ -10,16 +10,6 @@ class ShowHintRepository implements IShowHintRepository {
   }
 
   @override
-  bool isShowHint() {
-    return Database.storage.getBool(DatabaseTag.showHint, defaultValue: Default.showHint);
-  }
-
-  @override
-  void setShowHint(bool value) {
-    Database.storage.setBool(DatabaseTag.showHint, value);
-  }
-
-  @override
   Future<bool> getShowHint() async {
     await load();
     return _box.get(DatabaseTag.showHint, defaultValue: Default.showHint);
