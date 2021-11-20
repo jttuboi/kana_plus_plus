@@ -6,7 +6,6 @@ import 'package:kwriting/app.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/src/infra/datasources/json.storage.dart';
-import 'package:kwriting/src/infra/datasources/shared_preferences.storage.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
@@ -18,7 +17,6 @@ void main() {
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Database.init(SharedPreferencesStorage());
   await File.init(JsonStorage());
   Hive
     ..init((await getApplicationDocumentsDirectory()).path)

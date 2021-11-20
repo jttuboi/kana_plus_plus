@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
@@ -58,7 +60,7 @@ class SettingsPage extends StatelessWidget {
                       await launch(App.privacyPolicyUrl);
                     } else {
                       // do nothing
-                      Logger().e('Could not launch ${App.privacyPolicyUrl}');
+                      log('Could not launch ${App.privacyPolicyUrl}');
                     }
                   },
                 ),

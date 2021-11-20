@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -98,7 +100,7 @@ class _SupportButtonState extends State<SupportButton> {
         setState(() => _isAdLoaded = true);
       },
       onAdFailedToLoad: (error) {
-        Logger().e('onAdFailedToLoad: $error');
+        log('onAdFailedToLoad: $error', error: error);
         setState(() => _isAdLoaded = false);
       },
     );
@@ -113,7 +115,7 @@ class _SupportButtonState extends State<SupportButton> {
         _showGratefulMessage();
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        Logger().e('$ad onAdFailedToShowFullScreenContent: $error');
+        log('$ad onAdFailedToShowFullScreenContent: $error', error: error);
         setState(() => _isAdLoaded = false);
         ad.dispose();
         _loadAd();
