@@ -1,16 +1,14 @@
-import 'package:kwriting/src/infra/datasources/file.interface.storage.dart';
+import 'package:kwriting/core/core.dart';
 
 class File {
-  // singleton
   factory File() => _instance;
   File._internal();
   static final File _instance = File._internal();
 
   static late IFileStorage storage;
 
-  // init cache storage. this init() is recommend to start before runApp().
-  static Future<void> init(IFileStorage pStorage) async {
+  static Future<void> initialize(IFileStorage pStorage) async {
     storage = pStorage;
-    await storage.init();
+    await storage.initialize();
   }
 }

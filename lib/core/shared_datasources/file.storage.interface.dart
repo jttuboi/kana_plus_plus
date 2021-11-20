@@ -2,7 +2,7 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
 
 abstract class IFileStorage {
-  Future<void> init();
+  Future<void> initialize();
 
   List<WordModel> getWords();
 

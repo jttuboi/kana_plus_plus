@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/settings/settings.dart';
 import 'package:kwriting/features/training/training.dart';
 
 class ReviewPage extends StatefulWidget {

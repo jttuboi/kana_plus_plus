@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:kwriting/app.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
-import 'package:kwriting/src/infra/datasources/json.storage.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
@@ -17,7 +16,7 @@ void main() {
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await File.init(JsonStorage());
+  await File.initialize(JsonStorage());
   Hive
     ..init((await getApplicationDocumentsDirectory()).path)
     ..registerAdapter(KanaTypeAdapter())

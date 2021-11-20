@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
-import 'package:kwriting/src/domain/support/word_to_kana_converter.dart';
-import 'package:kwriting/src/infra/datasources/file.interface.storage.dart';
 
 class JsonStorage implements IFileStorage {
   final data = JsonData();
 
   @override
-  Future<void> init() async {
+  Future<void> initialize() async {
     await rootBundle.loadString(FileUrl.translates).then((response) {
       final jsonFile = json.decode(response) as List<dynamic>;
       for (final jsonData in jsonFile) {
