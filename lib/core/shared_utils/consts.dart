@@ -10,10 +10,6 @@ double appBarExpandedHeight(BuildContext context) {
 const defaultTileIconColor = Colors.grey;
 const defaultTileIconSize = 40.0;
 
-// TODO ver se o hive necessita disso
-const databaseName = 'kwriting_database.db';
-const databaseVersion = 1;
-
 class App {
   App._();
 

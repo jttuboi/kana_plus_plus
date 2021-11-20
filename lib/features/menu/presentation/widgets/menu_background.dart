@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kwriting/features/menu/menu.dart';
 
-class MenuBackground extends StatefulWidget {
+class MenuBackground extends StatelessWidget {
   const MenuBackground({Key? key}) : super(key: key);
 
-  @override
-  _MenuBackgroundState createState() => _MenuBackgroundState();
-}
-
-class _MenuBackgroundState extends State<MenuBackground> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

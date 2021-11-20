@@ -2,7 +2,7 @@ import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
 
 class WordToKanaConverter {
-  List<Kana> convert(String wordId, Map<String, Kana> kanasJson) {
+  List<Kana> convert(String wordId, Map<String, Kana> kanasMap) {
     final kanas = <Kana>[];
 
     for (var i = 0; i < wordId.length; i++) {
@@ -19,48 +19,48 @@ class WordToKanaConverter {
         if (['ゃ', 'ゅ', 'ょ', 'ャ', 'ュ', 'ョ', 'ァ', 'ィ', 'ゥ', 'ェ', 'ォ'].contains(nextChar)) {
           i++;
           kanaId = currentChar + nextChar;
-          romaji = kanasJson[kanaId]!.romaji;
-          type = kanasJson[kanaId]!.type;
-          imageUrl = kanasJson[kanaId]!.imageUrl;
-          strokesQuantity = kanasJson[kanaId]!.strokesQuantity;
+          romaji = kanasMap[kanaId]!.romaji;
+          type = kanasMap[kanaId]!.type;
+          imageUrl = kanasMap[kanaId]!.imageUrl;
+          strokesQuantity = kanasMap[kanaId]!.strokesQuantity;
         } else if (['っ', 'ッ'].contains(currentChar)) {
           kanaId = currentChar;
-          romaji = kanasJson[nextChar]!.romaji[0];
-          type = kanasJson[kanaId]!.type;
-          imageUrl = kanasJson[kanaId]!.imageUrl;
-          strokesQuantity = kanasJson[kanaId]!.strokesQuantity;
+          romaji = kanasMap[nextChar]!.romaji[0];
+          type = kanasMap[kanaId]!.type;
+          imageUrl = kanasMap[kanaId]!.imageUrl;
+          strokesQuantity = kanasMap[kanaId]!.strokesQuantity;
         } else if ('ー' == currentChar) {
           final previousChar = wordId[i - 1];
-          final previousRomaji = kanasJson[previousChar]!.romaji;
+          final previousRomaji = kanasMap[previousChar]!.romaji;
           kanaId = currentChar;
           romaji = previousRomaji[previousRomaji.length - 1];
-          type = kanasJson[kanaId]!.type;
-          imageUrl = kanasJson[kanaId]!.imageUrl;
-          strokesQuantity = kanasJson[kanaId]!.strokesQuantity;
+          type = kanasMap[kanaId]!.type;
+          imageUrl = kanasMap[kanaId]!.imageUrl;
+          strokesQuantity = kanasMap[kanaId]!.strokesQuantity;
         } else {
           kanaId = currentChar;
-          romaji = kanasJson[kanaId]!.romaji;
-          type = kanasJson[kanaId]!.type;
-          imageUrl = kanasJson[kanaId]!.imageUrl;
-          strokesQuantity = kanasJson[kanaId]!.strokesQuantity;
+          romaji = kanasMap[kanaId]!.romaji;
+          type = kanasMap[kanaId]!.type;
+          imageUrl = kanasMap[kanaId]!.imageUrl;
+          strokesQuantity = kanasMap[kanaId]!.strokesQuantity;
         }
       }
       // when it's the last char
       else {
         if ('ー' == currentChar) {
           final previousChar = wordId[i - 1];
-          final previousRomaji = kanasJson[previousChar]!.romaji;
+          final previousRomaji = kanasMap[previousChar]!.romaji;
           kanaId = currentChar;
           romaji = previousRomaji[previousRomaji.length - 1];
-          type = kanasJson[kanaId]!.type;
-          imageUrl = kanasJson[kanaId]!.imageUrl;
-          strokesQuantity = kanasJson[kanaId]!.strokesQuantity;
+          type = kanasMap[kanaId]!.type;
+          imageUrl = kanasMap[kanaId]!.imageUrl;
+          strokesQuantity = kanasMap[kanaId]!.strokesQuantity;
         } else {
           kanaId = currentChar;
-          romaji = kanasJson[kanaId]!.romaji;
-          type = kanasJson[kanaId]!.type;
-          imageUrl = kanasJson[kanaId]!.imageUrl;
-          strokesQuantity = kanasJson[kanaId]!.strokesQuantity;
+          romaji = kanasMap[kanaId]!.romaji;
+          type = kanasMap[kanaId]!.type;
+          imageUrl = kanasMap[kanaId]!.imageUrl;
+          strokesQuantity = kanasMap[kanaId]!.strokesQuantity;
         }
       }
 
@@ -74,7 +74,7 @@ class WordToKanaConverter {
     }
 
     // to check kana id and romaji
-    //print(kanas.map((e) => "('${e.id}','${e.romaji}')").toList());
+    //inspect(kanas.map((e) => "('${e.id}','${e.romaji}')").toList());
     return kanas;
   }
 }
