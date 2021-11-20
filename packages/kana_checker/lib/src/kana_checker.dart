@@ -3,14 +3,17 @@ import 'package:kana_checker/src/points_data.dart';
 import 'package:kana_checker/src/verify_conditions.dart';
 
 class KanaChecker {
-  KanaChecker({double percentageToApprove = 0.8}) : _verifyConditions = VerifyConditions(percentageToApprove);
+  KanaChecker({
+    double percentageToApprove = 0.8,
+    double percentageRadius = 0.15, // radius = 0.15 = 15% de 100 pixels
+  })  : _powRadius = pow(percentageRadius, 2).toDouble(),
+        _verifyConditions = VerifyConditions(percentageToApprove);
 
-  static const _powRadius = 0.0225; // radius = 0.15 = 15% de 100 pixels
-
+  final double _powRadius;
   final VerifyConditions _verifyConditions;
   late final Map<String, List<List<Point<double>>>> _data;
 
-  Future<void> preloadData() async {
+  Future<void> initialize() async {
     _data = await PointsData().preloadData();
   }
 

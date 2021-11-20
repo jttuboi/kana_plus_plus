@@ -27,7 +27,7 @@ class TrainingController {
   List<WordViewerContent> wordsToTraining = [];
 
   Future<bool> get isReady async {
-    await kanaChecker.preloadData();
+    await kanaChecker.initialize();
     _fillWordsToTraining();
     return true;
   }

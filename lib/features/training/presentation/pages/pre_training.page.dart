@@ -82,7 +82,7 @@ class _PlayButton extends StatelessWidget {
         ),
         TrainingPage.argWriterController: WriterController(
           writingHandRepository: WritingHandRepository(),
-          strokeReducer: StrokeReducer(minPointsQuantity: 20),
+          strokeReducer: StrokeReducer(maxPointsQuantity: 20),
           kanaChecker: KanaChecker(),
           showHint: context.read<ShowHintChangeNotifier>().data.showHint,
         ),

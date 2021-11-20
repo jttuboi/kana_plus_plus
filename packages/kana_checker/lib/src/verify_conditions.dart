@@ -1,4 +1,4 @@
-import 'package:logger/logger.dart';
+import 'dart:developer';
 
 class VerifyConditions {
   VerifyConditions(double percentageToApprove) : _percentageToApprove = percentageToApprove;
@@ -6,21 +6,19 @@ class VerifyConditions {
   final double _percentageToApprove;
 
   bool allDataStrokesChecked(List<List<bool>> strokesChecked) {
-    //print(strokesChecked);
     for (final strokeChecked in strokesChecked) {
       for (final pointChecked in strokeChecked) {
         if (!pointChecked) {
-          Logger().i('all points checked -> false');
+          log('all points checked -> false');
           return false;
         }
       }
     }
-    Logger().i('all points checked -> true');
+    log('all points checked -> true');
     return true;
   }
 
   bool allUserPointsChecked(List<bool> pointsChecked) {
-    //print(pointsChecked);
     var count = 0.0;
     for (final pointChecked in pointsChecked) {
       if (pointChecked) {
@@ -28,7 +26,7 @@ class VerifyConditions {
       }
     }
     final approveUserPercentage = count / pointsChecked.length.toDouble();
-    Logger().i('approve percentage -> $approveUserPercentage >= $_percentageToApprove <- percentage to approve');
+    log('approve percentage -> $approveUserPercentage >= $_percentageToApprove <- percentage to approve');
     return approveUserPercentage >= _percentageToApprove;
   }
 }

@@ -2,21 +2,21 @@ import 'dart:collection';
 import 'dart:math';
 
 class StrokeReducer {
-  StrokeReducer({required int minPointsQuantity}) : _minPointsQuantity = minPointsQuantity;
+  StrokeReducer({required int maxPointsQuantity}) : _maxPointsQuantity = maxPointsQuantity;
 
-  final int _minPointsQuantity;
+  final int _maxPointsQuantity;
 
   List<Point<double>> reduce(List<Point<double>> stroke) {
-    if (stroke.length <= _minPointsQuantity) {
+    if (stroke.length <= _maxPointsQuantity) {
       return stroke;
     }
 
     // it's using ramer douglas peucker algorithm to reduce polyline with different limitDistance
     var newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 0.5);
-    if (newStroke.length > _minPointsQuantity) {
+    if (newStroke.length > _maxPointsQuantity) {
       newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 1);
     }
-    if (newStroke.length > _minPointsQuantity) {
+    if (newStroke.length > _maxPointsQuantity) {
       newStroke = _reducerPolylineRamerDouglasPeuckerStack(stroke, 2);
     }
     return newStroke;

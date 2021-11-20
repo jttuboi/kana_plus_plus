@@ -3,16 +3,16 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 
 class PointsData {
-  static const _fileUrl = 'packages/kana_checker/assets/points.json';
+  final _fileUrl = 'packages/kana_checker/assets/points.json';
 
   Future<Map<String, List<List<Point<double>>>>> preloadData() async {
     final response = await rootBundle.loadString(_fileUrl);
-    final jsonFile = json.decode(response) as Map<String, dynamic>;
-    return convertToData(jsonFile);
+    final jsonMap = json.decode(response) as Map<String, dynamic>;
+    return convertToData(jsonMap);
   }
 
-  Map<String, List<List<Point<double>>>> convertToData(Map<String, dynamic> jsonFile) {
-    return jsonFile.map((key, value) {
+  Map<String, List<List<Point<double>>>> convertToData(Map<String, dynamic> jsonMap) {
+    return jsonMap.map((key, value) {
       final strokes = value as List<dynamic>;
       final newStrokes = <List<Point<double>>>[];
       for (final stroke in strokes) {

@@ -1,6 +1,7 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  exclude: [build/**]
   errors:
     # allow having TODOs in the code
     todo: info
@@ -31,7 +32,7 @@ linter:
     - avoid_js_rounded_ints
     - avoid_multiple_declarations_per_line
     - avoid_null_checks_in_equality_operators
-    - avoid_positional_boolean_parameters
+    #####################################################- avoid_positional_boolean_parameters
     - avoid_print
     - avoid_private_typedef_functions
     - avoid_redundant_argument_values
@@ -64,7 +65,7 @@ linter:
     - constant_identifier_names
     - control_flow_in_finally
     - curly_braces_in_flow_control_structures
-    - depend_on_referenced_packages
+    #####################################################- depend_on_referenced_packages
     - deprecated_consistency
     #- diagnostic_describe_all_properties
     - directives_ordering
@@ -75,7 +76,7 @@ linter:
     - eol_at_end_of_file
     - exhaustive_cases
     - file_names
-    - flutter_style_todos
+    #- flutter_style_todos
     - hash_and_equals
     - implementation_imports
     - invariant_booleans # (experimental)
