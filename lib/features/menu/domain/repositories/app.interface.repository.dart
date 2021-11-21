@@ -1,5 +1,5 @@
 abstract class IAppRepository {
-  bool isFirstTime();
+  Future<bool> isFirstTime();
 
-  void setFirstTime(bool isFirstTime);
+  Future<void> setFirstTime(bool isFirstTime);
 }

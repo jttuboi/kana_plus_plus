@@ -27,7 +27,6 @@ export 'infra/repositories/quantity_of_words.repository.dart';
 export 'infra/repositories/show_hint.repository.dart';
 export 'infra/repositories/writing_hand.repository.dart';
 export 'presentation/notifiers/kana_type.change_notifier.dart';
-export 'presentation/notifiers/language.change_notifier.dart';
 export 'presentation/notifiers/quantity_of_words.change_notifier.dart';
 export 'presentation/notifiers/show_hint.change_notifier.dart';
 export 'presentation/notifiers/writing_hand.change_notifier.dart';

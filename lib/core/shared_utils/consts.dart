@@ -91,6 +91,7 @@ class TTranslates {
 
 class BoxTag {
   BoxTag._();
+  static const app = 'app';
   static const settings = 'settings';
 }
 

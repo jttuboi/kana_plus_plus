@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 void main() {
   init().whenComplete(() {
-    runApp(AndroidApp());
+    runApp(const AndroidApp());
   });
 }
 

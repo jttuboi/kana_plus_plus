@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/menu/menu.dart';
-import 'package:kwriting/features/settings/settings.dart';
 import 'package:provider/provider.dart';
 
 class LanguageTile extends StatelessWidget {
@@ -10,31 +9,25 @@ class LanguageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
+    final state = context.watch<AppCubit>().state as AppLoaded;
 
-    return Consumer<LanguageChangeNotifier>(
-      builder: (context, changeNotifier, child) {
-        return DefaultTile(
-          title: strings.settingsLanguage,
-          subtitle: toLanguageText(changeNotifier.localeCode),
-          iconUrl: IconUrl.language,
-          onTap: () => Navigator.pushNamed(
-            context,
-            SelectionOptionPage.routeName,
-            arguments: {
-              SelectionOptionPage.argSelectionOptionArgs: SelectionOptionArgs(
-                title: strings.settingsSelectLanguage,
-                bannerUrl: BannerUrl.language,
-                selectedOptionKey: changeNotifier.localeCode,
-                options: _options,
-                onSelected: (selectedKey) {
-                  changeNotifier.updateLanguage(selectedKey as String);
-                  context.read<LocaleChangeNotifier>().updateLocale();
-                },
-              ),
-            },
+    return DefaultTile(
+      title: strings.settingsLanguage,
+      subtitle: toLanguageText(state.languageCode),
+      iconUrl: IconUrl.language,
+      onTap: () => Navigator.pushNamed(
+        context,
+        SelectionOptionPage.routeName,
+        arguments: {
+          SelectionOptionPage.argSelectionOptionArgs: SelectionOptionArgs(
+            title: strings.settingsSelectLanguage,
+            bannerUrl: BannerUrl.language,
+            selectedOptionKey: state.languageCode,
+            options: _options,
+            onSelected: (selectedKey) => context.read<AppCubit>().languageChanged(selectedKey as String),
           ),
-        );
-      },
+        },
+      ),
     );
   }
 

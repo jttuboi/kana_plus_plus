@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
@@ -10,28 +11,28 @@ import 'package:kwriting/features/study/study.dart';
 import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/features/words/words.dart';
 
-class MenuPage extends StatefulWidget {
-  const MenuPage(this.appController, {Key? key}) : super(key: key);
+class MenuPage extends StatelessWidget {
+  const MenuPage({Key? key}) : super(key: key);
 
-  final AppController appController;
-
-  @override
-  _MenuPageState createState() => _MenuPageState();
-}
-
-class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
-    return (widget.appController.isFirstTime)
-        ? Introduction(onFinished: () => setState(() => widget.appController.finishFirstTime()))
-        : Scaffold(
-            body: Stack(
-              children: [
-                const MenuBackground(),
-                _MenuContent(),
-              ],
-            ),
-          );
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, state) {
+        if (state is AppLoaded) {
+          return state.isFirstTimeOpenApp
+              ? Introduction(onFinished: () => context.read<AppCubit>().firstTimeOpenFinished())
+              : Scaffold(
+                  body: Stack(
+                    children: [
+                      const MenuBackground(),
+                      _MenuContent(),
+                    ],
+                  ),
+                );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }
 
@@ -98,6 +99,7 @@ class _MenuContent extends StatelessWidget {
                           title: strings.menuWords,
                           iconUrl: IconUrl.words,
                           routeName: WordsPage.routeName,
+                          // TODO talvez mudar aqui
                           arguments: {
                             WordsPage.argWordsController: WordsController(
                               wordRepository: WordRepository(),
