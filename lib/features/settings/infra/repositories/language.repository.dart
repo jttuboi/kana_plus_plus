@@ -12,7 +12,7 @@ class LanguageRepository implements ILanguageRepository {
   @override
   Future<String> getLanguage() async {
     await load();
-    return _box.get(DatabaseTag.language, defaultValue: Default.locale);
+    return _box.get(DatabaseTag.language, defaultValue: Default.languageCode);
   }
 
   @override

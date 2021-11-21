@@ -72,5 +72,6 @@
     "studyDigraphsTitle": "Digraphs",
     "studyGeminatedTitle": "Gemelos",
     "studyLongVowelsTitle": "Vocales largas",
-    "studyExtraSyllabesTitle": "Vocales pequeñas"
+    "studyExtraSyllabesTitle": "Vocales pequeñas",
+    "errorBack": "Erro: camarilla no botão voltar"
 }

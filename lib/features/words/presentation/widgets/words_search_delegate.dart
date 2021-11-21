@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/training/training.dart';
+import 'package:kwriting/features/words/words.dart';
 
 class WordsSearchDelegate extends SearchDelegate {
   WordsSearchDelegate({
@@ -66,7 +66,7 @@ class WordsSearchDelegate extends SearchDelegate {
         return ListTile(
           title: Text('${word.id} - ${word.romaji}'),
           subtitle: Text(word.translate),
-          onTap: () => close(context, word),
+          onTap: () => close(context, word.id),
         );
       },
     );

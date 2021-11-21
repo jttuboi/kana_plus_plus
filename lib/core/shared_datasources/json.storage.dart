@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/training/training.dart';
 
 class JsonStorage implements IFileStorage {
   final data = JsonData();
@@ -23,53 +22,29 @@ class JsonStorage implements IFileStorage {
         data.kanas[model.id] = model;
       }
     });
+
+    final words = <String, WordModel>{};
     await rootBundle.loadString(FileUrl.words).then((response) {
       final jsonFile = json.decode(response) as List<dynamic>;
       for (final jsonData in jsonFile) {
         final model = WordModel.fromJson(jsonData as Map<String, dynamic>);
-        data.words[model.id] = model;
+        words[model.id] = model;
       }
     });
 
     final converter = WordToKanaConverter();
 
-    data.words.forEach((wordId, wordModel) {
-      wordModel
-        ..setTranslate(data.translates[wordId]!)
-        ..kanas = converter.convert(wordId, data.kanas);
+    words.forEach((wordId, wordModel) {
+      data.words[wordModel.id] = wordModel.copyWith(
+        translate: data.translates[wordId],
+        kanas: converter.convert(wordId, data.kanas),
+      );
     });
   }
 
   @override
-  List<WordModel> getWords() {
-    return data.words.entries.map((e) => e.value).toList();
-  }
-
-  @override
-  List<WordModel> getWordsById(String id) {
-    return [data.words[id]!];
-  }
-
-  @override
-  List<WordModel> getWordsByQuery(String query, String languageCode) {
-    final words = <WordModel>[];
-    data.words.forEach((id, word) {
-      word.setLanguageCode(languageCode);
-      if (word.id.contains(query) || word.romaji.contains(query) || word.translate.contains(query)) {
-        words.add(word);
-      }
-    });
-    return words;
-  }
-
-  @override
-  WordModel getWord(String id) {
-    return data.words[id]!;
-  }
-
-  @override
-  List<WordModel> getWordsByKanaType(KanaType kanaType) {
-    return data.words.entries.where((entry) => entry.value.type == kanaType).map((entry) => entry.value).toList();
+  List<WordModel> getAllWords() {
+    return data.words.values.toList();
   }
 }
 

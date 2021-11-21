@@ -72,5 +72,6 @@
     "studyDigraphsTitle": "Dígrafos",
     "studyGeminatedTitle": "Geminados",
     "studyLongVowelsTitle": "Vogais prolongadas",
-    "studyExtraSyllabesTitle": "Vogais pequenas"
+    "studyExtraSyllabesTitle": "Vogais pequenas",
+    "errorBack": "Erro: clique no botão Voltar"
 }

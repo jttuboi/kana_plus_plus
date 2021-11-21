@@ -1,8 +1,8 @@
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/training/training.dart';
 
-class WordModel extends Word {
-  WordModel({
+class Word2Model extends Word {
+  Word2Model({
     required String id,
     required String imageUrl,
     String romaji = '',
@@ -14,10 +14,10 @@ class WordModel extends Word {
           imageUrl: imageUrl,
         );
 
-  WordModel.empty() : super.empty();
+  Word2Model.empty() : super.empty();
 
-  factory WordModel.fromJson(Map<String, dynamic> json) {
-    return WordModel(
+  factory Word2Model.fromJson(Map<String, dynamic> json) {
+    return Word2Model(
       id: json[TWords.id] as String,
       romaji: json[TWords.romaji] as String,
       type: toKanaType(json[TWords.type] as String),

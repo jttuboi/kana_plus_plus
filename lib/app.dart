@@ -73,7 +73,7 @@ class AppView extends StatelessWidget {
       }
     }
     // it doesn't need to set database because default is the same
-    return const Locale(Default.locale);
+    return const Locale(Default.languageCode);
   }
 
   Route? _onGenerateRoute(RouteSettings settings) {
@@ -89,7 +89,7 @@ class AppView extends StatelessWidget {
       case ReviewPage.routeName:
         return ReviewPage.route(args[ReviewPage.argReviewController], wordsResult: args[ReviewPage.argWordsResult]);
       case WordsPage.routeName:
-        return WordsPage.route(args[WordsPage.argWordsController]);
+        return WordsPage.route();
       case WordDetailPage.routeName:
         return WordDetailPage.route(word: args[WordDetailPage.argWord]);
       case SettingsPage.routeName:

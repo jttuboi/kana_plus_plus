@@ -20,7 +20,7 @@ export 'domain/use_cases/training.controller.dart';
 export 'domain/use_cases/writer.controller.dart';
 export 'infra/models/kana.model.dart';
 export 'infra/models/translate.model.dart';
-export 'infra/models/word.model.dart';
+export 'infra/models/word2.model.dart';
 export 'infra/repositories/statistics.repository.dart';
 export 'infra/repositories/word.repository.dart';
 export 'presentation/arguments/kana_result.dart';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/features/words/words.dart';
 
 class WordDetailPage extends StatelessWidget {
@@ -11,8 +10,8 @@ class WordDetailPage extends StatelessWidget {
   static const routeName = '/word_detail';
   static const argWord = 'argWord';
 
-  static Route route({Word? word}) {
-    return MaterialPageRoute(builder: (context) => WordDetailPage._(word ?? Word.empty()));
+  static Route route({required Word word}) {
+    return MaterialPageRoute(builder: (context) => WordDetailPage._(word));
   }
 
   final _titleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
@@ -23,6 +22,8 @@ class WordDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
+    final width = MediaQuery.of(context).size.width;
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context);
@@ -34,7 +35,7 @@ class WordDetailPage extends StatelessWidget {
             Container(
               color: Theme.of(context).primaryColor,
               height: appBarExpandedHeight(context) + MediaQuery.of(context).padding.top,
-              width: MediaQuery.of(context).size.width,
+              width: width,
             ),
             SafeArea(
               child: InkWell(
@@ -48,11 +49,7 @@ class WordDetailPage extends StatelessWidget {
                         flex: 6,
                         child: Hero(
                           tag: _word.imageUrl,
-                          child: SvgPicture.asset(
-                            _word.imageUrl,
-                            width: MediaQuery.of(context).size.width * 4 / 5,
-                            height: MediaQuery.of(context).size.width * 4 / 5,
-                          ),
+                          child: SvgPicture.asset(_word.imageUrl, width: width * 4 / 5, height: width * 4 / 5),
                         ),
                       ),
                       const Spacer(),

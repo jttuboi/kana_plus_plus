@@ -1,5 +1,11 @@
-export 'domain/use_cases/words.controller.dart';
-export 'presentation/notifiers/words.change_notifier.dart';
+export 'domain/entities/filter.dart';
+export 'domain/entities/kana.dart';
+export 'domain/entities/word.dart';
+export 'domain/repositories/words.interface.repository.dart';
+export 'domain/use_cases/fetch_words.dart';
+export 'infra/repositories/words.repository.dart';
+export 'presentation/bloc/filtered_words_bloc.dart';
+export 'presentation/bloc/words_bloc.dart';
 export 'presentation/pages/word_detail.page.dart';
 export 'presentation/pages/words.page.dart';
 export 'presentation/widgets/kana_detail.dart';

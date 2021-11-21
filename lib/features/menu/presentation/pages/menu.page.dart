@@ -99,12 +99,6 @@ class _MenuContent extends StatelessWidget {
                           title: strings.menuWords,
                           iconUrl: IconUrl.words,
                           routeName: WordsPage.routeName,
-                          // TODO talvez mudar aqui
-                          arguments: {
-                            WordsPage.argWordsController: WordsController(
-                              wordRepository: WordRepository(),
-                            ),
-                          },
                         ),
                         _MenuButton(
                           title: strings.menuSettings,

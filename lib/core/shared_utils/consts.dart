@@ -34,7 +34,7 @@ class Developer {
 class Default {
   Default._();
 
-  static const locale = 'en';
+  static const languageCode = 'en';
   static const minimumTrainingCards = 5;
   static const maximumTrainingCards = 20;
   static const showHint = true;

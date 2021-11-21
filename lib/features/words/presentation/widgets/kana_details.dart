@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/features/words/words.dart';
 
 class KanasDetails extends StatelessWidget {

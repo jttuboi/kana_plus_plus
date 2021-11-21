@@ -1,40 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/features/words/words.dart';
-import 'package:provider/provider.dart';
 
 class WordsPage extends StatelessWidget {
-  const WordsPage._(this._wordsController, {Key? key}) : super(key: key);
+  const WordsPage._({Key? key}) : super(key: key);
 
   static const routeName = '/words';
   static const argWordsController = 'argWordsController';
 
-  static Route route(WordsController wordsController) {
-    return MaterialPageRoute(builder: (context) => WordsPage._(wordsController));
+  static Route route() {
+    return MaterialPageRoute(builder: (context) => const WordsPage._());
   }
-
-  final WordsController _wordsController;
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => WordsChangeNotifier(_wordsController)),
+        BlocProvider(create: (context) => WordsBloc(wordsRepository: WordsRepository())..add(const WordsLoaded())),
+        BlocProvider(create: (context) => FilteredWordsBloc(wordsBloc: BlocProvider.of<WordsBloc>(context))),
       ],
-      builder: (context, child) => _WordsPage(wordsController: _wordsController),
+      child: const WordsView(),
     );
   }
 }
 
-class _WordsPage extends StatelessWidget {
-  const _WordsPage({required this.wordsController, Key? key}) : super(key: key);
-
-  final WordsController wordsController;
+class WordsView extends StatelessWidget {
+  const WordsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
+
     return FlexibleScaffold(
       title: strings.wordsTitle,
       bannerUrl: BannerUrl.words,
@@ -45,31 +43,43 @@ class _WordsPage extends StatelessWidget {
           onPressed: () => _onPressedSearchButton(context),
         ),
       ],
-      sliverContent: Consumer<WordsChangeNotifier>(
-        builder: (context, changeNotifier, child) {
-          return SliverPadding(
-            padding: const EdgeInsets.all(8),
-            sliver: SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final word = changeNotifier.wordsToShow[index];
-                  return WordItem(
-                    word: word.id,
-                    imageUrl: word.imageUrl,
-                    onTap: () => _onTapWordItem(context, word.id),
-                  );
-                },
-                childCount: changeNotifier.wordsToShow.length,
-              ),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 9 / 10,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-              ),
-            ),
-          );
-        },
+      sliverContent: SliverPadding(
+        padding: const EdgeInsets.all(8),
+        sliver: BlocBuilder<FilteredWordsBloc, FilteredWordsState>(
+          builder: (context, state) {
+            if (state is FilteredWordsLoadSuccess) {
+              return SliverGrid(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final word = state.filteredWords[index];
+                    return WordItem(
+                      word: word.id,
+                      imageUrl: word.imageUrl,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        WordDetailPage.routeName,
+                        arguments: {
+                          WordDetailPage.argWord: word,
+                        },
+                      ),
+                    );
+                  },
+                  childCount: state.filteredWords.length,
+                ),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 9 / 10,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                ),
+              );
+            }
+            if (state is WordsLoadInProgress) {
+              return const SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
+            }
+            return SliverFillRemaining(child: Center(child: Text(strings.errorBack)));
+          },
+        ),
       ),
     );
   }
@@ -79,21 +89,11 @@ class _WordsPage extends StatelessWidget {
     showSearch(
       context: context,
       delegate: WordsSearchDelegate(
-        words: wordsController.allWords,
+        words: (context.read<WordsBloc>().state is WordsLoadSuccess) ? (context.read<WordsBloc>().state as WordsLoadSuccess).words : [],
         searchFieldLabel: strings.searchLabelInWords,
       ),
     ).then((queryResult) {
-      Provider.of<WordsChangeNotifier>(context, listen: false).fetchWords(queryResult);
+      context.read<FilteredWordsBloc>().add(FilterUpdated(Filter.searched, queryResult));
     });
-  }
-
-  void _onTapWordItem(BuildContext context, String id) {
-    Navigator.pushNamed(
-      context,
-      WordDetailPage.routeName,
-      arguments: {
-        WordDetailPage.argWord: wordsController.wordDetail(id),
-      },
-    );
   }
 }
