@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kana_checker/src/points_data.dart';
 
@@ -38,9 +36,9 @@ void main() {
       final data = pointsData.convertToData(jsonMap);
 
       expect(data.keys.first, 'ぁ');
-      expect(data['ぁ']![0], const [Point(0.11, 0.12), Point(0.13, 0.14), Point(0.15, 0.16), Point(0.17, 0.18)]);
-      expect(data['ぁ']![1], const [Point(0.21, 0.22), Point(0.23, 0.24), Point(0.25, 0.26), Point(0.27, 0.28)]);
-      expect(data['ぁ']![2], const [Point(0.31, 0.32), Point(0.33, 0.34), Point(0.35, 0.36), Point(0.37, 0.38), Point(0.39, 0.40)]);
+      expect(data['ぁ']![0], const [Offset(0.11, 0.12), Offset(0.13, 0.14), Offset(0.15, 0.16), Offset(0.17, 0.18)]);
+      expect(data['ぁ']![1], const [Offset(0.21, 0.22), Offset(0.23, 0.24), Offset(0.25, 0.26), Offset(0.27, 0.28)]);
+      expect(data['ぁ']![2], const [Offset(0.31, 0.32), Offset(0.33, 0.34), Offset(0.35, 0.36), Offset(0.37, 0.38), Offset(0.39, 0.40)]);
     });
   });
 }

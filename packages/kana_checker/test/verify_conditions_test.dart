@@ -19,34 +19,13 @@ void main() {
         expect(verifyConditions.allUserPointsChecked([true, true, true, false, false]), isFalse);
       });
 
-      test('checks conditions of list of strokes must be all true', () {
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [true, true, true, true, true]
-            ]),
-            isTrue);
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [true, true],
-              [true, true, true],
-              [true]
-            ]),
-            isTrue);
+      test('checks conditions of strokes must be all true', () {
+        expect(verifyConditions.allDataStrokesChecked([true, true, true, true, true]), isTrue);
       });
 
-      test('checks conditions of list of strokes must be only once false', () {
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [false, true, true, true, true]
-            ]),
-            isFalse);
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [true, true],
-              [true, false, true],
-              [true]
-            ]),
-            isFalse);
+      test('checks conditions of strokes must be only once false', () {
+        expect(verifyConditions.allDataStrokesChecked([false, true, true, true, true]), isFalse);
+        expect(verifyConditions.allDataStrokesChecked([true, false, true]), isFalse);
       });
     });
 
@@ -64,34 +43,14 @@ void main() {
         expect(verifyConditions.allUserPointsChecked([true, true, true, true, false]), isFalse);
       });
 
-      test('checks conditions of list of strokes must be all true', () {
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [true, true, true, true, true]
-            ]),
-            isTrue);
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [true, true],
-              [true, true, true],
-              [true]
-            ]),
-            isTrue);
+      test('checks conditions of strokes must be all true', () {
+        expect(verifyConditions.allDataStrokesChecked([true, true, true, true, true]), isTrue);
+        expect(verifyConditions.allDataStrokesChecked([true, true, true]), isTrue);
       });
 
-      test('checks conditions of list of strokes must be only once false', () {
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [false, true, true, true, true]
-            ]),
-            isFalse);
-        expect(
-            verifyConditions.allDataStrokesChecked([
-              [true, true],
-              [true, false, true],
-              [true]
-            ]),
-            isFalse);
+      test('checks conditions of strokes must be only once false', () {
+        expect(verifyConditions.allDataStrokesChecked([false, true, true, true, true]), isFalse);
+        expect(verifyConditions.allDataStrokesChecked([true, false]), isFalse);
       });
     });
   });

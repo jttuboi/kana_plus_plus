@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:kana_checker/kana_checker.dart';
@@ -51,10 +50,7 @@ class WriterController {
   void addStroke(List<Offset> stroke) {
     if (stroke.length > 3) {
       // TODO evitar esse tipo de conversão, verificar se tem como evitar o Offset e utilizar o Point<double>
-      strokes.add(strokeReducer
-          .reduce(stroke.map((offset) => Point<double>(offset.dx, offset.dy)).toList())
-          .map((point) => Offset(point.x, point.y))
-          .toList());
+      strokes.add(strokeReducer.reduce(stroke).map((point) => Offset(point.dx, point.dy)).toList());
     }
   }
 
@@ -71,8 +67,7 @@ class WriterController {
   String get kanaWrote {
     //print('kanaWrote -> kanaToWrite = $kanaToWrite');
     // TODO evitar esse tipo de conversão, verificar se tem como evitar o Offset e utilizar o Point<double>
-    final isOk = kanaChecker.checkKana(
-        kanaToWrite.id, normalizedStrokes.map((list) => list.map((offset) => Point<double>(offset.dx, offset.dy)).toList()).toList());
+    final isOk = kanaChecker.checkKana(kanaToWrite.id, 0, normalizedStrokes[0]);
     return isOk ? kanaToWrite.id : '';
   }
 

@@ -1,12 +1,13 @@
 import 'dart:collection';
-import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class StrokeReducer {
   StrokeReducer({required int maxPointsQuantity}) : _maxPointsQuantity = maxPointsQuantity;
 
   final int _maxPointsQuantity;
 
-  List<Point<double>> reduce(List<Point<double>> stroke) {
+  List<Offset> reduce(List<Offset> stroke) {
     if (stroke.length <= _maxPointsQuantity) {
       return stroke;
     }
@@ -23,7 +24,7 @@ class StrokeReducer {
   }
 
   // https://gist.github.com/Snegovikufa/6490663
-  List<Point<double>> _reducerPolylineRamerDouglasPeuckerStack(List<Point<double>> points, double limitDistance) {
+  List<Offset> _reducerPolylineRamerDouglasPeuckerStack(List<Offset> points, double limitDistance) {
     final length = points.length;
     final markers = List.filled(length, false);
 
@@ -33,7 +34,7 @@ class StrokeReducer {
 
     final firstStack = Queue<int>();
     final lastStack = Queue<int>();
-    final newPoints = <Point<double>>[];
+    final newPoints = <Offset>[];
 
     // marca posições do primeiro e último
     markers[firstIndex] = markers[lastIndex] = true;
@@ -76,27 +77,27 @@ class StrokeReducer {
     return newPoints;
   }
 
-  double _getSquareSegmentDistance(Point<double> point, Point<double> firstPoint, Point<double> lastPoint) {
-    var x = firstPoint.x;
-    var y = firstPoint.y;
+  double _getSquareSegmentDistance(Offset point, Offset firstPoint, Offset lastPoint) {
+    var x = firstPoint.dx;
+    var y = firstPoint.dy;
 
-    var dx = lastPoint.x - x;
-    var dy = lastPoint.y - y;
+    var dx = lastPoint.dx - x;
+    var dy = lastPoint.dy - y;
 
     if (dx != 0 || dy != 0) {
-      final t = ((point.x - x) * dx + (point.y - y) * dy) / (dx * dx + dy * dy);
+      final t = ((point.dx - x) * dx + (point.dy - y) * dy) / (dx * dx + dy * dy);
 
       if (t > 1) {
-        x = lastPoint.x;
-        y = lastPoint.y;
+        x = lastPoint.dx;
+        y = lastPoint.dy;
       } else if (t > 0) {
         x += dx * t;
         y += dy * t;
       }
     }
 
-    dx = point.x - x;
-    dy = point.y - y;
+    dx = point.dx - x;
+    dy = point.dy - y;
 
     return dx * dx + dy * dy;
   }

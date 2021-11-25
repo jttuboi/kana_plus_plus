@@ -5,13 +5,11 @@ class VerifyConditions {
 
   final double _percentageToApprove;
 
-  bool allDataStrokesChecked(List<List<bool>> strokesChecked) {
-    for (final strokeChecked in strokesChecked) {
-      for (final pointChecked in strokeChecked) {
-        if (!pointChecked) {
-          log('all points checked -> false');
-          return false;
-        }
+  bool allDataStrokesChecked(List<bool> strokeChecked) {
+    for (final pointChecked in strokeChecked) {
+      if (!pointChecked) {
+        log('all points checked -> false');
+        return false;
       }
     }
     log('all points checked -> true');
