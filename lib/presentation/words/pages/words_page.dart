@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/infra/infra.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 class WordsPage extends StatelessWidget {
   const WordsPage._({Key? key}) : super(key: key);

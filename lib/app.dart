@@ -6,7 +6,7 @@ import 'package:kwriting/features/menu/presentation/cubit/app_cubit.dart';
 import 'package:kwriting/features/settings/settings.dart';
 import 'package:kwriting/features/study/study.dart';
 import 'package:kwriting/features/training/training.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 class AndroidApp extends StatelessWidget {
   const AndroidApp({Key? key}) : super(key: key);

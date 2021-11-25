@@ -9,7 +9,7 @@ import 'package:kwriting/features/menu/menu.dart';
 import 'package:kwriting/features/settings/settings.dart';
 import 'package:kwriting/features/study/study.dart';
 import 'package:kwriting/features/training/training.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);

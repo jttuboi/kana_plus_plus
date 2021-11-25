@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 class Word extends Equatable {
   const Word({

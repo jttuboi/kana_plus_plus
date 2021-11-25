@@ -4,23 +4,22 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 part 'words_event.dart';
 part 'words_state.dart';
 
 class WordsBloc extends Bloc<WordsEvent, WordsState> {
-  WordsBloc({required IWordsRepository wordsRepository}) : super(WordsLoadInProgress()) {
-    _fetchWords = FetchWords(wordsRepository);
+  WordsBloc({required this.wordsRepository}) : super(WordsLoadInProgress()) {
     on<WordsLoaded>(_onWordsLoaded);
   }
 
-  late final FetchWords _fetchWords;
+  final IWordsRepository wordsRepository;
 
   Future<void> _onWordsLoaded(WordsLoaded event, Emitter<WordsState> emit) async {
     try {
-      final words = await _fetchWords(NoParams());
+      final words = await wordsRepository.fetchTodos();
       emit(WordsLoadSuccess(words));
     } catch (e, s) {
       log('_onTodosLoaded', error: e, stackTrace: s);

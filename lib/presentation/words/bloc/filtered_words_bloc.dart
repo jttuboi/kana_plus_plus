@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/features/words/presentation/bloc/words_bloc.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 part 'filtered_words_event.dart';
 part 'filtered_words_state.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/words/words.dart';
+import 'package:kwriting/presentation/words/words.dart';
 
 class WordDetailPage extends StatelessWidget {
   WordDetailPage._(this._word, {Key? key}) : super(key: key);
