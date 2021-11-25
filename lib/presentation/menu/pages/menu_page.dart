@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/menu/menu.dart';
 import 'package:kwriting/features/settings/settings.dart';
 import 'package:kwriting/features/study/study.dart';
 import 'package:kwriting/features/training/training.dart';
+import 'package:kwriting/presentation/menu/menu.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class MenuPage extends StatelessWidget {

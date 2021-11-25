@@ -3,19 +3,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/menu/menu.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/settings/settings.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit(IAppRepository appRepository, ILanguageRepository languageRepository) : super(AppLoadInProgress()) {
-    _isFirstTime = IsFirstTime(appRepository);
-    _finishFirstTime = FinishFirstTime(appRepository);
-    _getLanguage = GetLanguage(languageRepository);
-    _updateLanguage = UpdateLanguage(languageRepository);
-
-    _isFirstTime(NoParams()).then((isFirstTime) {
+  AppCubit(this.appRepository, this.languageRepository) : super(AppLoadInProgress()) {
+    appRepository.isFirstTime().then((isFirstTime) {
       if (isFirstTime) {
         emit(AppLoaded(isFirstTimeOpenApp: isFirstTime));
       } else {
@@ -26,14 +21,15 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
-  late final IsFirstTime _isFirstTime;
-  late final FinishFirstTime _finishFirstTime;
+  final IAppRepository appRepository;
+  final ILanguageRepository languageRepository;
   late final GetLanguage _getLanguage;
   late final UpdateLanguage _updateLanguage;
 
   Future<void> firstTimeOpenFinished() async {
     if (state is AppLoaded) {
-      await _finishFirstTime(NoParams());
+      await appRepository.setFirstTime(false);
+      ;
       emit(AppLoaded(isFirstTimeOpenApp: false, languageCode: (state as AppLoaded).languageCode));
     }
   }

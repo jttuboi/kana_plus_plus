@@ -1,9 +1,0 @@
-export 'domain/repositories/app.interface.repository.dart';
-export 'domain/use_cases/finish_first_time.dart';
-export 'domain/use_cases/is_first_time.dart';
-export 'infra/repositories/app.repository.dart';
-export 'presentation/cubit/app_cubit.dart';
-export 'presentation/pages/menu.page.dart';
-export 'presentation/widgets/falling_kana_animation.dart';
-export 'presentation/widgets/introduction.dart';
-export 'presentation/widgets/menu_background.dart';

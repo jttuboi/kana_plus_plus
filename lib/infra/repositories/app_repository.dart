@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:kwriting/core/core.dart';
-import 'package:kwriting/features/menu/menu.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class AppRepository implements IAppRepository {
   late Box _box;
