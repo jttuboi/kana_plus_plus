@@ -1,4 +1,4 @@
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 abstract class IWritingHandRepository {
   Future<WritingHand> getWritingHand();

@@ -1,7 +1,7 @@
 // ignore_for_file: sort_constructors_first
 
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class Word extends Equatable {

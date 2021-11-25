@@ -1,6 +1,6 @@
 // ignore_for_file: sort_constructors_first
 
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class KanaModel {
   const KanaModel({

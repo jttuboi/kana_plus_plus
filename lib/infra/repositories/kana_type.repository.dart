@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:kwriting/core/core.dart';
 import 'package:kwriting/domain/domain.dart';
 
 class KanaTypeRepository implements IKanaTypeRepository {

@@ -1,4 +1,4 @@
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/infra/infra.dart';
 
 class File {
   factory File() => _instance;

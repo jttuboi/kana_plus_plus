@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:kwriting/core/core.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/domain/entities/kana_to_writer.dart';
 

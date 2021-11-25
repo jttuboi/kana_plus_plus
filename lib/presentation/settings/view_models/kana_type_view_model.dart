@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class KanaTypeViewModel extends Equatable {
   const KanaTypeViewModel({required this.kanaType, required this.iconUrl});

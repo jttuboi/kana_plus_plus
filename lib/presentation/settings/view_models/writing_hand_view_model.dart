@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class WritingHandViewModel extends Equatable {
   const WritingHandViewModel({required this.writingHand, required this.iconUrl});

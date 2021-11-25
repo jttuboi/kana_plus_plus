@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/training.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage._(this._reviewController, this._wordsResult, {Key? key}) : super(key: key);

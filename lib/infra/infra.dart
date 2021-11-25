@@ -1,3 +1,6 @@
+export 'datasources/file.dart';
+export 'datasources/file_interface_storage.dart';
+export 'datasources/json_storage.dart';
 export 'repositories/app_repository.dart';
 export 'repositories/kana_type.repository.dart';
 export 'repositories/language.repository.dart';

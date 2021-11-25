@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/core.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/settings/settings.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:provider/provider.dart';
 
 class PreTrainingPage extends StatelessWidget {

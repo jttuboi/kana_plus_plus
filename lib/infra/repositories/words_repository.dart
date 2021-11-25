@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:kwriting/core/core.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class WordsRepository implements IWordsRepository {

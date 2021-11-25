@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class DefaultTile extends StatelessWidget {
   const DefaultTile({required this.title, required this.subtitle, required this.iconUrl, this.onTap, Key? key}) : super(key: key);

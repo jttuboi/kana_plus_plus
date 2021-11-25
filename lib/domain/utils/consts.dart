@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 double appBarExpandedHeight(BuildContext context) {
   return MediaQuery.of(context).size.height * 1 / 5;
@@ -117,6 +117,7 @@ class DatabaseTag {
 }
 
 class FileUrl {
+  FileUrl._();
   static const kanas = 'assets/database/kanas.json';
   static const translates = 'assets/database/translates.json';
   static const words = 'assets/database/words.json';

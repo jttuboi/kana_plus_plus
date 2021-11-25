@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 class JsonStorage implements IFileStorage {
   final data = JsonData();

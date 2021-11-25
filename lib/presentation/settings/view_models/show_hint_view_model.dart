@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class ShowHintViewModel extends Equatable {
   const ShowHintViewModel({required this.showHint, required this.iconUrl});

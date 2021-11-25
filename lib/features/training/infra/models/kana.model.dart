@@ -1,4 +1,4 @@
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/training.dart';
 
 class KanaModel extends Kana {

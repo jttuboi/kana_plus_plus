@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/study/study.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 
 class StudyPage extends StatelessWidget {
   const StudyPage._({Key? key}) : super(key: key);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/presentation/menu/menu.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:provider/provider.dart';
 
 class LanguageTile extends StatelessWidget {

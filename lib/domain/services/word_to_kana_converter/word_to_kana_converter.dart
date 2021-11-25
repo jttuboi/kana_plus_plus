@@ -1,4 +1,4 @@
-import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 
 class WordToKanaConverter {
   List<KanaModel> convert(String wordId, Map<String, KanaModel> kanasMap) {
