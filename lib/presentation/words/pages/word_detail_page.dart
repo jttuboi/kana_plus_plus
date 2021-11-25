@@ -10,14 +10,14 @@ class WordDetailPage extends StatelessWidget {
   static const routeName = '/word_detail';
   static const argWord = 'argWord';
 
-  static Route route({required Word word}) {
+  static Route route({required WordViewModel word}) {
     return MaterialPageRoute(builder: (context) => WordDetailPage._(word));
   }
 
   final _titleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
   final _contentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
 
-  final Word _word;
+  final WordViewModel _word;
 
   @override
   Widget build(BuildContext context) {

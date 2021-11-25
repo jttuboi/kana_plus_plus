@@ -1,8 +1,9 @@
 // ignore_for_file: sort_constructors_first
 
+import 'package:equatable/equatable.dart';
 import 'package:kwriting/domain/domain.dart';
 
-class WordModel {
+class WordModel extends Equatable {
   const WordModel({
     required this.id,
     required this.romaji,
@@ -18,6 +19,9 @@ class WordModel {
   final String imageUrl;
   final TranslateModel translate;
   final List<KanaModel> kanas;
+
+  @override
+  List<Object?> get props => [id, romaji, kanaType, imageUrl, translate, kanas];
 
   factory WordModel.fromJson(Map<String, dynamic> json) {
     return WordModel(

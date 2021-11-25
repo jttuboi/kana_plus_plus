@@ -12,7 +12,7 @@ class WordsSearchDelegate extends SearchDelegate {
           searchFieldLabel: searchFieldLabel,
         );
 
-  final List<Word> words;
+  final List<WordViewModel> words;
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -54,11 +54,11 @@ class WordsSearchDelegate extends SearchDelegate {
     return _buildSuggestions(suggestions);
   }
 
-  bool _hasQuery(Word word) {
+  bool _hasQuery(WordViewModel word) {
     return word.id.contains(query.trim()) || word.romaji.contains(query.trim()) || word.translate.contains(query.trim());
   }
 
-  Widget _buildSuggestions(List<Word> suggestions) {
+  Widget _buildSuggestions(List<WordViewModel> suggestions) {
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index) {

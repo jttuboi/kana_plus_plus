@@ -19,7 +19,8 @@ class WordsBloc extends Bloc<WordsEvent, WordsState> {
 
   Future<void> _onWordsLoaded(WordsLoaded event, Emitter<WordsState> emit) async {
     try {
-      final words = await wordsRepository.fetchTodos();
+      final wordModels = await wordsRepository.fetchTodos();
+      final words = wordModels.map((wordModel) => WordViewModel.fromWordModel(wordModel, languageCode: event.languageCode)).toList();
       emit(WordsLoadSuccess(words));
     } catch (e, s) {
       log('_onTodosLoaded', error: e, stackTrace: s);

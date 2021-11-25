@@ -40,7 +40,7 @@ class FilteredWordsBloc extends Bloc<FilteredWordsEvent, FilteredWordsState> {
     emit(FilteredWordsLoadSuccess(filteredWords: getFilteredWords, currentFilter: filter));
   }
 
-  List<Word> _getFilteredWords(List<Word> words, Filter filter, String query) {
+  List<WordViewModel> _getFilteredWords(List<WordViewModel> words, Filter filter, String query) {
     return words.where((todo) {
       if (filter.isAll) {
         return true;

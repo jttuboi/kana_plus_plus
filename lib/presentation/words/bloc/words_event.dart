@@ -8,7 +8,12 @@ abstract class WordsEvent extends Equatable {
 }
 
 class WordsLoaded extends WordsEvent {
-  const WordsLoaded();
+  const WordsLoaded(this.languageCode);
+
+  final String languageCode;
+
+  @override
+  List<Object> get props => [languageCode];
 
   @override
   String toString() => 'WordsLoaded()';

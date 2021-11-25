@@ -1,7 +1,7 @@
 // ignore_for_file: one_member_abstracts
 
-import 'package:kwriting/presentation/words/words.dart';
+import 'package:kwriting/domain/domain.dart';
 
 abstract class IWordsRepository {
-  Future<List<Word>> fetchTodos();
+  Future<List<WordModel>> fetchTodos();
 }

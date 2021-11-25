@@ -10,7 +10,7 @@ abstract class WordsState extends Equatable {
 class WordsLoadSuccess extends WordsState {
   const WordsLoadSuccess([this.words = const []]);
 
-  final List<Word> words;
+  final List<WordViewModel> words;
 
   @override
   List<Object> get props => [words];

@@ -20,7 +20,7 @@ class FilteredWordsLoadSuccess extends FilteredWordsState {
     required this.currentFilter,
   });
 
-  final List<Word> filteredWords;
+  final List<WordViewModel> filteredWords;
   final Filter currentFilter;
 
   @override

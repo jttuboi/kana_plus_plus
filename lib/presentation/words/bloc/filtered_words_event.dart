@@ -22,7 +22,7 @@ class FilterUpdated extends FilteredWordsEvent {
 class WordsUpdated extends FilteredWordsEvent {
   const WordsUpdated(this.words);
 
-  final List<Word> words;
+  final List<WordViewModel> words;
 
   @override
   List<Object> get props => [words];

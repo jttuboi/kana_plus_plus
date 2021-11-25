@@ -3,8 +3,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:kwriting/domain/domain.dart';
 
-class Kana extends Equatable {
-  const Kana({
+class KanaViewModel extends Equatable {
+  const KanaViewModel({
     required this.id,
     required this.kanaType,
     required this.romaji,
@@ -19,10 +19,10 @@ class Kana extends Equatable {
   final int strokesQuantity;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id, kanaType, romaji, imageUrl, strokesQuantity];
 
-  factory Kana.fromKanaModel(KanaModel kanaModel) {
-    return Kana(
+  factory KanaViewModel.fromKanaModel(KanaModel kanaModel) {
+    return KanaViewModel(
       id: kanaModel.id,
       kanaType: kanaModel.kanaType,
       romaji: kanaModel.romaji,

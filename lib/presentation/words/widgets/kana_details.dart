@@ -7,7 +7,7 @@ class KanasDetails extends StatelessWidget {
 
   final kanaDetailSpaceBetweenKanas = Device.get().isTablet ? 6.0 : 2.0;
 
-  final List<Kana> kanas;
+  final List<KanaViewModel> kanas;
 
   @override
   Widget build(BuildContext context) {

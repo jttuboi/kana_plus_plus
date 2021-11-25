@@ -1,8 +1,9 @@
 // ignore_for_file: sort_constructors_first
 
+import 'package:equatable/equatable.dart';
 import 'package:kwriting/domain/domain.dart';
 
-class KanaModel {
+class KanaModel extends Equatable {
   const KanaModel({
     required this.id,
     required this.kanaType,
@@ -16,6 +17,9 @@ class KanaModel {
   final String romaji;
   final String imageUrl;
   final int strokesQuantity;
+
+  @override
+  List<Object?> get props => [id, kanaType, romaji, imageUrl, strokesQuantity];
 
   factory KanaModel.fromJson(Map<String, dynamic> json) {
     return KanaModel(

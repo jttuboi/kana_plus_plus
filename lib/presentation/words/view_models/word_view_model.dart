@@ -4,8 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
-class Word extends Equatable {
-  const Word({
+class WordViewModel extends Equatable {
+  const WordViewModel({
     required this.id,
     required this.romaji,
     required this.kanaType,
@@ -19,19 +19,19 @@ class Word extends Equatable {
   final KanaType kanaType;
   final String imageUrl;
   final String translate;
-  final List<Kana> kanas;
+  final List<KanaViewModel> kanas;
 
   @override
   List<Object?> get props => [id, romaji, kanaType, imageUrl, translate, kanas];
 
-  factory Word.fromWordModel(WordModel wordModel, {required String languageCode}) {
-    return Word(
+  factory WordViewModel.fromWordModel(WordModel wordModel, {required String languageCode}) {
+    return WordViewModel(
       id: wordModel.id,
       romaji: wordModel.romaji,
       kanaType: wordModel.kanaType,
       imageUrl: wordModel.imageUrl,
       translate: wordModel.translate.toTranslateStr(languageCode),
-      kanas: wordModel.kanas.map((kanaModel) => Kana.fromKanaModel(kanaModel)).toList(),
+      kanas: wordModel.kanas.map((kanaModel) => KanaViewModel.fromKanaModel(kanaModel)).toList(),
     );
   }
 }
