@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kwriting/features/training/training.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 
 class KanaDetail extends StatelessWidget {
   const KanaDetail({required this.imageUrl, required this.size, Key? key}) : super(key: key);

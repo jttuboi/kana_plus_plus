@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/study/study.dart';
-import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/menu/menu.dart';
 import 'package:kwriting/presentation/settings/settings.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
+import 'package:kwriting/presentation/training/training.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class AndroidApp extends StatelessWidget {

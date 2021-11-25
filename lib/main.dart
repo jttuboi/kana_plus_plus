@@ -4,7 +4,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:kwriting/app.dart';
 import 'package:kwriting/domain/domain.dart';
-import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:path_provider/path_provider.dart';
 

@@ -6,10 +6,10 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/study/study.dart';
-import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/presentation/menu/menu.dart';
 import 'package:kwriting/presentation/settings/settings.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
+import 'package:kwriting/presentation/training/training.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class MenuPage extends StatelessWidget {
