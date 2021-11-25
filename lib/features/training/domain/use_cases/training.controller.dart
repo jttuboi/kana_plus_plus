@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/training.dart';
 
 class TrainingController {

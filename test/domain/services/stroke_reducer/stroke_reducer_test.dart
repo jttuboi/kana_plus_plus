@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stroke_reducer/stroke_reducer.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kwriting/domain/domain.dart';
 
 void main() {
   group('StrokeReducer', () {

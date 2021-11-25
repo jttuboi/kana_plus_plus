@@ -120,6 +120,7 @@ class FileUrl {
   static const kanas = 'assets/database/kanas.json';
   static const translates = 'assets/database/translates.json';
   static const words = 'assets/database/words.json';
+  static const points = 'assets/database/points.json';
 }
 
 KanaType toKanaType(String data) {

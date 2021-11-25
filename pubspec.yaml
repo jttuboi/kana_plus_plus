@@ -23,16 +23,12 @@ dependencies:
   in_app_review: ^2.0.3
   intl: ^0.17.0
   introduction_screen: ^2.1.0
-  kana_checker:
-    path: packages/kana_checker
   launch_review: ^3.0.1
   package_info_plus: ^1.3.0
   path_provider: ^2.0.7
   provider: ^6.0.0
   share_plus: ^3.0.2
   step_progress_indicator: ^1.0.1
-  stroke_reducer:
-    path: packages/stroke_reducer
   url_launcher: ^6.0.11
 
 dev_dependencies:

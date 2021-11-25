@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kana_checker/src/points_data.dart';
-import 'package:kana_checker/src/verify_conditions.dart';
+import 'package:kwriting/domain/services/kana_checker/points_data.dart';
+import 'package:kwriting/domain/services/kana_checker/verify_conditions.dart';
 
 class KanaChecker {
   KanaChecker({

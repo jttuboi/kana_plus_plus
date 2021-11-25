@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_int_literals
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_checker/kana_checker.dart';
+import 'package:kwriting/domain/domain.dart';
 
 void main() {
   late KanaChecker kanaChecker;

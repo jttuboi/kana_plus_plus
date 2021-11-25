@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/core/core.dart';
+import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/training.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/settings/settings.dart';
 import 'package:provider/provider.dart';
-import 'package:stroke_reducer/stroke_reducer.dart';
 
 class PreTrainingPage extends StatelessWidget {
   const PreTrainingPage._({Key? key}) : super(key: key);

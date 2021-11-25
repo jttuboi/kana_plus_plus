@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kana_checker/src/points_data.dart';
+import 'package:kwriting/domain/services/kana_checker/points_data.dart';
 
 void main() {
   group('PointsData', () {

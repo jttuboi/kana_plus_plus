@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kwriting/core/core.dart';
 
 class PointsData {
-  final _fileUrl = 'packages/kana_checker/assets/points.json';
-
   Future<Map<String, List<List<Offset>>>> preloadData() async {
-    final response = await rootBundle.loadString(_fileUrl);
+    final response = await rootBundle.loadString(FileUrl.points);
     final jsonMap = json.decode(response) as Map<String, dynamic>;
     return convertToData(jsonMap);
   }

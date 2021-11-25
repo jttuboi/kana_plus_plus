@@ -1,10 +1,8 @@
 import 'dart:ui';
 
-import 'package:kana_checker/kana_checker.dart';
 import 'package:kwriting/core/core.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/features/training/domain/entities/kana_to_writer.dart';
-import 'package:stroke_reducer/stroke_reducer.dart';
 
 class WriterController {
   WriterController({
