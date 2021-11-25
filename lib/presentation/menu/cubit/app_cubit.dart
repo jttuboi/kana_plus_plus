@@ -2,9 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:kwriting/core/core.dart';
 import 'package:kwriting/domain/domain.dart';
-import 'package:kwriting/features/settings/settings.dart';
 
 part 'app_state.dart';
 
@@ -14,7 +12,7 @@ class AppCubit extends Cubit<AppState> {
       if (isFirstTime) {
         emit(AppLoaded(isFirstTimeOpenApp: isFirstTime));
       } else {
-        _getLanguage(NoParams()).then((languageCode) {
+        languageRepository.getLanguage().then((languageCode) {
           emit(AppLoaded(isFirstTimeOpenApp: isFirstTime, languageCode: languageCode));
         });
       }
@@ -23,20 +21,17 @@ class AppCubit extends Cubit<AppState> {
 
   final IAppRepository appRepository;
   final ILanguageRepository languageRepository;
-  late final GetLanguage _getLanguage;
-  late final UpdateLanguage _updateLanguage;
 
   Future<void> firstTimeOpenFinished() async {
     if (state is AppLoaded) {
       await appRepository.setFirstTime(false);
-      ;
       emit(AppLoaded(isFirstTimeOpenApp: false, languageCode: (state as AppLoaded).languageCode));
     }
   }
 
   Future<void> languageChanged(String languageCode) async {
     if (state is AppLoaded) {
-      await _updateLanguage(LanguageParams(languageCode));
+      await languageRepository.updateLanguage(languageCode);
       emit(AppLoaded(isFirstTimeOpenApp: (state as AppLoaded).isFirstTimeOpenApp, languageCode: languageCode));
     }
   }
