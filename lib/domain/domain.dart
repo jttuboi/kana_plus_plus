@@ -2,8 +2,6 @@
 export 'package:flutter_gen/gen_l10n/j_strings.dart';
 export 'models/kana_model.dart';
 export 'models/kana_type.dart';
-export 'models/selection_option_args.dart';
-export 'models/selection_option_item.dart';
 export 'models/translate.model.dart';
 export 'models/word_model.dart';
 export 'models/writing_hand.dart';

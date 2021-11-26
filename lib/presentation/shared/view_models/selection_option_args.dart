@@ -1,4 +1,4 @@
-import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 
 class SelectionOptionArgs {
   SelectionOptionArgs({
