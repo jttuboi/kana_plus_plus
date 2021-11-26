@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:kwriting/features/study/study.dart';
+import 'package:kwriting/presentation/study/study.dart';
 
 class StudyTable extends StatelessWidget {
   const StudyTable({required String title, required List<StudyTableRow> rows, Key? key})

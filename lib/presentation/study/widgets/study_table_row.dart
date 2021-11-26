@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/features/study/study.dart';
+import 'package:kwriting/presentation/study/study.dart';
 
 class StudyTableRow extends StatelessWidget {
   const StudyTableRow({List<String>? a, List<String>? i, List<String>? u, List<String>? e, List<String>? o, Key? key})
