@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class UserKanaViewer extends StatelessWidget {
   const UserKanaViewer({
-    required this.strokes,
+    required this.userStrokes,
     required this.size,
     this.strokeWidth = 5.0,
     Key? key,
   }) : super(key: key);
 
-  final List<List<Offset>> strokes;
+  final List<List<Offset>> userStrokes;
   final Size size;
   final double strokeWidth;
 
@@ -18,7 +18,7 @@ class UserKanaViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: size,
-      painter: _UserKanaPainter(strokes, strokeWidth),
+      painter: _UserKanaPainter(userStrokes, strokeWidth),
     );
   }
 }

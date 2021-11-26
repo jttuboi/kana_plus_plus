@@ -6,7 +6,7 @@ import 'package:kwriting/presentation/training/training.dart';
 class ReviewTile extends StatelessWidget {
   const ReviewTile({required this.wordResult, Key? key}) : super(key: key);
 
-  final WordResult wordResult;
+  final WordViewModel wordResult;
 
   @override
   Widget build(BuildContext context) {

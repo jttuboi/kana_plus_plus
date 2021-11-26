@@ -72,19 +72,11 @@ class _PlayButton extends StatelessWidget {
       TrainingPage.routeName,
       (route) => route.isFirst,
       arguments: {
-        TrainingPage.argTrainingController: TrainingController(
-          wordRepository: WordRepository(),
-          statisticsRepository: StatisticsRepository(),
-          kanaChecker: KanaChecker(),
+        TrainingPage.argTrainingSettings: TrainingSettings(
           showHint: context.read<ShowHintChangeNotifier>().data.showHint,
           kanaType: context.read<KanaTypeChangeNotifier>().data.kanaType,
           quantityOfWords: context.read<QuantityOfWordsChangeNotifier>().quantity,
-        ),
-        TrainingPage.argWriterController: WriterController(
-          writingHandRepository: WritingHandRepository(),
-          strokeReducer: StrokeReducer(maxPointsQuantity: 20),
-          kanaChecker: KanaChecker(),
-          showHint: context.read<ShowHintChangeNotifier>().data.showHint,
+          languageCode: Localizations.localeOf(context).languageCode,
         ),
       },
     );

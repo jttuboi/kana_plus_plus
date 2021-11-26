@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
-import 'package:kwriting/presentation/training/training.dart';
 
 part 'kana_stats.g.dart';
 
@@ -13,12 +12,12 @@ class KanaStats {
     required this.strokes,
   });
 
-  factory KanaStats.fromKanaResult(KanaResult kana) {
+  factory KanaStats.fromKanaResult(KanaModel kana) {
     return KanaStats(
       id: kana.id,
-      correct: kana.isCorrect,
-      idWrote: kana.idWrote,
-      strokes: kana.strokesDrew.map((stroke) => StrokeStats.fromListOffset(stroke)).toList(),
+      correct: true, //kana.isCorrect,
+      idWrote: '', //kana.idWrote,
+      strokes: [], //kana.strokesDrew.map((stroke) => StrokeStats.fromListOffset(stroke)).toList(),
     );
   }
 

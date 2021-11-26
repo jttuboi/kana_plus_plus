@@ -23,12 +23,8 @@ export 'utils/icon_url.dart';
 export 'utils/image_url.dart';
 
 export 'models/kana_stats.dart';
-export 'models/kana2.model.dart';
 export 'models/point_stats.dart';
 export 'models/stroke_stats.dart';
 export 'models/training_stats.dart';
-export 'models/translate2model.dart';
 export 'models/word_stats.dart';
-export 'models/word2.model.dart';
 export 'repositories/statistics.interface.repository.dart';
-export 'repositories/word.interface.repository.dart';

@@ -86,9 +86,9 @@ class AppView extends StatelessWidget {
       case PreTrainingPage.routeName:
         return PreTrainingPage.route();
       case TrainingPage.routeName:
-        return TrainingPage.route(args[TrainingPage.argTrainingController], args[TrainingPage.argWriterController]);
+        return TrainingPage.route(trainingSettings: args[TrainingPage.argTrainingSettings]);
       case ReviewPage.routeName:
-        return ReviewPage.route(args[ReviewPage.argReviewController], wordsResult: args[ReviewPage.argWordsResult]);
+        return ReviewPage.route(wordsResult: args[ReviewPage.argWordsResult]);
       case WordsPage.routeName:
         return WordsPage.route();
       case WordDetailPage.routeName:

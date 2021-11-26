@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
-import 'package:kwriting/presentation/training/training.dart';
 
 part 'word_stats.g.dart';
 
@@ -12,7 +11,7 @@ class WordStats {
     required this.kanas,
   });
 
-  factory WordStats.fromWordResult(WordResult word) {
+  factory WordStats.fromWordResult(WordModel word) {
     final kanas = word.kanas.map((kana) => KanaStats.fromKanaResult(kana)).toList();
     final correct = kanas.indexWhere((kana) => kana.correct == false) == -1;
     return WordStats(

@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
-import 'package:kwriting/presentation/training/training.dart';
 
 part 'training_stats.g.dart';
 
@@ -13,7 +12,7 @@ class TrainingStats {
     required this.words,
   });
 
-  factory TrainingStats.fromWordsResult(bool showHint, KanaType type, int wordsQuantity, List<WordResult> words) {
+  factory TrainingStats.fromWordsResult(bool showHint, KanaType type, int wordsQuantity, List<WordModel> words) {
     return TrainingStats(
       showHint: showHint,
       type: type,

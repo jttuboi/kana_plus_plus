@@ -1,61 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/training/training.dart';
-import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class TrainingPage extends StatefulWidget {
-  const TrainingPage(this._trainingController, this._writerController, {Key? key}) : super(key: key);
+class TrainingPage extends StatelessWidget {
+  const TrainingPage({required this.trainingSettings, Key? key}) : super(key: key);
 
   static const routeName = '/training';
-  static const argTrainingController = 'argTrainingController';
-  static const argWriterController = 'argWriterController';
-
-  static Route route(TrainingController trainingController, WriterController writerController) {
-    return MaterialPageRoute(builder: (context) => TrainingPage(trainingController, writerController));
+  static const argTrainingSettings = 'argTrainingSettings';
+  static Route route({required TrainingSettings trainingSettings}) {
+    return MaterialPageRoute(builder: (context) => TrainingPage(trainingSettings: trainingSettings));
   }
 
-  final TrainingController _trainingController;
-  final WriterController _writerController;
-
-  @override
-  State<TrainingPage> createState() => _TrainingPageState();
-}
-
-class _TrainingPageState extends State<TrainingPage> {
-  final PageController _pageController = PageController();
+  final TrainingSettings trainingSettings;
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider<TrainingWordChangeNotifier>(create: (context) => TrainingWordChangeNotifier()),
-        ChangeNotifierProvider<TrainingKanaChangeNotifier>(create: (context) => TrainingKanaChangeNotifier(widget._trainingController)),
-        ChangeNotifierProvider<WriterChangeNotifier>(create: (context) => WriterChangeNotifier(widget._writerController)),
+        BlocProvider(create: (context) => WriterBloc(strokeReducer: StrokeReducer(maxPointsQuantity: 20), kanaChecker: KanaChecker())),
+        BlocProvider(create: (context) => ListBloc(BlocProvider.of<WriterBloc>(context), WordsRepository())..add(ListStarted(trainingSettings))),
+        BlocProvider(create: (context) => TrainingBloc(BlocProvider.of<ListBloc>(context))),
+        BlocProvider(create: (context) => WordBloc(BlocProvider.of<ListBloc>(context))),
+        BlocProvider(create: (context) => KanaBloc(BlocProvider.of<ListBloc>(context))),
       ],
-      child: FutureBuilder<bool>(
-        future: widget._trainingController.isReady,
-        builder: (context2, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return _buildLoader();
-          }
-          if (snapshot.hasError) {
-            return _buildError(context2);
-          }
-          if (snapshot.hasData && snapshot.data! == true) {
-            widget._writerController.updateWriter(widget._trainingController.currentKanaToWrite);
-            return _buildData(context2);
-          }
-          return _buildNoData(context2);
-        },
-      ),
+      child: const TrainingView(),
     );
   }
+}
 
-  Widget _buildData(BuildContext context) {
+class TrainingView extends StatefulWidget {
+  const TrainingView({Key? key}) : super(key: key);
+
+  @override
+  _TrainingViewState createState() => _TrainingViewState();
+}
+
+class _TrainingViewState extends State<TrainingView> {
+  final _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         _buildQuitDialog(context);
@@ -68,85 +63,95 @@ class _TrainingPageState extends State<TrainingPage> {
             onPressed: () => _buildQuitDialog(context),
           ),
         ),
-        body: Column(
-          children: [
-            Consumer<TrainingWordChangeNotifier>(
-              builder: (context, value, child) {
-                return StepProgressIndicator(
-                  currentStep: widget._trainingController.wordIdx,
-                  totalSteps: widget._trainingController.quantityOfWords,
-                  size: Device.get().isTablet ? 6.0 : 5.0,
-                  padding: 0.5,
-                  selectedColor: Theme.of(context).colorScheme.secondary,
-                  unselectedColor: Colors.grey.shade400,
-                );
-              },
-            ),
-            Expanded(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return PageView.builder(
-                    controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget._trainingController.numberOfWordsToStudy,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          const Spacer(),
-                          Consumer<TrainingWordChangeNotifier>(
-                            builder: (context, value, child) {
-                              return GestureDetector(
-                                onTap: () => {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(widget._trainingController.wordTranslate),
-                                      duration: const Duration(seconds: 1),
+        body: BlocListener<ListBloc, ListState>(
+          listenWhen: (previous, current) {
+            return previous != current;
+          },
+          listener: (context, state) {
+            if (state is ListWordReady) {
+              _pageController.animateToPage(state.wordIndex, duration: const Duration(milliseconds: 500), curve: Curves.easeInOutCubic);
+            }
+            if (state is TrainingEnded) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                ReviewPage.routeName,
+                (route) => route.isFirst,
+                arguments: {ReviewPage.argWordsResult: state.words},
+              );
+            }
+          },
+          child: BlocBuilder<TrainingBloc, TrainingState>(
+            builder: (context, trainingState) {
+              if (trainingState is TrainingReady) {
+                return Column(
+                  children: [
+                    BlocBuilder<WordBloc, WordState>(
+                      builder: (context, wordState) {
+                        return StepProgressIndicator(
+                          currentStep: (wordState is WordReady) ? wordState.index : 0,
+                          totalSteps: (wordState is WordReady) ? wordState.total : 1,
+                          size: Device.get().isTablet ? 6 : 5,
+                          padding: 0.5,
+                          selectedColor: Theme.of(context).colorScheme.secondary,
+                          unselectedColor: Colors.grey.shade400,
+                        );
+                      },
+                    ),
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return PageView.builder(
+                            controller: _pageController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: (context.watch<WordBloc>().state is WordReady) ? (context.watch<WordBloc>().state as WordReady).total : 1,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  const Spacer(),
+                                  BlocBuilder<WordBloc, WordState>(
+                                    builder: (context, wordState) {
+                                      return GestureDetector(
+                                        onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text((wordState as WordReady).translate),
+                                            duration: const Duration(seconds: 1),
+                                          ),
+                                        ),
+                                        child: SvgPicture.asset((wordState as WordReady).imageUrl, height: constraints.maxHeight * 10 / 30),
+                                      );
+                                    },
+                                  ),
+                                  const Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                                    child: KanaViewers(
+                                      width: constraints.maxWidth - 16 * 2, // 16 * 2 is the padding size for this content
+                                      height: constraints.maxHeight * 4 / 30,
                                     ),
                                   ),
-                                },
-                                child: SvgPicture.asset(widget._trainingController.wordImageUrl, height: constraints.maxHeight * 10 / 30),
+                                  const Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                                    child: Writer(
+                                      squareSize: constraints.maxHeight * 12 / 30,
+                                      borderSize: 9,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                ],
                               );
                             },
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: KanaViewers(
-                              width: constraints.maxWidth - 16.0 * 2, // 16 * 2 is the padding size for this content
-                              height: constraints.maxHeight * 4 / 30,
-                              trainingController: widget._trainingController,
-                              wordIdxToShow: index,
-                            ),
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 32),
-                            child: Row(
-                              children: [
-                                const Spacer(),
-                                Consumer<WriterChangeNotifier>(
-                                  builder: (context, value, child) {
-                                    return Writer(
-                                      writerController: widget._writerController,
-                                      width: constraints.maxWidth - 32.0 * 2, // 32 * 2 is the padding size for this content
-                                      height: constraints.maxHeight * 12 / 30,
-                                      onKanaRecovered: (pointsFiltered, kanaId) => _onKanaRecovered(pointsFiltered, kanaId, context),
-                                    );
-                                  },
-                                ),
-                                const Spacer(),
-                              ],
-                            ),
-                          ),
-                          const Spacer(),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+              // TODO ver se tem como criar um shadow para representar um fake loading
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );
@@ -171,80 +176,5 @@ class _TrainingPageState extends State<TrainingPage> {
         ],
       ),
     );
-  }
-
-  void _onKanaRecovered(List<List<Offset>> pointsFiltered, String kanaId, BuildContext context) {
-    final kanaChangeNotifier = Provider.of<TrainingKanaChangeNotifier>(context, listen: false);
-    final writerChangeNotifier = Provider.of<WriterChangeNotifier>(context, listen: false);
-    final situation = kanaChangeNotifier.updateKana(pointsFiltered, kanaId);
-    writerChangeNotifier.disable();
-    Future.delayed(const Duration(milliseconds: 800)).then((value) {
-      if (situation.isChangeKana) {
-        _goToNextKana(context);
-      } else if (situation.isChangeWord) {
-        _goToNextWord(context);
-      } else if (situation.isChangeTheLastWord) {
-        _goToReviewPage(context);
-      }
-      writerChangeNotifier.enable();
-    });
-  }
-
-  void _goToNextKana(BuildContext context) {
-    _updateWriterData(context);
-  }
-
-  void _goToNextWord(BuildContext context) {
-    _pageController
-        .animateToPage(
-      widget._trainingController.wordIdx,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.linear,
-    )
-        .then((value) {
-      Provider.of<TrainingWordChangeNotifier>(context, listen: false).updateState();
-      _updateWriterData(context);
-    });
-  }
-
-  void _goToReviewPage(BuildContext context) {
-    final wordsResult = widget._trainingController.wordsResult;
-    widget._trainingController.updateStatistics(wordsResult);
-
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      ReviewPage.routeName,
-      (route) => route.isFirst,
-      arguments: {
-        ReviewPage.argReviewController: ReviewController(statisticsRepository: StatisticsRepository()),
-        ReviewPage.argWordsResult: wordsResult,
-      },
-    );
-  }
-
-  void _updateWriterData(BuildContext context) {
-    Provider.of<WriterChangeNotifier>(context, listen: false).updateWriter(widget._trainingController.currentKanaToWrite);
-  }
-
-  Widget _buildLoader() {
-    return const Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator())));
-  }
-
-  Widget _buildError(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: SvgPicture.asset(
-          IconUrl.error,
-          color: Theme.of(context).primaryIconTheme.color,
-          width: Theme.of(context).primaryIconTheme.size,
-          height: Theme.of(context).primaryIconTheme.size,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNoData(BuildContext context) {
-    return _buildError(context);
   }
 }

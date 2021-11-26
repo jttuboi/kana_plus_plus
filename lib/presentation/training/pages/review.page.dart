@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/training/training.dart';
 
@@ -9,15 +10,16 @@ class ReviewPage extends StatefulWidget {
   const ReviewPage._(this._reviewController, this._wordsResult, {Key? key}) : super(key: key);
 
   static const routeName = '/review';
-  static const argReviewController = 'argReviewController';
   static const argWordsResult = 'argWordsResult';
 
-  static Route route(ReviewController reviewController, {List<WordResult>? wordsResult}) {
-    return MaterialPageRoute(builder: (context) => ReviewPage._(reviewController, wordsResult ?? const []));
+  static Route route({List<WordViewModel>? wordsResult}) {
+    return MaterialPageRoute(builder: (context) {
+      return ReviewPage._(ReviewController(statisticsRepository: StatisticsRepository()), wordsResult ?? const []);
+    });
   }
 
   final ReviewController _reviewController;
-  final List<WordResult> _wordsResult;
+  final List<WordViewModel> _wordsResult;
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
@@ -27,6 +29,8 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   void initState() {
     super.initState();
+    // TODO atualiza as estatisticas
+    //trainingController.updateStatistics(wordsResult);
     // print(widget.reviewController.showRateApp);
     // if (widget.reviewController.showRateApp) {
     //   // TODO add dialog for app rating and review

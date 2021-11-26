@@ -10,4 +10,3 @@ export 'repositories/words_repository.dart';
 export 'repositories/writing_hand.repository.dart';
 
 export 'repositories/statistics.repository.dart';
-export 'repositories/word.repository.dart';

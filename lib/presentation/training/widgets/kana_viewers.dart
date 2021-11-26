@@ -1,48 +1,58 @@
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/presentation/training/training.dart';
-import 'package:provider/provider.dart';
 
-class KanaViewers extends StatelessWidget {
-  KanaViewers({
+class KanaViewers extends StatefulWidget {
+  const KanaViewers({
     required this.width,
     required this.height,
-    required this.trainingController,
-    required this.wordIdxToShow,
     Key? key,
   }) : super(key: key);
 
   final double width;
   final double height;
-  final TrainingController trainingController;
-  final int wordIdxToShow;
 
+  @override
+  State<KanaViewers> createState() => _KanaViewersState();
+}
+
+class _KanaViewersState extends State<KanaViewers> {
   final _carouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: height,
-      child: Consumer<TrainingKanaChangeNotifier>(
-        builder: (context, value, child) {
-          if (_carouselController.ready && trainingController.kanaIdx != 0) {
-            _carouselController.jumpToPage(trainingController.kanaIdx);
+      width: widget.width,
+      height: widget.height,
+      child: BlocConsumer<KanaBloc, KanaState>(
+        listener: (context, state) {
+          if (state is KanaReady) {
+            if (_carouselController.ready && state.index != 0) {
+              _carouselController.animateToPage(state.index, duration: const Duration(milliseconds: 500), curve: Curves.easeInOutCubic);
+            }
           }
-          return CarouselSlider.builder(
-            options: CarouselOptions(
-              height: height,
-              viewportFraction: Device.get().isTablet ? 0.2 : 0.255,
-              aspectRatio: 1,
-              enableInfiniteScroll: false,
-            ),
-            carouselController: _carouselController,
-            itemCount: trainingController.maxKanasOfWord(wordIdxToShow),
-            itemBuilder: (context, index, realIndex) {
-              return KanaViewer(trainingController.kanaOfWord(wordIdxToShow, index), size: height);
-            },
-          );
+        },
+        builder: (context, kanaState) {
+          if (kanaState is KanaReady) {
+            return CarouselSlider.builder(
+              options: CarouselOptions(
+                height: widget.height,
+                viewportFraction: Device.get().isTablet ? 0.2 : 0.255,
+                aspectRatio: 1,
+                enableInfiniteScroll: false,
+              ),
+              carouselController: _carouselController,
+              itemCount: kanaState.total,
+              itemBuilder: (context, index, realIndex) {
+                return KanaViewer(kanaState.kanas[index], squareSize: widget.height);
+              },
+            );
+          }
+          // TODO trocar para um faka kana viewer
+          return Container(height: widget.height);
         },
       ),
     );
