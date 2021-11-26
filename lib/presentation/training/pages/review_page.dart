@@ -7,19 +7,19 @@ import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/training/training.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage._(this._reviewController, this._wordsResult, {Key? key}) : super(key: key);
+  const ReviewPage._({required this.reviewController, required this.wordsResult, Key? key}) : super(key: key);
 
   static const routeName = '/review';
   static const argWordsResult = 'argWordsResult';
 
   static Route route({List<WordViewModel>? wordsResult}) {
     return MaterialPageRoute(builder: (context) {
-      return ReviewPage._(ReviewController(statisticsRepository: StatisticsRepository()), wordsResult ?? const []);
+      return ReviewPage._(reviewController: ReviewController(statisticsRepository: StatisticsRepository()), wordsResult: wordsResult ?? const []);
     });
   }
 
-  final ReviewController _reviewController;
-  final List<WordViewModel> _wordsResult;
+  final ReviewController reviewController;
+  final List<WordViewModel> wordsResult;
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
@@ -29,8 +29,6 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   void initState() {
     super.initState();
-    // TODO atualiza as estatisticas
-    //trainingController.updateStatistics(wordsResult);
     // print(widget.reviewController.showRateApp);
     // if (widget.reviewController.showRateApp) {
     //   // TODO add dialog for app rating and review
@@ -59,12 +57,12 @@ class _ReviewPageState extends State<ReviewPage> {
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return index.isEven ? ReviewTile(wordResult: widget._wordsResult[index ~/ 2]) : const Divider(indent: 72);
+                return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72);
               },
               semanticIndexCallback: (widget, localIndex) {
                 return localIndex.isEven ? localIndex ~/ 2 : null;
               },
-              childCount: max(0, widget._wordsResult.length * 2 - 1),
+              childCount: max(0, widget.wordsResult.length * 2 - 1),
             ),
           ),
         ),

@@ -5,7 +5,7 @@ class ReviewController {
 
   final IStatisticsRepository statisticsRepository;
 
-  bool get showRateApp {
-    return statisticsRepository.trainingQuantity() % 10 == 0;
+  Future<bool> get showRateApp async {
+    return await statisticsRepository.trainingQuantity() % 10 == 0;
   }
 }

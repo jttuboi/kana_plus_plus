@@ -61,4 +61,12 @@ class KanaViewModel extends Equatable {
       userStrokes: userStrokes ?? this.userStrokes,
     );
   }
+
+  KanaStats toKanaStats() {
+    return KanaStats(
+      id: id,
+      correct: status.isCorrect,
+      strokes: userStrokes.map((stroke) => StrokeStats.fromListOffset(stroke)).toList(),
+    );
+  }
 }

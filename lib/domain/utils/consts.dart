@@ -93,6 +93,8 @@ class BoxTag {
   BoxTag._();
   static const app = 'app';
   static const settings = 'settings';
+  static const statisticCount = 'statisticCount';
+  static const statisticObjects = 'statisticObjects';
 }
 
 class DatabaseTag {
@@ -114,6 +116,15 @@ class DatabaseTag {
   static const kanaCorrectQuantity = 'kana_correct_quantity';
   static const kanaWrongQuantity = 'kana_wrong_quantity';
   static const trainingStats = 'training_stats';
+  static const specificWordCorrectQuantity = 'specificWordCorrectQuantity';
+  static const specificWordWrongQuantity = 'specificWordWrongQuantity';
+  static const specificKanaCorrectQuantity = 'specificKanaCorrectQuantity';
+  static const specificKanaWrongQuantity = 'specificKanaWrongQuantity';
+  static String keySpecificWordCorrectQuantity(String wordId) => 'correct_word_${_getCode(wordId)}';
+  static String keySpecificWordWrongQuantity(String wordId) => 'wrong_word_${_getCode(wordId)}';
+  static String keySpecificKanaCorrectQuantity(String kanaId) => 'correct_kana_${_getCode(kanaId)}';
+  static String keySpecificKanaWrongQuantity(String kanaId) => 'wrong_kana_${_getCode(kanaId)}';
+  static String _getCode(String id) => id.codeUnits.fold<String>('', (str, code) => str + '$code'.substring(2, 5));
 }
 
 class FileUrl {

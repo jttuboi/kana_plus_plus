@@ -23,7 +23,9 @@ class TrainingPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => WriterBloc(strokeReducer: StrokeReducer(maxPointsQuantity: 20), kanaChecker: KanaChecker())),
-        BlocProvider(create: (context) => ListBloc(BlocProvider.of<WriterBloc>(context), WordsRepository())..add(ListStarted(trainingSettings))),
+        BlocProvider(create: (context) {
+          return ListBloc(BlocProvider.of<WriterBloc>(context), WordsRepository(), StatisticsRepository())..add(ListStarted(trainingSettings));
+        }),
         BlocProvider(create: (context) => TrainingBloc(BlocProvider.of<ListBloc>(context))),
         BlocProvider(create: (context) => WordBloc(BlocProvider.of<ListBloc>(context))),
         BlocProvider(create: (context) => KanaBloc(BlocProvider.of<ListBloc>(context))),

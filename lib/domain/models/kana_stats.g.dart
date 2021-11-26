@@ -19,8 +19,7 @@ class KanaStatsAdapter extends TypeAdapter<KanaStats> {
     return KanaStats(
       id: fields[0] as String,
       correct: fields[1] as bool,
-      idWrote: fields[2] as String,
-      strokes: (fields[3] as List).cast<StrokeStats>(),
+      strokes: (fields[2] as List).cast<StrokeStats>(),
     );
   }
 
@@ -33,8 +32,6 @@ class KanaStatsAdapter extends TypeAdapter<KanaStats> {
       ..writeByte(1)
       ..write(obj.correct)
       ..writeByte(2)
-      ..write(obj.idWrote)
-      ..writeByte(3)
       ..write(obj.strokes);
   }
 

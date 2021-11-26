@@ -11,16 +11,6 @@ class WordStats {
     required this.kanas,
   });
 
-  factory WordStats.fromWordResult(WordModel word) {
-    final kanas = word.kanas.map((kana) => KanaStats.fromKanaResult(kana)).toList();
-    final correct = kanas.indexWhere((kana) => kana.correct == false) == -1;
-    return WordStats(
-      id: word.id,
-      correct: correct,
-      kanas: kanas,
-    );
-  }
-
   @HiveField(0)
   final String id;
   @HiveField(1)

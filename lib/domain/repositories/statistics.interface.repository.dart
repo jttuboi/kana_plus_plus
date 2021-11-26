@@ -1,55 +1,57 @@
 import 'package:kwriting/domain/domain.dart';
 
 abstract class IStatisticsRepository {
-  void increaseShowHintQuantity();
+  Future<void> increaseShowHintQuantity();
 
-  void increaseNotShowHintQuantity();
+  Future<void> increaseNotShowHintQuantity();
 
-  void increaseOnlyHiraganaQuantity();
+  Future<void> increaseOnlyHiraganaQuantity();
 
-  void increaseOnlyKatakanaQuantity();
+  Future<void> increaseOnlyKatakanaQuantity();
 
-  void increaseBothQuantity();
+  Future<void> increaseBothQuantity();
 
-  void increaseTrainingQuantity();
+  Future<void> increaseTrainingQuantity();
 
-  void increaseWordCorrectQuantity();
+  Future<void> increaseWordCorrectQuantity();
 
-  void increaseWordWrongQuantity();
+  Future<void> increaseWordWrongQuantity();
 
-  void increaseKanaCorrectQuantity();
+  Future<void> increaseKanaCorrectQuantity();
 
-  void increaseKanaWrongQuantity();
+  Future<void> increaseKanaWrongQuantity();
 
-  void increaseSpecificWordCorrectQuantity(String wordId);
+  Future<void> increaseSpecificWordCorrectQuantity(String wordId);
 
-  void increaseSpecificWordWrongQuantity(String wordId);
+  Future<void> increaseSpecificWordWrongQuantity(String wordId);
 
-  void increaseSpecificKanaCorrectQuantity(String kanaId);
+  Future<void> increaseSpecificKanaCorrectQuantity(String kanaId);
 
-  void increaseSpecificKanaWrongQuantity(String kanaId);
+  Future<void> increaseSpecificKanaWrongQuantity(String kanaId);
 
-  void saveTrainingStats(TrainingStats trainingStats);
+  Future<void> saveTrainingStats(TrainingStats trainingStats);
 
-  int showHintQuantity();
+  Future<int> showHintQuantity();
 
-  int notShowHintQuantity();
+  Future<int> notShowHintQuantity();
 
-  int onlyHiraganaQuantity();
+  Future<int> onlyHiraganaQuantity();
 
-  int onlyKatakanaQuantity();
+  Future<int> onlyKatakanaQuantity();
 
-  int bothQuantity();
+  Future<int> bothQuantity();
 
-  int trainingQuantity();
+  Future<int> trainingQuantity();
 
   Future<double> avgWordsPerTraining();
 
-  int specificWordCorrectQuantity(String wordId);
+  Future<int> specificWordCorrectQuantity(String wordId);
 
-  int specificWordWrongQuantity(String wordId);
+  Future<int> specificWordWrongQuantity(String wordId);
 
-  int specificKanaCorrectQuantity(String kanaId);
+  Future<int> specificKanaCorrectQuantity(String kanaId);
 
-  int specificKanaWrongQuantity(String kanaId);
+  Future<int> specificKanaWrongQuantity(String kanaId);
+
+  Future<List<TrainingStats>> getTrainingStats();
 }

@@ -42,4 +42,17 @@ class WordViewModel extends Equatable {
       kanas: kanas ?? this.kanas,
     );
   }
+
+  WordStats toWordStats() {
+    const isIncorrect = false;
+    const notFoundIncorrect = -1;
+
+    final kanaStats = kanas.map((kanaViewModel) => kanaViewModel.toKanaStats()).toList();
+    final correct = kanaStats.indexWhere((kanaStats) => kanaStats.correct == isIncorrect) == notFoundIncorrect;
+    return WordStats(
+      id: id,
+      correct: correct,
+      kanas: kanaStats,
+    );
+  }
 }

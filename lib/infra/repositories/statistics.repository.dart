@@ -2,149 +2,211 @@ import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
 
 class StatisticsRepository implements IStatisticsRepository {
-  //TODO modificar para box
+  late Box _boxCount;
+  late Box _boxObjects;
 
-  @override
-  void increaseShowHintQuantity() {
-    //Database.storage.setInt(DatabaseTag.showHintQuantity, Database.storage.getInt(DatabaseTag.showHintQuantity) + 1);
+  Future<void> load() async {
+    _boxCount = (Hive.isBoxOpen(BoxTag.statisticCount)) ? Hive.box(BoxTag.statisticCount) : await Hive.openBox(BoxTag.statisticCount);
+    _boxObjects = (Hive.isBoxOpen(BoxTag.statisticObjects)) ? Hive.box(BoxTag.statisticObjects) : await Hive.openBox(BoxTag.statisticObjects);
   }
 
   @override
-  void increaseNotShowHintQuantity() {
-    // Database.storage.setInt(DatabaseTag.notShowHintQuantity, Database.storage.getInt(DatabaseTag.notShowHintQuantity) + 1);
+  Future<void> increaseShowHintQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.showHintQuantity, await _boxCount.get(DatabaseTag.showHintQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseOnlyHiraganaQuantity() {
-    // Database.storage.setInt(DatabaseTag.onlyHiraganaQuantity, Database.storage.getInt(DatabaseTag.onlyHiraganaQuantity) + 1);
+  Future<void> increaseNotShowHintQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.notShowHintQuantity, await _boxCount.get(DatabaseTag.notShowHintQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseOnlyKatakanaQuantity() {
-    // Database.storage.setInt(DatabaseTag.onlyKatakanaQuantity, Database.storage.getInt(DatabaseTag.onlyKatakanaQuantity) + 1);
+  Future<void> increaseOnlyHiraganaQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.onlyHiraganaQuantity, await _boxCount.get(DatabaseTag.onlyHiraganaQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseBothQuantity() {
-    //Database.storage.setInt(DatabaseTag.bothQuantity, Database.storage.getInt(DatabaseTag.bothQuantity) + 1);
+  Future<void> increaseOnlyKatakanaQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.onlyKatakanaQuantity, await _boxCount.get(DatabaseTag.onlyKatakanaQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseTrainingQuantity() {
-    //Database.storage.setInt(DatabaseTag.trainingQuantity, Database.storage.getInt(DatabaseTag.trainingQuantity) + 1);
+  Future<void> increaseBothQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.bothQuantity, await _boxCount.get(DatabaseTag.bothQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseWordCorrectQuantity() {
-    //Database.storage.setInt(DatabaseTag.wordCorrectQuantity, Database.storage.getInt(DatabaseTag.wordCorrectQuantity) + 1);
+  Future<void> increaseTrainingQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.trainingQuantity, await _boxCount.get(DatabaseTag.trainingQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseWordWrongQuantity() {
-    //Database.storage.setInt(DatabaseTag.wordWrongQuantity, Database.storage.getInt(DatabaseTag.wordWrongQuantity) + 1);
+  Future<void> increaseWordCorrectQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.wordCorrectQuantity, await _boxCount.get(DatabaseTag.wordCorrectQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseKanaCorrectQuantity() {
-    //Database.storage.setInt(DatabaseTag.kanaCorrectQuantity, Database.storage.getInt(DatabaseTag.kanaCorrectQuantity) + 1);
+  Future<void> increaseWordWrongQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.wordWrongQuantity, await _boxCount.get(DatabaseTag.wordWrongQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseKanaWrongQuantity() {
-    //Database.storage.setInt(DatabaseTag.kanaWrongQuantity, Database.storage.getInt(DatabaseTag.kanaWrongQuantity) + 1);
+  Future<void> increaseKanaCorrectQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.kanaCorrectQuantity, await _boxCount.get(DatabaseTag.kanaCorrectQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseSpecificWordCorrectQuantity(String wordId) {
-    //Database.storage.setInt('c$wordId', Database.storage.getInt('c$wordId') + 1);
+  Future<void> increaseKanaWrongQuantity() async {
+    await load();
+    await _boxCount.put(DatabaseTag.kanaWrongQuantity, await _boxCount.get(DatabaseTag.kanaWrongQuantity, defaultValue: 0) + 1);
   }
 
   @override
-  void increaseSpecificWordWrongQuantity(String wordId) {
-    //Database.storage.setInt('w$wordId', Database.storage.getInt('w$wordId') + 1);
+  Future<void> increaseSpecificWordCorrectQuantity(String wordId) async {
+    await load();
+    final key = DatabaseTag.keySpecificWordCorrectQuantity(wordId);
+    const tag = DatabaseTag.specificWordCorrectQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
+    await _boxCount.put(tag, map);
   }
 
   @override
-  void increaseSpecificKanaCorrectQuantity(String kanaId) {
-    //Database.storage.setInt('c$kanaId', Database.storage.getInt('c$kanaId') + 1);
+  Future<void> increaseSpecificWordWrongQuantity(String wordId) async {
+    await load();
+    final key = DatabaseTag.keySpecificWordWrongQuantity(wordId);
+    const tag = DatabaseTag.specificWordWrongQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
+    await _boxCount.put(tag, map);
   }
 
   @override
-  void increaseSpecificKanaWrongQuantity(String kanaId) {
-    //Database.storage.setInt('w$kanaId', Database.storage.getInt('w$kanaId') + 1);
+  Future<void> increaseSpecificKanaCorrectQuantity(String kanaId) async {
+    await load();
+    final key = DatabaseTag.keySpecificKanaCorrectQuantity(kanaId);
+    const tag = DatabaseTag.specificKanaCorrectQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
+    await _boxCount.put(tag, map);
   }
 
   @override
-  void saveTrainingStats(TrainingStats trainingStats) {
-    Hive.openLazyBox<TrainingStats>(DatabaseTag.trainingStats).then((box) {
-      box.add(trainingStats);
-    });
+  Future<void> increaseSpecificKanaWrongQuantity(String kanaId) async {
+    await load();
+    final key = DatabaseTag.keySpecificKanaWrongQuantity(kanaId);
+    const tag = DatabaseTag.specificKanaWrongQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
+    await _boxCount.put(tag, map);
   }
 
   @override
-  int bothQuantity() {
-    return 0;
-    //return Database.storage.getInt(DatabaseTag.bothQuantity);
+  Future<void> saveTrainingStats(TrainingStats trainingStats) async {
+    await load();
+    await _boxObjects.add(trainingStats);
   }
 
   @override
-  int notShowHintQuantity() {
-    return 0;
-    //return Database.storage.getInt(DatabaseTag.notShowHintQuantity);
+  Future<int> bothQuantity() async {
+    await load();
+    return _boxCount.get(DatabaseTag.bothQuantity, defaultValue: 0);
   }
 
   @override
-  int onlyHiraganaQuantity() {
-    return 0;
-    //return Database.storage.getInt(DatabaseTag.onlyHiraganaQuantity);
+  Future<int> notShowHintQuantity() async {
+    await load();
+    return _boxCount.get(DatabaseTag.notShowHintQuantity, defaultValue: 0);
   }
 
   @override
-  int onlyKatakanaQuantity() {
-    return 0;
-    //return Database.storage.getInt(DatabaseTag.onlyKatakanaQuantity);
+  Future<int> onlyHiraganaQuantity() async {
+    await load();
+    return _boxCount.get(DatabaseTag.onlyHiraganaQuantity, defaultValue: 0);
   }
 
   @override
-  int showHintQuantity() {
-    return 0;
-    //return Database.storage.getInt(DatabaseTag.showHintQuantity);
+  Future<int> onlyKatakanaQuantity() async {
+    await load();
+    return _boxCount.get(DatabaseTag.onlyKatakanaQuantity, defaultValue: 0);
   }
 
   @override
-  int trainingQuantity() {
-    return 0;
-    //return Database.storage.getInt(DatabaseTag.trainingQuantity);
+  Future<int> showHintQuantity() async {
+    await load();
+    return _boxCount.get(DatabaseTag.showHintQuantity, defaultValue: 0);
+  }
+
+  @override
+  Future<int> trainingQuantity() async {
+    await load();
+    return _boxCount.get(DatabaseTag.trainingQuantity, defaultValue: 0);
   }
 
   @override
   Future<double> avgWordsPerTraining() async {
-    return Future.value(1.0);
-    // final box = await Hive.openBox<TrainingStats>(DatabaseTag.trainingStats);
-    // return box.values.map((trainingStats) => trainingStats.wordsQuantity).reduce((total, wordQuantity) => total + wordQuantity) / box.values.length;
+    await load();
+    return _boxObjects.values.map((trainingStats) => trainingStats.wordsQuantity).reduce((total, wordQuantity) => total + wordQuantity) /
+        _boxObjects.values.length;
   }
 
   @override
-  int specificWordCorrectQuantity(String wordId) {
-    return 0;
-    // return Database.storage.getInt('c$wordId');
+  Future<int> specificWordCorrectQuantity(String wordId) async {
+    await load();
+    final key = DatabaseTag.keySpecificWordCorrectQuantity(wordId);
+    const tag = DatabaseTag.specificWordCorrectQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    return map.containsKey(key) ? map[key]! : 0;
   }
 
   @override
-  int specificWordWrongQuantity(String wordId) {
-    return 0;
-    //return Database.storage.getInt('w$wordId');
+  Future<int> specificWordWrongQuantity(String wordId) async {
+    await load();
+
+    final key = DatabaseTag.keySpecificWordWrongQuantity(wordId);
+    const tag = DatabaseTag.specificWordWrongQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    return map.containsKey(key) ? map[key]! : 0;
   }
 
   @override
-  int specificKanaCorrectQuantity(String kanaId) {
-    return 0;
-    //return Database.storage.getInt('c$kanaId');
+  Future<int> specificKanaCorrectQuantity(String kanaId) async {
+    await load();
+    final key = DatabaseTag.keySpecificKanaCorrectQuantity(kanaId);
+    const tag = DatabaseTag.specificKanaCorrectQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    return map.containsKey(key) ? map[key]! : 0;
   }
 
   @override
-  int specificKanaWrongQuantity(String kanaId) {
-    return 0;
-    //return Database.storage.getInt('w$kanaId');
+  Future<int> specificKanaWrongQuantity(String kanaId) async {
+    await load();
+    final key = DatabaseTag.keySpecificKanaWrongQuantity(kanaId);
+    const tag = DatabaseTag.specificKanaWrongQuantity;
+
+    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    return map.containsKey(key) ? map[key]! : 0;
+  }
+
+  @override
+  Future<List<TrainingStats>> getTrainingStats() async {
+    await load();
+    return _boxObjects.values.toList() as List<TrainingStats>;
   }
 }

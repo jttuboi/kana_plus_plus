@@ -12,15 +12,6 @@ class TrainingStats {
     required this.words,
   });
 
-  factory TrainingStats.fromWordsResult(bool showHint, KanaType type, int wordsQuantity, List<WordModel> words) {
-    return TrainingStats(
-      showHint: showHint,
-      type: type,
-      wordsQuantity: wordsQuantity,
-      words: words.map((word) => WordStats.fromWordResult(word)).toList(),
-    );
-  }
-
   @HiveField(0)
   final bool showHint;
   @HiveField(1)

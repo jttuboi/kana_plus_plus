@@ -10,9 +10,10 @@ part 'list_event.dart';
 part 'list_state.dart';
 
 class ListBloc extends Bloc<ListEvent, ListState> {
-  ListBloc(WriterBloc writerBloc, IWordsRepository wordsRepository)
+  ListBloc(WriterBloc writerBloc, IWordsRepository wordsRepository, IStatisticsRepository statisticsRepository)
       : _writerBloc = writerBloc,
         _wordsRepository = wordsRepository,
+        _statisticsRepository = statisticsRepository,
         super(ListInitial()) {
     on<ListStarted>(_onListStarted);
     on<ListWordUpdated>(_onWordUpdated);
@@ -22,11 +23,16 @@ class ListBloc extends Bloc<ListEvent, ListState> {
     _writerSubscription = writerBloc.stream.listen(_onWriterStateEnd);
   }
 
-  late final IWordsRepository _wordsRepository;
+  final IWordsRepository _wordsRepository;
+  final IStatisticsRepository _statisticsRepository;
   late final StreamSubscription _writerSubscription;
   late final WriterBloc _writerBloc;
 
+  late final TrainingSettings _trainingSettings;
+
   Future<void> _onListStarted(ListStarted event, Emitter<ListState> emit) async {
+    _trainingSettings = event.trainingSettings;
+
     final wordModels = (event.trainingSettings.kanaType.isBoth)
         ? await _wordsRepository.fetchTodos()
         : (await _wordsRepository.fetchTodos()).where((wordModel) => wordModel.kanaType == event.trainingSettings.kanaType).toList();
@@ -92,6 +98,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
         }
 
         if (_lastWord(nextWordIndex, listState)) {
+          await _updateStatistics(newWords);
           add(ListClosed(newWords));
         } else if (_changePage(nextWordIndex, listState)) {
           await _delayedBeforeChangePage();
@@ -154,9 +161,64 @@ class ListBloc extends Bloc<ListEvent, ListState> {
   Future<void> _delayedBeforeChangePage() async {
     await Future.delayed(const Duration(milliseconds: 500));
   }
+
+  Future<void> _updateStatistics(List<WordViewModel> words) async {
+    if (_trainingSettings.showHint) {
+      await _statisticsRepository.increaseShowHintQuantity();
+    } else {
+      await _statisticsRepository.increaseNotShowHintQuantity();
+    }
+
+    if (_trainingSettings.kanaType.isOnlyHiragana) {
+      await _statisticsRepository.increaseOnlyHiraganaQuantity();
+    } else if (_trainingSettings.kanaType.isOnlyKatakana) {
+      await _statisticsRepository.increaseOnlyKatakanaQuantity();
+    } else {
+      await _statisticsRepository.increaseBothQuantity();
+    }
+
+    await _statisticsRepository.increaseTrainingQuantity();
+
+    final trainingStats = words.toTrainingStats(
+      _trainingSettings.showHint,
+      _trainingSettings.kanaType,
+      _trainingSettings.quantityOfWords,
+    );
+
+    for (final wordEnd in trainingStats.words) {
+      if (wordEnd.correct) {
+        await _statisticsRepository.increaseWordCorrectQuantity();
+        await _statisticsRepository.increaseSpecificWordCorrectQuantity(wordEnd.id);
+      } else {
+        await _statisticsRepository.increaseWordWrongQuantity();
+        await _statisticsRepository.increaseSpecificWordWrongQuantity(wordEnd.id);
+      }
+
+      for (final kanaEnd in wordEnd.kanas) {
+        if (kanaEnd.correct) {
+          await _statisticsRepository.increaseKanaCorrectQuantity();
+          await _statisticsRepository.increaseSpecificKanaCorrectQuantity(kanaEnd.id);
+        } else {
+          await _statisticsRepository.increaseKanaWrongQuantity();
+          await _statisticsRepository.increaseSpecificKanaWrongQuantity(kanaEnd.id);
+        }
+      }
+    }
+
+    await _statisticsRepository.saveTrainingStats(trainingStats);
+  }
 }
 
 extension ListWord on List<WordViewModel> {
+  TrainingStats toTrainingStats(bool showHint, KanaType kanaType, int quantityOfWords) {
+    return TrainingStats(
+      showHint: showHint,
+      type: kanaType,
+      wordsQuantity: quantityOfWords,
+      words: map((wordViewModel) => wordViewModel.toWordStats()).toList(),
+    );
+  }
+
   List<WordViewModel> copyWith({
     required int wordIndex,
     required int kanaIndex,
