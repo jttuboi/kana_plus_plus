@@ -1,11 +1,11 @@
 export 'bloc/kana_bloc.dart';
 export 'bloc/list_bloc.dart';
-export 'bloc/review.controller.dart';
 export 'bloc/training_bloc.dart';
 export 'bloc/word_bloc.dart';
 export 'bloc/writer_bloc.dart';
+export 'controllers/review_controller.dart';
 export 'enums/kana_viewer_status.dart';
-export 'pages/pre_training.page.dart';
+export 'pages/pre_training_page.dart';
 export 'pages/review_page.dart';
 export 'pages/training_page.dart';
 export 'view_models/kana_view_model.dart';
