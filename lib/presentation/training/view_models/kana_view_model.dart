@@ -12,7 +12,6 @@ class KanaViewModel extends Equatable {
     required this.kanaType,
     required this.romaji,
     required this.strokes,
-    this.kanaIdWrote = '',
     this.userStrokes = const <List<Offset>>[],
   });
 
@@ -21,11 +20,10 @@ class KanaViewModel extends Equatable {
   final KanaType kanaType;
   final String romaji;
   final List<String> strokes;
-  final String kanaIdWrote;
   final List<List<Offset>> userStrokes;
 
   @override
-  List<Object?> get props => [id, status, kanaType, romaji, strokes, kanaIdWrote, userStrokes];
+  List<Object?> get props => [id, status, kanaType, romaji, strokes, userStrokes];
 
   factory KanaViewModel.fromKanaModel(KanaModel kanaModel, bool first) {
     return KanaViewModel(
@@ -43,7 +41,6 @@ class KanaViewModel extends Equatable {
     KanaType? kanaType,
     String? romaji,
     List<String>? strokes,
-    String? kanaIdWrote,
     List<List<Offset>>? userStrokes,
   }) {
     return KanaViewModel(
@@ -52,7 +49,6 @@ class KanaViewModel extends Equatable {
       kanaType: kanaType ?? this.kanaType,
       romaji: romaji ?? this.romaji,
       strokes: strokes ?? this.strokes,
-      kanaIdWrote: kanaIdWrote ?? this.kanaIdWrote,
       userStrokes: userStrokes ?? this.userStrokes,
     );
   }
