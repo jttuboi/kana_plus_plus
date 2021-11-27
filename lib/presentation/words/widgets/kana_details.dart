@@ -24,7 +24,7 @@ class KanasDetails extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: kanas.length,
             itemBuilder: (context, index) {
-              return KanaDetail(imageUrl: kanas[index].imageUrl, size: kanaSize);
+              return KanaDetail(strokes: kanas[index].strokes, size: kanaSize);
             },
             separatorBuilder: (context, index) => Container(width: kanaDetailSpaceBetweenKanas),
           );

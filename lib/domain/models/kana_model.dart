@@ -8,26 +8,23 @@ class KanaModel extends Equatable {
     required this.id,
     required this.kanaType,
     required this.romaji,
-    required this.imageUrl,
-    required this.strokesQuantity,
+    required this.strokes,
   });
 
   final String id;
   final KanaType kanaType;
   final String romaji;
-  final String imageUrl;
-  final int strokesQuantity;
+  final List<String> strokes;
 
   @override
-  List<Object?> get props => [id, kanaType, romaji, imageUrl, strokesQuantity];
+  List<Object?> get props => [id, kanaType, romaji, strokes];
 
   factory KanaModel.fromJson(Map<String, dynamic> json) {
     return KanaModel(
-      id: json['id'],
+      id: json['id'] as String,
       kanaType: toKanaType(json['type']),
-      romaji: json['romaji'],
-      imageUrl: ImageUrl.imageFolder + json['imageUrl'],
-      strokesQuantity: json['strokesQuantity'],
+      romaji: json['romaji'] as String,
+      strokes: json['strokes'].map<String>((stroke) => stroke as String).toList(),
     );
   }
 
@@ -35,15 +32,13 @@ class KanaModel extends Equatable {
     String? id,
     KanaType? kanaType,
     String? romaji,
-    String? imageUrl,
-    int? strokesQuantity,
+    List<String>? strokes,
   }) {
     return KanaModel(
       id: id ?? this.id,
       kanaType: kanaType ?? this.kanaType,
       romaji: romaji ?? this.romaji,
-      imageUrl: imageUrl ?? this.imageUrl,
-      strokesQuantity: strokesQuantity ?? this.strokesQuantity,
+      strokes: strokes ?? this.strokes,
     );
   }
 }

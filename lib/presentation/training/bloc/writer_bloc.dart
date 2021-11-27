@@ -25,7 +25,6 @@ class WriterBloc extends Bloc<WriterEvent, WriterState> {
   Future<void> _onWriterStarted(WriterStarted event, Emitter<WriterState> emit) async {
     emit(WriterWait(
       kanaId: event.kanaId,
-      strokesQuantity: event.strokesQuantity,
       strokesForDraw: event.strokesForDraw,
     ));
   }
@@ -39,15 +38,14 @@ class WriterBloc extends Bloc<WriterEvent, WriterState> {
     if (oldState.isLastStroke) {
       emit(WriterEnd(
         kanaId: oldState.kanaId,
-        strokesQuantity: oldState.strokesQuantity,
         strokesForDraw: oldState.strokesForDraw,
-        userStrokes: List.from(oldState.userStrokes)..add(pointsReduced),
+        userStrokes: List.from(oldState.userStrokes)..add(pointsNormalized),
         corrects: List.from(oldState.corrects)..add(correct),
       ));
     } else {
       emit(oldState.copyWith(
         currentIndexStroke: oldState.currentIndexStroke + 1,
-        userStrokes: List.from(oldState.userStrokes)..add(pointsReduced),
+        userStrokes: List.from(oldState.userStrokes)..add(pointsNormalized),
         corrects: List.from(oldState.corrects)..add(correct),
       ));
     }

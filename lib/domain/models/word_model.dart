@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/domain/models/translate_model.dart';
 
 class WordModel extends Equatable {
   const WordModel({

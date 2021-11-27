@@ -24,7 +24,7 @@ class Writer extends StatelessWidget {
     return Stack(
       children: [
         CustomPaint(
-          painter: BorderPainter(borderWidth: borderSize, borderColor: Colors.grey.shade500),
+          painter: BorderPainter(borderSize: borderSize, borderColor: Colors.grey.shade500),
           size: Size.square(squareSize),
         ),
         Positioned(
@@ -78,7 +78,8 @@ class _AllStrokesPainter extends CustomPainter {
     final f = Float64List.fromList(m.storage.toList());
 
     for (var i = 0; i < corrects.length; i++) {
-      canvas.drawPoints(PointMode.polygon, userStrokes[i], _userStrokeBackgroundPaint(i));
+      final points = userStrokes[i].map((point) => Offset(point.dx * size.width, point.dy * size.height)).toList();
+      canvas.drawPoints(PointMode.polygon, points, _userStrokeBackgroundPaint(i));
     }
 
     for (var i = 0; i < corrects.length; i++) {
@@ -86,7 +87,8 @@ class _AllStrokesPainter extends CustomPainter {
     }
 
     for (var i = 0; i < corrects.length; i++) {
-      canvas.drawPoints(PointMode.polygon, userStrokes[i], _userStrokeForegroundPaint(i));
+      final points = userStrokes[i].map((point) => Offset(point.dx * size.width, point.dy * size.height)).toList();
+      canvas.drawPoints(PointMode.polygon, points, _userStrokeForegroundPaint(i));
     }
   }
 

@@ -10,16 +10,14 @@ abstract class WriterEvent extends Equatable {
 class WriterStarted extends WriterEvent {
   const WriterStarted({
     required this.kanaId,
-    required this.strokesQuantity,
     required this.strokesForDraw,
   });
 
   final String kanaId;
-  final int strokesQuantity;
   final List<String> strokesForDraw;
 
   @override
-  List<Object> get props => [kanaId, strokesQuantity, strokesForDraw];
+  List<Object> get props => [kanaId, strokesForDraw];
 }
 
 class StrokeWritten extends WriterEvent {

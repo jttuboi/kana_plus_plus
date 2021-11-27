@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class BorderPainter extends CustomPainter {
-  BorderPainter({required this.borderWidth, required this.borderColor});
+  BorderPainter({required this.borderSize, required this.borderColor});
   // ========  ========  ========  ========  ========
   // spaceQuantity = 4     dash quantity = 5
   // spaceRatio = 1 / 4    dash ratio = 4 / 4
   // space size = 2        dash size = 8         total size = 48
 
-  final double borderWidth;
+  final double borderSize;
   final Color borderColor;
 
   // quantity of spaces between dashs
@@ -27,7 +27,7 @@ class BorderPainter extends CustomPainter {
       paintBackground,
     );
 
-    final paintBorder = _getPaintLine(borderWidth, borderColor);
+    final paintBorder = _getPaintLine(borderSize, borderColor);
 
     canvas.drawRRect(
       RRect.fromRectAndRadius(
@@ -42,7 +42,7 @@ class BorderPainter extends CustomPainter {
       paintBorder,
     );
 
-    final paintDashed = _getPaintLine(borderWidth * 0.5, borderColor.withOpacity(0.4));
+    final paintDashed = _getPaintLine(borderSize * 0.5, borderColor.withOpacity(0.4));
 
     final verticalDashSize = size.height / (spaceQuantity * spaceRatio + spaceQuantity + 1);
     for (var i = 0; i < spaceQuantity + 1; i++) {

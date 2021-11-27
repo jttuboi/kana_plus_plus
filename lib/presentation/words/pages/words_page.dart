@@ -20,7 +20,7 @@ class WordsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) {
+        BlocProvider(create: (_) {
           return WordsBloc(wordsRepository: WordsRepository())..add(WordsLoaded(Localizations.localeOf(context).languageCode));
         }),
         BlocProvider(create: (context) => FilteredWordsBloc(wordsBloc: BlocProvider.of<WordsBloc>(context))),

@@ -14,8 +14,8 @@ class RomajiViewer extends StatelessWidget {
       child: Text(
         romaji,
         style: TextStyle(
-          color: const Color(0xff4d4d4d),
-          fontSize: Device.get().isTablet ? 80.0 : 50.0,
+          color: Colors.grey.shade700,
+          fontSize: Device.get().isTablet ? 80 : 50,
           fontFamily: 'PT Sans',
           fontWeight: FontWeight.bold,
         ),

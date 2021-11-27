@@ -22,7 +22,6 @@ class WriterInitial extends WriterState {
 class WriterWait extends WriterState {
   const WriterWait({
     this.kanaId = '',
-    this.strokesQuantity = 0,
     this.currentIndexStroke = 0,
     List<String> strokesForDraw = const <String>[],
     List<List<Offset>> userStrokes = const <List<Offset>>[],
@@ -30,11 +29,10 @@ class WriterWait extends WriterState {
   }) : super(strokesForDraw, userStrokes, corrects);
 
   final String kanaId;
-  final int strokesQuantity;
   final int currentIndexStroke;
 
   @override
-  List<Object> get props => [kanaId, strokesQuantity, strokesForDraw, currentIndexStroke, userStrokes, corrects];
+  List<Object> get props => [kanaId, strokesForDraw, currentIndexStroke, userStrokes, corrects];
 
   WriterWait copyWith({
     int? currentIndexStroke,
@@ -43,7 +41,6 @@ class WriterWait extends WriterState {
   }) {
     return WriterWait(
       kanaId: kanaId,
-      strokesQuantity: strokesQuantity,
       strokesForDraw: strokesForDraw,
       currentIndexStroke: currentIndexStroke ?? this.currentIndexStroke,
       userStrokes: userStrokes ?? this.userStrokes,
@@ -51,21 +48,19 @@ class WriterWait extends WriterState {
     );
   }
 
-  bool get isLastStroke => currentIndexStroke >= strokesQuantity - 1;
+  bool get isLastStroke => currentIndexStroke >= strokesForDraw.length - 1;
 }
 
 class WriterEnd extends WriterState {
   const WriterEnd({
     required this.kanaId,
-    required this.strokesQuantity,
     required List<String> strokesForDraw,
     required List<List<Offset>> userStrokes,
     required List<bool> corrects,
   }) : super(strokesForDraw, userStrokes, corrects);
 
   final String kanaId;
-  final int strokesQuantity;
 
   @override
-  List<Object> get props => [kanaId, strokesQuantity, strokesForDraw, userStrokes, corrects];
+  List<Object> get props => [kanaId, strokesForDraw, userStrokes, corrects];
 }

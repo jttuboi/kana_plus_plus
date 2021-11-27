@@ -20,7 +20,8 @@ class WordsBloc extends Bloc<WordsEvent, WordsState> {
   Future<void> _onWordsLoaded(WordsLoaded event, Emitter<WordsState> emit) async {
     try {
       final wordModels = await wordsRepository.fetchTodos();
-      final words = wordModels.map((wordModel) => WordViewModel.fromWordModel(wordModel, languageCode: event.languageCode)).toList();
+      final words = wordModels.map((wordModel) => WordViewModel.fromWordModel(wordModel, languageCode: event.languageCode)).toList()
+        ..sort((word1, word2) => word1.id.compareTo(word2.id));
       emit(WordsLoadSuccess(words));
     } catch (e, s) {
       log('_onTodosLoaded', error: e, stackTrace: s);

@@ -8,26 +8,23 @@ class KanaViewModel extends Equatable {
     required this.id,
     required this.kanaType,
     required this.romaji,
-    required this.imageUrl,
-    required this.strokesQuantity,
+    required this.strokes,
   });
 
   final String id;
   final KanaType kanaType;
   final String romaji;
-  final String imageUrl;
-  final int strokesQuantity;
+  final List<String> strokes;
 
   @override
-  List<Object?> get props => [id, kanaType, romaji, imageUrl, strokesQuantity];
+  List<Object?> get props => [id, kanaType, romaji, strokes];
 
   factory KanaViewModel.fromKanaModel(KanaModel kanaModel) {
     return KanaViewModel(
       id: kanaModel.id,
       kanaType: kanaModel.kanaType,
       romaji: kanaModel.romaji,
-      imageUrl: kanaModel.imageUrl,
-      strokesQuantity: kanaModel.strokesQuantity,
+      strokes: kanaModel.strokes,
     );
   }
 }

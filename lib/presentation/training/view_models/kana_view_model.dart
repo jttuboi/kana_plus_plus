@@ -11,8 +11,7 @@ class KanaViewModel extends Equatable {
     required this.status,
     required this.kanaType,
     required this.romaji,
-    required this.imageUrl,
-    required this.strokesQuantity,
+    required this.strokes,
     this.kanaIdWrote = '',
     this.userStrokes = const <List<Offset>>[],
   });
@@ -21,13 +20,12 @@ class KanaViewModel extends Equatable {
   final KanaViewerStatus status;
   final KanaType kanaType;
   final String romaji;
-  final String imageUrl;
-  final int strokesQuantity;
+  final List<String> strokes;
   final String kanaIdWrote;
   final List<List<Offset>> userStrokes;
 
   @override
-  List<Object?> get props => [id, status, kanaType, romaji, imageUrl, strokesQuantity, kanaIdWrote, userStrokes];
+  List<Object?> get props => [id, status, kanaType, romaji, strokes, kanaIdWrote, userStrokes];
 
   factory KanaViewModel.fromKanaModel(KanaModel kanaModel, bool first) {
     return KanaViewModel(
@@ -35,8 +33,7 @@ class KanaViewModel extends Equatable {
       status: first ? KanaViewerStatus.select : KanaViewerStatus.normal,
       kanaType: kanaModel.kanaType,
       romaji: kanaModel.romaji,
-      imageUrl: kanaModel.imageUrl,
-      strokesQuantity: kanaModel.strokesQuantity,
+      strokes: kanaModel.strokes,
     );
   }
 
@@ -45,8 +42,7 @@ class KanaViewModel extends Equatable {
     KanaViewerStatus? status,
     KanaType? kanaType,
     String? romaji,
-    String? imageUrl,
-    int? strokesQuantity,
+    List<String>? strokes,
     String? kanaIdWrote,
     List<List<Offset>>? userStrokes,
   }) {
@@ -55,8 +51,7 @@ class KanaViewModel extends Equatable {
       status: status ?? this.status,
       kanaType: kanaType ?? this.kanaType,
       romaji: romaji ?? this.romaji,
-      imageUrl: imageUrl ?? this.imageUrl,
-      strokesQuantity: strokesQuantity ?? this.strokesQuantity,
+      strokes: strokes ?? this.strokes,
       kanaIdWrote: kanaIdWrote ?? this.kanaIdWrote,
       userStrokes: userStrokes ?? this.userStrokes,
     );

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/training/training.dart';
 
@@ -14,16 +13,19 @@ class KanaViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final borderSize = Device.get().isTablet ? 12.0 : 6.0;
+
     if (kana.status.isSelect) {
-      return KanaViewerSelectRomaji(romaji: kana.romaji, squareSize: squareSize);
+      return KanaViewerSelectRomaji(romaji: kana.romaji, size: squareSize, borderSize: borderSize);
     }
     if (kana.status.isNormal) {
-      return _KanaViewerRomaji(romaji: kana.romaji, squareSize: squareSize);
+      return _KanaViewerRomaji(romaji: kana.romaji, size: squareSize, borderSize: borderSize);
     }
     if (kana.status.isCorrect || kana.status.isWrong) {
       return _KanaViewerKana(
-        imageUrl: kana.imageUrl,
-        squareSize: squareSize,
+        size: squareSize,
+        borderSize: borderSize,
+        strokes: kana.strokes,
         userStrokes: kana.userStrokes,
         correct: kana.status.isCorrect,
       );
@@ -35,12 +37,14 @@ class KanaViewer extends StatelessWidget {
 class KanaViewerSelectRomaji extends StatefulWidget {
   const KanaViewerSelectRomaji({
     required this.romaji,
-    required this.squareSize,
+    required this.size,
+    required this.borderSize,
     Key? key,
   }) : super(key: key);
 
   final String romaji;
-  final double squareSize;
+  final double size;
+  final double borderSize;
 
   @override
   State<KanaViewerSelectRomaji> createState() => _KanaViewerSelectRomajiState();
@@ -85,18 +89,15 @@ class _KanaViewerSelectRomajiState extends State<KanaViewerSelectRomaji> with Si
                 filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
                 child: Container(
                   alignment: Alignment.center,
-                  width: widget.squareSize,
-                  height: widget.squareSize,
+                  width: widget.size,
+                  height: widget.size,
                   color: Colors.transparent,
                 ),
               ),
             ),
             CustomPaint(
-              size: Size.square(widget.squareSize),
-              painter: BorderPainter(
-                borderWidth: Device.get().isTablet ? 8 : 4,
-                borderColor: Colors.grey.shade500,
-              ),
+              painter: BorderPainter(borderSize: widget.borderSize, borderColor: Colors.grey.shade500),
+              size: Size.square(widget.size),
             ),
             RomajiViewer(widget.romaji),
           ],
@@ -109,12 +110,14 @@ class _KanaViewerSelectRomajiState extends State<KanaViewerSelectRomaji> with Si
 class _KanaViewerRomaji extends StatelessWidget {
   const _KanaViewerRomaji({
     required this.romaji,
-    required this.squareSize,
+    required this.size,
+    required this.borderSize,
     Key? key,
   }) : super(key: key);
 
   final String romaji;
-  final double squareSize;
+  final double size;
+  final double borderSize;
 
   @override
   Widget build(BuildContext context) {
@@ -124,13 +127,10 @@ class _KanaViewerRomaji extends StatelessWidget {
         child: Stack(
           children: [
             CustomPaint(
-              painter: BorderPainter(
-                borderWidth: Device.get().isTablet ? 8 : 4,
-                borderColor: Colors.grey.shade500,
-              ),
-              size: Size.square(squareSize),
+              painter: BorderPainter(borderSize: borderSize, borderColor: Colors.grey.shade500),
+              size: Size.square(size),
             ),
-            RomajiViewer(romaji)
+            RomajiViewer(romaji),
           ],
         ),
       ),
@@ -140,17 +140,21 @@ class _KanaViewerRomaji extends StatelessWidget {
 
 class _KanaViewerKana extends StatelessWidget {
   const _KanaViewerKana({
-    required this.imageUrl,
-    required this.squareSize,
+    required this.strokes,
     required this.userStrokes,
     required this.correct,
+    required this.size,
+    required this.borderSize,
     Key? key,
-  }) : super(key: key);
+  })  : squareTapSize = size - borderSize * 2,
+        super(key: key);
 
-  final String imageUrl;
-  final double squareSize;
+  final List<String> strokes;
   final List<List<Offset>> userStrokes;
   final bool correct;
+  final double size;
+  final double borderSize;
+  final double squareTapSize;
 
   @override
   Widget build(BuildContext context) {
@@ -160,18 +164,23 @@ class _KanaViewerKana extends StatelessWidget {
         child: Stack(
           children: [
             CustomPaint(
-              painter: BorderPainter(
-                borderWidth: Device.get().isTablet ? 8 : 4,
-                borderColor: correct ? Colors.blueAccent : Colors.redAccent,
-              ),
-              size: Size.square(squareSize),
+              painter: BorderPainter(borderSize: borderSize, borderColor: correct ? Colors.blueAccent : Colors.redAccent),
+              size: Size.square(size),
             ),
-            SvgPicture.asset(imageUrl, width: squareSize, height: squareSize),
-            Center(
-              child: SizedBox(
-                width: squareSize - 8,
-                height: squareSize - 8,
-                child: UserKanaViewer(userStrokes: userStrokes, size: Size.square(squareSize)),
+            Positioned(
+              top: borderSize,
+              left: borderSize,
+              child: CustomPaint(
+                painter: KanaPainter(borderSize: borderSize, strokes: strokes, strokeWidth: 6),
+                size: Size.square(squareTapSize),
+              ),
+            ),
+            Positioned(
+              top: borderSize,
+              left: borderSize,
+              child: CustomPaint(
+                painter: UserKanaPainter(strokes: userStrokes, strokeWidth: 6),
+                size: Size.square(squareTapSize),
               ),
             ),
           ],
