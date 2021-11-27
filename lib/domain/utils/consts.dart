@@ -64,31 +64,6 @@ String toLanguageText(String localeCode) {
   return 'English';
 }
 
-class TWords {
-  TWords._();
-  static const id = 'id';
-  static const romaji = 'romaji';
-  static const type = 'type';
-  static const imageUrl = 'imageUrl';
-}
-
-class TKanas {
-  TKanas._();
-  static const id = 'id';
-  static const type = 'type';
-  static const imageUrl = 'imageUrl';
-  static const romaji = 'romaji';
-  static const strokesQuantity = 'strokesQuantity';
-}
-
-class TTranslates {
-  TTranslates._();
-  static const id = 'id';
-  static const english = 'en';
-  static const portuguese = 'pt';
-  static const spanish = 'es';
-}
-
 class BoxTag {
   BoxTag._();
   static const app = 'app';

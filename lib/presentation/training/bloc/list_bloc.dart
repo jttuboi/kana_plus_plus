@@ -23,10 +23,10 @@ class ListBloc extends Bloc<ListEvent, ListState> {
     _writerSubscription = writerBloc.stream.listen(_onWriterStateEnd);
   }
 
+  late final WriterBloc _writerBloc;
   final IWordsRepository _wordsRepository;
   final IStatisticsRepository _statisticsRepository;
   late final StreamSubscription _writerSubscription;
-  late final WriterBloc _writerBloc;
 
   late final TrainingSettings _trainingSettings;
 

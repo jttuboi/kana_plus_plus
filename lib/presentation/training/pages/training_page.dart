@@ -30,13 +30,15 @@ class TrainingPage extends StatelessWidget {
         BlocProvider(create: (context) => WordBloc(BlocProvider.of<ListBloc>(context))),
         BlocProvider(create: (context) => KanaBloc(BlocProvider.of<ListBloc>(context))),
       ],
-      child: const TrainingView(),
+      child: TrainingView(trainingSettings: trainingSettings),
     );
   }
 }
 
 class TrainingView extends StatefulWidget {
-  const TrainingView({Key? key}) : super(key: key);
+  const TrainingView({required this.trainingSettings, Key? key}) : super(key: key);
+
+  final TrainingSettings trainingSettings;
 
   @override
   _TrainingViewState createState() => _TrainingViewState();
@@ -137,6 +139,7 @@ class _TrainingViewState extends State<TrainingView> {
                                     child: Writer(
                                       squareSize: constraints.maxHeight * 12 / 30,
                                       borderSize: 9,
+                                      showHint: widget.trainingSettings.showHint,
                                     ),
                                   ),
                                   const Spacer(),

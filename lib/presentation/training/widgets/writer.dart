@@ -11,12 +11,14 @@ class Writer extends StatelessWidget {
   const Writer({
     required this.squareSize,
     required this.borderSize,
+    required this.showHint,
     Key? key,
   })  : regionTapSize = squareSize - borderSize * 2,
         super(key: key);
 
   final double squareSize;
   final double borderSize;
+  final bool showHint;
   final double regionTapSize;
 
   @override
@@ -35,7 +37,7 @@ class Writer extends StatelessWidget {
               if (state is WriterWait || state is WriterEnd) {
                 return CustomPaint(
                   size: Size.square(regionTapSize),
-                  painter: _AllStrokesPainter(state.strokesForDraw, state.userStrokes, state.corrects),
+                  painter: _AllStrokesPainter(state.strokesForDraw, state.userStrokes, state.corrects, showHint),
                 );
               }
               return Container();
@@ -66,11 +68,12 @@ class Writer extends StatelessWidget {
 }
 
 class _AllStrokesPainter extends CustomPainter {
-  const _AllStrokesPainter(this.strokes, this.userStrokes, this.corrects);
+  const _AllStrokesPainter(this.strokes, this.userStrokes, this.corrects, this.showHint);
 
   final List<String> strokes;
   final List<List<Offset>> userStrokes;
   final List<bool> corrects;
+  final bool showHint;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -82,8 +85,14 @@ class _AllStrokesPainter extends CustomPainter {
       canvas.drawPoints(PointMode.polygon, points, _userStrokeBackgroundPaint(i));
     }
 
-    for (var i = 0; i < corrects.length; i++) {
-      canvas.drawPath(parseSvgPath(strokes[i]).transform(f), _strokePaint(i));
+    if (showHint) {
+      for (var i = 0; i < strokes.length; i++) {
+        canvas.drawPath(parseSvgPath(strokes[i]).transform(f), _strokePaint(i));
+      }
+    } else {
+      for (var i = 0; i < corrects.length; i++) {
+        canvas.drawPath(parseSvgPath(strokes[i]).transform(f), _strokePaint(i));
+      }
     }
 
     for (var i = 0; i < corrects.length; i++) {
@@ -106,13 +115,9 @@ class _AllStrokesPainter extends CustomPainter {
   }
 
   Paint _strokePaint(int index) {
-    return (corrects[index])
-        ? (_basePaint
-          ..color = Colors.grey //blue
-          ..strokeWidth = 20)
-        : (_basePaint
-          ..color = Colors.grey //red
-          ..strokeWidth = 20);
+    return _basePaint
+      ..color = Colors.grey
+      ..strokeWidth = 20;
   }
 
   Paint _userStrokeForegroundPaint(int index) {
