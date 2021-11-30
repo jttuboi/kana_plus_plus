@@ -23,7 +23,6 @@ class SettingsPage extends StatelessWidget {
     final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => WritingHandChangeNotifier(WritingHandRepository())),
         ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository())),
         ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository())),
         ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository())),
@@ -40,7 +39,6 @@ class SettingsPage extends StatelessWidget {
               children: [
                 SubHeaderTile(strings.settingsBasic),
                 const LanguageTile(),
-                const WritingHandTile(),
                 const Divider(),
                 SubHeaderTile(strings.settingsDefaultTrainingSetting),
                 const ShowHintTile(),

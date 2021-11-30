@@ -8,4 +8,3 @@ export 'repositories/quantity_of_words_repository.dart';
 export 'repositories/show_hint_repository.dart';
 export 'repositories/statistics_repository.dart';
 export 'repositories/words_repository.dart';
-export 'repositories/writing_hand_repository.dart';

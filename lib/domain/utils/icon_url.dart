@@ -31,6 +31,4 @@ class IconUrl {
   static const training = '${iconsFolder}training.svg';
   static const undo = '${iconsFolder}undo.svg';
   static const words = '${iconsFolder}words.svg';
-  static const writingHandLeft = '${iconsFolder}writing_hand_left.svg';
-  static const writingHandRight = '${iconsFolder}writing_hand_right.svg';
 }
