@@ -45,13 +45,13 @@ abstract class IStatisticsRepository {
 
   Future<double> avgWordsPerTraining();
 
-  Future<int> specificWordCorrectQuantity(String wordId);
+  Future<Map<String, int>> specificWordCorrectQuantityByWordIds(List<String> wordIds);
 
-  Future<int> specificWordWrongQuantity(String wordId);
+  Future<Map<String, int>> specificWordWrongQuantityByWordIds(List<String> wordIds);
 
-  Future<int> specificKanaCorrectQuantity(String kanaId);
+  Future<Map<String, int>> specificKanaCorrectQuantityByKanaIds(List<String> kanaIds);
 
-  Future<int> specificKanaWrongQuantity(String kanaId);
+  Future<Map<String, int>> specificKanaWrongQuantityByKanaIds(List<String> kanaIds);
 
   Future<List<TrainingStats>> getTrainingStats();
 }

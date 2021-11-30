@@ -73,5 +73,11 @@
     "studyGeminatedTitle": "Gemelos",
     "studyLongVowelsTitle": "Vocales largas",
     "studyExtraSyllabesTitle": "Vocales pequeñas",
-    "errorBack": "Erro: camarilla no botão voltar"
+    "errorBack": "Erro: camarilla no botão voltar",
+    "correctWordCount": "Número correcto de palabras",
+    "wrongWordCount": "Número de palabras incorrecto",
+    "correctKanaCount": "Recuento de {kanaId} correctos",
+    "wrongKanaCount"  : "Recuento de {kanaId} incorrecto",
+    "@correctKanaCount": { "placeholders": { "kanaId": { "type": "String" } } },
+    "@wrongKanaCount": { "placeholders": { "kanaId": { "type": "String" } } }
 }

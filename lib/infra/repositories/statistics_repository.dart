@@ -164,44 +164,47 @@ class StatisticsRepository implements IStatisticsRepository {
   }
 
   @override
-  Future<int> specificWordCorrectQuantity(String wordId) async {
+  Future<Map<String, int>> specificWordCorrectQuantityByWordIds(List<String> wordIds) async {
     await load();
-    final key = DatabaseTag.keySpecificWordCorrectQuantity(wordId);
-    const tag = DatabaseTag.specificWordCorrectQuantity;
+    final mapDatabase = (_boxCount.get(DatabaseTag.specificWordCorrectQuantity, defaultValue: <String, int>{}) as Map).cast<String, int>();
 
-    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
-    return map.containsKey(key) ? map[key]! : 0;
+    return wordIds.fold<Map<String, int>>(<String, int>{}, (mapCounter, wordId) {
+      mapCounter[wordId] = mapDatabase[DatabaseTag.keySpecificWordCorrectQuantity(wordId)] ?? 0;
+      return mapCounter;
+    });
   }
 
   @override
-  Future<int> specificWordWrongQuantity(String wordId) async {
+  Future<Map<String, int>> specificWordWrongQuantityByWordIds(List<String> wordIds) async {
     await load();
+    final mapDatabase = (_boxCount.get(DatabaseTag.specificWordWrongQuantity, defaultValue: <String, int>{}) as Map).cast<String, int>();
 
-    final key = DatabaseTag.keySpecificWordWrongQuantity(wordId);
-    const tag = DatabaseTag.specificWordWrongQuantity;
-
-    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
-    return map.containsKey(key) ? map[key]! : 0;
+    return wordIds.fold<Map<String, int>>(<String, int>{}, (mapCounter, wordId) {
+      mapCounter[wordId] = mapDatabase[DatabaseTag.keySpecificWordWrongQuantity(wordId)] ?? 0;
+      return mapCounter;
+    });
   }
 
   @override
-  Future<int> specificKanaCorrectQuantity(String kanaId) async {
+  Future<Map<String, int>> specificKanaCorrectQuantityByKanaIds(List<String> kanaIds) async {
     await load();
-    final key = DatabaseTag.keySpecificKanaCorrectQuantity(kanaId);
-    const tag = DatabaseTag.specificKanaCorrectQuantity;
+    final mapDatabase = (_boxCount.get(DatabaseTag.specificKanaCorrectQuantity, defaultValue: <String, int>{}) as Map).cast<String, int>();
 
-    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
-    return map.containsKey(key) ? map[key]! : 0;
+    return kanaIds.fold<Map<String, int>>(<String, int>{}, (mapCounter, kanaId) {
+      mapCounter[kanaId] = mapDatabase[DatabaseTag.keySpecificKanaCorrectQuantity(kanaId)] ?? 0;
+      return mapCounter;
+    });
   }
 
   @override
-  Future<int> specificKanaWrongQuantity(String kanaId) async {
+  Future<Map<String, int>> specificKanaWrongQuantityByKanaIds(List<String> kanaIds) async {
     await load();
-    final key = DatabaseTag.keySpecificKanaWrongQuantity(kanaId);
-    const tag = DatabaseTag.specificKanaWrongQuantity;
+    final mapDatabase = (_boxCount.get(DatabaseTag.specificKanaWrongQuantity, defaultValue: <String, int>{}) as Map).cast<String, int>();
 
-    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
-    return map.containsKey(key) ? map[key]! : 0;
+    return kanaIds.fold<Map<String, int>>(<String, int>{}, (mapCounter, kanaId) {
+      mapCounter[kanaId] = mapDatabase[DatabaseTag.keySpecificKanaWrongQuantity(kanaId)] ?? 0;
+      return mapCounter;
+    });
   }
 
   @override

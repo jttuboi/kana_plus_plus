@@ -73,5 +73,11 @@
     "studyGeminatedTitle": "Geminados",
     "studyLongVowelsTitle": "Vogais prolongadas",
     "studyExtraSyllabesTitle": "Vogais pequenas",
-    "errorBack": "Erro: clique no botão Voltar"
+    "errorBack": "Erro: clique no botão Voltar",
+    "correctWordCount": "Contagem de palavras corretas",
+    "wrongWordCount": "Contagem de palavras erradas",
+    "correctKanaCount": "Contagem de {kanaId} correto",
+    "wrongKanaCount"  : "Contagem de {kanaId} errado",
+    "@correctKanaCount": { "placeholders": { "kanaId": { "type": "String" } } },
+    "@wrongKanaCount": { "placeholders": { "kanaId": { "type": "String" } } }
 }

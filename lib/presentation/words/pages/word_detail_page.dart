@@ -16,6 +16,8 @@ class WordDetailPage extends StatelessWidget {
 
   final _titleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
   final _contentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
+  final _titleStyleCounter = TextStyle(fontSize: Device.get().isTablet ? 42 : 24, color: Colors.grey.shade700);
+  final _contentStyleCounter = TextStyle(fontSize: Device.get().isTablet ? 34 : 19, color: Colors.grey.shade600);
 
   final WordViewModel _word;
 
@@ -56,33 +58,56 @@ class WordDetailPage extends StatelessWidget {
                       Flexible(
                         flex: 8,
                         fit: FlexFit.tight,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16, bottom: 32),
-                              child: KanasDetails(kanas: _word.kanas),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(strings.wordDetailRomaji, style: _titleStyle),
-                                  Text(_word.romaji, style: _contentStyle),
-                                ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16, bottom: 32),
+                                child: KanasDetails(kanas: _word.kanas),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(strings.wordDetailTranslate, style: _titleStyle),
-                                  Text(_word.translate, style: _contentStyle),
-                                ],
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(strings.wordDetailRomaji, style: _titleStyle),
+                                    Text(_word.romaji, style: _contentStyle),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(strings.wordDetailTranslate, style: _titleStyle),
+                                    Text(_word.translate, style: _contentStyle),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(strings.correctWordCount, style: _titleStyleCounter),
+                                    Text('${_word.correctCount}/${_word.correctCount + _word.wrongCount}', style: _contentStyleCounter),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(strings.wrongWordCount, style: _titleStyleCounter),
+                                    Text('${_word.wrongCount}/${_word.correctCount + _word.wrongCount}', style: _contentStyleCounter),
+                                  ],
+                                ),
+                              ),
+                              ..._buildKanaCount(context),
+                            ],
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -95,5 +120,36 @@ class WordDetailPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildKanaCount(BuildContext context) {
+    final strings = JStrings.of(context)!;
+    final widgets = <Widget>[];
+
+    for (final kana in _word.kanas) {
+      widgets
+        ..add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(strings.correctKanaCount(kana.id), style: _titleStyleCounter),
+              Text('${kana.correctCount}/${kana.correctCount + kana.wrongCount}', style: _contentStyleCounter),
+            ],
+          ),
+        ))
+        ..add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(strings.wrongKanaCount(kana.id), style: _titleStyleCounter),
+              Text('${kana.wrongCount}/${kana.correctCount + kana.wrongCount}', style: _contentStyleCounter),
+            ],
+          ),
+        ));
+    }
+
+    return widgets;
   }
 }
