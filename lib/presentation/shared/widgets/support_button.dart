@@ -86,7 +86,7 @@ class _SupportButtonState extends State<SupportButton> {
 
   void _loadAd() {
     InterstitialAd.load(
-      adUnitId: interstitialAdUnitId,
+      adUnitId: Ads.interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: _adLoadCallback,
     );

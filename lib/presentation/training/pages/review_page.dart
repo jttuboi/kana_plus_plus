@@ -1,6 +1,7 @@
-import 'dart:math';
+import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
@@ -26,9 +27,13 @@ class ReviewPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewPage> {
+  late BannerAd _ad;
+  bool _isAdLoaded = false;
+
   @override
   void initState() {
     super.initState();
+    _loadAds();
     // print(widget.reviewController.showRateApp);
     // if (widget.reviewController.showRateApp) {
     //   // TODO add dialog for app rating and review
@@ -39,9 +44,15 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 
   @override
+  void dispose() {
+    _ad.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
-    //print(MediaQuery.of(context).padding.top + kToolbarHeight);
+    //dev.log(MediaQuery.of(context).padding.top + kToolbarHeight);
     return WillPopScope(
       onWillPop: () async {
         Navigator.popUntil(context, (route) => route.isFirst);
@@ -55,18 +66,68 @@ class _ReviewPageState extends State<ReviewPage> {
         sliverContent: SliverPadding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return index.isEven ? ReviewTile(wordResult: widget.wordsResult[index ~/ 2]) : const Divider(indent: 72);
-              },
-              semanticIndexCallback: (widget, localIndex) {
-                return localIndex.isEven ? localIndex ~/ 2 : null;
-              },
-              childCount: max(0, widget.wordsResult.length * 2 - 1),
+            delegate: SliverChildListDelegate(
+              widget.wordsResult.fold<List<Widget>>(
+                <Widget>[],
+                (list, wordResult) {
+                  if (_isLastOfList(wordResult)) {
+                    if (_canShowAdTile(list)) {
+                      list
+                        ..add(_buildAdTile())
+                        ..add(const Divider(indent: 72))
+                        ..add(ReviewTile(wordResult: wordResult));
+                    } else {
+                      list.add(ReviewTile(wordResult: wordResult));
+                    }
+                  } else {
+                    if (_canShowAdTile(list)) {
+                      list
+                        ..add(_buildAdTile())
+                        ..add(const Divider(indent: 72))
+                        ..add(ReviewTile(wordResult: wordResult))
+                        ..add(const Divider(indent: 72));
+                    } else {
+                      list
+                        ..add(ReviewTile(wordResult: wordResult))
+                        ..add(const Divider(indent: 72));
+                    }
+                  }
+                  return list;
+                },
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  void _loadAds() {
+    _ad = BannerAd(
+      adUnitId: Ads.bannerAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) => setState(() => _isAdLoaded = true),
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          dev.log('onAdFailedToLoad: $error', error: error);
+        },
+      ),
+    );
+    _ad.load();
+  }
+
+  bool _isLastOfList(WordViewModel wordResult) => wordResult == widget.wordsResult.last;
+
+  bool _canShowAdTile(List<Widget> list) => _isAdLoaded && list.length == 10;
+
+  Container _buildAdTile() {
+    return Container(
+      width: _ad.size.width.toDouble(),
+      height: 72,
+      alignment: Alignment.center,
+      child: AdWidget(ad: _ad),
     );
   }
 }

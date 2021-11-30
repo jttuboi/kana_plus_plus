@@ -44,14 +44,27 @@ class Default {
   static const emailSubject = 'Learn hiragana/katakana on KWriting';
 }
 
-String get interstitialAdUnitId {
-  if (Platform.isAndroid) {
-    //return 'ca-app-pub-3940256099942544/1033173712'; // interstitial image
-    return 'ca-app-pub-3940256099942544/8691691433'; // interstitial video
-  } else if (Platform.isIOS) {
-    return 'interstitial IOS UNIT ID';
-  } else {
-    throw UnsupportedError('Unsupported platform');
+class Ads {
+  Ads._();
+  static String get bannerAdUnitId {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/6300978111'; // test banner
+    } else if (Platform.isIOS) {
+      return 'banner IOS UNIT ID';
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
+  }
+
+  static String get interstitialAdUnitId {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/1033173712'; // test interstitial image
+      //return 'ca-app-pub-3940256099942544/8691691433'; // test interstitial video
+    } else if (Platform.isIOS) {
+      return 'interstitial IOS UNIT ID';
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
   }
 }
 
