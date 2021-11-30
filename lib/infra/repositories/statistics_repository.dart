@@ -76,7 +76,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificWordCorrectQuantity(wordId);
     const tag = DatabaseTag.specificWordCorrectQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
     await _boxCount.put(tag, map);
   }
@@ -87,7 +87,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificWordWrongQuantity(wordId);
     const tag = DatabaseTag.specificWordWrongQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
     await _boxCount.put(tag, map);
   }
@@ -98,7 +98,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificKanaCorrectQuantity(kanaId);
     const tag = DatabaseTag.specificKanaCorrectQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
     await _boxCount.put(tag, map);
   }
@@ -109,7 +109,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificKanaWrongQuantity(kanaId);
     const tag = DatabaseTag.specificKanaWrongQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     map[key] = map.containsKey(key) ? map[key]! + 1 : 1;
     await _boxCount.put(tag, map);
   }
@@ -169,7 +169,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificWordCorrectQuantity(wordId);
     const tag = DatabaseTag.specificWordCorrectQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     return map.containsKey(key) ? map[key]! : 0;
   }
 
@@ -180,7 +180,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificWordWrongQuantity(wordId);
     const tag = DatabaseTag.specificWordWrongQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     return map.containsKey(key) ? map[key]! : 0;
   }
 
@@ -190,7 +190,7 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificKanaCorrectQuantity(kanaId);
     const tag = DatabaseTag.specificKanaCorrectQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     return map.containsKey(key) ? map[key]! : 0;
   }
 
@@ -200,13 +200,13 @@ class StatisticsRepository implements IStatisticsRepository {
     final key = DatabaseTag.keySpecificKanaWrongQuantity(kanaId);
     const tag = DatabaseTag.specificKanaWrongQuantity;
 
-    final Map<String, int> map = await _boxCount.get(tag, defaultValue: <String, int>{});
+    final map = (_boxCount.get(tag, defaultValue: <String, int>{}) as Map).cast<String, int>();
     return map.containsKey(key) ? map[key]! : 0;
   }
 
   @override
   Future<List<TrainingStats>> getTrainingStats() async {
     await load();
-    return _boxObjects.values.toList() as List<TrainingStats>;
+    return _boxObjects.values.toList().cast<TrainingStats>();
   }
 }

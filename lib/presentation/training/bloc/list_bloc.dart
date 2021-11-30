@@ -109,10 +109,10 @@ class ListBloc extends Bloc<ListEvent, ListState> {
 
       await _delayToShowOnlyTheKanaSituationUpdated();
 
-      if (_isLastWord(listState)) {
-        //TODO descobrir qual é o problema com o hive await _updateStatistics(newWords);
+      if (_isTrainingFinish(listState)) {
+        await _updateStatistics(wordsUpdated);
         add(ListTrainingEnded(wordsUpdated));
-      } else if (_isLastKana(listState)) {
+      } else if (_isPageChange(listState)) {
         // change the page only, after change de page, update the data
         const changePageDurationInMilliseconds = 1000;
         add(ListPageAnimationChanged(
@@ -135,6 +135,10 @@ class ListBloc extends Bloc<ListEvent, ListState> {
   Future<void> _delayToHoldTheDataUpdateUntilPageAnimationChanged(int changePageDurationInMilliseconds) async {
     return Future.delayed(Duration(milliseconds: changePageDurationInMilliseconds));
   }
+
+  bool _isTrainingFinish(ListReady listState) => _isLastWord(listState) && _isLastKana(listState);
+
+  bool _isPageChange(ListReady listState) => _isLastKana(listState);
 
   bool _isLastKana(ListReady listState) => listState.kanaIndex + 1 >= listState.words[listState.wordIndex].kanas.length;
 
@@ -183,7 +187,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       }
     }
 
-    await _statisticsRepository.saveTrainingStats(trainingStats);
+    //await _statisticsRepository.saveTrainingStats(trainingStats);
   }
 
   @override
