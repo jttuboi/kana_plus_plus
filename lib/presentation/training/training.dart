@@ -17,6 +17,8 @@ export 'widgets/kana_viewers.dart';
 export 'widgets/review_kana_content.dart';
 export 'widgets/review_tile.dart';
 export 'widgets/romaji_viewer.dart';
+export 'widgets/shimmer_kana_viewer.dart';
+export 'widgets/shimmer_training_view.dart';
 export 'widgets/user_kana_painter.dart';
 export 'widgets/writer.dart';
 export 'widgets/writer_current_stroke.dart';

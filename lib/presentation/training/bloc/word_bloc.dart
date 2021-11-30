@@ -22,7 +22,6 @@ class WordBloc extends Bloc<WordEvent, WordState> {
 
     _listSubscription = listBloc.stream.listen((listState) async {
       if (listState is ListWordReady) {
-        await _delayedChangePage();
         add(WordUpdated(wordIndex: listState.wordIndex, words: listState.words));
       }
     });
@@ -43,9 +42,5 @@ class WordBloc extends Bloc<WordEvent, WordState> {
   Future<void> close() {
     _listSubscription.cancel();
     return super.close();
-  }
-
-  Future<void> _delayedChangePage() async {
-    await Future.delayed(const Duration(milliseconds: 300));
   }
 }

@@ -16,11 +16,11 @@ class ListStarted extends ListEvent {
   List<Object> get props => [trainingSettings];
 }
 
-class ListWordUpdated extends ListEvent {
-  const ListWordUpdated({
-    this.wordIndex = 0,
-    this.kanaIndex = 0,
-    this.words = const <WordViewModel>[],
+class ListUpdated extends ListEvent {
+  const ListUpdated({
+    required this.wordIndex,
+    required this.kanaIndex,
+    required this.words,
   });
 
   final int wordIndex;
@@ -31,23 +31,41 @@ class ListWordUpdated extends ListEvent {
   List<Object> get props => [wordIndex, kanaIndex, words];
 }
 
-class ListKanaUpdated extends ListEvent {
-  const ListKanaUpdated({
-    this.wordIndex = 0,
-    this.kanaIndex = 0,
-    this.words = const <WordViewModel>[],
-  });
-
-  final int wordIndex;
-  final int kanaIndex;
-  final List<WordViewModel> words;
-
-  @override
-  List<Object> get props => [wordIndex, kanaIndex, words];
+class ListPreUpdated extends ListUpdated {
+  const ListPreUpdated({
+    int wordIndex = 0,
+    int kanaIndex = 0,
+    List<WordViewModel> words = const <WordViewModel>[],
+  }) : super(wordIndex: wordIndex, kanaIndex: kanaIndex, words: words);
 }
 
-class ListClosed extends ListEvent {
-  const ListClosed(this.words);
+class ListKanaChanged extends ListUpdated {
+  const ListKanaChanged({
+    int wordIndex = 0,
+    int kanaIndex = 0,
+    List<WordViewModel> words = const <WordViewModel>[],
+  }) : super(wordIndex: wordIndex, kanaIndex: kanaIndex, words: words);
+}
+
+class ListWordChanged extends ListUpdated {
+  const ListWordChanged({
+    int wordIndex = 0,
+    List<WordViewModel> words = const <WordViewModel>[],
+  }) : super(wordIndex: wordIndex, kanaIndex: 0, words: words);
+}
+
+class ListPageAnimationChanged extends ListUpdated {
+  const ListPageAnimationChanged({
+    required this.changePageDurationInMilliseconds,
+    int wordIndex = 0,
+    int kanaIndex = 0,
+    List<WordViewModel> words = const <WordViewModel>[],
+  }) : super(wordIndex: wordIndex, kanaIndex: kanaIndex, words: words);
+  final int changePageDurationInMilliseconds;
+}
+
+class ListTrainingEnded extends ListEvent {
+  const ListTrainingEnded(this.words);
 
   final List<WordViewModel> words;
 

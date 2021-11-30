@@ -4,6 +4,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/infra/infra.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/training/training.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -72,8 +73,12 @@ class _TrainingViewState extends State<TrainingView> {
             return previous != current;
           },
           listener: (context, state) {
-            if (state is ListWordReady) {
-              _pageController.animateToPage(state.wordIndex, duration: const Duration(milliseconds: 500), curve: Curves.easeInOutCubic);
+            if (state is ListPageReady) {
+              _pageController.animateToPage(
+                state.wordIndex,
+                duration: Duration(milliseconds: state.changePageDurationInMilliseconds),
+                curve: Curves.easeInOutCubic,
+              );
             }
             if (state is TrainingEnded) {
               Navigator.pushNamedAndRemoveUntil(
@@ -153,8 +158,8 @@ class _TrainingViewState extends State<TrainingView> {
                   ],
                 );
               }
-              // TODO ver se tem como criar um shadow para representar um fake loading
-              return const Center(child: CircularProgressIndicator());
+
+              return const Shimmer(child: ShimmerTrainingView());
             },
           ),
         ),

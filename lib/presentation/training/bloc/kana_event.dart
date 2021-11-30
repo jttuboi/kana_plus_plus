@@ -10,12 +10,27 @@ abstract class KanaEvent extends Equatable {
 class KanaUpdated extends KanaEvent {
   const KanaUpdated({
     this.kanaIndex = 0,
-    this.kanas = const <KanaViewModel>[],
+    this.wordIndex = 0,
+    this.words = const <WordViewModel>[],
   });
 
   final int kanaIndex;
-  final List<KanaViewModel> kanas;
+  final int wordIndex;
+  final List<WordViewModel> words;
 
   @override
-  List<Object> get props => [kanaIndex, kanas];
+  List<Object> get props => [kanaIndex, wordIndex, words];
+}
+
+class KanaPageChanged extends KanaEvent {
+  const KanaPageChanged({
+    this.wordIndex = 0,
+    this.words = const <WordViewModel>[],
+  });
+
+  final int wordIndex;
+  final List<WordViewModel> words;
+
+  @override
+  List<Object> get props => [wordIndex, words];
 }

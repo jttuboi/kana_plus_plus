@@ -22,7 +22,24 @@ class WriteCurrentStroke extends StatefulWidget {
   State<WriteCurrentStroke> createState() => _WriteCurrentStrokeState();
 }
 
-class _WriteCurrentStrokeState extends State<WriteCurrentStroke> {
+class _WriteCurrentStrokeState extends State<WriteCurrentStroke> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      value: 0,
+    )..repeat(period: const Duration(milliseconds: 2000));
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   List<Offset> currentStroke = <Offset>[];
 
   @override
@@ -34,12 +51,20 @@ class _WriteCurrentStrokeState extends State<WriteCurrentStroke> {
         onPanStart: widget.canGesture ? (details) => _startStroke(details, context, widget.regionSize) : null,
         onPanUpdate: widget.canGesture ? (details) => _updateStroke(details, context, widget.regionSize) : null,
         onPanEnd: widget.canGesture ? (details) => _finishStroke(context) : null,
-        child: RepaintBoundary(
-          child: CustomPaint(
-            isComplex: true,
-            painter: CurrentStrokePainter(currentStroke, widget.strokeForDraw),
-          ),
-        ),
+        child: AnimatedBuilder(
+            animation: _animationController,
+            builder: (context, child) {
+              return RepaintBoundary(
+                child: CustomPaint(
+                  isComplex: true,
+                  painter: CurrentStrokePainter(
+                    points: currentStroke,
+                    stroke: widget.strokeForDraw,
+                    currentStrokeProgress: _animationController.value,
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }
@@ -60,6 +85,11 @@ class _WriteCurrentStrokeState extends State<WriteCurrentStroke> {
   }
 
   void _finishStroke(BuildContext context) {
+    setState(() {
+      _animationController
+        ..reset()
+        ..repeat(period: const Duration(milliseconds: 2000));
+    });
     widget.onStrokeEnded(currentStroke);
     setState(() {
       currentStroke = <Offset>[];
@@ -68,19 +98,29 @@ class _WriteCurrentStrokeState extends State<WriteCurrentStroke> {
 }
 
 class CurrentStrokePainter extends CustomPainter {
-  const CurrentStrokePainter(this.points, this.stroke);
+  const CurrentStrokePainter({
+    required this.points,
+    required this.stroke,
+    this.currentStrokeProgress = 0.0,
+  });
 
   final List<Offset> points;
   final String stroke;
+
+  final double currentStrokeProgress;
 
   @override
   void paint(Canvas canvas, Size size) {
     final m = Matrix4.identity()..scale(size.width / 109);
     final f = Float64List.fromList(m.storage.toList());
 
+    final path = parseSvgPath(stroke).transform(f);
+    final pathMetric = path.computeMetrics().first;
+    final pathExtract = pathMetric.extractPath(0, pathMetric.length * currentStrokeProgress);
+
     canvas
       ..drawPoints(PointMode.polygon, points, _strokeBackgroundPaint)
-      ..drawPath(parseSvgPath(stroke).transform(f), _strokePaintSvg)
+      ..drawPath(pathExtract, _strokePaintSvg)
       ..drawPoints(PointMode.polygon, points, _strokeForegroundPaint);
   }
 
@@ -89,22 +129,22 @@ class CurrentStrokePainter extends CustomPainter {
 
   Paint get _strokeBackgroundPaint => Paint()
     ..isAntiAlias = true
-    ..strokeWidth = 18
+    ..strokeWidth = 16
     ..strokeCap = StrokeCap.round
     ..strokeJoin = StrokeJoin.round
     ..color = Colors.yellow;
 
   Paint get _strokePaintSvg {
     return Paint()
-      ..color = Colors.grey
-      ..strokeWidth = 20
+      ..color = Colors.grey.shade600
+      ..strokeWidth = 18
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
   }
 
   Paint get _strokeForegroundPaint => Paint()
     ..isAntiAlias = true
-    ..strokeWidth = 18
+    ..strokeWidth = 16
     ..strokeCap = StrokeCap.round
     ..strokeJoin = StrokeJoin.round
     ..color = Colors.yellow

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/training/training.dart';
 
 class KanaViewers extends StatefulWidget {
@@ -51,8 +52,7 @@ class _KanaViewersState extends State<KanaViewers> {
               },
             );
           }
-          // TODO trocar para um faka kana viewer
-          return Container(height: widget.height);
+          return Shimmer(child: ShimmerKanaViewer(height: widget.height));
         },
       ),
     );

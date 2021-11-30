@@ -19,13 +19,17 @@ class KanaBloc extends Bloc<KanaEvent, KanaState> {
               )
             : const KanaInitial()) {
     on<KanaUpdated>(_onKanaUpdated);
+    on<KanaPageChanged>(_onKanaPageChanged);
 
     _listSubscription = listBloc.stream.listen((listState) async {
-      if (listState is ListReady) {
-        if (listState is ListWordReady) {
-          await _delayedChangePage();
-        }
-        add(KanaUpdated(kanaIndex: listState.kanaIndex, kanas: listState.words[listState.wordIndex].kanas));
+      if (listState is! ListReady) {
+        return;
+      }
+
+      if (listState is ListPageReady) {
+        add(KanaPageChanged(wordIndex: listState.wordIndex, words: listState.words));
+      } else {
+        add(KanaUpdated(kanaIndex: listState.kanaIndex, wordIndex: listState.wordIndex, words: listState.words));
       }
     });
   }
@@ -33,16 +37,18 @@ class KanaBloc extends Bloc<KanaEvent, KanaState> {
   late final StreamSubscription _listSubscription;
 
   Future<void> _onKanaUpdated(KanaUpdated event, Emitter<KanaState> emit) async {
-    emit(KanaReady(index: event.kanaIndex, total: event.kanas.length, kanas: event.kanas));
+    emit(KanaReady(index: event.kanaIndex, total: event.words[event.wordIndex].kanas.length, kanas: event.words[event.wordIndex].kanas));
+  }
+
+  Future<void> _onKanaPageChanged(KanaPageChanged event, Emitter<KanaState> emit) async {
+    final previousKanaIndex = (state as KanaReady).index;
+    final previousWordIndex = event.wordIndex - 1;
+    emit(KanaReady(index: previousKanaIndex, total: event.words[previousWordIndex].kanas.length, kanas: event.words[previousWordIndex].kanas));
   }
 
   @override
   Future<void> close() {
     _listSubscription.cancel();
     return super.close();
-  }
-
-  Future<void> _delayedChangePage() async {
-    await Future.delayed(const Duration(milliseconds: 300));
   }
 }

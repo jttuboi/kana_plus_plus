@@ -16,9 +16,11 @@ class ListBloc extends Bloc<ListEvent, ListState> {
         _statisticsRepository = statisticsRepository,
         super(ListInitial()) {
     on<ListStarted>(_onListStarted);
-    on<ListWordUpdated>(_onWordUpdated);
-    on<ListKanaUpdated>(_onKanaUpdated);
-    on<ListClosed>(_onListClosed);
+    on<ListPreUpdated>(_onListPreUpdated);
+    on<ListKanaChanged>(_onListKanaChanged);
+    on<ListWordChanged>(_onListWordChanged);
+    on<ListPageAnimationChanged>(_onListPageChanged);
+    on<ListTrainingEnded>(_onListTrainingEnded);
 
     _writerSubscription = writerBloc.stream.listen(_onWriterStateEnd);
   }
@@ -41,8 +43,6 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       return WordViewModel.fromWordModel(wordModel, languageCode: event.trainingSettings.languageCode);
     }).toList();
 
-    await Future.delayed(const Duration(milliseconds: 200));
-
     emit(ListReady(words: wordViewModels));
     _writerBloc.add(WriterStarted(
       kanaId: wordViewModels[0].kanas[0].id,
@@ -50,75 +50,95 @@ class ListBloc extends Bloc<ListEvent, ListState> {
     ));
   }
 
-  Future<void> _onWordUpdated(ListWordUpdated event, Emitter<ListState> emit) async {
-    emit(ListWordReady(kanaIndex: event.kanaIndex, wordIndex: event.wordIndex, words: event.words));
+  Future<void> _onListPreUpdated(ListPreUpdated event, Emitter<ListState> emit) async {
+    emit(ListPreReady(wordIndex: event.wordIndex, kanaIndex: event.kanaIndex, words: event.words));
   }
 
-  Future<void> _onKanaUpdated(ListKanaUpdated event, Emitter<ListState> emit) async {
-    emit(ListKanaReady(kanaIndex: event.kanaIndex, wordIndex: event.wordIndex, words: event.words));
+  Future<void> _onListKanaChanged(ListKanaChanged event, Emitter<ListState> emit) async {
+    final nextKanaIndex = event.kanaIndex + 1;
+    final nextWordIndex = event.wordIndex;
+
+    emit(ListKanaReady(wordIndex: nextWordIndex, kanaIndex: nextKanaIndex, words: event.words));
+    _writerBloc.add(WriterStarted(
+      kanaId: event.words[nextWordIndex].kanas[nextKanaIndex].id,
+      strokesForDraw: event.words[nextWordIndex].kanas[nextKanaIndex].strokes,
+    ));
   }
 
-  Future<void> _onListClosed(ListClosed event, Emitter<ListState> emit) async {
+  Future<void> _onListWordChanged(ListWordChanged event, Emitter<ListState> emit) async {
+    const nextKanaIndex = 0;
+    final nextWordIndex = event.wordIndex + 1;
+
+    // ignore: avoid_redundant_argument_values
+    emit(ListWordReady(wordIndex: nextWordIndex, kanaIndex: nextKanaIndex, words: event.words));
+    _writerBloc.add(WriterStarted(
+      kanaId: event.words[nextWordIndex].kanas[nextKanaIndex].id,
+      strokesForDraw: event.words[nextWordIndex].kanas[nextKanaIndex].strokes,
+    ));
+  }
+
+  Future<void> _onListPageChanged(ListPageAnimationChanged event, Emitter<ListState> emit) async {
+    emit(ListPageReady(
+        changePageDurationInMilliseconds: event.changePageDurationInMilliseconds,
+        wordIndex: event.wordIndex + 1,
+        kanaIndex: event.kanaIndex,
+        words: event.words));
+  }
+
+  Future<void> _onListTrainingEnded(ListTrainingEnded event, Emitter<ListState> emit) async {
     emit(TrainingEnded(words: event.words));
   }
 
   Future<void> _onWriterStateEnd(WriterState writerState) async {
-    if (writerState is WriterEnd) {
-      if (state is ListReady) {
-        final listState = state as ListReady;
+    if (writerState is! WriterEnd) {
+      return;
+    }
 
-        // update words with kana written and the next
-        final newWords = listState.words.copyWith(
-          wordIndex: listState.wordIndex,
-          kanaIndex: listState.kanaIndex,
-          userStrokes: writerState.userStrokes,
-          corrects: writerState.corrects,
-        );
+    if (state is ListReady) {
+      final listState = state as ListReady;
 
-        var nextKanaIndex = listState.kanaIndex + 1;
-        var nextWordIndex = listState.wordIndex;
+      final wordsUpdated = listState.words.copyWithNewKanaStatusAndUserStrokes(
+        wordIndex: listState.wordIndex,
+        kanaIndex: listState.kanaIndex,
+        userStrokes: writerState.userStrokes,
+        corrects: writerState.corrects,
+      );
 
-        if (_lastKana(nextKanaIndex, listState)) {
-          nextKanaIndex = 0;
-          nextWordIndex++;
-        }
+      // update current kana status in kana viewer (don't change to kana, word or end training status)
+      add(ListPreUpdated(wordIndex: listState.wordIndex, kanaIndex: listState.kanaIndex, words: wordsUpdated));
 
-        if (_lastWord(nextWordIndex, listState)) {
-          //TODO descobrir qual é o problema com o hive await _updateStatistics(newWords);
-          add(ListClosed(newWords));
-        } else if (_changePage(nextWordIndex, listState)) {
-          await _delayedBeforeChangePage();
-          add(ListWordUpdated(wordIndex: nextWordIndex, kanaIndex: nextKanaIndex, words: newWords));
-          _writerBloc.add(WriterStarted(
-            kanaId: newWords[nextWordIndex].kanas[nextKanaIndex].id,
-            strokesForDraw: newWords[nextWordIndex].kanas[nextKanaIndex].strokes,
-          ));
-        } else {
-          add(ListKanaUpdated(wordIndex: nextWordIndex, kanaIndex: nextKanaIndex, words: newWords));
-          _writerBloc.add(WriterStarted(
-            kanaId: newWords[nextWordIndex].kanas[nextKanaIndex].id,
-            strokesForDraw: newWords[nextWordIndex].kanas[nextKanaIndex].strokes,
-          ));
-        }
+      await _delayToShowOnlyTheKanaSituationUpdated();
+
+      if (_isLastWord(listState)) {
+        //TODO descobrir qual é o problema com o hive await _updateStatistics(newWords);
+        add(ListTrainingEnded(wordsUpdated));
+      } else if (_isLastKana(listState)) {
+        // change the page only, after change de page, update the data
+        const changePageDurationInMilliseconds = 1000;
+        add(ListPageAnimationChanged(
+            changePageDurationInMilliseconds: changePageDurationInMilliseconds,
+            wordIndex: listState.wordIndex,
+            kanaIndex: listState.kanaIndex,
+            words: wordsUpdated));
+
+        await _delayToHoldTheDataUpdateUntilPageAnimationChanged(changePageDurationInMilliseconds);
+
+        add(ListWordChanged(wordIndex: listState.wordIndex, words: wordsUpdated));
+      } else {
+        add(ListKanaChanged(wordIndex: listState.wordIndex, kanaIndex: listState.kanaIndex, words: wordsUpdated));
       }
     }
   }
 
-  bool _lastKana(int nextKanaIndex, ListReady listState) => nextKanaIndex >= listState.words[listState.wordIndex].kanas.length;
+  Future<void> _delayToShowOnlyTheKanaSituationUpdated() async => Future.delayed(const Duration(milliseconds: 500));
 
-  bool _lastWord(int nextWordIndex, ListReady listState) => nextWordIndex >= listState.words.length;
-
-  bool _changePage(int nextWordIndex, ListReady listState) => nextWordIndex != listState.wordIndex;
-
-  @override
-  Future<void> close() {
-    _writerSubscription.cancel();
-    return super.close();
+  Future<void> _delayToHoldTheDataUpdateUntilPageAnimationChanged(int changePageDurationInMilliseconds) async {
+    return Future.delayed(Duration(milliseconds: changePageDurationInMilliseconds));
   }
 
-  Future<void> _delayedBeforeChangePage() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-  }
+  bool _isLastKana(ListReady listState) => listState.kanaIndex + 1 >= listState.words[listState.wordIndex].kanas.length;
+
+  bool _isLastWord(ListReady listState) => listState.wordIndex + 1 >= listState.words.length;
 
   Future<void> _updateStatistics(List<WordViewModel> words) async {
     if (_trainingSettings.showHint) {
@@ -165,6 +185,12 @@ class ListBloc extends Bloc<ListEvent, ListState> {
 
     await _statisticsRepository.saveTrainingStats(trainingStats);
   }
+
+  @override
+  Future<void> close() {
+    _writerSubscription.cancel();
+    return super.close();
+  }
 }
 
 extension ListWord on List<WordViewModel> {
@@ -177,7 +203,7 @@ extension ListWord on List<WordViewModel> {
     );
   }
 
-  List<WordViewModel> copyWith({
+  List<WordViewModel> copyWithNewKanaStatusAndUserStrokes({
     required int wordIndex,
     required int kanaIndex,
     required List<List<Offset>> userStrokes,
@@ -189,14 +215,9 @@ extension ListWord on List<WordViewModel> {
         final newKanas = <KanaViewModel>[];
         for (var k = 0; k < this[w].kanas.length; k++) {
           if (k == kanaIndex) {
-            newKanas.add(this[w].kanas[k].copyWith(
-                  status: _calculateStatus(corrects),
-                  userStrokes: userStrokes,
-                ));
+            newKanas.add(this[w].kanas[k].copyWith(status: _calculateStatus(corrects), userStrokes: userStrokes));
           } else if (k == kanaIndex + 1) {
-            newKanas.add(this[w].kanas[k].copyWith(
-                  status: KanaViewerStatus.select,
-                ));
+            newKanas.add(this[w].kanas[k].copyWith(status: KanaViewerStatus.select));
           } else {
             newKanas.add(this[w].kanas[k]);
           }

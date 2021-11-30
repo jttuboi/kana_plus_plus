@@ -24,6 +24,14 @@ class ListReady extends ListState {
   List<Object> get props => [wordIndex, kanaIndex, words];
 }
 
+class ListPreReady extends ListReady {
+  const ListPreReady({
+    int wordIndex = 0,
+    int kanaIndex = 0,
+    List<WordViewModel> words = const <WordViewModel>[],
+  }) : super(wordIndex: wordIndex, kanaIndex: kanaIndex, words: words);
+}
+
 class ListKanaReady extends ListReady {
   const ListKanaReady({
     int wordIndex = 0,
@@ -38,6 +46,16 @@ class ListWordReady extends ListReady {
     int kanaIndex = 0,
     List<WordViewModel> words = const <WordViewModel>[],
   }) : super(wordIndex: wordIndex, kanaIndex: kanaIndex, words: words);
+}
+
+class ListPageReady extends ListReady {
+  const ListPageReady({
+    required this.changePageDurationInMilliseconds,
+    int wordIndex = 0,
+    int kanaIndex = 0,
+    List<WordViewModel> words = const <WordViewModel>[],
+  }) : super(wordIndex: wordIndex, kanaIndex: kanaIndex, words: words);
+  final int changePageDurationInMilliseconds;
 }
 
 class TrainingEnded extends ListState {
