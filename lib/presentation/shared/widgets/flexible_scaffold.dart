@@ -11,6 +11,7 @@ class FlexibleScaffold extends StatefulWidget {
     this.isFlexible = true,
     this.actions,
     this.sliverContent,
+    this.tabs,
     Key? key,
   }) : super(key: key);
 
@@ -20,6 +21,7 @@ class FlexibleScaffold extends StatefulWidget {
   final bool isFlexible;
   final List<Widget>? actions;
   final Widget? sliverContent;
+  final List<Widget>? tabs;
 
   @override
   _FlexibleScaffoldState createState() => _FlexibleScaffoldState();
@@ -55,29 +57,70 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: widget.isFlexible,
-      body: CustomScrollView(
-        physics: widget.isFlexible ? null : const NeverScrollableScrollPhysics(),
-        controller: _scrollController,
-        slivers: [
-          SliverAppBar(
-            flexibleSpace: widget.isFlexible ? _buildFlexible(context) : _buildFixed(context),
-            expandedHeight: appBarExpandedHeight(context),
-            leading: IconButton(
-              icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
-              onPressed: widget.onBackButtonPressed,
+    return (widget.tabs == null)
+        ? Scaffold(
+            extendBodyBehindAppBar: widget.isFlexible,
+            body: CustomScrollView(
+              physics: widget.isFlexible ? null : const NeverScrollableScrollPhysics(),
+              controller: _scrollController,
+              slivers: [
+                SliverAppBar(
+                  flexibleSpace: widget.isFlexible ? _buildFlexible(context) : _buildFixed(context),
+                  expandedHeight: appBarExpandedHeight(context),
+                  leading: IconButton(
+                    icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
+                    onPressed: widget.onBackButtonPressed,
+                  ),
+                  actions: widget.actions,
+                  pinned: true,
+                  shadowColor: _shadowColor,
+                  elevation: _elevation,
+                  forceElevated: true,
+                ),
+                if (widget.sliverContent != null) widget.sliverContent!
+              ],
             ),
-            actions: widget.actions,
-            pinned: true,
-            shadowColor: _shadowColor,
-            elevation: _elevation,
-            forceElevated: true,
-          ),
-          if (widget.sliverContent != null) widget.sliverContent!
-        ],
-      ),
-    );
+          )
+        : DefaultTabController(
+            length: widget.tabs!.length,
+            child: Scaffold(
+              extendBodyBehindAppBar: widget.isFlexible,
+              body: NestedScrollView(
+                physics: widget.isFlexible ? null : const NeverScrollableScrollPhysics(),
+                controller: _scrollController,
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverAppBar(
+                      flexibleSpace: widget.isFlexible ? _buildFlexible(context) : _buildFixed(context),
+                      expandedHeight: appBarExpandedHeight(context),
+                      leading: IconButton(
+                        icon: SvgPicture.asset(IconUrl.back, color: Theme.of(context).primaryIconTheme.color),
+                        onPressed: widget.onBackButtonPressed,
+                      ),
+                      actions: widget.actions,
+                      pinned: true,
+                      shadowColor: _shadowColor,
+                      elevation: _elevation,
+                      forceElevated: true,
+                    ),
+                    SliverPersistentHeader(
+                      delegate: _SliverAppBarDelegate(
+                        TabBar(
+                          tabs: widget.tabs!,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          labelColor: Theme.of(context).primaryColor,
+                          unselectedLabelColor: Theme.of(context).unselectedWidgetColor,
+                          padding: const EdgeInsets.only(top: 16),
+                        ),
+                      ),
+                      //pinned: true,
+                    )
+                  ];
+                },
+                body: widget.sliverContent!,
+              ),
+            ),
+          );
   }
 
   Widget _buildFixed(BuildContext context) {
@@ -144,4 +187,24 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
       },
     );
   }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate(this.tabBar);
+
+  final TabBar tabBar;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(child: tabBar);
+  }
+
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
 }

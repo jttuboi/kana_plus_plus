@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:kwriting/presentation/study/study.dart';
 
 class StudyTable extends StatelessWidget {
-  const StudyTable({required String title, required List<StudyTableRow> rows, Key? key})
+  const StudyTable({required String title, required List<Widget> rows, Key? key})
       : _title = title,
         _rows = rows,
         super(key: key);
 
   final String _title;
-  final List<StudyTableRow> _rows;
+  final List<Widget> _rows;
 
   @override
   Widget build(BuildContext context) {
