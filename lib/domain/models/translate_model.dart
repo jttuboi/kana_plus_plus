@@ -1,6 +1,8 @@
 // ignore_for_file: sort_constructors_first
 
-class TranslateModel {
+import 'package:equatable/equatable.dart';
+
+class TranslateModel extends Equatable {
   const TranslateModel({
     required this.id,
     required this.english,
@@ -12,6 +14,9 @@ class TranslateModel {
   final String english;
   final String portuguese;
   final String spanish;
+
+  @override
+  List<Object?> get props => [id, english, portuguese, spanish];
 
   static const TranslateModel empty = TranslateModel(id: '', english: '', portuguese: '', spanish: '');
 
@@ -47,5 +52,10 @@ class TranslateModel {
       default:
         return english;
     }
+  }
+
+  @override
+  String toString() {
+    return 'TranslateModel($id, $english, $portuguese, $spanish)';
   }
 }

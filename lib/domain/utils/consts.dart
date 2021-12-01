@@ -68,10 +68,10 @@ class Ads {
   }
 }
 
-String toLanguageText(String localeCode) {
-  if (localeCode == 'es') {
+String toLanguageText(String languageCode) {
+  if (languageCode == 'es') {
     return 'Español';
-  } else if (localeCode == 'pt') {
+  } else if (languageCode == 'pt') {
     return 'Português brasileiro';
   }
   return 'English';

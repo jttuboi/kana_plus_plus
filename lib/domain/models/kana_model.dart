@@ -41,4 +41,9 @@ class KanaModel extends Equatable {
       strokes: strokes ?? this.strokes,
     );
   }
+
+  @override
+  String toString() {
+    return 'KanaModel($id, $kanaType, $romaji, $strokes)';
+  }
 }

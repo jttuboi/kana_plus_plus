@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
 
 part 'training_stats.g.dart';
 
 @HiveType(typeId: 0)
-class TrainingStats {
+class TrainingStats extends Equatable {
   const TrainingStats({
     required this.showHint,
     required this.type,
@@ -20,6 +21,9 @@ class TrainingStats {
   final int wordsQuantity;
   @HiveField(3)
   final List<WordStats> words;
+
+  @override
+  List<Object?> get props => [showHint, type, wordsQuantity, words];
 
   @override
   String toString() {
