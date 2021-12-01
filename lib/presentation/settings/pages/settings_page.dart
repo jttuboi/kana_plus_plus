@@ -23,9 +23,9 @@ class SettingsPage extends StatelessWidget {
     final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository())),
-        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository())),
-        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository())),
+        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository(HiveDatabase()))),
+        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository(HiveDatabase()))),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository(HiveDatabase()))),
       ],
       builder: (context, child) {
         return FlexibleScaffold(

@@ -1,22 +1,20 @@
-import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 class KanaTypeRepository implements IKanaTypeRepository {
-  late Box _box;
+  KanaTypeRepository(this.database);
 
-  Future<void> load() async {
-    _box = (Hive.isBoxOpen(BoxTag.settings)) ? Hive.box(BoxTag.settings) : await Hive.openBox(BoxTag.settings);
-  }
+  IDatabase database;
 
   @override
   Future<KanaType> getKanaType() async {
-    await load();
-    return _box.get(DatabaseTag.kanaType, defaultValue: KanaType.both);
+    await database.load(BoxTag.settings);
+    return database.get(DatabaseTag.kanaType, defaultValue: KanaType.both);
   }
 
   @override
   Future<void> updateKanaType(KanaType kanaType) async {
-    await load();
-    await _box.put(DatabaseTag.kanaType, kanaType);
+    await database.load(BoxTag.settings);
+    await database.put(DatabaseTag.kanaType, kanaType);
   }
 }

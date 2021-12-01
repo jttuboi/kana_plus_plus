@@ -16,7 +16,7 @@ class AndroidApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AppCubit(AppRepository(), LanguageRepository())),
+        BlocProvider(create: (context) => AppCubit(AppRepository(HiveDatabase()), LanguageRepository(HiveDatabase()))),
       ],
       child: const AppView(),
     );

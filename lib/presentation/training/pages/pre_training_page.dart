@@ -21,9 +21,9 @@ class PreTrainingPage extends StatelessWidget {
     final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository(), mustPersist: false)),
-        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository(), mustPersist: false)),
-        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository(), mustPersist: false)),
+        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository(HiveDatabase()), mustPersist: false)),
+        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository(HiveDatabase()), mustPersist: false)),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository(HiveDatabase()), mustPersist: false)),
       ],
       builder: (context, child) {
         return FlexibleScaffold(

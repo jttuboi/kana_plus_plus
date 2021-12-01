@@ -25,7 +25,8 @@ class TrainingPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => WriterBloc(strokeReducer: StrokeReducer(maxPointsQuantity: 20), kanaChecker: KanaChecker())),
         BlocProvider(create: (context) {
-          return ListBloc(BlocProvider.of<WriterBloc>(context), WordsRepository(), StatisticsRepository())..add(ListStarted(trainingSettings));
+          return ListBloc(BlocProvider.of<WriterBloc>(context), WordsRepository(), StatisticsRepository(HiveDatabase()))
+            ..add(ListStarted(trainingSettings));
         }),
         BlocProvider(create: (context) => TrainingBloc(BlocProvider.of<ListBloc>(context))),
         BlocProvider(create: (context) => WordBloc(BlocProvider.of<ListBloc>(context))),

@@ -1,22 +1,20 @@
-import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 class LanguageRepository implements ILanguageRepository {
-  late Box _box;
+  LanguageRepository(this.database);
 
-  Future<void> load() async {
-    _box = (Hive.isBoxOpen(BoxTag.settings)) ? Hive.box(BoxTag.settings) : await Hive.openBox(BoxTag.settings);
-  }
+  IDatabase database;
 
   @override
   Future<String> getLanguage() async {
-    await load();
-    return _box.get(DatabaseTag.language, defaultValue: Default.languageCode);
+    await database.load(BoxTag.settings);
+    return database.get(DatabaseTag.language, defaultValue: Default.languageCode);
   }
 
   @override
   Future<void> updateLanguage(String localeCode) async {
-    await load();
-    await _box.put(DatabaseTag.language, localeCode);
+    await database.load(BoxTag.settings);
+    await database.put(DatabaseTag.language, localeCode);
   }
 }

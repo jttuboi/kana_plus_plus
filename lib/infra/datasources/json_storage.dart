@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/infra/infra.dart';
 
-class JsonStorage implements IFileStorage {
+class JsonStorage implements IStorage {
   final data = JsonData();
 
   @override

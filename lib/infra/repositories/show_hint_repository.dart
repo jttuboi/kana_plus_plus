@@ -1,22 +1,20 @@
-import 'package:hive/hive.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 class ShowHintRepository implements IShowHintRepository {
-  late Box _box;
+  ShowHintRepository(this.database);
 
-  Future<void> load() async {
-    _box = (Hive.isBoxOpen(BoxTag.settings)) ? Hive.box(BoxTag.settings) : await Hive.openBox(BoxTag.settings);
-  }
+  IDatabase database;
 
   @override
   Future<bool> getShowHint() async {
-    await load();
-    return _box.get(DatabaseTag.showHint, defaultValue: Default.showHint);
+    await database.load(BoxTag.settings);
+    return database.get(DatabaseTag.showHint, defaultValue: Default.showHint);
   }
 
   @override
   Future<void> updateShowHint(bool showHint) async {
-    await load();
-    await _box.put(DatabaseTag.showHint, showHint);
+    await database.load(BoxTag.settings);
+    await database.put(DatabaseTag.showHint, showHint);
   }
 }

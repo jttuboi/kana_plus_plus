@@ -21,7 +21,7 @@ class WordsPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) {
-          return WordsBloc(wordsRepository: WordsRepository(), statisticsRepository: StatisticsRepository())
+          return WordsBloc(wordsRepository: WordsRepository(), statisticsRepository: StatisticsRepository(HiveDatabase()))
             ..add(WordsLoaded(Localizations.localeOf(context).languageCode));
         }),
         BlocProvider(create: (context) => FilteredWordsBloc(wordsBloc: BlocProvider.of<WordsBloc>(context))),

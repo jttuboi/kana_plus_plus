@@ -15,7 +15,10 @@ class ReviewPage extends StatefulWidget {
 
   static Route route({List<WordViewModel>? wordsResult}) {
     return MaterialPageRoute(builder: (context) {
-      return ReviewPage._(reviewController: ReviewController(statisticsRepository: StatisticsRepository()), wordsResult: wordsResult ?? const []);
+      return ReviewPage._(
+        reviewController: ReviewController(statisticsRepository: StatisticsRepository(HiveDatabase())),
+        wordsResult: wordsResult ?? const [],
+      );
     });
   }
 
