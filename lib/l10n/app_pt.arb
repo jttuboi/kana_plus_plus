@@ -4,12 +4,7 @@
     "settingsBasic": "Básico",
     "settingsLanguage": "Idioma",
     "settingsSelectLanguage": "Selecione o idioma",
-    "settingsDarkTheme": "Tema escuro",
     "settingsDefaultTrainingSetting": "Configuração de treino padrão",
-    "settingsWritingHand": "Mão que escreve",
-    "settingsSelectWritingHand": "Selecione mão que escreve",
-    "settingsWritingHandLeft": "Canhoto",
-    "settingsWritingHandRight": "Destro",
     "settingsShowHint": "Mostra dica",
     "settingsKanaType": "Tipo de kana",
     "settingsSelectKanaType": "Seleciona o tipo de kana",
@@ -73,5 +68,12 @@
     "studyDigraphsTitle": "Dígrafos",
     "studyGeminatedTitle": "Geminados",
     "studyLongVowelsTitle": "Vogais prolongadas",
-    "studyExtraSyllabesTitle": "Vogais pequenas"
+    "studyExtraSyllabesTitle": "Vogais pequenas",
+    "errorBack": "Erro: clique no botão Voltar",
+    "correctWordCount": "Contagem de palavras corretas",
+    "wrongWordCount": "Contagem de palavras erradas",
+    "correctKanaCount": "Contagem de {kanaId} correto",
+    "wrongKanaCount"  : "Contagem de {kanaId} errado",
+    "@correctKanaCount": { "placeholders": { "kanaId": { "type": "String" } } },
+    "@wrongKanaCount": { "placeholders": { "kanaId": { "type": "String" } } }
 }

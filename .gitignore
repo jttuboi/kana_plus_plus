@@ -4,7 +4,7 @@ app/upload-keystore.jks
 
 # Ignore files of sandbox. It's a folder for tests.
 sandbox/
-lib/assets/tests/
+assets/tests/
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,android,androidstudio,java,kotlin,flutter,dart,objective-c,swift,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,android,androidstudio,java,kotlin,flutter,dart,objective-c,swift,visualstudiocode

@@ -2,38 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
-import 'package:kwriting/src/data/datasources/json.storage.dart';
-import 'package:kwriting/src/data/datasources/shared_preferences.storage.dart';
-import 'package:kwriting/src/data/singletons/database.dart';
-import 'package:kwriting/src/data/singletons/file.dart';
-import 'package:kwriting/src/domain/entities/kana_stats.dart';
-import 'package:kwriting/src/domain/entities/point_stats.dart';
-import 'package:kwriting/src/domain/entities/stroke_stats.dart';
-import 'package:kwriting/src/domain/entities/training_stats.dart';
-import 'package:kwriting/src/domain/entities/word_stats.dart';
-import 'package:kwriting/src/domain/utils/kana_type.dart';
-import 'package:kwriting/src/presentation/app.android.dart';
+import 'package:kwriting/app.dart';
+import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
-  // init services before app start
   init().whenComplete(() {
-    runApp(AndroidApp());
-    //Platform.isIOS ? runApp(const IosApp()) : runApp(AndroidApp());
+    runApp(const AndroidApp());
   });
 }
 
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Database.init(storage: SharedPreferencesStorage());
-  await File.init(storage: JsonStorage());
-  Hive.init((await getApplicationDocumentsDirectory()).path);
-  Hive.registerAdapter(KanaTypeAdapter());
-  Hive.registerAdapter(PointStatsAdapter());
-  Hive.registerAdapter(StrokeStatsAdapter());
-  Hive.registerAdapter(KanaStatsAdapter());
-  Hive.registerAdapter(WordStatsAdapter());
-  Hive.registerAdapter(TrainingStatsAdapter());
+  await File.initialize(JsonStorage());
+  Hive
+    ..init((await getApplicationDocumentsDirectory()).path)
+    ..registerAdapter(KanaTypeAdapter())
+    ..registerAdapter(PointStatsAdapter())
+    ..registerAdapter(StrokeStatsAdapter())
+    ..registerAdapter(KanaStatsAdapter())
+    ..registerAdapter(WordStatsAdapter())
+    ..registerAdapter(TrainingStatsAdapter());
   await MobileAds.instance.initialize();
 }
