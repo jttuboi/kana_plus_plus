@@ -117,15 +117,21 @@ class StatisticsRepository implements IStatisticsRepository {
   }
 
   @override
-  Future<int> bothQuantity() async {
+  Future<int> showHintQuantity() async {
     await database.load(BoxTag.statisticCount);
-    return database.get(DatabaseTag.bothQuantity, defaultValue: 0);
+    return database.get(DatabaseTag.showHintQuantity, defaultValue: 0);
   }
 
   @override
   Future<int> notShowHintQuantity() async {
     await database.load(BoxTag.statisticCount);
     return database.get(DatabaseTag.notShowHintQuantity, defaultValue: 0);
+  }
+
+  @override
+  Future<int> bothQuantity() async {
+    await database.load(BoxTag.statisticCount);
+    return database.get(DatabaseTag.bothQuantity, defaultValue: 0);
   }
 
   @override
@@ -138,12 +144,6 @@ class StatisticsRepository implements IStatisticsRepository {
   Future<int> onlyKatakanaQuantity() async {
     await database.load(BoxTag.statisticCount);
     return database.get(DatabaseTag.onlyKatakanaQuantity, defaultValue: 0);
-  }
-
-  @override
-  Future<int> showHintQuantity() async {
-    await database.load(BoxTag.statisticCount);
-    return database.get(DatabaseTag.showHintQuantity, defaultValue: 0);
   }
 
   @override
