@@ -11,7 +11,7 @@ void main() {
     final repository = KanaTypeRepository(mockDatabase);
 
     test('gets kana type', () {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((inv_ocation) => Future.value());
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
       when(() => mockDatabase.get(DatabaseTag.kanaType, defaultValue: KanaType.both)).thenAnswer((_) => Future.value(KanaType.hiragana));
 
       expect(repository.getKanaType(), completion(KanaType.hiragana));

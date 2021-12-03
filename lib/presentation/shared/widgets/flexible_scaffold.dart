@@ -8,9 +8,9 @@ class FlexibleScaffold extends StatefulWidget {
     required this.title,
     required this.bannerUrl,
     required this.onBackButtonPressed,
+    required this.sliverContent,
     this.isFlexible = true,
     this.actions,
-    this.sliverContent,
     this.tabs,
     Key? key,
   }) : super(key: key);
@@ -18,9 +18,9 @@ class FlexibleScaffold extends StatefulWidget {
   final String title;
   final String bannerUrl;
   final VoidCallback onBackButtonPressed;
+  final Widget sliverContent;
   final bool isFlexible;
   final List<Widget>? actions;
-  final Widget? sliverContent;
   final List<Widget>? tabs;
 
   @override
@@ -77,7 +77,7 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
                   elevation: _elevation,
                   forceElevated: true,
                 ),
-                if (widget.sliverContent != null) widget.sliverContent!
+                widget.sliverContent,
               ],
             ),
           )
@@ -117,7 +117,7 @@ class _FlexibleScaffoldState extends State<FlexibleScaffold> {
                     )
                   ];
                 },
-                body: widget.sliverContent!,
+                body: widget.sliverContent,
               ),
             ),
           );
