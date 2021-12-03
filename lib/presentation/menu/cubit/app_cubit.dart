@@ -7,7 +7,7 @@ import 'package:kwriting/domain/domain.dart';
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit(this.appRepository, this.languageRepository) : super(AppLoadInProgress()) {
+  AppCubit(this.appRepository, this.languageRepository) : super(const AppLoadInProgress()) {
     appRepository.isFirstTime().then((isFirstTime) {
       if (isFirstTime) {
         emit(AppLoaded(isFirstTimeOpenApp: isFirstTime));

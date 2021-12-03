@@ -26,7 +26,7 @@ class MenuPage extends StatelessWidget {
                   body: Stack(
                     children: [
                       const MenuBackground(),
-                      _MenuContent(),
+                      MenuContent(),
                     ],
                   ),
                 );
@@ -37,8 +37,8 @@ class MenuPage extends StatelessWidget {
   }
 }
 
-class _MenuContent extends StatelessWidget {
-  _MenuContent({Key? key}) : super(key: key);
+class MenuContent extends StatelessWidget {
+  MenuContent({Key? key}) : super(key: key);
 
   final menuExtraButtonIconSize = Device.get().isTablet ? 80.0 : 48.0;
   final menuExtraButtonTitleSize = Device.get().isTablet ? 26.0 : 16.0;
@@ -86,22 +86,22 @@ class _MenuContent extends StatelessWidget {
                       crossAxisCount: 2,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _MenuButton(
+                        MenuButton(
                           title: strings.menuStudy,
                           iconUrl: IconUrl.study,
                           routeName: StudyPage.routeName,
                         ),
-                        _MenuButton(
+                        MenuButton(
                           title: strings.menuTraining,
                           iconUrl: IconUrl.training,
                           routeName: PreTrainingPage.routeName,
                         ),
-                        _MenuButton(
+                        MenuButton(
                           title: strings.menuWords,
                           iconUrl: IconUrl.words,
                           routeName: WordsPage.routeName,
                         ),
-                        _MenuButton(
+                        MenuButton(
                           title: strings.menuSettings,
                           iconUrl: IconUrl.settings,
                           routeName: SettingsPage.routeName,
@@ -134,8 +134,8 @@ class _MenuContent extends StatelessWidget {
   }
 }
 
-class _MenuButton extends StatelessWidget {
-  const _MenuButton({
+class MenuButton extends StatelessWidget {
+  const MenuButton({
     required this.title,
     required this.iconUrl,
     required this.routeName,

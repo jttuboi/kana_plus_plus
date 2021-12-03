@@ -10,7 +10,7 @@ class MenuBackground extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
-        CustomPaint(painter: _Layer0Painter(), size: MediaQuery.of(context).size),
+        CustomPaint(painter: const Layer0Painter(), size: MediaQuery.of(context).size),
         FallingKanaAnimation(
           initialPosition: Offset(width * 1 / 5, height * 1 / 3),
           endYPosition: height,
@@ -46,7 +46,7 @@ class MenuBackground extends StatelessWidget {
           kanaSize: 48,
           kanaColor: Colors.grey.shade700,
         ),
-        CustomPaint(painter: _Layer1Painter(), size: MediaQuery.of(context).size),
+        CustomPaint(painter: const Layer1Painter(), size: MediaQuery.of(context).size),
         FallingKanaAnimation(
           initialPosition: Offset(width * 1 / 80, height * 1 / 3),
           endYPosition: height * 12 / 13,
@@ -82,7 +82,7 @@ class MenuBackground extends StatelessWidget {
           kanaSize: 35,
           kanaColor: Colors.grey.shade600,
         ),
-        CustomPaint(painter: _Layer2Painter(), size: MediaQuery.of(context).size),
+        CustomPaint(painter: const Layer2Painter(), size: MediaQuery.of(context).size),
         FallingKanaAnimation(
           initialPosition: Offset(width * 1 / 20, -100),
           endYPosition: height * 3 / 4,
@@ -130,7 +130,9 @@ class MenuBackground extends StatelessWidget {
   }
 }
 
-class _Layer0Painter extends CustomPainter {
+class Layer0Painter extends CustomPainter {
+  const Layer0Painter();
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(
@@ -140,12 +142,12 @@ class _Layer0Painter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class _Layer1Painter extends CustomPainter {
+class Layer1Painter extends CustomPainter {
+  const Layer1Painter();
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas
@@ -172,12 +174,12 @@ class _Layer1Painter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class _Layer2Painter extends CustomPainter {
+class Layer2Painter extends CustomPainter {
+  const Layer2Painter();
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas
@@ -200,7 +202,5 @@ class _Layer2Painter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
