@@ -18,6 +18,8 @@ export 'repositories/show_hint_interface_repository.dart';
 export 'repositories/statistics_interface_repository.dart';
 export 'repositories/words_interface_repository.dart';
 export 'services/kana_checker/kana_checker.dart';
+export 'services/rate_launcher/rate_launcher.dart';
+export 'services/share_launcher/share_launcher.dart';
 export 'services/stroke_reducer/stroke_reducer.dart';
 export 'services/word_to_kana_converter/word_to_kana_converter.dart';
 export 'utils/banner_url.dart';

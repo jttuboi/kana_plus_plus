@@ -88,8 +88,8 @@ class AboutPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RateButton(iconSize: _iconSize, titleSize: _titleSize),
-                          ShareButton(iconSize: _iconSize, titleSize: _titleSize),
+                          RateButton(iconSize: _iconSize, titleSize: _titleSize, launcher: RateLauncher()),
+                          ShareButton(iconSize: _iconSize, titleSize: _titleSize, launcher: ShareLauncher()),
                           SupportButton(iconSize: _iconSize, titleSize: _titleSize),
                         ],
                       ),

@@ -13,3 +13,7 @@ class MockAppRepository extends Mock implements IAppRepository {}
 class MockLanguageRepository extends Mock implements ILanguageRepository {}
 
 class MockAppCubit extends MockCubit<AppState> implements AppCubit {}
+
+class MockRateLauncher extends Mock implements RateLauncher {}
+
+class MockShareLauncher extends Mock implements ShareLauncher {}

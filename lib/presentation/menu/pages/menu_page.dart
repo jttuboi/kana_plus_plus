@@ -121,7 +121,7 @@ class MenuContent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ShareButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
+                  ShareButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize, launcher: ShareLauncher()),
                   const SizedBox(width: 4),
                   SupportButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
                 ],
