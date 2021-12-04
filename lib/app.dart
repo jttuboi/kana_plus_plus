@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/menu/menu.dart';
@@ -39,7 +40,12 @@ class AppView extends StatelessWidget {
           theme: themeData,
           locale: _locale(state),
           localeResolutionCallback: (locale, supportedLocales) => _localeResolutionCallback(locale, supportedLocales, context),
-          home: const MenuPage(),
+          home: MenuPage(
+            supportButton: SupportButton(
+              iconSize: Device.get().isTablet ? 80.0 : 48.0,
+              titleSize: Device.get().isTablet ? 26.0 : 16.0,
+            ),
+          ),
           onGenerateRoute: _onGenerateRoute,
         );
       },

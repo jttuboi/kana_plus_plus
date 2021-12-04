@@ -13,7 +13,9 @@ import 'package:kwriting/presentation/training/training.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({Key? key}) : super(key: key);
+  const MenuPage({required this.supportButton, Key? key}) : super(key: key);
+
+  final ISupportButton supportButton;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MenuPage extends StatelessWidget {
                   body: Stack(
                     children: [
                       const MenuBackground(),
-                      MenuContent(),
+                      MenuContent(supportButton: supportButton),
                     ],
                   ),
                 );
@@ -38,12 +40,14 @@ class MenuPage extends StatelessWidget {
 }
 
 class MenuContent extends StatelessWidget {
-  MenuContent({Key? key}) : super(key: key);
+  const MenuContent({required this.supportButton, Key? key}) : super(key: key);
 
-  final menuExtraButtonIconSize = Device.get().isTablet ? 80.0 : 48.0;
-  final menuExtraButtonTitleSize = Device.get().isTablet ? 26.0 : 16.0;
-  final menuGridButtonsSpacing = Device.get().isTablet ? 32.0 : 16.0;
-  final menuPadding = Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96) : const EdgeInsets.symmetric(horizontal: 24);
+  final ISupportButton supportButton;
+
+  double get menuExtraButtonIconSize => Device.get().isTablet ? 80.0 : 48.0;
+  double get menuExtraButtonTitleSize => Device.get().isTablet ? 26.0 : 16.0;
+  double get menuGridButtonsSpacing => Device.get().isTablet ? 32.0 : 16.0;
+  EdgeInsets get menuPadding => Device.get().isTablet ? const EdgeInsets.symmetric(horizontal: 96) : const EdgeInsets.symmetric(horizontal: 24);
 
   @override
   Widget build(BuildContext context) {
@@ -89,22 +93,22 @@ class MenuContent extends StatelessWidget {
                         MenuButton(
                           title: strings.menuStudy,
                           iconUrl: IconUrl.study,
-                          routeName: StudyPage.routeName,
+                          onPressed: () => Navigator.pushNamed(context, StudyPage.routeName),
                         ),
                         MenuButton(
                           title: strings.menuTraining,
                           iconUrl: IconUrl.training,
-                          routeName: PreTrainingPage.routeName,
+                          onPressed: () => Navigator.pushNamed(context, PreTrainingPage.routeName),
                         ),
                         MenuButton(
                           title: strings.menuWords,
                           iconUrl: IconUrl.words,
-                          routeName: WordsPage.routeName,
+                          onPressed: () => Navigator.pushNamed(context, WordsPage.routeName),
                         ),
                         MenuButton(
                           title: strings.menuSettings,
                           iconUrl: IconUrl.settings,
-                          routeName: SettingsPage.routeName,
+                          onPressed: () => Navigator.pushNamed(context, SettingsPage.routeName),
                         ),
                       ],
                     ),
@@ -123,7 +127,7 @@ class MenuContent extends StatelessWidget {
                 children: [
                   ShareButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize, launcher: ShareLauncher()),
                   const SizedBox(width: 4),
-                  SupportButton(iconSize: menuExtraButtonIconSize, titleSize: menuExtraButtonTitleSize),
+                  supportButton,
                 ],
               ),
             ),
@@ -138,22 +142,18 @@ class MenuButton extends StatelessWidget {
   const MenuButton({
     required this.title,
     required this.iconUrl,
-    required this.routeName,
-    this.arguments,
+    required this.onPressed,
     Key? key,
   }) : super(key: key);
 
   final String title;
   final String iconUrl;
-  final String routeName;
-  final Object? arguments;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, routeName, arguments: arguments);
-      },
+      onPressed: onPressed,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -3,22 +3,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
-  AboutPage._({Key? key}) : super(key: key);
+  const AboutPage({
+    required this.infoGetter,
+    required this.rateLauncher,
+    required this.shareLauncher,
+    required this.urlLauncher,
+    required this.supportButton,
+    Key? key,
+  }) : super(key: key);
 
   static const routeName = '/about';
 
   static Route route() {
-    return MaterialPageRoute(builder: (context) => AboutPage._());
+    return MaterialPageRoute(builder: (context) {
+      return AboutPage(
+        infoGetter: InfoGetter(),
+        rateLauncher: RateLauncher(),
+        shareLauncher: ShareLauncher(),
+        urlLauncher: UrlLauncher(),
+        // TODO discover how to remove Interstitial Ad from SupportButton and don't break the ads
+        // and refactoring here
+        supportButton: SupportButton(iconSize: Device.get().isTablet ? 84.0 : 56.0, titleSize: Device.get().isTablet ? 28.0 : 18.0),
+      );
+    });
   }
 
-  final _imageSize = Device.screenWidth * 1 / 3;
-  final _fontSize = Device.get().isTablet ? 28.0 : 20.0;
-  final _iconSize = Device.get().isTablet ? 84.0 : 56.0;
-  final _titleSize = Device.get().isTablet ? 28.0 : 18.0;
+  final InfoGetter infoGetter;
+  final RateLauncher rateLauncher;
+  final ShareLauncher shareLauncher;
+  final UrlLauncher urlLauncher;
+  final ISupportButton supportButton;
+
+  double get _imageSize => Device.screenWidth * 1 / 3;
+  double get _fontSize => Device.get().isTablet ? 28.0 : 20.0;
+  double get _iconSize => Device.get().isTablet ? 84.0 : 56.0;
+  double get _titleSize => Device.get().isTablet ? 28.0 : 18.0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +53,7 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         sliver: SliverFillRemaining(
           child: FutureBuilder<String>(
-            future: getVersionInfo,
+            future: infoGetter.version,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return const CircularProgressIndicator();
@@ -77,7 +98,7 @@ class AboutPage extends StatelessWidget {
                             text: TextSpan(
                               style: TextStyle(fontSize: _fontSize, color: Colors.blue, decoration: TextDecoration.underline),
                               text: Developer.contact,
-                              recognizer: TapGestureRecognizer()..onTap = _onContactTap,
+                              recognizer: TapGestureRecognizer()..onTap = urlLauncher.sendEmail,
                             ),
                           ),
                         ],
@@ -90,7 +111,7 @@ class AboutPage extends StatelessWidget {
                         children: [
                           RateButton(iconSize: _iconSize, titleSize: _titleSize, launcher: RateLauncher()),
                           ShareButton(iconSize: _iconSize, titleSize: _titleSize, launcher: ShareLauncher()),
-                          SupportButton(iconSize: _iconSize, titleSize: _titleSize),
+                          supportButton,
                         ],
                       ),
                     ),
@@ -102,23 +123,5 @@ class AboutPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String? _encodeQueryParameters(Map<String, String> params) {
-    return params.entries.map((entry) => '${Uri.encodeComponent(entry.key)}=${Uri.encodeComponent(entry.value)}').join('&');
-  }
-
-  Future<void> _onContactTap() async {
-    final emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: Developer.contact,
-      query: _encodeQueryParameters({'subject': Default.contactSubject}),
-    );
-    await launch(emailLaunchUri.toString());
-  }
-
-  Future<String> get getVersionInfo async {
-    final info = await PackageInfo.fromPlatform();
-    return info.version;
   }
 }

@@ -5,7 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kwriting/domain/domain.dart';
 
-class SupportButton extends StatefulWidget {
+//TODO discover how to remove InterstitialAd from SupportButton
+abstract class ISupportButton extends StatefulWidget {
+  const ISupportButton({Key? key}) : super(key: key);
+}
+
+class SupportButton extends ISupportButton {
   const SupportButton({
     Key? key,
     this.iconSize = 24.0,
