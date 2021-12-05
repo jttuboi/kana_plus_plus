@@ -39,7 +39,7 @@ This app was built in order to apply the techniques learned about Flutter and al
 
 The project was built with `Flutter 2.5.3` and `Dart 2.14.4` with focus on Android (it wasn't implemented for iOS, but is pre-prepared to include code to deploy for iOS).
 
-To build the app, we used VSCode, Inkscape (images) and python (automatic manipulation of .svg data to generate points).
+To build the app, we used VSCode, Inkscape (images), python (automatic manipulation of .svg data to generate points) and flutter coverage (chocolatey + lcov + perl).
 
 If you want to follow the next steps of the project, go to GitHub: https://github.com/jttboi/kana_plus_plus/issues
 
@@ -125,6 +125,30 @@ After that, run in the terminal:
 ```sh
 flutter pub run flutter_launcher_icons:main
 ```
+
+### Using flutter coverage on Windows
+
+- Install the [chocolatey](https://chocolatey.org/install).
+Don't recommended to install as administrator, because it will need permissions to use chocolatey every time.
+
+- Isntall the [lcov](https://community.chocolatey.org/packages/lcov#individual).
+
+- Install the [perl](https://www.perl.org/get.html).
+If it is not on PATH, add the `C:/PERL_PATH/perl.exe` in User variables and System variables. You can find the perl folder on C:/.
+
+- after installation, go to project folder on CMD and execute the coverage.
+
+``` sh
+flutter test --coverage ./lib
+```
+
+- after, use the command perl to generate html.
+
+``` sh
+perl C:\CHOCOLATEY_PATH\chocolatey\lib\lcov\tools\bin\genhtml -o coverage C:\FLUTTER_PROJECT_PATH\coverage\lcov.info
+```
+
+- open the index.html file with the favorite browser and it will show the coverage of the project.
 
 ## License
 
