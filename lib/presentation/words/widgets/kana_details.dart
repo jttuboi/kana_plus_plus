@@ -3,11 +3,11 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class KanasDetails extends StatelessWidget {
-  KanasDetails({required this.kanas, Key? key}) : super(key: key);
-
-  final kanaDetailSpaceBetweenKanas = Device.get().isTablet ? 6.0 : 2.0;
+  const KanasDetails({required this.kanas, Key? key}) : super(key: key);
 
   final List<KanaViewModel> kanas;
+
+  double get kanaDetailSpaceBetweenKanas => Device.get().isTablet ? 6.0 : 2.0;
 
   @override
   Widget build(BuildContext context) {

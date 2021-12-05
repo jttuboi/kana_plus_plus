@@ -12,9 +12,10 @@ class KanaDetail extends StatelessWidget {
   final List<String> strokes;
   final double size;
 
+  double get borderSize => 2;
+
   @override
   Widget build(BuildContext context) {
-    const borderSize = 2.0;
     return Container(
       alignment: Alignment.center,
       width: size,

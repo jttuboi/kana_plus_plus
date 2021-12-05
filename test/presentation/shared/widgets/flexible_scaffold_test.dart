@@ -67,7 +67,6 @@ void main() {
       // check flexibleSpace when fixed
       expect(find.ancestor(of: find.byType(FlexibleSpaceBar), matching: find.byType(SliverAppBar)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Padding), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(FittedBox), matching: find.byType(Padding)), findsNWidgets(2));
       expect(find.ancestor(of: find.text('title'), matching: find.byType(FittedBox)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Container), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(SvgPicture), matching: find.byType(Container)), findsOneWidget);
@@ -103,9 +102,6 @@ void main() {
       // check flexibleSpace when fixed
       expect(find.ancestor(of: find.byType(LayoutBuilder), matching: find.byType(SliverAppBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(FlexibleSpaceBar), matching: find.byType(LayoutBuilder)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(Padding), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(FittedBox), matching: find.byType(Padding)), findsNWidgets(2));
-      expect(find.ancestor(of: find.text('title'), matching: find.byType(FittedBox)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Container), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(SvgPicture), matching: find.byType(Container)), findsOneWidget);
 
@@ -140,9 +136,6 @@ void main() {
 
       // check flexibleSpace when fixed
       expect(find.ancestor(of: find.byType(FlexibleSpaceBar), matching: find.byType(SliverAppBar)), findsOneWidget);
-      expect(find.ancestor(of: find.byType(Padding), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(FittedBox), matching: find.byType(Padding)), findsNWidgets(2));
-      expect(find.ancestor(of: find.text('title'), matching: find.byType(FittedBox)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Container), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(SvgPicture), matching: find.byType(Container)), findsOneWidget);
 
@@ -182,8 +175,6 @@ void main() {
 
       // check flexibleSpace when fixed
       expect(find.ancestor(of: find.byType(FlexibleSpaceBar), matching: find.byType(SliverAppBar)), findsOneWidget);
-      expect(find.ancestor(of: find.byType(Padding), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(FittedBox), matching: find.byType(Padding)), findsNWidgets(2));
       expect(find.ancestor(of: find.text('title'), matching: find.byType(FittedBox)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Container), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(SvgPicture), matching: find.byType(Container)), findsOneWidget);
@@ -231,8 +222,6 @@ void main() {
 
       // check flexibleSpace when fixed
       expect(find.ancestor(of: find.byType(FlexibleSpaceBar), matching: find.byType(SliverAppBar)), findsOneWidget);
-      expect(find.ancestor(of: find.byType(Padding), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(FittedBox), matching: find.byType(Padding)), findsNWidgets(2));
       expect(find.ancestor(of: find.text('title'), matching: find.byType(FittedBox)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Container), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(SvgPicture), matching: find.byType(Container)), findsOneWidget);
@@ -278,8 +267,6 @@ void main() {
       // check flexibleSpace when fixed
       expect(find.ancestor(of: find.byType(LayoutBuilder), matching: find.byType(SliverAppBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(FlexibleSpaceBar), matching: find.byType(LayoutBuilder)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(Padding), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(2));
-      expect(find.ancestor(of: find.byType(FittedBox), matching: find.byType(Padding)), findsNWidgets(2));
       expect(find.ancestor(of: find.text('title'), matching: find.byType(FittedBox)), findsOneWidget);
       expect(find.ancestor(of: find.byType(Container), matching: find.byType(FlexibleSpaceBar)), findsNWidgets(3));
       expect(find.ancestor(of: find.byType(SvgPicture), matching: find.byType(Container)), findsOneWidget);

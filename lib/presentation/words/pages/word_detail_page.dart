@@ -5,21 +5,21 @@ import 'package:kwriting/domain/domain.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class WordDetailPage extends StatelessWidget {
-  WordDetailPage._(this._word, {Key? key}) : super(key: key);
+  const WordDetailPage(this._word, {Key? key}) : super(key: key);
 
   static const routeName = '/word_detail';
   static const argWord = 'argWord';
 
   static Route route({required WordViewModel word}) {
-    return MaterialPageRoute(builder: (context) => WordDetailPage._(word));
+    return MaterialPageRoute(builder: (context) => WordDetailPage(word));
   }
 
-  final _titleStyle = TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
-  final _contentStyle = TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
-  final _titleStyleCounter = TextStyle(fontSize: Device.get().isTablet ? 42 : 24, color: Colors.grey.shade700);
-  final _contentStyleCounter = TextStyle(fontSize: Device.get().isTablet ? 34 : 19, color: Colors.grey.shade600);
-
   final WordViewModel _word;
+
+  TextStyle get _titleStyle => TextStyle(fontSize: Device.get().isTablet ? 48 : 30);
+  TextStyle get _contentStyle => TextStyle(fontSize: Device.get().isTablet ? 40 : 25, color: Colors.grey.shade600);
+  TextStyle get _titleStyleCounter => TextStyle(fontSize: Device.get().isTablet ? 42 : 24, color: Colors.grey.shade700);
+  TextStyle get _contentStyleCounter => TextStyle(fontSize: Device.get().isTablet ? 34 : 19, color: Colors.grey.shade600);
 
   @override
   Widget build(BuildContext context) {

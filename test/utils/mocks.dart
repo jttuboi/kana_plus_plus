@@ -5,6 +5,7 @@ import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/menu/menu.dart';
 import 'package:kwriting/presentation/settings/settings.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
+import 'package:kwriting/presentation/words/words.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockDatabase extends Mock implements IDatabase {}
@@ -21,7 +22,15 @@ class MockQuantityOfWordsRepository extends Mock implements IQuantityOfWordsRepo
 
 class MockShowHintRepository extends Mock implements IShowHintRepository {}
 
+class MockWordsRepository extends Mock implements IWordsRepository {}
+
+class MockStatisticsRepository extends Mock implements IStatisticsRepository {}
+
 class MockAppCubit extends MockCubit<AppState> implements AppCubit {}
+
+class MockWordsBloc extends MockBloc<WordsEvent, WordsState> implements WordsBloc {}
+
+class MockFilteredWordsBloc extends MockBloc<FilteredWordsEvent, FilteredWordsState> implements FilteredWordsBloc {}
 
 class MockKanaTypeChangeNotifier extends Mock implements KanaTypeChangeNotifier {}
 

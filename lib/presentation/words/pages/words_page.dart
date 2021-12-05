@@ -7,21 +7,29 @@ import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/words/words.dart';
 
 class WordsPage extends StatelessWidget {
-  const WordsPage._({Key? key}) : super(key: key);
+  const WordsPage({required this.wordsRepository, required this.statisticsRepository, Key? key}) : super(key: key);
 
   static const routeName = '/words';
   static const argWordsController = 'argWordsController';
 
   static Route route() {
-    return MaterialPageRoute(builder: (context) => const WordsPage._());
+    return MaterialPageRoute(builder: (context) {
+      return WordsPage(
+        wordsRepository: WordsRepository(),
+        statisticsRepository: StatisticsRepository(HiveDatabase()),
+      );
+    });
   }
+
+  final IWordsRepository wordsRepository;
+  final IStatisticsRepository statisticsRepository;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) {
-          return WordsBloc(wordsRepository: WordsRepository(), statisticsRepository: StatisticsRepository(HiveDatabase()))
+          return WordsBloc(wordsRepository: wordsRepository, statisticsRepository: statisticsRepository)
             ..add(WordsLoaded(Localizations.localeOf(context).languageCode));
         }),
         BlocProvider(create: (context) => FilteredWordsBloc(wordsBloc: BlocProvider.of<WordsBloc>(context))),
@@ -79,10 +87,7 @@ class WordsView extends StatelessWidget {
                 ),
               );
             }
-            if (state is WordsLoadInProgress) {
-              return const SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
-            }
-            return SliverFillRemaining(child: Center(child: Text(strings.errorBack)));
+            return const SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
           },
         ),
       ),

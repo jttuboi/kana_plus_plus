@@ -26,20 +26,16 @@ class StudyTable extends StatelessWidget {
               ],
             ),
           ),
-          ..._buildStudyRowsWithSpace(),
+          ..._rows.fold<List<Widget>>(<Widget>[], (list, widget) {
+            list.add(widget);
+            if (widget != _rows.last) {
+              list.add(const SizedBox(height: 4));
+            }
+            return list;
+          }),
           const SizedBox(height: 8),
         ],
       ),
     );
-  }
-
-  List<Widget> _buildStudyRowsWithSpace() {
-    final list = <Widget>[_rows[0]];
-    for (var i = 1; i < _rows.length; i++) {
-      list
-        ..add(const SizedBox(height: 4))
-        ..add(_rows[i]);
-    }
-    return list;
   }
 }
