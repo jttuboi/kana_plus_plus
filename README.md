@@ -1,98 +1,134 @@
 # KWriting
 
-## Sobre o app
+## About the app
 
-O app tem a função de ensinar iniciantes a aprender os alfabetos Hiragana e Katakana através da escrita. Para isso foi utilizado uma técnica em que utiliza as palavras (em geral, nomes de coisas) para aprender a escrever em Japonês.
+The app is intended to teach beginners to learn Japanese Hiragana and Katakana alphabets through writing. For this, a technique was used that uses words (usually the names of things) to learn how to write in Japanese.
 
-O uso de imagens das coisas também foi utilizado para associar o que o usuário está escrevendo em Japonês diretamente a representação visual, assim evitando associar diretamente a palavra traduzida. Por isso palavras como adjetivos, ações, verbos não são utilizados, pois são mais difíceis de representar visualmente por uma imagem estática.
+The use of images of things was also used to directly associate what the user is writing in Japanese with the visual representation, thus avoiding directly associating the translated word. That's why words like adjectives, actions, verbs are not used, as they are more difficult to represent visually by a static image.
 
-Como extra, o aprendiz ganha um vocabulário inicial.
+As an extra, the learner will gain an initial vocabulary.
 
-Para mais informações, acesse o app na Play Store.
+For more information, access the app on the Play Store:
 https://play.google.com/store/apps/details?id=com.kana_plus_plus
 
-<img src="/github/Screenshot_1.png" width="270" height="570" />
-<img src="/github/Screenshot_2.png" width="270" height="570" />
-<img src="/github/Screenshot_3.png" width="270" height="570" />
-<img src="/github/Screenshot_4.png" width="270" height="570" />
-<img src="/github/Screenshot_5.png" width="270" height="570" />
+## Printscreen
 
-### Troca de nome
+<table>
+<tr style="border: none;">
+<td style="border: none;">
+<img src="/github/Screenshot_1.png" width="241" height="512" />
+<img src="/github/Screenshot_2.png" width="241" height="512" />
+<img src="/github/Screenshot_3.png" width="241" height="512" />
+</td>
+</tr>
+<tr style="border: none;">
+<td style="border: none;">
+<img src="/github/Screenshot_4.png" width="241" height="512" />
+<img src="/github/Screenshot_5.png" width="241" height="512" />
+</td>
+</tr>
+</table>
 
-O projeto originalmente chamava Kana++, mas devido à política para desenvolvedor da Play Store, caracteres especiais repetidos não são aceitos. Sendo assim, o app se chama KWriting. <i>Sem momento criatividade ao criar esse nome =(.</i>
+### Name changed
 
-## Sobre o projeto
+The project was originally called Kana++, but due to Play Store developer policy, repeated special characters are not accepted. Therefore, the app is called KWriting. <i>No creativity moment when creating this name</i> :neutral_face:.
 
-Este app foi construído com intuito de aplicar as técnicas aprendidas sobre Flutter e também sobre arquitetura de software. Além disso o aplicativo foi enviado para Play Store com intuito de aprender todo processo desde a criação da ideia até o envio do app na Play Store.
+## About the project
 
-O projeto foi construído com Flutter 2.5.2 e Dart 2.14.3 com foco em Android (não foi implementado para iOS, mas está pré-preparado para incluir códigos para fazer deploy para iOS).
+This app was built in order to apply the techniques learned about Flutter and also about software architecture. In addition, the application was sent to the Play Store in order to learn the entire process from creating the idea to sending the app to the Play Store.
 
-Para construção do app, foi utilizado o VSCode, Inkscape (imagens) e python (manipulação automática dos dados do .svg para geração de pontos).
+The project was built with `Flutter 2.5.3` and `Dart 2.14.4` with focus on Android (it wasn't implemented for iOS, but is pre-prepared to include code to deploy for iOS).
 
-Caso queira seguir as próximas etapas do projeto, acesse o Trello: https://trello.com/b/EVoHrCbF
+To build the app, we used VSCode, Inkscape (images) and python (automatic manipulation of .svg data to generate points).
 
-## Entendendo a arquitetura do projeto
+If you want to follow the next steps of the project, go to GitHub: https://github.com/jttboi/kana_plus_plus/issues
 
-### atualizando
+## Understanding Project Architecture
 
-## Instruções extras
+#### **Domain layer**
+**models:** contains entities of the app.
+**repositories:** contains repositories interface.
+**services:** contains services interface.
+**utils:** contains constants used in the app.
 
-### Execução do projeto
+#### **Infra layer**
+**datasources:** contains bridge to access database and file.
+**repositories:** contains repositories implementation.
+**services:** contains services implementation.
 
-Faça o git clone ou baixe o projeto.
+#### **Presentation layer**
+***feature_folder*:** it is the folder of feature of the app.
+**shared:** it is the folder of shared data used in any part of the presentation layer.
 
-Após pegar o projeto, entre na pasta do projeto pelo terminal e digite `flutter pub get` para pegar os pacotes e atualizar o projeto.
+**bloc/cubit:** contains files of state management of BloC pattern.
+**notifiers:** contains files of state management of Change notifier + Provider.
+**controllers:** contains files of old controller of MVC pattern.
+**enums/view_models:** contains enums and view models used in presentation layer.
+**pages:** contains pages of screen app.
+**widgets:** contains widgets to used in any part of page.
 
-Não esqueça de mudar o conteúdo `android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"` no arquivo `android/app/src/main/AndroidManifest.xml`.
-Senão mudar, o projeto não irá fazer o deploy no celular/emulador.
-Esse valor é o app ID gerado no site do adMob. Para mais informações, entre em:
+#### **Other files**
+**test/:** contains tests of the app.
+**l10n/:** contains texts for internationalization.
+**analysis_options.yaml:** it is the configuration file of the Lint.
+**l10n.yaml:** it is the configuration file of the Internationalization.
+**pubspec.yaml:** it is the configuration file of Flutter project.
+
+## Extra instructions
+
+### Project execution
+
+- Git clone or download the project.
+
+- After getting the project, enter the project folder from the terminal and type `flutter pub get` to get the packages and update the project.
+
+- Don't forget to change the `android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"` content in the `android/app/src/main/AndroidManifest.xml` file.
+If not, the project will not deploy to mobile/emulator.
+This value is the app ID generated on the adMob website. For more information, go to:
 https://flutter.dev/ads
 https://pub.dev/packages/google_mobile_ads
 
-Em seguida utilize o comando `flutter build apk` para gerar o apk.
+- Then use `flutter build apk` command to generate the apk.
+I recommend using VSCode or Android Studio to run the project. With some of them it's easier to create Android emulators or have access to DevTools for better debugging.
 
-Recomendo utilizar o VSCode ou Android Studio para executar o projeto. Com algum deles fica mais fácil criar os emuladores de Android ou ter acesso ao DevTools para melhor debug.
+### Update app icon
 
-Dentro do arquivo `.vscode/launch.json` contém alguns modos de execução. Ler https://flutter.dev/docs/development/tools/vs-code#run-app-in-debug-profile-or-release-mode.
-
-### Atualizar o ícone do app
-
-Para atualizar o ícone do app é utilizado o package [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons).
+To update the app icon, the package [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) is used.
 
 #### Android
 
-Primeiro precisa criar 3 pngs:
+First you need to create 3 pngs:
 - `assets/icons/app_icon_background.png`
 - `assets/icons/app_icon_foreground.png`
 - `assets/icons/app_icon.png`
 
-Após isso, executar no terminal:
+After that, run in the terminal:
 ```sh
 flutter pub run flutter_launcher_icons:main
 ```
 
-O package irá gerar automaticamente as imagens necessárias dentro da pasta do android.
+The package will automatically generate the necessary images inside the android folder.
 
-Mais informações em: [Android Adaptive Icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)
+More information at: [Android Adaptive Icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)
 
-Extra: se quiser modificar o splash screen que é mostrado ao abrir o app, modificar o arquivo `android/app/src/main/res/drawable/launch_background.xml`.
+Extra: if you want to modify the splash screen that is shown when opening the app, modify the file `android/app/src/main/res/drawable/launch_background.xml`.
 
-Mais informações em: [Splash Screen Flutter](https://flutter.dev/docs/development/ui/advanced/splash-screen)
+More information at: [Splash Screen Flutter](https://flutter.dev/docs/development/ui/advanced/splash-screen)
 
 #### iOS
 
-Para atualizar o app icon para o iOS, precisa descomentar no `pubspec.yaml` a linha `ios: true`.
+To update the app icon for iOS, you need to uncomment in `pubspec.yaml` the line `ios: true`.
 
-Obs: Ler em [Note](https://pub.dev/packages/flutter_launcher_icons#mag-attributes) para ver como aplicar o design para app icon no iOS.
+Note: Read [Note](https://pub.dev/packages/flutter_launcher_icons#mag-attributes) to see how to apply the app icon design on iOS.
 
-Após isso, executar no terminal:
+After that, run in the terminal:
 ```sh
 flutter pub run flutter_launcher_icons:main
 ```
 
-## Licença
+## License
 
-##### Licença copiado do termos de uso
+##### License copied from terms of use
 
 The software is open source. Its code is shared at https://github.com/jttuboi/kana_plus_plus. All content specifically available in the repository can be used under the MIT License.
 
@@ -110,6 +146,6 @@ The icons were taken from [Google fonts](https://fonts.google.com/icons) and tho
 
 The word data information were mostly collected through [Jisho](https://jisho.org/).
 
-##### termos de uso e política de privacidade do app
+##### Terms of use and privacy policy
 
 https://tuboi-studios.github.io/kwriting_terms_of_use_and_privacy_policy/
