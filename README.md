@@ -16,15 +16,23 @@ https://play.google.com/store/apps/details?id=com.kana_plus_plus
 <table>
 <tr style="border: none;">
 <td style="border: none;">
-<img src="/github/Screenshot_1.png" width="241" height="512" />
-<img src="/github/Screenshot_2.png" width="241" height="512" />
-<img src="/github/Screenshot_3.png" width="241" height="512" />
+<img src="/github/1.jpg" width="241" height="512" />
+<img src="/github/3.jpg" width="241" height="512" />
+<img src="/github/4.jpg" width="241" height="512" />
 </td>
 </tr>
 <tr style="border: none;">
 <td style="border: none;">
-<img src="/github/Screenshot_4.png" width="241" height="512" />
-<img src="/github/Screenshot_5.png" width="241" height="512" />
+<img src="/github/2.jpg" width="241" height="512" />
+<img src="/github/5.jpg" width="241" height="512" />
+<img src="/github/6.jpg" width="241" height="512" />
+</td>
+</tr>
+</tr>
+<tr style="border: none;">
+<td style="border: none;">
+<img src="/github/7.jpg" width="241" height="512" />
+<img src="/github/8.jpg" width="241" height="512" />
 </td>
 </tr>
 </table>
