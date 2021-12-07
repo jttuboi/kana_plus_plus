@@ -5,6 +5,7 @@ import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/menu/menu.dart';
 import 'package:kwriting/presentation/settings/settings.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
+import 'package:kwriting/presentation/training/training.dart';
 import 'package:kwriting/presentation/words/words.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -30,13 +31,27 @@ class MockAppCubit extends MockCubit<AppState> implements AppCubit {}
 
 class MockWordsBloc extends MockBloc<WordsEvent, WordsState> implements WordsBloc {}
 
+class MockListBloc extends MockBloc<ListEvent, ListState> implements ListBloc {}
+
+class MockTrainingBloc extends MockBloc<TrainingEvent, TrainingState> implements TrainingBloc {}
+
+class MockWordBloc extends MockBloc<WordEvent, WordState> implements WordBloc {}
+
+class MockKanaBloc extends MockBloc<KanaEvent, KanaState> implements KanaBloc {}
+
 class MockFilteredWordsBloc extends MockBloc<FilteredWordsEvent, FilteredWordsState> implements FilteredWordsBloc {}
+
+class MockWriterBloc extends MockBloc<WriterEvent, WriterState> implements WriterBloc {}
 
 class MockKanaTypeChangeNotifier extends Mock implements KanaTypeChangeNotifier {}
 
 class MockQuantityOfWordsChangeNotifier extends Mock implements QuantityOfWordsChangeNotifier {}
 
 class MockShowHintChangeNotifier extends Mock implements ShowHintChangeNotifier {}
+
+class MockStrokeReducer extends Mock implements StrokeReducer {}
+
+class MockKanaChecker extends Mock implements KanaChecker {}
 
 class MockInfoGetter extends Mock implements InfoGetter {}
 

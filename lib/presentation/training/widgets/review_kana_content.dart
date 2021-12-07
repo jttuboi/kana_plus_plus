@@ -9,25 +9,26 @@ class ReviewKanaContent extends StatelessWidget {
 
   final KanaViewModel kanaResult;
 
+  double get _squareSize => 32;
+  double get _borderSize => 1;
+  double get _squareTapSize => _squareSize - _borderSize * 2;
+
   @override
   Widget build(BuildContext context) {
-    const squareSize = 32.0;
-    const borderSize = 1.0;
-    const squareTapSize = squareSize - borderSize * 2;
     return SizedBox(
-      width: squareSize,
+      width: _squareSize,
       child: Stack(
         children: [
           CustomPaint(
-            painter: BorderPainter(borderSize: borderSize, borderColor: (kanaResult.status.isCorrect) ? Colors.blueAccent : Colors.redAccent),
-            size: const Size.square(squareSize),
+            painter: BorderPainter(borderSize: _borderSize, borderColor: (kanaResult.status.isCorrect) ? Colors.blueAccent : Colors.redAccent),
+            size: Size.square(_squareSize),
           ),
           Positioned(
-            top: borderSize,
-            left: borderSize,
+            top: _borderSize,
+            left: _borderSize,
             child: CustomPaint(
               painter: UserKanaPainter(strokes: kanaResult.userStrokes, strokeWidth: 1),
-              size: const Size.square(squareTapSize),
+              size: Size.square(_squareTapSize),
             ),
           ),
         ],

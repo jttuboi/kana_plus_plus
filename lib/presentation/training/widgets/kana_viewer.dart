@@ -11,20 +11,20 @@ class KanaViewer extends StatelessWidget {
   final double squareSize;
   final KanaViewModel kana;
 
+  double get _borderSize => Device.get().isTablet ? 12.0 : 6.0;
+
   @override
   Widget build(BuildContext context) {
-    final borderSize = Device.get().isTablet ? 12.0 : 6.0;
-
     if (kana.status.isSelect) {
-      return KanaViewerSelectRomaji(romaji: kana.romaji, size: squareSize, borderSize: borderSize);
+      return KanaViewerSelectRomaji(romaji: kana.romaji, size: squareSize, borderSize: _borderSize);
     }
     if (kana.status.isNormal) {
-      return _KanaViewerRomaji(romaji: kana.romaji, size: squareSize, borderSize: borderSize);
+      return KanaViewerRomaji(romaji: kana.romaji, size: squareSize, borderSize: _borderSize);
     }
     if (kana.status.isCorrect || kana.status.isWrong) {
-      return _KanaViewerKana(
+      return KanaViewerKana(
         size: squareSize,
-        borderSize: borderSize,
+        borderSize: _borderSize,
         strokes: kana.strokes,
         userStrokes: kana.userStrokes,
         correct: kana.status.isCorrect,
@@ -107,8 +107,8 @@ class _KanaViewerSelectRomajiState extends State<KanaViewerSelectRomaji> with Si
   }
 }
 
-class _KanaViewerRomaji extends StatelessWidget {
-  const _KanaViewerRomaji({
+class KanaViewerRomaji extends StatelessWidget {
+  const KanaViewerRomaji({
     required this.romaji,
     required this.size,
     required this.borderSize,
@@ -138,8 +138,8 @@ class _KanaViewerRomaji extends StatelessWidget {
   }
 }
 
-class _KanaViewerKana extends StatelessWidget {
-  const _KanaViewerKana({
+class KanaViewerKana extends StatelessWidget {
+  const KanaViewerKana({
     required this.strokes,
     required this.userStrokes,
     required this.correct,

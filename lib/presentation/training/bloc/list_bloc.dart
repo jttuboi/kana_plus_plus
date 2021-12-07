@@ -14,7 +14,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       : _writerBloc = writerBloc,
         _wordsRepository = wordsRepository,
         _statisticsRepository = statisticsRepository,
-        super(ListInitial()) {
+        super(const ListInitial()) {
     on<ListStarted>(_onListStarted);
     on<ListPreUpdated>(_onListPreUpdated);
     on<ListKanaChanged>(_onListKanaChanged);
