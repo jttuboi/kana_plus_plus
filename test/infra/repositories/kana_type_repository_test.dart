@@ -11,16 +11,16 @@ void main() {
     final repository = KanaTypeRepository(mockDatabase);
 
     test('gets kana type', () {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((invocation) => Future.value());
-      when(() => mockDatabase.get(DatabaseTag.kanaType, defaultValue: KanaType.both)).thenAnswer((invocation) => Future.value(KanaType.hiragana));
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
+      when(() => mockDatabase.get(DatabaseTag.kanaType, defaultValue: KanaType.both)).thenAnswer((_) => Future.value(KanaType.hiragana));
 
       expect(repository.getKanaType(), completion(KanaType.hiragana));
       verify(() => mockDatabase.load(BoxTag.settings)).called(1);
     });
 
     test('puts kana type', () async {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((invocation) => Future.value());
-      when(() => mockDatabase.put(DatabaseTag.kanaType, KanaType.katakana)).thenAnswer((invocation) => Future.value());
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
+      when(() => mockDatabase.put(DatabaseTag.kanaType, KanaType.katakana)).thenAnswer((_) => Future.value());
 
       await repository.updateKanaType(KanaType.katakana);
 

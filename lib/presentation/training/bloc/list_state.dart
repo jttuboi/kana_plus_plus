@@ -7,7 +7,9 @@ abstract class ListState extends Equatable {
   List<Object> get props => [];
 }
 
-class ListInitial extends ListState {}
+class ListInitial extends ListState {
+  const ListInitial();
+}
 
 class ListReady extends ListState {
   const ListReady({

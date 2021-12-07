@@ -11,16 +11,16 @@ void main() {
     final repository = LanguageRepository(mockDatabase);
 
     test('gets language code', () {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((invocation) => Future.value());
-      when(() => mockDatabase.get(DatabaseTag.language, defaultValue: Default.languageCode)).thenAnswer((invocation) => Future.value('es'));
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
+      when(() => mockDatabase.get(DatabaseTag.language, defaultValue: Default.languageCode)).thenAnswer((_) => Future.value('es'));
 
       expect(repository.getLanguage(), completion('es'));
       verify(() => mockDatabase.load(BoxTag.settings)).called(1);
     });
 
     test('puts language code', () async {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((invocation) => Future.value());
-      when(() => mockDatabase.put(DatabaseTag.language, 'pt')).thenAnswer((invocation) => Future.value());
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
+      when(() => mockDatabase.put(DatabaseTag.language, 'pt')).thenAnswer((_) => Future.value());
 
       await repository.updateLanguage('pt');
 

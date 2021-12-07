@@ -7,7 +7,9 @@ abstract class TrainingState extends Equatable {
   List<Object> get props => [];
 }
 
-class TrainingInitial extends TrainingState {}
+class TrainingInitial extends TrainingState {
+  const TrainingInitial();
+}
 
 class TrainingReady extends TrainingState {
   const TrainingReady();

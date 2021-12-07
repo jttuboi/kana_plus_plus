@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StudyContentPainter extends CustomPainter {
-  StudyContentPainter({required this.empty, required this.leftLetter, required this.rightLetter});
+  const StudyContentPainter({required this.empty, required this.leftLetter, required this.rightLetter});
 
   final bool empty;
   final String leftLetter;

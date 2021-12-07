@@ -8,14 +8,14 @@ import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/training/training.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage._({required this.reviewController, required this.wordsResult, Key? key}) : super(key: key);
+  const ReviewPage({required this.reviewController, required this.wordsResult, Key? key}) : super(key: key);
 
   static const routeName = '/review';
   static const argWordsResult = 'argWordsResult';
 
   static Route route({List<WordViewModel>? wordsResult}) {
     return MaterialPageRoute(builder: (context) {
-      return ReviewPage._(
+      return ReviewPage(
         reviewController: ReviewController(statisticsRepository: StatisticsRepository(HiveDatabase())),
         wordsResult: wordsResult ?? const [],
       );

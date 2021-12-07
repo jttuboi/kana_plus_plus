@@ -8,7 +8,7 @@ part 'training_event.dart';
 part 'training_state.dart';
 
 class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
-  TrainingBloc(ListBloc listBloc) : super(TrainingInitial()) {
+  TrainingBloc(ListBloc listBloc) : super(const TrainingInitial()) {
     on<TrainingStarted>(_onTrainingStarted);
 
     _listSubscription = listBloc.stream.listen((listState) {

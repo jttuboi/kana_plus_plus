@@ -4,12 +4,12 @@ import 'package:kwriting/presentation/shared/shared.dart';
 import 'package:kwriting/presentation/study/study.dart';
 
 class StudyPage extends StatelessWidget {
-  const StudyPage._({Key? key}) : super(key: key);
+  const StudyPage({Key? key}) : super(key: key);
 
   static const routeName = '/study';
 
   static Route route() {
-    return MaterialPageRoute(builder: (context) => const StudyPage._());
+    return MaterialPageRoute(builder: (context) => const StudyPage());
   }
 
   @override

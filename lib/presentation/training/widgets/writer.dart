@@ -37,7 +37,7 @@ class Writer extends StatelessWidget {
               if (state is WriterWait || state is WriterEnd) {
                 return CustomPaint(
                   size: Size.square(regionTapSize),
-                  painter: _AllStrokesPainter(
+                  painter: AllStrokesPainter(
                     strokes: state.strokesForDraw,
                     userStrokes: state.userStrokes,
                     corrects: state.corrects,
@@ -72,8 +72,8 @@ class Writer extends StatelessWidget {
   }
 }
 
-class _AllStrokesPainter extends CustomPainter {
-  const _AllStrokesPainter({
+class AllStrokesPainter extends CustomPainter {
+  const AllStrokesPainter({
     required this.strokes,
     required this.userStrokes,
     required this.corrects,

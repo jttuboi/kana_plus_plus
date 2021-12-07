@@ -27,4 +27,6 @@ class AppLoaded extends AppState {
   }
 }
 
-class AppLoadInProgress extends AppState {}
+class AppLoadInProgress extends AppState {
+  const AppLoadInProgress();
+}

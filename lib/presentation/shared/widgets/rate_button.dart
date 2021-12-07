@@ -1,17 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kwriting/domain/domain.dart';
-import 'package:launch_review/launch_review.dart';
 
 class RateButton extends StatelessWidget {
   const RateButton({
-    Key? key,
+    required this.launcher,
     this.iconSize = 24.0,
     this.titleSize = 18.0,
+    Key? key,
   }) : super(key: key);
 
+  final RateLauncher launcher;
   final double iconSize;
   final double titleSize;
 
@@ -22,7 +21,7 @@ class RateButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          onPressed: _onRatePressed,
+          onPressed: () async => launcher.launch(),
           iconSize: iconSize,
           icon: SvgPicture.asset(
             IconUrl.rate,
@@ -41,15 +40,5 @@ class RateButton extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Future<void> _onRatePressed() async {
-    if (Platform.isIOS) {
-      await LaunchReview.launch(iOSAppId: App.iosId);
-    } else if (Platform.isAndroid) {
-      await LaunchReview.launch(androidAppId: App.androidId);
-    } else {
-      // if web or desktop, it doesn't support yet.
-    }
   }
 }

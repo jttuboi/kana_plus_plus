@@ -9,24 +9,43 @@ import 'package:kwriting/presentation/training/training.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrainingPage extends StatelessWidget {
-  const TrainingPage({required this.trainingSettings, Key? key}) : super(key: key);
+  const TrainingPage({
+    required this.trainingSettings,
+    required this.strokeReducer,
+    required this.kanaChecker,
+    required this.wordsRepository,
+    required this.statisticsRepository,
+    Key? key,
+  }) : super(key: key);
 
   static const routeName = '/training';
   static const argTrainingSettings = 'argTrainingSettings';
+
   static Route route({required TrainingSettings trainingSettings}) {
-    return MaterialPageRoute(builder: (context) => TrainingPage(trainingSettings: trainingSettings));
+    return MaterialPageRoute(builder: (context) {
+      return TrainingPage(
+        trainingSettings: trainingSettings,
+        strokeReducer: StrokeReducer(maxPointsQuantity: 20),
+        kanaChecker: KanaChecker(),
+        wordsRepository: WordsRepository(),
+        statisticsRepository: StatisticsRepository(HiveDatabase()),
+      );
+    });
   }
 
   final TrainingSettings trainingSettings;
+  final StrokeReducer strokeReducer;
+  final KanaChecker kanaChecker;
+  final IWordsRepository wordsRepository;
+  final IStatisticsRepository statisticsRepository;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => WriterBloc(strokeReducer: StrokeReducer(maxPointsQuantity: 20), kanaChecker: KanaChecker())),
+        BlocProvider(create: (context) => WriterBloc(strokeReducer: strokeReducer, kanaChecker: kanaChecker)),
         BlocProvider(create: (context) {
-          return ListBloc(BlocProvider.of<WriterBloc>(context), WordsRepository(), StatisticsRepository(HiveDatabase()))
-            ..add(ListStarted(trainingSettings));
+          return ListBloc(BlocProvider.of<WriterBloc>(context), wordsRepository, statisticsRepository)..add(ListStarted(trainingSettings));
         }),
         BlocProvider(create: (context) => TrainingBloc(BlocProvider.of<ListBloc>(context))),
         BlocProvider(create: (context) => WordBloc(BlocProvider.of<ListBloc>(context))),

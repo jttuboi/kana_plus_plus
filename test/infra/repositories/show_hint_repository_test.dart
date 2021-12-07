@@ -11,16 +11,16 @@ void main() {
     final repository = ShowHintRepository(mockDatabase);
 
     test('gets show hint', () {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((invocation) => Future.value());
-      when(() => mockDatabase.get(DatabaseTag.showHint, defaultValue: Default.showHint)).thenAnswer((invocation) => Future.value(true));
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
+      when(() => mockDatabase.get(DatabaseTag.showHint, defaultValue: Default.showHint)).thenAnswer((_) => Future.value(true));
 
       expect(repository.getShowHint(), completion(true));
       verify(() => mockDatabase.load(BoxTag.settings)).called(1);
     });
 
     test('puts show hint', () async {
-      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((invocation) => Future.value());
-      when(() => mockDatabase.put(DatabaseTag.showHint, false)).thenAnswer((invocation) => Future.value());
+      when(() => mockDatabase.load(BoxTag.settings)).thenAnswer((_) => Future.value());
+      when(() => mockDatabase.put(DatabaseTag.showHint, false)).thenAnswer((_) => Future.value());
 
       await repository.updateShowHint(false);
 

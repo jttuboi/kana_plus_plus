@@ -19,10 +19,10 @@ class WriteCurrentStroke extends StatefulWidget {
   final Function(List<Offset> stroke) onStrokeEnded;
 
   @override
-  State<WriteCurrentStroke> createState() => _WriteCurrentStrokeState();
+  State<WriteCurrentStroke> createState() => WriteCurrentStrokeState();
 }
 
-class _WriteCurrentStrokeState extends State<WriteCurrentStroke> with SingleTickerProviderStateMixin {
+class WriteCurrentStrokeState extends State<WriteCurrentStroke> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override

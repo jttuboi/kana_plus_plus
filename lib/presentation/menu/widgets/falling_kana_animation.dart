@@ -10,8 +10,8 @@ class FallingKanaAnimation extends StatefulWidget {
     required this.endYPosition,
     required this.kanaSize,
     required this.durationInMilliseconds,
-    Key? key,
     this.kanaColor = Colors.black,
+    Key? key,
   })  : assert(durationInMilliseconds >= 2000, 'durationInMilliseconds must be >= 2000'),
         super(key: key);
 

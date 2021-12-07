@@ -8,22 +8,37 @@ import 'package:kwriting/presentation/training/training.dart';
 import 'package:provider/provider.dart';
 
 class PreTrainingPage extends StatelessWidget {
-  const PreTrainingPage._({Key? key}) : super(key: key);
+  const PreTrainingPage({
+    required this.showHintRepository,
+    required this.kanaTypeRepository,
+    required this.quantityOfWordsRepository,
+    Key? key,
+  }) : super(key: key);
 
   static const routeName = '/pre_training';
 
   static Route route() {
-    return MaterialPageRoute(builder: (context) => const PreTrainingPage._());
+    return MaterialPageRoute(builder: (context) {
+      return PreTrainingPage(
+        showHintRepository: ShowHintRepository(HiveDatabase()),
+        kanaTypeRepository: KanaTypeRepository(HiveDatabase()),
+        quantityOfWordsRepository: QuantityOfWordsRepository(HiveDatabase()),
+      );
+    });
   }
+
+  final IShowHintRepository showHintRepository;
+  final IKanaTypeRepository kanaTypeRepository;
+  final IQuantityOfWordsRepository quantityOfWordsRepository;
 
   @override
   Widget build(BuildContext context) {
     final strings = JStrings.of(context)!;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(ShowHintRepository(HiveDatabase()), mustPersist: false)),
-        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(KanaTypeRepository(HiveDatabase()), mustPersist: false)),
-        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(QuantityOfWordsRepository(HiveDatabase()), mustPersist: false)),
+        ChangeNotifierProvider(create: (context) => ShowHintChangeNotifier(showHintRepository, mustPersist: false)),
+        ChangeNotifierProvider(create: (context) => KanaTypeChangeNotifier(kanaTypeRepository, mustPersist: false)),
+        ChangeNotifierProvider(create: (context) => QuantityOfWordsChangeNotifier(quantityOfWordsRepository, mustPersist: false)),
       ],
       builder: (context, child) {
         return FlexibleScaffold(
@@ -40,7 +55,7 @@ class PreTrainingPage extends StatelessWidget {
                 ShowHintTile(),
                 KanaTypeTile(),
                 QuantityOfWordsTile(),
-                _PlayButton(),
+                PlayButton(),
               ],
             ),
           ),
@@ -50,8 +65,8 @@ class PreTrainingPage extends StatelessWidget {
   }
 }
 
-class _PlayButton extends StatelessWidget {
-  const _PlayButton({Key? key}) : super(key: key);
+class PlayButton extends StatelessWidget {
+  const PlayButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
