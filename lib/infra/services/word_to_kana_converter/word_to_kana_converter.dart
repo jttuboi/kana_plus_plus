@@ -1,6 +1,7 @@
 import 'package:kwriting/domain/domain.dart';
 
-class WordToKanaConverter {
+class WordToKanaConverter implements IWordToKanaConverter {
+  @override
   List<KanaModel> convert(String wordId, Map<String, KanaModel> kanasMap) {
     final kanas = <KanaModel>[];
 

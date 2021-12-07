@@ -10,7 +10,7 @@ class ShareButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final ShareLauncher launcher;
+  final IShareLauncher launcher;
   final double iconSize;
   final double titleSize;
 

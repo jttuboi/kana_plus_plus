@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:kwriting/domain/domain.dart';
 import 'package:launch_review/launch_review.dart';
 
-class RateLauncher {
+class RateLauncher implements IRateLauncher {
   RateLauncher();
 
+  @override
   Future<void> launch() async {
     if (Platform.isIOS) {
       await LaunchReview.launch(iOSAppId: App.iosId);

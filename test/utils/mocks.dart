@@ -49,17 +49,17 @@ class MockQuantityOfWordsChangeNotifier extends Mock implements QuantityOfWordsC
 
 class MockShowHintChangeNotifier extends Mock implements ShowHintChangeNotifier {}
 
-class MockStrokeReducer extends Mock implements StrokeReducer {}
+class MockStrokeReducer extends Mock implements IStrokeReducer {}
 
-class MockKanaChecker extends Mock implements KanaChecker {}
+class MockKanaChecker extends Mock implements IKanaChecker {}
 
-class MockInfoGetter extends Mock implements InfoGetter {}
+class MockInfoGetter extends Mock implements IInfoGetter {}
 
-class MockRateLauncher extends Mock implements RateLauncher {}
+class MockRateLauncher extends Mock implements IRateLauncher {}
 
-class MockShareLauncher extends Mock implements ShareLauncher {}
+class MockShareLauncher extends Mock implements IShareLauncher {}
 
-class MockUrlLauncher extends Mock implements UrlLauncher {}
+class MockUrlLauncher extends Mock implements IUrlLauncher {}
 
 class FakeSupportButton extends ISupportButton {
   const FakeSupportButton({Key? key}) : super(key: key);

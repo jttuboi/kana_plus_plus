@@ -34,8 +34,8 @@ class TrainingPage extends StatelessWidget {
   }
 
   final TrainingSettings trainingSettings;
-  final StrokeReducer strokeReducer;
-  final KanaChecker kanaChecker;
+  final IStrokeReducer strokeReducer;
+  final IKanaChecker kanaChecker;
   final IWordsRepository wordsRepository;
   final IStatisticsRepository statisticsRepository;
 

@@ -31,7 +31,7 @@ class SettingsPage extends StatelessWidget {
   final IShowHintRepository showHintRepository;
   final IKanaTypeRepository kanaTypeRepository;
   final IQuantityOfWordsRepository quantityOfWordsRepository;
-  final UrlLauncher urlLauncher;
+  final IUrlLauncher urlLauncher;
 
   @override
   Widget build(BuildContext context) {

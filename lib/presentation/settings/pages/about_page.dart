@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 import 'package:kwriting/presentation/shared/shared.dart';
 
 class AboutPage extends StatelessWidget {
@@ -30,10 +31,10 @@ class AboutPage extends StatelessWidget {
     });
   }
 
-  final InfoGetter infoGetter;
-  final RateLauncher rateLauncher;
-  final ShareLauncher shareLauncher;
-  final UrlLauncher urlLauncher;
+  final IInfoGetter infoGetter;
+  final IRateLauncher rateLauncher;
+  final IShareLauncher shareLauncher;
+  final IUrlLauncher urlLauncher;
   final ISupportButton supportButton;
 
   double get _imageSize => Device.screenWidth * 1 / 3;

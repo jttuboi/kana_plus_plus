@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kwriting/domain/services/kana_checker/points_data.dart';
-import 'package:kwriting/domain/services/kana_checker/verify_conditions.dart';
+import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/services/kana_checker/points_data.dart';
+import 'package:kwriting/infra/services/kana_checker/verify_conditions.dart';
 
-class KanaChecker {
+class KanaChecker implements IKanaChecker {
   KanaChecker({
     double percentageToApprove = 0.8,
     double percentageRadius = 0.15, // radius = 0.15 = 15% de 100 pixels
@@ -18,10 +19,12 @@ class KanaChecker {
 
   late final double radiusComparisonSize;
 
+  @override
   Future<void> initialize() async {
     _data = await PointsData().preloadData();
   }
 
+  @override
   bool checkKana(String kana, int strokeIndex, List<Offset> normalizedStroke) {
     final dataStroke = _data[kana]![strokeIndex];
     final userStroke = normalizedStroke;

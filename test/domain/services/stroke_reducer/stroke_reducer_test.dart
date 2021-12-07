@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 void main() {
   group('StrokeReducer', () {
-    late StrokeReducer strokeReducer;
+    late IStrokeReducer strokeReducer;
 
     setUpAll(() {
       strokeReducer = StrokeReducer(maxPointsQuantity: 20);

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kwriting/domain/services/kana_checker/verify_conditions.dart';
+import 'package:kwriting/infra/services/kana_checker/verify_conditions.dart';
 
 void main() {
   late VerifyConditions verifyConditions;

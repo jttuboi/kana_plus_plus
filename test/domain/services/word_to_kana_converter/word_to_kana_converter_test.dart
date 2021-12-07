@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 void main() {
   final converter = WordToKanaConverter();

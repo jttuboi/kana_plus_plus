@@ -2,9 +2,10 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kwriting/domain/domain.dart';
+import 'package:kwriting/infra/infra.dart';
 
 void main() {
-  late KanaChecker kanaChecker;
+  late IKanaChecker kanaChecker;
 
   setUpAll(() async {
     kanaChecker = KanaChecker();

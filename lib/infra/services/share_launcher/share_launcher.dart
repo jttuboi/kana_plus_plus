@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kwriting/domain/domain.dart';
 import 'package:share_plus/share_plus.dart';
 
-class ShareLauncher {
+class ShareLauncher implements IShareLauncher {
+  @override
   Future<void> launch(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final sharePositionOrigin = box!.localToGlobal(Offset.zero) & box.size;

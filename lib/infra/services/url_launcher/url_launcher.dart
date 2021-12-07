@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:kwriting/domain/domain.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class UrlLauncher {
+class UrlLauncher implements IUrlLauncher {
+  @override
   Future<void> openUrl(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -13,6 +14,7 @@ class UrlLauncher {
     }
   }
 
+  @override
   Future<void> sendEmail() async {
     final emailLaunchUri = Uri(
       scheme: 'mailto',

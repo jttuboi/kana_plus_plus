@@ -1,12 +1,14 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:kwriting/domain/domain.dart';
 
-class StrokeReducer {
+class StrokeReducer implements IStrokeReducer {
   StrokeReducer({required int maxPointsQuantity}) : _maxPointsQuantity = maxPointsQuantity;
 
   final int _maxPointsQuantity;
 
+  @override
   List<Offset> reduce(List<Offset> stroke) {
     if (stroke.length <= _maxPointsQuantity) {
       return stroke;

@@ -9,7 +9,7 @@ part 'writer_event.dart';
 part 'writer_state.dart';
 
 class WriterBloc extends Bloc<WriterEvent, WriterState> {
-  WriterBloc({required StrokeReducer strokeReducer, required KanaChecker kanaChecker})
+  WriterBloc({required IStrokeReducer strokeReducer, required IKanaChecker kanaChecker})
       : _strokeReducer = strokeReducer,
         _kanaChecker = kanaChecker,
         super(const WriterInitial()) {
@@ -19,8 +19,8 @@ class WriterBloc extends Bloc<WriterEvent, WriterState> {
     _initKanaChecker();
   }
 
-  late final StrokeReducer _strokeReducer;
-  late final KanaChecker _kanaChecker;
+  late final IStrokeReducer _strokeReducer;
+  late final IKanaChecker _kanaChecker;
 
   Future<void> _onWriterStarted(WriterStarted event, Emitter<WriterState> emit) async {
     emit(WriterWait(
